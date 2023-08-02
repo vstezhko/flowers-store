@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prepare": "husky install"
     "format": "prettier --write ./**/*.{js,tsx}"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "prettier": "3.0.0"
+    "prettier": "3.0.0",
+    "husky": "^8.0.0"
   }
 }
