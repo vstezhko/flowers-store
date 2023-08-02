@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "format": "prettier --write ./**/*.{js,tsx}"
+    "format": "prettier --write ./**/*.{js,tsx}",
+    "fix-lint": "eslint --fix --ext .js,.tsx ."
   },
   "dependencies": {
     "@types/node": "20.4.5",
