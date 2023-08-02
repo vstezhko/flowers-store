@@ -6,6 +6,7 @@
     "plugin:prettier/recommended"
   ],
   "plugins": [
+    "import",
     "prettier",
     "react",
     "unicorn",
@@ -23,6 +24,8 @@
     }
   },
   "rules": {
+    "prettier/prettier": "error",
+    "import/no-unresolved": "error",
     "react/react-in-jsx-scope": "off",
     "unicorn/prefer-query-selector": "off",
     "unicorn/prevent-abbreviations": "off",
