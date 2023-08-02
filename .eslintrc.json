@@ -1,10 +1,49 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:prettier/recommended", "prettier"],
-  "plugins": [
-    "import", "prettier"
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb-typescript",
+    "prettier",
+    "plugin:prettier/recommended"
   ],
+  "plugins": [
+    "import",
+    "prettier",
+    "react",
+    "unicorn",
+    "@typescript-eslint",
+    "@typescript-eslint"
+  ],
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "rules": {
     "prettier/prettier": "error",
-    "import/no-unresolved": "error"
+    "import/no-unresolved": "error",
+    "react/react-in-jsx-scope": "off",
+    "unicorn/prefer-query-selector": "off",
+    "unicorn/prevent-abbreviations": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": ["enum", "enumMember"],
+        "format": ["camelCase", "UPPER_CASE", "PascalCase", "snake_case"]
+      }
+    ],
+    "unicorn/filename-case": [
+      "error",
+      {
+        "cases": {
+          "camelCase": true,
+          "pascalCase": true
+        }
+      }
+    ]
   }
 }
