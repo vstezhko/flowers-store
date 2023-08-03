@@ -3,5 +3,7 @@
 
 npm run fix-lint
 npm run lint
+npm run test
 npm run format
 npm run check-format
+

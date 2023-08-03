@@ -9,8 +9,10 @@
     "lint": "next lint",
     "prepare": "husky install",
     "format": "prettier --write ./**/*.{js,tsx}",
+    "test": "jest"
     "check-format": "prettier --check ./**/*.{js,tsx}",
     "fix-lint": "eslint --fix --ext .js,.tsx ."
+
   },
   "dependencies": {
     "@types/node": "20.4.5",
