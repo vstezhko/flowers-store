@@ -32,3 +32,24 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Scripts
+
+This project uses the following npm scripts:
+
+- `npm run dev` - starts the application in development mode.
+- `npm run build` - builds the application for production.
+- `npm run start` - starts the built application.
+- `npm run lint` - checks the code for compliance with the linter rules.
+- `npm run fix-lint` - fixes some issues found by the linter.
+- `npm run format` - formats the code using Prettier.
+- `npm run check-format` - checks if the code complies with Prettier's formatting requirements.
+- `npm run test` - runs tests.
+
+You can run these scripts from the command line while in the project's root directory.
+
+This project also uses [Husky](https://typicode.github.io/husky) to run scripts as git hooks. The following hooks are configured:
+
+- `pre-commit` - runs the `fix-lint`, `lint`, `format`, `check-format`, and `test` scripts before each commit. If any of these scripts fail, the commit will be aborted.
+
+You can modify the behavior of these hooks by editing the corresponding files in the `.husky` directory.
