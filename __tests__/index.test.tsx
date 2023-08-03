@@ -4,12 +4,12 @@ import '@testing-library/jest-dom';
 
 describe('Home', () => {
   it('renders main', () => {
-    render(<Home />)
+    render(<Home />);
 
     const main = screen.getByRole('main', {
       name: '',
-    })
+    });
 
-    expect(main).toBeInTheDocument()
-  })
+    expect(main).toBeInTheDocument();
+  });
 });
