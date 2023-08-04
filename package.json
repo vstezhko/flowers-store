@@ -8,10 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "format": "prettier --write ./**/*.{js,tsx}",
+    "format": "prettier --write ./**/*.{js,ts,tsx}",
     "test": "jest",
-    "check-format": "prettier --check ./**/*.{js,tsx}",
-    "fix-lint": "eslint --fix --ext .js,.tsx ."
+    "check-format": "prettier --check ./**/*.{js,ts,tsx}",
+    "fix-lint": "eslint --fix --ext .js,.ts,.tsx ."
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
