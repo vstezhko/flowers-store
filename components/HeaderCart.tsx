@@ -1,7 +1,7 @@
 import React from 'react';
 import CartIcon from '@/components/CartIcon';
 
-interface HeaderCartParams {
+export interface HeaderCartParams {
   sum: string;
 }
 
