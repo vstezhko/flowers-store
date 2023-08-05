@@ -2,3 +2,4 @@ node_modules/
 build/
 next.config.js
 jest.config.js
+next-env.d.ts
