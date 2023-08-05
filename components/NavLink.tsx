@@ -1,10 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
+import { MenuParams } from '@/components/NavMenu';
 
-const NavLink = ({ title = '', path = '', pathName = '' }) => {
+type MenuParamsWithoutId = Pick<MenuParams, 'pathName' | 'path' | 'title' | 'icon'>;
+
+const NavLink: React.FC<MenuParamsWithoutId> = ({ title = '', path = '', pathName = '', icon }) => {
   return (
-    <Link href={path}>
-      <h5 className={pathName.includes(path) ? 'nav-title nav-title_active' : 'nav-title'}>{title}</h5>
+    <Link href={path} className='header-nav__link'>
+      {!icon ? null : icon}
+      <h5 className={pathName.includes(path) ? 'link-title link-title_active' : 'link-title'}>{title}</h5>
     </Link>
   );
 };

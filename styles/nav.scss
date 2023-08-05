@@ -1,11 +1,24 @@
+.header-nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1140px;
+  margin: 0 auto;
+}
 
-.nav-title{
+.header-nav__link{
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+.link-title, .header-nav__currency{
   color: $color-primary;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   text-transform: uppercase;
+  cursor: pointer;
 
   &_active{
     text-decoration: underline;
@@ -16,3 +29,4 @@
     color: $color-primary-light;
   }
 }
+
