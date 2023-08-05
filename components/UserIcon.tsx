@@ -3,7 +3,7 @@ import { SvgIcon } from '@mui/material';
 
 const UserIcon = (props: object) => (
   <SvgIcon {...props} sx={{ width: '25px', height: '25px' }} viewBox='0 0 25 25'>
-    <rect x='0.75' y='0.75' width='23.386' height='23.386' rx='11.693' stroke='#5B4A58' strokeWidth='1.5' fill='none'/>
+    <rect x='0.75' y='0.75' width='23.386' height='23.386' rx='11.693' stroke='#5B4A58' strokeWidth='1.5' fill='none' />
     <path
       fillRule='evenodd'
       clipRule='evenodd'
