@@ -1,3 +1,3 @@
 export default function Home() {
-  return <main>app test husky</main>;
+  return <main>Main</main>;
 }
