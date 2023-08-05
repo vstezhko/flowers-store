@@ -1,18 +1,19 @@
 import BulletIcon from '@/components/Icons/BulletIcon';
 import PhoneIcon from '@/components/Icons/PhoneIcon';
+import HeaderCart from '@/components/HeaderCart';
 
 const Header = () => {
   return (
-    <header>
-      <div className='header__menu'>
-        <div className='header__menu-container container'>
-          <div className='menu__address'>
+    <header className='header'>
+      <div className='header-menu'>
+        <div className='header-menu__container container'>
+          <div className='header-menu__address'>
             <BulletIcon />
             <p>
               <span>Warsaw,</span> Pola Karolinskie 2a
             </p>
           </div>
-          <div className='menu__phone'>
+          <div className='header-menu__phone'>
             <PhoneIcon />
             <div className='phone__container'>
               <p>WhatsApp</p>
@@ -25,7 +26,7 @@ const Header = () => {
               + 7 808 353 53 35
             </a>
           </div>
-          {/*TODO: add cart*/}
+          <HeaderCart sum='0' />
         </div>
       </div>
       {/*TODO: add navigation*/}

@@ -2,14 +2,11 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  padding: 2px;
 
   .header-cart__sum {
     color: #FFF;
     font-family: sans-serif;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 98%;
+    align-self: flex-end;
+    @include font(16px, 700, 98%);
   }
 }

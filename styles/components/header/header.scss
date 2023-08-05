@@ -2,20 +2,20 @@
   width: 100%;
 }
 
-.header__menu {
+.header-menu {
   display: flex;
   align-items: center;
   background-color: $color-primary;
 }
 
-.header__menu-container {
+.header-menu__container {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.menu__address, .menu__phone {
+.header-menu__address, .header-menu__phone {
   display: flex;
   align-items: center;
   column-gap: 10px;
@@ -32,7 +32,7 @@
 }
 
 
-.menu__phone {
+.header-menu__phone {
   background-color: $color-primary-light;
   padding: 5px 20px;
 
@@ -58,5 +58,19 @@
     flex-grow: 1;
     display: flex;
     align-items: flex-end;
+  }
+}
+
+
+.header-menu__cart {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  .cart__sum {
+    color: #FFF;
+    font-family: sans-serif;
+    align-self: flex-end;
+    @include font(16px, 700, 98%);
   }
 }

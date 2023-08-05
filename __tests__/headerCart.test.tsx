@@ -7,6 +7,6 @@ test('renders cart sum correctly', () => {
   const sum = '100.00';
   const props: HeaderCartParams = { sum };
   render(<HeaderCart {...props} />);
-  const sumElement = screen.getByText(`$${sum}`);
+  const sumElement = screen.getByText(`$ ${sum}`);
   expect(sumElement).toBeInTheDocument();
 });

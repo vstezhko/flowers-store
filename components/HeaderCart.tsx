@@ -1,5 +1,4 @@
-import React from 'react';
-import CartIcon from '@/components/CartIcon';
+import CartIcon from '@/components/Icons/CartIcon';
 
 export interface HeaderCartParams {
   sum: string;
@@ -7,9 +6,9 @@ export interface HeaderCartParams {
 
 const HeaderCart = (props: HeaderCartParams) => {
   return (
-    <div className='header-cart'>
+    <div className='header-menu__cart'>
       <CartIcon />
-      <div className='header-cart__sum'>${props.sum}</div>
+      <div className='cart__sum'>$ {props.sum}</div>
     </div>
   );
 };

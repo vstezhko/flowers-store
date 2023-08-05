@@ -5,9 +5,7 @@ import '@testing-library/jest-dom';
 describe('Home', () => {
   it('renders div', () => {
     render(<Home />);
-
     const div = screen.getByText('Main');
-
     expect(div).toBeInTheDocument();
   });
 });
