@@ -26,7 +26,7 @@ const Footer = () => {
       <div className='footer-menu'>
         <div className='footer-menu__container container'>
           <div className='footer-menu__item menu__info'>
-            <h3>Contact Information</h3>
+            <h4>Contact Information</h4>
             {/*<p>Address</p>*/}
             {/*<div className='menu__info-phone'>*/}
             {/*  <PhoneIcon />*/}
@@ -37,10 +37,10 @@ const Footer = () => {
             {/*<p>Shop hours: Mon-Sat from 8 am to 10 pm</p>*/}
           </div>
           <div className='footer-menu__item menu__clients'>
-            <h3>For Clients</h3>
+            <h4>For Clients</h4>
           </div>
           <div className='footer-menu__item menu__form'>
-            <h3>Any questions? Contact us</h3>
+            <h4>Any questions? Contact us</h4>
           </div>
         </div>
         <span className='line'></span>

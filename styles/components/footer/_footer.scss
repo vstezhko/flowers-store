@@ -28,7 +28,7 @@
   justify-content: space-between;
 
   .footer-menu__item {
-    & > h3 {
+    & > h4 {
       color: $color-brand-1;
       @include font(18px, 700, normal);
     }

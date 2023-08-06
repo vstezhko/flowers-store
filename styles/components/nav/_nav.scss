@@ -1,9 +1,9 @@
 
-
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 0;
 }
 
 .nav__link {
@@ -27,10 +27,6 @@
 
 .link-title, .nav__currency {
   color: $color-primary;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
   text-transform: uppercase;
   cursor: pointer;
 }
