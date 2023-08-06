@@ -1,0 +1,12 @@
+.header-cart {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  .header-cart__sum {
+    color: #FFF;
+    font-family: sans-serif;
+    align-self: flex-end;
+    @include font(16px, 700, 98%);
+  }
+}

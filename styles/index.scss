@@ -1,3 +1,7 @@
-@import "variables.scss";
+@import "abstract/variables.scss";
+@import "abstract/mixins.scss";
 @import "globals.scss";
-@import "nav.scss";
+
+//components
+@import "components/header/header";
+@import "components/header/nav";

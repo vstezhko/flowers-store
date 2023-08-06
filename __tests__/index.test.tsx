@@ -3,13 +3,9 @@ import Home from '../app/page';
 import '@testing-library/jest-dom';
 
 describe('Home', () => {
-  it('renders main', () => {
+  it('renders div', () => {
     render(<Home />);
-
-    const main = screen.getByRole('main', {
-      name: '',
-    });
-
-    expect(main).toBeInTheDocument();
+    const div = screen.getByText('Main');
+    expect(div).toBeInTheDocument();
   });
 });

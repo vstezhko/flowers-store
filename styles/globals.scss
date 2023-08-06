@@ -2,7 +2,22 @@ html {
   background: #F9F8FB;
 }
 
+p{
+  margin: 0;
+}
 
 a{
   text-decoration: none;
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container{
+  max-width: $content-width;
+  margin: 0 auto;
+  padding: 0 15px;
 }
