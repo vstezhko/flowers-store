@@ -28,7 +28,7 @@ const menuItems: MenuParamsWithoutPathName[] = [
 const NavMenu = () => {
   const pathname = usePathname();
   return (
-    <nav className='header-nav'>
+    <nav className='header-nav container'>
       {menuItems.map(({ id, path, title, icon }) => (
         <NavLink path={path} key={id} title={title} pathName={pathname} icon={icon} />
       ))}
