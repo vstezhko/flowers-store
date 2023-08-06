@@ -1,5 +1,11 @@
+import NavMenu from '@/components/NavMenu';
+
 const Header = () => {
-  return <header>Header</header>;
+  return (
+    <header>
+      <NavMenu />
+    </header>
+  );
 };
 
 export default Header;
