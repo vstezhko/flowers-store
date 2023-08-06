@@ -5,3 +5,7 @@
 %font-secondary{
   font-family: var(--karton);
 }
+
+%transition{
+  transition: all .3s ease-in-out;
+}
