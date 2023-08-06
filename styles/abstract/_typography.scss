@@ -1,0 +1,33 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+h1 {
+  @include font(65px,700, normal);
+}
+
+h2 {
+  @include font(32px,400, normal);
+}
+
+h3 {
+  @include font(24px,400, normal);
+}
+
+h4 {
+  @include font(18px,700, normal);
+}
+
+h5 {
+  @include font(16px,700, normal);
+}
+
+h6 {
+  @include font(14px,700, normal);
+}
