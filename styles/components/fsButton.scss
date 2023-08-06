@@ -1,0 +1,40 @@
+@import "@/styles/abstract/variables";
+
+.MuiButton-root {
+  border-radius: 10px;
+  color: $color-shade-0;
+
+  &.Mui-disabled {
+    color: $color-shade-0;
+    background-color: $color-shade-4;
+  }
+
+  &.icon {
+    border-radius: 4px;
+    padding: 6px;
+    min-width: 21px;
+    width: 21px;
+    height: 21px;
+  }
+
+  &.big {
+    width: 210px;
+    font-size: 18px;
+    padding: 13px;
+    line-height: 24px;
+  }
+
+  &.medium {
+    width: 169px;
+    font-size: 16px;
+    padding: 9px 10px 7px;
+    line-height: 24px;
+  }
+
+  &.regular {
+    width: 222px;
+    font-size: 14px;
+    padding: 9px;
+    line-height: 22px;
+  }
+}
