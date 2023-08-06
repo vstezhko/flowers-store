@@ -1,7 +1,13 @@
 %font-primary{
-  font-family: var(--literal-reg);
+  font-family: var(--karton);
+
 }
 
 %font-secondary{
-  font-family: var(--karton);
+
+  font-family: var(--literal-reg);
+}
+
+%transition{
+  transition: all .3s ease-in-out;
 }
