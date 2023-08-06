@@ -2,6 +2,28 @@ import BulletIcon from '@/components/Icons/BulletIcon';
 import PhoneIcon from '@/components/Icons/PhoneIcon';
 import HeaderCart from '@/components/HeaderCart';
 import NavMenu from '@/components/NavMenu';
+import React from 'react';
+import LogoIcon from '@/components/LogoIcon';
+import UserIcon from '@/components/UserIcon';
+
+export interface MenuParams {
+  id: number;
+  path: string;
+  title: string;
+  icon: React.ReactNode | null;
+  pathName: string;
+}
+
+export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon'>;
+
+const menuItems: MenuParamsWithoutPathName[] = [
+  { id: 1, path: '/catalog', title: 'Catalog', icon: null },
+  { id: 2, path: '/reviews', title: 'Reviews', icon: null },
+  { id: 3, path: '/contacts', title: 'Contacts', icon: null },
+  { id: 4, path: '/', title: '', icon: <LogoIcon /> },
+  { id: 5, path: '/info', title: 'Info for clients', icon: null },
+  { id: 6, path: '/orders', title: 'My orders', icon: <UserIcon /> },
+];
 
 const Header = () => {
   return (
@@ -30,7 +52,7 @@ const Header = () => {
           <HeaderCart sum='0' />
         </div>
       </div>
-      <NavMenu />
+      <NavMenu menuItems={menuItems} />
     </header>
   );
 };
