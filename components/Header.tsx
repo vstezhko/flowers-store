@@ -1,6 +1,7 @@
 import BulletIcon from '@/components/Icons/BulletIcon';
 import PhoneIcon from '@/components/Icons/PhoneIcon';
 import HeaderCart from '@/components/HeaderCart';
+import NavMenu from '@/components/NavMenu';
 
 const Header = () => {
   return (
@@ -29,7 +30,7 @@ const Header = () => {
           <HeaderCart sum='0' />
         </div>
       </div>
-      {/*TODO: add navigation*/}
+      <NavMenu />
     </header>
   );
 };
