@@ -1,10 +1,9 @@
+'use client';
 import '@/styles/index.scss';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-
-const inter = Inter({ subsets: ['latin'] });
+import { robotoReg, robotoMed, literalLight, literalBold, literalReg, ptSans, karton, karton2 } from '@/utils/fonts';
 
 export const metadata: Metadata = {
   title: 'Flowers store',
@@ -14,6 +13,18 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
+      <style jsx global>{`
+        :root {
+          --literal-reg: ${literalReg.style.fontFamily};
+          --literal-bold: ${literalBold.style.fontFamily};
+          --literal-light: ${literalLight.style.fontFamily};
+          --roboto-reg: ${robotoReg.style.fontFamily};
+          --roboto-med: ${robotoMed.style.fontFamily};
+          --pt-sans: ${ptSans.style.fontFamily};
+          --karton: ${karton.style.fontFamily};
+          --karton2: ${karton2.style.fontFamily};
+        }
+      `}</style>
       <body className={inter.className}>
         <Header />
         <main className='container'>{children}</main>
