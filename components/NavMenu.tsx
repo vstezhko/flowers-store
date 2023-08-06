@@ -7,20 +7,23 @@ import { MenuParamsWithoutPathName } from '@/components/Header';
 
 export interface NavMenuProps {
   menuItems: MenuParamsWithoutPathName[];
+  currency: boolean;
 }
 
-const NavMenu: React.FC<NavMenuProps> = ({ menuItems }) => {
+const NavMenu: React.FC<NavMenuProps> = ({ menuItems, currency}) => {
   const pathname = usePathname();
   return (
-    <nav className='header-nav container'>
+    <nav className='nav container'>
       {menuItems.map(({ id, path, title, icon }) => (
         <NavLink path={path} key={id} title={title} pathName={pathname} icon={icon} />
       ))}
-      <div className='header-nav__currency'>
-        {/*TODO: add radio btn*/}
-        <p>EUR</p>
-        <p>USD</p>
-      </div>
+      {currency && (
+        <div className='nav__currency'>
+          {/*TODO: add radio btn*/}
+          <p>EUR</p>
+          <p>USD</p>
+        </div>
+      )}
     </nav>
   );
 };

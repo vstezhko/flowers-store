@@ -44,7 +44,6 @@ const Header = () => {
                 + 7 808 353 53 35
               </a>
             </div>
-
             <a className='phone' href='tel:+78083535335'>
               + 7 808 353 53 35
             </a>
@@ -52,7 +51,9 @@ const Header = () => {
           <HeaderCart sum='0' />
         </div>
       </div>
-      <NavMenu menuItems={menuItems} />
+      <div className='header-nav'>
+        <NavMenu menuItems={menuItems} currency={true} />
+      </div>
     </header>
   );
 };
