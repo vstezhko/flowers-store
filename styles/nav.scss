@@ -1,4 +1,4 @@
-.header-nav{
+.header-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,12 +6,22 @@
   margin: 0 auto;
 }
 
-.header-nav__link{
+.header-nav__link {
   display: flex;
   align-items: center;
   column-gap: 10px;
+
+  &:hover .nav-icon rect{
+    stroke: $color-primary-light;
+    cursor: pointer;
+  }
+  &:hover .nav-icon path {
+    fill: $color-primary-light;
+    cursor: pointer;
+  }
 }
-.link-title, .header-nav__currency{
+
+.link-title, .header-nav__currency {
   color: $color-primary;
   font-size: 14px;
   font-style: normal;
@@ -20,7 +30,7 @@
   text-transform: uppercase;
   cursor: pointer;
 
-  &_active{
+  &_active {
     text-decoration: underline;
     font-weight: 700;
   }
@@ -28,5 +38,7 @@
   &:hover{
     color: $color-primary-light;
   }
+
 }
+
 
