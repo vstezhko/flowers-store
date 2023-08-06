@@ -34,7 +34,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <body>
           <Header />
-          <main className=' container'>{children}</main>
+          <main className='main'>
+            <div className='container'>{children}</div>
+          </main>
           <Footer />
         </body>
       </html>
