@@ -2,25 +2,12 @@
   background-color: $color-primary-light;
   padding: 30px 0;
 
-
+  .nav__link:hover .link-title{
+    color: $color-primary;
+    @extend %transition;
+  }
   .link-title {
     color: $color-shade-0;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-transform: uppercase;
-    cursor: pointer;
-
-    &_active {
-      text-decoration: underline;
-      font-weight: 700;
-    }
-
-    &:hover{
-      color: $color-primary;
-    }
-
   }
 }
 
@@ -34,16 +21,20 @@
   display: flex;
   align-items: center;
   column-gap: 10px;
+  @extend %transition;
 
-  &:hover .nav-icon rect{
-    stroke: $color-primary-light;
-    cursor: pointer;
+  &:hover .nav-icon rect {
+    stroke: $color-primary-hover;
   }
   &:hover .nav-icon path {
-    fill: $color-primary-light;
-    cursor: pointer;
+    fill: $color-primary-hover;
+  }
+
+  &:hover .link-title{
+    color: $color-primary-hover;
   }
 }
+
 
 .link-title, .nav__currency {
   color: $color-primary;
@@ -53,16 +44,20 @@
   line-height: normal;
   text-transform: uppercase;
   cursor: pointer;
+}
 
+.link-title{
   &_active {
     text-decoration: underline;
     font-weight: 700;
   }
-
-  &:hover{
-    color: $color-primary-light;
-  }
-
 }
 
+
+.nav__currency{
+  @extend %transition;
+  & > p:hover{
+    color: $color-primary-hover;
+  }
+}
 
