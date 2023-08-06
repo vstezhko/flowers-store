@@ -1,9 +1,9 @@
-@import "abstract/variables.scss";
-@import "abstract/mixins.scss";
-@import "abstract/placeholders.scss";
+@import "abstract/_variables";
+@import "abstract/_mixins";
+@import "abstract/_placeholders";
+@import "abstract/_typography";
 @import "globals.scss";
 
 //components
-@import "components/header/header";
-@import "components/footer/footer";
-@import "components/nav/nav";
+@import "components/header/_header";
+@import "components/header/_nav";

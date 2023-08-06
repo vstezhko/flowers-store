@@ -2,15 +2,12 @@ html {
   background: #F9F8FB;
 }
 
-p, h1, h2, h3, h4, h5, h6{
-  margin: 0;
-}
-
 a{
   text-decoration: none;
 }
 
 body {
+  @extend %font-primary;
   width: 100%;
   margin: 0;
   padding: 0;
