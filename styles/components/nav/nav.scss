@@ -1,15 +1,4 @@
-.footer-nav{
-  background-color: $color-primary-light;
-  padding: 30px 0;
 
-  .nav__link:hover .link-title{
-    color: $color-primary;
-    @extend %transition;
-  }
-  .link-title {
-    color: $color-shade-0;
-  }
-}
 
 .nav {
   display: flex;
