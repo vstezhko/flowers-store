@@ -43,7 +43,7 @@ const FsButton: React.FC<FSButtonParams> = props => {
     <Button
       color='primary'
       variant='contained'
-      className={className}
+      className={`fsButton ${className}`}
       disabled={disabled || false}
       startIcon={loading ? null : startIcon}
       onClick={handleClick}>
