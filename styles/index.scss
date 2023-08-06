@@ -1,9 +1,12 @@
-@import "abstract/variables.scss";
-@import "abstract/mixins.scss";
+@import "abstract/_variables";
+@import "abstract/_mixins";
+@import "abstract/_placeholders";
+@import "abstract/_typography";
 @import "globals.scss";
 
 //components
-@import "components/header/header";
-@import "components/header/nav";
-
+@import "components/header/_header";
+@import "components/nav/_nav";
+@import "components/footer/_footer";
 @import "components/fsButton";
+
