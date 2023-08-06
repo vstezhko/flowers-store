@@ -10,7 +10,7 @@ export interface NavMenuProps {
   currency: boolean;
 }
 
-const NavMenu: React.FC<NavMenuProps> = ({ menuItems, currency}) => {
+const NavMenu: React.FC<NavMenuProps> = ({ menuItems, currency }) => {
   const pathname = usePathname();
   return (
     <nav className='nav container'>

@@ -16,7 +16,7 @@ const Footer = () => {
   return (
     <footer className='footer'>
       <div className='footer-nav'>
-        <NavMenu menuItems={menuItems} currency={false}/>
+        <NavMenu menuItems={menuItems} currency={false} />
       </div>
     </footer>
   );
