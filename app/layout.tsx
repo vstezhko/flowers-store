@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           --karton2: ${karton2.style.fontFamily};
         }
       `}</style>
-      <body className={inter.className}>
+      <body>
         <Header />
         <main className='container'>{children}</main>
         <Footer />
