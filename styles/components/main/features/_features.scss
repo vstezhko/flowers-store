@@ -13,8 +13,9 @@
     width: 158px;
   }
 
-  &__img {
-    width: 100%;
+  &__img-container {
+    position: relative;
+    height: 158px;
   }
 
   &__text {

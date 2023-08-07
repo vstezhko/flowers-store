@@ -1,7 +1,5 @@
-import FeaturesSection from "@/components/FeaturesSection";
+import FeaturesSection from '@/components/FeaturesSection';
 
 export default function Home() {
-  return <>
-    <FeaturesSection />
-  </>;
+  return <FeaturesSection />;
 }

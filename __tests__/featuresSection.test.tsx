@@ -6,9 +6,9 @@ import FeaturesSection from '@/components/FeaturesSection';
 describe('FeaturesSection component', () => {
   it('renders all features with valid alt attributes', () => {
     const { getAllByAltText } = render(<FeaturesSection />);
-    const images  = getAllByAltText(/./);
+    const images = getAllByAltText(/./);
 
-    images.forEach((image) => {
+    images.forEach(image => {
       if (!(image instanceof HTMLImageElement)) {
         throw new Error();
       }
