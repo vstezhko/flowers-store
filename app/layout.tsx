@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@mui/material';
 import FSTheme from '@/MUI/theme';
-import { robotoReg, robotoMed, literalLight, literalBold, literalReg, ptSans, karton, karton2 } from '@/utils/fonts';
+import { robotoReg, robotoMed, literalLight, literalBold, literalReg, karton, karton2, ptSans } from '@/utils/fonts';
 import React from 'react';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

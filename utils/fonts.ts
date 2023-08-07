@@ -11,8 +11,9 @@ export const robotoMed = Roboto({
   subsets: ['latin'],
   variable: '--roboto-med',
 });
+
 export const ptSans = PT_Sans({
-  weight: '700',
+  weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--pt-sans',
 });
