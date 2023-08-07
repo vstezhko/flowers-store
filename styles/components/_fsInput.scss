@@ -42,4 +42,12 @@
     }
   }
 
+  .MuiIconButton-root:hover {
+    background-color: transparent;
+
+    .MuiTouchRipple-root {
+      display: none;
+    }
+  }
+
 }

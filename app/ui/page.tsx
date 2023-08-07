@@ -6,6 +6,7 @@ import { FsButtonType } from '@/types/enums';
 import PlusIcon from '@/components/Icons/PlusIcon';
 import MinusIcon from '@/components/Icons/MinusIcon';
 import FsInput from '@/components/FsInput';
+import FsPhoneInput from '@/components/FsPhoneInput';
 
 const onClick = () => console.log('btn clicked');
 const Pages = () => {
@@ -25,6 +26,14 @@ const Pages = () => {
         <FsInput label='First name' defaultValue='unactive' />
         <FsInput label='Last name' errorText='Error Text' defaultValue='focused' focused />
         <FsInput label='Last name' errorText='Error Text' defaultValue='error' error />
+      </div>
+      <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
+        <FsInput type='password' label='Password' defaultValue='unactive' />
+        <FsInput type='password' label='Password' focused defaultValue='focused' />
+        <FsInput type='password' label='Password' error errorText='Error Text' defaultValue='error' />
+      </div>
+      <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
+        <FsPhoneInput label='Phone' />
       </div>
     </div>
   );
