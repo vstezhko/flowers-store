@@ -33,11 +33,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </head>
 
         <body>
-          <Header />
-          <main className='main'>
-            <div className='container'>{children}</div>
-          </main>
-          <Footer />
+          <div className='wrapper'>
+            <Header />
+            <main className='main'>
+              <div className='container'>{children}</div>
+            </main>
+            <Footer />
+          </div>
         </body>
       </html>
     </ThemeProvider>

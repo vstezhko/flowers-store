@@ -1,11 +1,16 @@
 .header {
   width: 100%;
+  position: relative;
 }
 
 .header-menu {
   display: flex;
   align-items: center;
   background-color: $color-primary;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .header-menu__container {
@@ -70,4 +75,9 @@
     align-self: flex-end;
     @include font(16px, 700, 98%);
   }
+}
+
+
+.header-nav{
+  margin-top: 40px;
 }
