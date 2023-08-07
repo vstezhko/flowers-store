@@ -1,7 +1,5 @@
 'use client';
 import '@/styles/index.scss';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { ThemeProvider } from '@mui/material';
 import FSTheme from '@/MUI/theme';
 import { robotoReg, robotoMed, literalLight, literalBold, literalReg, karton, karton2, ptSans } from '@/utils/fonts';
@@ -31,15 +29,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }
           `}</style>
         </head>
-
         <body>
-          <div className='wrapper'>
-            <Header />
-            <main className='main'>
-              <div className='container'>{children}</div>
-            </main>
-            <Footer />
-          </div>
+        {children}
         </body>
       </html>
     </ThemeProvider>
