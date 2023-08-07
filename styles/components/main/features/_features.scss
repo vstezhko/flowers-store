@@ -1,0 +1,29 @@
+.features {
+  &__galery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px 115px;
+    max-width: 1051px;
+    justify-content: center;
+    list-style: none;
+    margin: 3rem 0;
+  }
+
+  &__item {
+    width: 158px;
+  }
+
+  &__img-container {
+    position: relative;
+    height: 158px;
+  }
+
+  &__text {
+    height: auto;
+    text-align: center;
+  }
+
+  &__highlight {
+    color: $color-brand-1;
+  }
+}
