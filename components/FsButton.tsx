@@ -9,7 +9,7 @@ interface FSButtonParams {
   loading?: boolean;
   disabled?: boolean;
   startIcon?: ReactElement;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: FsButtonType;
   children?: ReactNode;
 }
