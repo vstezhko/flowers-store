@@ -4,8 +4,18 @@ import { literalReg } from '@/utils/fonts';
 
 const colorBrand1 = '#6AAE55';
 const colorBrand2 = '#F2994A';
+const colorPrimary = '#5B4A58';
 
 const FSTheme = createTheme({
+  components: {
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: colorPrimary,
+        },
+      },
+    },
+  },
   typography: {
     button: {
       fontWeight: 700,

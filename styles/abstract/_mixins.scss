@@ -4,3 +4,8 @@
   font-weight: $weight;
   line-height: $height;
 }
+
+@mixin inputLabelFont {
+  @include font(14px, 700, 120%);
+  font-family: var(--literal-bold);
+}

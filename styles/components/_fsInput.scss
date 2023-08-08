@@ -1,0 +1,53 @@
+@import "@/styles/abstract/mixins";
+@import "@/styles/abstract/variables";
+
+.MuiFormControl-root.fsInput {
+  .MuiInputLabel-root {
+    @include inputLabelFont();
+    transform: none;
+    top: -20px;
+    left: 12px;
+  }
+
+  .Mui-error {
+    color: $color-error;
+  }
+
+  .MuiFormHelperText-root {
+    color: $color-error;
+  }
+
+  .MuiInputBase-root {
+    border-radius: 5px;
+    border: 1px solid $color-shade-5;
+    background: #FAFAFA;
+    height: 40px;
+
+    input {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-family: var(--literal-reg);
+      color: $color-primary;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    fieldset {
+      top: 0;
+    }
+
+    legend {
+      display: none;
+    }
+  }
+
+  .MuiIconButton-root:hover {
+    background-color: transparent;
+
+    .MuiTouchRipple-root {
+      display: none;
+    }
+  }
+
+}
