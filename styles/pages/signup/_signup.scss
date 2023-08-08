@@ -1,0 +1,108 @@
+.signup {
+  height: 100vh;
+  background-color: $color-shade-6;
+  position: relative;
+}
+
+.auth__background-img {
+  height: 100%;
+  width: 100%;
+  background-image: url("./../../../public/img/png/texture.png");
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.background-img {
+  position: absolute;
+
+  &_left {
+    left: 0;
+    top: 0;
+  }
+
+  &_right {
+    right: 0;
+    bottom: 0;
+  }
+
+
+}
+
+.MuiPaper-root.signup__paper {
+  position: relative;
+  min-width: 800px;
+  max-width: 800px;
+  min-height: 300px;
+  padding: 90px 0 30px;
+  background-color: #FFF;
+}
+
+.form-img {
+  max-width: 550px;
+  position: absolute;
+  right: -55px;
+  top: -50px;
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 20px;
+
+  .MuiAccordion-root.Mui-expanded {
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .MuiAccordionSummary-content.Mui-expanded {
+    margin: 10px 0;
+  }
+
+  .MuiAccordionSummary-root.Mui-expanded {
+    min-height: 40px;
+  }
+
+  .MuiAccordionDetails-root {
+    padding: 8px 10px 16px;
+  }
+
+
+  .MuiPaper-root {
+    display: block;
+    background-color: #E3EAE8;
+    box-shadow: none;
+  }
+
+}
+
+.form__content {
+  h5 {
+    margin-bottom: 10px;
+  }
+}
+
+.form__columns{
+  display: flex;
+  justify-content: space-between;
+}
+
+.form__fieldset {
+  flex-basis: 48%;
+  border-radius: 4px;
+  border: 0.5px solid #FFF;
+  padding: 10px;
+  h5 {
+    margin-bottom: 10px;
+  }
+}
+
+//.form__title{
+//
+//}
+
+
+
