@@ -16,6 +16,11 @@ const FSTheme = createTheme({
         },
       },
     },
+    MuiCheckbox: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
   },
   typography: {
     button: {
