@@ -12,11 +12,12 @@ export default function BannerSection() {
   const pathName = usePathname();
   const catalog = menuItems.find(item => item.title === 'Catalog');
   if (!catalog) {
+    // Add redirection to the NotFound page;
     throw new Error('Catalog is not found');
   }
   return (
     <section className='banner-section'>
-      <Image fill={true} src={MainBanner.src} alt='Welcomme' className='banner-section__img' />
+      <Image fill={true} src={MainBanner.src} alt='Welcome' className='banner-section__img' />
       <div className='banner-section__content'>
         <div className='banner-section__text-block'>
           <h1 className='banner-section__text'>
@@ -27,7 +28,7 @@ export default function BannerSection() {
           </h2>
         </div>
         <NavLink title='' pathName={pathName} path={catalog.path} icon={catalog.icon}>
-          <FsButton className={FsButtonType.BIG}>Catalog</FsButton>
+          <FsButton className={FsButtonType.BIG} label='Catalog' />
         </NavLink>
       </div>
     </section>
