@@ -30,17 +30,44 @@
 
 }
 
-.login__form {
-  width: 400px;
-  height: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.MuiPaper-root{
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 800px;
+  max-width: 800px;
+  min-height: 600px;
+  padding: 90px 0 30px;
 }
 
 .form-img {
   max-width: 550px;
   position: absolute;
   right: -55px;
+  top: -50px;
 }
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+}
+
+.form__content{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  gap: 40px;
+}
+
+//.form__title{
+//
+//}
+
+
+
