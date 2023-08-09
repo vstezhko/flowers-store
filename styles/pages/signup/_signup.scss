@@ -32,8 +32,6 @@
 
 .MuiPaper-root.signup__paper {
   position: relative;
-  min-width: 700px;
-  max-width: 700px;
   min-height: 300px;
   padding: 90px 0 30px;
   background-color: #CEDDD6;
@@ -52,6 +50,8 @@
   align-items: center;
   gap: 40px;
   padding: 20px;
+  min-width: 700px;
+  max-width: 700px;
 
   .MuiAccordion-root.Mui-expanded {
     margin: 0;

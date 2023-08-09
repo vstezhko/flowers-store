@@ -43,8 +43,8 @@
     height: 30px;
 
     input {
-      //padding-top: 5px;
-      //padding-bottom: 5px;
+      padding-top: 5px;
+      padding-bottom: 5px;
       @extend %font-secondary;
       color: $color-primary;
       font-size: 14px;
@@ -59,13 +59,20 @@
     legend {
       display: none;
     }
+
   }
 
-  .MuiIconButton-root:hover {
-    background-color: transparent;
+  .MuiIconButton-root {
+    & .MuiSvgIcon-root{
+      width: 18px;
+      height: auto;
+    }
+    &:hover {
+      background-color: transparent;
 
-    .MuiTouchRipple-root {
-      display: none;
+      .MuiTouchRipple-root {
+        display: none;
+      }
     }
   }
 
