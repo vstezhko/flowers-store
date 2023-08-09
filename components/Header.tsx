@@ -16,7 +16,7 @@ export interface MenuParams {
 
 export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon'>;
 
-const menuItems: MenuParamsWithoutPathName[] = [
+export const menuItems: MenuParamsWithoutPathName[] = [
   { id: 1, path: '/catalog', title: 'Catalog', icon: null },
   { id: 2, path: '/reviews', title: 'Reviews', icon: null },
   { id: 3, path: '/contacts', title: 'Contacts', icon: null },
