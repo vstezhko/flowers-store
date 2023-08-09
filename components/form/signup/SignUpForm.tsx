@@ -41,21 +41,21 @@ const address: FormItemFieldsParams[] = [
     id: 4,
     data: [
       {
-        id: 5,
+        id: 1,
         name: 'building',
         type: 'text',
         label: 'building',
         value: '',
       },
       {
-        id: 6,
+        id: 2,
         name: 'apartment',
         type: 'text',
         label: 'apt.',
         value: '',
       },
       {
-        id: 7,
+        id: 3,
         name: 'postalCode',
         type: 'text',
         label: 'zip code',
@@ -64,7 +64,7 @@ const address: FormItemFieldsParams[] = [
     ],
   },
   {
-    id: 8,
+    id: 5,
     name: 'phone',
     type: 'phone',
     label: 'phone',
