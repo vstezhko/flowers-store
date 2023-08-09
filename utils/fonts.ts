@@ -37,3 +37,8 @@ export const karton2 = localFont({
   src: '../public/fonts/karton2.ttf',
   variable: '--karton2',
 });
+
+export const pecita = localFont({
+  src: '../public/fonts/Pecita.otf',
+  variable: '--pecita',
+});

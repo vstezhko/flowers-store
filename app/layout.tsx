@@ -2,7 +2,17 @@
 import '@/styles/index.scss';
 import { ThemeProvider } from '@mui/material';
 import FSTheme from '@/MUI/theme';
-import { robotoReg, robotoMed, literalLight, literalBold, literalReg, karton, karton2, ptSans } from '@/utils/fonts';
+import {
+  robotoReg,
+  robotoMed,
+  literalLight,
+  literalBold,
+  literalReg,
+  karton,
+  karton2,
+  ptSans,
+  pecita,
+} from '@/utils/fonts';
 import React from 'react';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -26,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               --pt-sans: ${ptSans.style.fontFamily};
               --karton: ${karton.style.fontFamily};
               --karton2: ${karton2.style.fontFamily};
+              --pecita: ${pecita.style.fontFamily};
             }
           `}</style>
         </head>

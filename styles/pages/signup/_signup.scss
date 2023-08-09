@@ -32,11 +32,11 @@
 
 .MuiPaper-root.signup__paper {
   position: relative;
-  min-width: 800px;
-  max-width: 800px;
+  min-width: 700px;
+  max-width: 700px;
   min-height: 300px;
   padding: 90px 0 30px;
-  background-color: #FFF;
+  background-color: #CEDDD6;
 }
 
 .form-img {
@@ -67,14 +67,32 @@
   }
 
   .MuiAccordionDetails-root {
-    padding: 8px 10px 16px;
+    padding: 8px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
 
   .MuiPaper-root {
     display: block;
-    background-color: #E3EAE8;
     box-shadow: none;
+    background-color: #EBF0E3;
+    border-radius: 6px;
+    //margin-bottom: 20px;
+    //
+
+    //.MuiButtonBase-root{
+    //  background-color:#EBF0E3;
+    //}
+    &:last-child {
+      border-top: 2px solid #CEDDD6;
+    }
+
+    &:before {
+      display: none;
+    }
+
   }
 
 }
@@ -85,24 +103,66 @@
   }
 }
 
-.form__columns{
+.form__columns {
   display: flex;
   justify-content: space-between;
 }
 
 .form__fieldset {
-  flex-basis: 48%;
+  flex-basis: 49%;
   border-radius: 4px;
-  border: 0.5px solid #FFF;
-  padding: 10px;
+  border: 1px solid #FFF;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   h5 {
     margin-bottom: 10px;
+    text-align: center;
+  }
+
+  p {
+    @include font(38px, 700, normal);
+    font-family: var(--pecita);
+  }
+
+  img {
+    max-width: 80px;
   }
 }
 
-//.form__title{
-//
-//}
+.form__fieldset-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+
+.input__container {
+  display: flex;
+  gap: 10px;
+}
+
+.page-links {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 1000;
+
+  & > a {
+    @include font(18px, 400, normal);
+    &:hover{
+      transform: scale(1.03);
+    }
+  }
+
+
+}
 
 
 

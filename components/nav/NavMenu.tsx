@@ -1,9 +1,9 @@
 'use client';
 
-import NavLink from '@/components/NavLink';
+import NavLink from '@/components/nav/NavLink';
 import { usePathname } from 'next/navigation';
 import React from 'react';
-import { MenuParamsWithoutPathName } from '@/components/Header';
+import { MenuParamsWithoutPathName } from '@/components/header/Header';
 
 export interface NavMenuProps {
   menuItems: MenuParamsWithoutPathName[];

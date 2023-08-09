@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import FsButton from '@/components/FsButton';
+import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
 import PlusIcon from '@/components/Icons/PlusIcon';
 import MinusIcon from '@/components/Icons/MinusIcon';
-import FsInput from '@/components/FsInput';
-import FsPhoneInput from '@/components/FsPhoneInput';
-import FsCheckbox from '@/components/FsCheckbox';
+import FsInput from '@/components/UI/FsInput';
+import FsPhoneInput from '@/components/UI/FsPhoneInput';
+import FsCheckbox from '@/components/UI/FsCheckbox';
 
 const onClick = () => console.log('btn clicked');
 const Pages = () => {

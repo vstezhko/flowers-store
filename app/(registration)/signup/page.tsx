@@ -2,24 +2,24 @@
 import LeafLeft from '@/public/img/png/leaf-left.png';
 import LeafRight from '@/public/img/png/leaf-right.png';
 import Leaf from '@/public/img/png/leaf.png';
+import LeafSmall from '@/public/img/png/leaf-small.png';
 import { Paper } from '@mui/material';
-import FsInput from '@/components/FsInput';
-import FsButton from '@/components/FsButton';
+import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useState } from 'react';
-import FsCheckbox from '@/components/FsCheckbox';
+import FsCheckbox from '@/components/UI/FsCheckbox';
+import FsAccordion from '@/components/UI/FsAccordion';
+import AddressPanel from '@/components/registration/AddressPanel';
+import Link from 'next/link';
+import MainPanel from '@/components/registration/MainPanel';
 
-interface FormItemFieldsParams {
+export interface FormItemFieldsParams {
   id: number;
-  name: string;
-  type: string;
-  label: string;
-  page: number;
-  value: string;
+  name?: string;
+  type?: string;
+  label?: string;
+  value?: string;
+  data?: FormItemFieldsParams[];
 }
 
 const mainInputFields: FormItemFieldsParams[] = [
@@ -28,7 +28,6 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'firstName',
     type: 'text',
     label: 'firstName',
-    page: 1,
     value: '',
   },
   {
@@ -36,7 +35,6 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'lastName',
     type: 'text',
     label: 'lastName',
-    page: 1,
     value: '',
   },
   {
@@ -44,7 +42,6 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'email',
     type: 'text',
     label: 'email',
-    page: 1,
     value: '',
   },
   {
@@ -52,7 +49,6 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'password',
     type: 'password',
     label: 'password',
-    page: 1,
     value: '',
   },
   {
@@ -60,17 +56,16 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'password',
     type: 'password',
     label: 'repeat password',
-    page: 1,
     value: '',
   },
 ];
+
 const address: FormItemFieldsParams[] = [
   {
     id: 1,
     name: 'country',
     type: 'text',
     label: 'country',
-    page: 1,
     value: '',
   },
   {
@@ -78,7 +73,6 @@ const address: FormItemFieldsParams[] = [
     name: 'city',
     type: 'text',
     label: 'city',
-    page: 1,
     value: '',
   },
   {
@@ -86,39 +80,39 @@ const address: FormItemFieldsParams[] = [
     name: 'streetName',
     type: 'text',
     label: 'street',
-    page: 1,
     value: '',
   },
   {
     id: 4,
-    name: 'building',
-    type: 'text',
-    label: 'building',
-    page: 1,
-    value: '',
+    data: [
+      {
+        id: 5,
+        name: 'building',
+        type: 'text',
+        label: 'building',
+        value: '',
+      },
+      {
+        id: 6,
+        name: 'apartment',
+        type: 'text',
+        label: 'apartment',
+        value: '',
+      },
+      {
+        id: 7,
+        name: 'postalCode',
+        type: 'text',
+        label: 'postal code',
+        value: '',
+      },
+    ],
   },
   {
-    id: 5,
-    name: 'apartment',
-    type: 'text',
-    label: 'apartment',
-    page: 1,
-    value: '',
-  },
-  {
-    id: 6,
-    name: 'postalCode',
-    type: 'text',
-    label: 'postal code',
-    page: 1,
-    value: '',
-  },
-  {
-    id: 7,
+    id: 8,
     name: 'phone',
     type: 'phone',
     label: 'phone',
-    page: 1,
     value: '',
   },
 ];
@@ -138,51 +132,32 @@ const Registration = () => {
         <img src={LeafRight.src} alt='leaf' />
       </div>
       <Paper elevation={3} className='signup__paper'>
+        <div className='page-links'>
+          <Link href='/'>Home</Link>
+          <Link href='/login'>Login</Link>
+        </div>
         <img src={Leaf.src} alt='leaf' className='form-img' />
+        <img src={LeafSmall.src} alt='leaf' className='form-img-bottom' />
         <form className='auth__form'>
           <h2 className='form__title'>Sign Up</h2>
           <div className='form__content'>
-            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
-                <h4>Main Info</h4>
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className='form__columns'>
-                  <div className='form__fieldset'>
-                    {mainInputFields.map((input: FormItemFieldsParams) => (
-                      <FsInput key={input.id} label={input.label} type={input.type} errorText={'dcfvgbnm'} />
-                    ))}
-                  </div>
-                  <div className='form__fieldset'></div>
+            <FsAccordion name='panel1' expanded={expanded} handleChange={handleChange} summary='Main Info'>
+              <div className='form__columns'>
+                <MainPanel main={mainInputFields} />
+              </div>
+            </FsAccordion>
+            <FsAccordion name='panel2' expanded={expanded} handleChange={handleChange} summary='Address'>
+              <div className='form__columns'>
+                <div className='form__fieldset'>
+                  <AddressPanel address={address} title='Shipping address' />
                 </div>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel2bh-content' id='panel2bh-header'>
-                <h4>Address</h4>
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className='form__columns'>
-                  <div className='form__fieldset'>
-                    <h5>Shipping Address</h5>
-                    {address.map((input: FormItemFieldsParams) => (
-                      <FsInput key={input.id} label={input.label} type={input.type} />
-                    ))}
-                    <FsCheckbox label='set as default shipping address' />
-                  </div>
-                  <div className='form__fieldset'>
-                    <h5>Billing Address</h5>
-                    {address.map((input: FormItemFieldsParams) => (
-                      <FsInput key={input.id} label={input.label} type={input.type} />
-                    ))}
-                    <FsCheckbox label='set as default billing address' />
-                  </div>
+                <div className='form__fieldset'>
+                  <AddressPanel address={address} title='Billing address' />
                 </div>
-                <FsCheckbox label='use the same data for both billing' />
-              </AccordionDetails>
-            </Accordion>
+              </div>
+              <FsCheckbox label='use the same data for both billing' />
+            </FsAccordion>
           </div>
-
           <FsButton onClick={() => console.log('loh')} className={FsButtonType.REGULAR} label='SEND' />
         </form>
       </Paper>

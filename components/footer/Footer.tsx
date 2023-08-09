@@ -1,6 +1,6 @@
 import React from 'react';
-import { MenuParams } from '@/components/Header';
-import NavMenu from '@/components/NavMenu';
+import { MenuParams } from '@/components/header/Header';
+import NavMenu from '@/components/nav/NavMenu';
 // import PhoneIcon from '@/components/Icons/PhoneIcon';
 
 export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon'>;

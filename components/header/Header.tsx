@@ -1,10 +1,10 @@
 import BulletIcon from '@/components/Icons/BulletIcon';
 import PhoneIcon from '@/components/Icons/PhoneIcon';
-import HeaderCart from '@/components/HeaderCart';
-import NavMenu from '@/components/NavMenu';
+import HeaderCart from '@/components/header/HeaderCart';
+import NavMenu from '@/components/nav/NavMenu';
 import React from 'react';
-import LogoIcon from '@/components/LogoIcon';
-import UserIcon from '@/components/UserIcon';
+import LogoIcon from '@/components/Icons/LogoIcon';
+import UserIcon from '@/components/Icons/UserIcon';
 
 export interface MenuParams {
   id: number;

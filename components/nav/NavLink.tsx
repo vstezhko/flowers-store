@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { MenuParams } from '@/components/Header';
+import { MenuParams } from '@/components/header/Header';
 import FlowerIcon from '@/components/Icons/FlowerIcon';
 
 type MenuParamsWithoutId = Pick<MenuParams, 'pathName' | 'path' | 'title' | 'icon'>;

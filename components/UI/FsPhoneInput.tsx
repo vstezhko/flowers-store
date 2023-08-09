@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 // @ts-ignore
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { InputMask } from '@react-input/mask';
-import FsInput, { FsInputParams } from '@/components/FsInput';
+import FsInput, { FsInputParams } from '@/components/UI/FsInput';
 
 type CustomInputProps = {
   label?: string;

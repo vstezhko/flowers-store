@@ -48,6 +48,14 @@
   top: -50px;
 }
 
+.form-img-bottom{
+  max-width: 300px;
+  position: absolute;
+  bottom: -50px;
+  z-index: 200;
+  left: -22px;
+}
+
 .login__form {
   display: flex;
   flex-direction: column;
