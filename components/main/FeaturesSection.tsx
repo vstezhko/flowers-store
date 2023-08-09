@@ -46,7 +46,7 @@ export default function FeaturesSection() {
             </div>
             <div className='features__text'>
               {item.textStart}
-              <span className='features__highlight'>{item.highlight}</span>
+              <span className='highlight'>{item.highlight}</span>
               {item.textEnd}
             </div>
           </li>
