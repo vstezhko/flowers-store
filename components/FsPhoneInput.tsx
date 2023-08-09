@@ -11,8 +11,9 @@ type CustomInputProps = {
 
 // @ts-ignore
 // eslint-disable-next-line react/display-name
-const CustomInput = forwardRef((props, forwardedRef) => {
-  return <FsInput {...props} forwardedRef={forwardedRef as Ref<HTMLInputElement>} />;
+const CustomInput = forwardRef((props: FsInputParams, forwardedRef) => {
+  const { id, ...rest } = props;
+  return <FsInput {...rest} id={id} forwardedRef={forwardedRef as Ref<HTMLInputElement>} />;
 });
 
 const FsPhoneInput = (props: FsInputParams) => {
