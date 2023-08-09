@@ -1,6 +1,6 @@
 @import "@/styles/abstract/variables";
 
-*{
+* {
   box-sizing: border-box;
 }
 
@@ -33,7 +33,9 @@ body {
 }
 
 .main {
-  padding: 0 0 40px;
+  display: flex;
+  flex-direction: column;
+  padding: $padding-main 0;
   flex-grow: 1;
 }
 
@@ -41,6 +43,7 @@ body {
   max-width: $content-width;
   margin: 0 auto;
   padding: 0 15px;
+  flex-grow: 1;
 }
 
 .highlight {
