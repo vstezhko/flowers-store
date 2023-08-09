@@ -3,9 +3,9 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import MainBanner from '@/public/img/jpeg/main-banner.jpg';
-import FsButton from './FsButton';
-import { menuItems } from './Header';
 import { FsButtonType } from '@/types/enums';
+import FsButton from '@/components/UI/FsButton';
+import { menuItems } from '@/components/header/Header';
 
 export default function BannerSection() {
   const router = useRouter();

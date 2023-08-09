@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import BannerSection from '@/components/BannerSection';
+import BannerSection from '@/components/main/BannerSection';
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({

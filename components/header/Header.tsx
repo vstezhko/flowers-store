@@ -1,10 +1,10 @@
 import BulletIcon from '@/components/Icons/BulletIcon';
 import PhoneIcon from '@/components/Icons/PhoneIcon';
-import HeaderCart from '@/components/HeaderCart';
-import NavMenu from '@/components/NavMenu';
+import HeaderCart from '@/components/header/HeaderCart';
+import NavMenu from '@/components/nav/NavMenu';
 import React from 'react';
-import LogoIcon from '@/components/LogoIcon';
-import UserIcon from '@/components/UserIcon';
+import LogoIcon from '@/components/Icons/LogoIcon';
+import UserIcon from '@/components/Icons/UserIcon';
 
 export interface MenuParams {
   id: number;
@@ -24,6 +24,7 @@ export const menuItems: MenuParamsWithoutPathName[] = [
   { id: 5, path: '/info', title: 'Info for clients', icon: null },
   { id: 6, path: '/profile', title: 'My profile', icon: <UserIcon /> },
   { id: 7, path: '/login', title: 'Login', icon: null },
+  { id: 7, path: '/signup', title: 'Sigh up', icon: null },
 ];
 
 const Header = () => {

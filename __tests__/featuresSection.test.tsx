@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render } from '@testing-library/react';
-import FeaturesSection from '@/components/FeaturesSection';
+import FeaturesSection from '@/components/main/FeaturesSection';
 
 describe('FeaturesSection component', () => {
   it('renders all features with valid alt attributes', () => {

@@ -1,11 +1,16 @@
 @import "@/styles/abstract/variables";
 
+*{
+  box-sizing: border-box;
+}
+
 html {
   background: $color-background;
 }
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 body {
@@ -15,6 +20,8 @@ body {
   height: 100vh;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  color: $color-primary;
 }
 
 .wrapper {

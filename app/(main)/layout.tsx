@@ -1,9 +1,9 @@
 'use client';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import React from 'react';
 import { usePathname } from 'next/navigation';
-import BannerSection from '@/components/BannerSection';
+import BannerSection from '@/components/main/BannerSection';
+import Header from '@/components/header/Header';
+import Footer from '@/components/footer/Footer';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
