@@ -24,18 +24,19 @@ const Pages = () => {
         <FsButton className={FsButtonType.ICON} onClick={onClick} icon={<MinusIcon />} disabled={true} />
       </div>
       <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
-        <FsInput label='First name' defaultValue='unactive' />
-        <FsInput label='Last name' errorText='Error Text' defaultValue='focused' focused />
-        <FsInput label='Last name' errorText='Error Text' defaultValue='error' error />
+        <FsInput id='1' label='First name' defaultValue='unactive' />
+        <FsInput id='2' label='Last name' errorText='Error Text' defaultValue='focused' focused />
+        <FsInput id='3' label='Last name' errorText='Error Text' defaultValue='error' error />
+        <FsInput id='3' label='Last name' errorText='Error Text' defaultValue='error' disabled />
       </div>
       <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
-        <FsInput type='password' label='Password' defaultValue='unactive' />
-        <FsInput type='password' label='Password' focused defaultValue='focused' />
-        <FsInput type='password' label='Password' error errorText='Error Text' defaultValue='error' />
+        <FsInput id='4' type='password' label='Password' defaultValue='unactive' />
+        <FsInput id='5' type='password' label='Password' focused defaultValue='focused' />
+        <FsInput id='6' type='password' label='Password' error errorText='Error Text' defaultValue='error' />
       </div>
       <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
-        <FsPhoneInput label='Phone' />
-        <FsPhoneInput label='Phone' defaultValue={'+48 123 456 789'} />
+        <FsPhoneInput id='7' label='Phone' />
+        <FsPhoneInput id='8' label='Phone' defaultValue={'+48 123 456 789'} />
       </div>
       <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
         <FsCheckbox label='set as default shipping address' />
