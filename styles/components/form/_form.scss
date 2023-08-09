@@ -1,0 +1,72 @@
+.auth-page{
+  background-color: $color-shade-6;
+  position: relative;
+  padding: 80px 0;
+}
+
+.form-container__background-img {
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  background-image: url("./../../../public/img/png/texture.png");
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.MuiPaper-root.form__paper {
+  position: relative;
+  min-height: 300px;
+  padding: 90px 0 30px;
+  background-color: #CEDDD6;
+}
+
+.form__links {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 1000;
+
+  & > a {
+    @include font(18px, 400, normal);
+
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+
+
+}
+
+.background-img {
+  position: absolute;
+
+  &_left {
+    left: 0;
+    top: 0;
+  }
+
+  &_right {
+    right: 0;
+    bottom: 0;
+  }
+}
+
+
+.form-img {
+  max-width: 550px;
+  position: absolute;
+  right: -55px;
+  top: -50px;
+}
+
+.form-img-bottom{
+  max-width: 260px;
+  position: absolute;
+  bottom: -50px;
+  left: -7px;
+}

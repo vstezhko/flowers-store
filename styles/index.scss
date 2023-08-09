@@ -8,11 +8,12 @@
 @import "components/header/_header";
 @import "components/nav/_nav";
 @import "components/footer/_footer";
-@import "components/_fsButton";
-@import "components/_fsInput";
-@import "components/_fsCheckbox";
+@import "components/ui/_fsButton";
+@import "components/ui/_fsInput";
+@import "components/ui/_fsCheckbox";
 @import "components/main/features/_features";
 @import "components/main/banner/_banner";
+@import "components/form/_form";
 
 //pages
 @import "pages/offer/_offer";

@@ -1,48 +1,3 @@
-.signup {
-  height: 100vh;
-  background-color: $color-shade-6;
-  position: relative;
-}
-
-.auth__background-img {
-  height: 100%;
-  width: 100%;
-  background-image: url("./../../../public/img/png/texture.png");
-  background-size: 100% 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.background-img {
-  position: absolute;
-
-  &_left {
-    left: 0;
-    top: 0;
-  }
-
-  &_right {
-    right: 0;
-    bottom: 0;
-  }
-
-
-}
-
-.MuiPaper-root.signup__paper {
-  position: relative;
-  min-height: 300px;
-  padding: 90px 0 30px;
-  background-color: #CEDDD6;
-}
-
-.form-img {
-  max-width: 550px;
-  position: absolute;
-  right: -55px;
-  top: -50px;
-}
 
 .auth__form {
   display: flex;
@@ -79,12 +34,7 @@
     box-shadow: none;
     background-color: #EBF0E3;
     border-radius: 6px;
-    //margin-bottom: 20px;
-    //
 
-    //.MuiButtonBase-root{
-    //  background-color:#EBF0E3;
-    //}
     &:last-child {
       border-top: 2px solid #CEDDD6;
     }
@@ -139,30 +89,12 @@
   gap: 10px;
 }
 
-
 .input__container {
   display: flex;
   gap: 10px;
 }
 
-.page-links {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  z-index: 1000;
 
-  & > a {
-    @include font(18px, 400, normal);
-    &:hover{
-      transform: scale(1.03);
-    }
-  }
-
-
-}
 
 
 
