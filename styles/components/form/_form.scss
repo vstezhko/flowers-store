@@ -1,5 +1,5 @@
 
-.auth-page{
+.auth-page {
   background-color: $color-shade-6;
   background-image: url("./../../../public/img/png/texture.png");
   background-size: 100% 100%;
@@ -10,7 +10,7 @@
   justify-content: center;
 }
 
-.form{
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +21,7 @@
 }
 
 .form-container__background-img {
-  padding: 50px 0;
+  padding: 50px 0 75px;
   height: 100%;
   width: 100%;
   display: flex;
@@ -37,11 +37,11 @@
 }
 
 
-.form__panel{
+.form__panel {
   padding-bottom: 20px;
 }
 
-.panel__item{
+.panel__item {
   border-radius: 4px;
   border: 1px solid #FFF;
   padding: 10px 20px;
@@ -95,6 +95,7 @@
   background-color: #EBF0E3;
   padding: 20px 20px;
   border-radius: 6px;
+
   h5 {
     margin-bottom: 10px;
   }
@@ -122,7 +123,7 @@
   top: -50px;
 }
 
-.form-img-bottom{
+.form-img-bottom {
   max-width: 260px;
   position: absolute;
   bottom: -70px;
