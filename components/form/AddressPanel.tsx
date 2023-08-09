@@ -3,11 +3,11 @@ import FsPhoneInput from '@/components/UI/FsPhoneInput';
 import FsCheckbox from '@/components/UI/FsCheckbox';
 import { FormItemFieldsParams } from '@/components/form/signup/SignUpForm';
 
-const AddressPanel = ({ address, title }: { address: FormItemFieldsParams[]; title: string }) => {
+const AddressPanel = ({ data, title }: { data: FormItemFieldsParams[]; title: string }) => {
   return (
     <>
       <h5>{title}</h5>
-      {address.map((input: FormItemFieldsParams) =>
+      {data.map((input: FormItemFieldsParams) =>
         input.type ? (
           input.type !== 'phone' ? (
             <FsInput id={input.id.toString()} key={input.id} label={input.label} type={input.type} name={input.name} />

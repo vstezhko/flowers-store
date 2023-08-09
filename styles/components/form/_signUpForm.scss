@@ -1,38 +1,25 @@
-.form__signup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 0 20px 20px;
-  min-width: 700px;
-  max-width: 700px;
-
+.form {
   .MuiAccordion-root.Mui-expanded {
     margin: 0;
     box-shadow: none;
   }
-
   .MuiAccordionSummary-content.Mui-expanded {
     margin: 10px 0;
   }
-
   .MuiAccordionSummary-root.Mui-expanded {
     min-height: 40px;
   }
-
   .MuiAccordionDetails-root {
-    padding: 8px 20px 16px;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-
-
   .MuiPaper-root {
     display: block;
     box-shadow: none;
-    background-color: #EBF0E3;
-    border-radius: 6px;
+    background-color: transparent;
+
 
     &:last-child {
       border-top: 2px solid #CEDDD6;
@@ -41,47 +28,9 @@
     &:before {
       display: none;
     }
-
-  }
-
-}
-
-.signup__content {
-  h5 {
-    margin-bottom: 10px;
   }
 }
 
-
-.signup__item {
-  border-radius: 4px;
-  border: 1px solid #FFF;
-  padding: 10px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  h5 {
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  p {
-    @include font(38px, 400, normal);
-    font-family: var(--pecita);
-  }
-
-  img {
-    max-width: 80px;
-  }
-}
-
-.signup__item-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
 
 .input__container {
   display: flex;
