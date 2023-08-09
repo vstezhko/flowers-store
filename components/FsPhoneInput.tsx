@@ -1,7 +1,7 @@
 import React, { Ref } from 'react';
 import { forwardRef } from 'react';
+
 // @ts-ignore
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { InputMask } from '@react-input/mask';
 import FsInput, { FsInputParams } from '@/components/FsInput';
 
@@ -9,11 +9,12 @@ type CustomInputProps = {
   label?: string;
 };
 
-// @ts-ignore
-// eslint-disable-next-line react/display-name
-const CustomInput = forwardRef((props, forwardedRef) => {
-  return <FsInput {...props} forwardedRef={forwardedRef as Ref<HTMLInputElement>} />;
+const CustomInput = forwardRef((props: FsInputParams, forwardedRef) => {
+  const { id, ...rest } = props;
+  return <FsInput {...rest} id={id} forwardedRef={forwardedRef as Ref<HTMLInputElement>} />;
 });
+
+CustomInput.displayName = 'CustomInput';
 
 const FsPhoneInput = (props: FsInputParams) => {
   return (
