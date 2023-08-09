@@ -16,13 +16,14 @@ export interface MenuParams {
 
 export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon'>;
 
-const menuItems: MenuParamsWithoutPathName[] = [
+export const menuItems: MenuParamsWithoutPathName[] = [
   { id: 1, path: '/catalog', title: 'Catalog', icon: null },
   { id: 2, path: '/reviews', title: 'Reviews', icon: null },
   { id: 3, path: '/contacts', title: 'Contacts', icon: null },
   { id: 4, path: '/', title: '', icon: <LogoIcon /> },
   { id: 5, path: '/info', title: 'Info for clients', icon: null },
   { id: 6, path: '/profile', title: 'My profile', icon: <UserIcon /> },
+  { id: 7, path: '/login', title: 'Login', icon: null },
 ];
 
 const Header = () => {

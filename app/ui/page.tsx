@@ -7,6 +7,7 @@ import PlusIcon from '@/components/Icons/PlusIcon';
 import MinusIcon from '@/components/Icons/MinusIcon';
 import FsInput from '@/components/FsInput';
 import FsPhoneInput from '@/components/FsPhoneInput';
+import FsCheckbox from '@/components/FsCheckbox';
 
 const onClick = () => console.log('btn clicked');
 const Pages = () => {
@@ -34,6 +35,12 @@ const Pages = () => {
       </div>
       <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
         <FsPhoneInput label='Phone' />
+        <FsPhoneInput label='Phone' defaultValue={'+48 123 456 789'} />
+      </div>
+      <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
+        <FsCheckbox label='set as default shipping address' />
+        <FsCheckbox label='set as default shipping address' checked />
+        <FsCheckbox label='set as default shipping address' disabled />
       </div>
     </div>
   );
