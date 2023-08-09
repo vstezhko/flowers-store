@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { IconButton, InputAdornment, StandardTextFieldProps, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { FormGroups } from '@/types/enums';
 
 export interface FsInputParams extends Omit<StandardTextFieldProps, 'ref'> {
   id: string;
@@ -13,10 +14,11 @@ export interface FsInputParams extends Omit<StandardTextFieldProps, 'ref'> {
   forwardedRef?: React.Ref<HTMLInputElement>;
   disabled?: boolean;
   focused?: boolean;
+  formGroup?: FormGroups;
 }
 
 const FsInput: React.FC<FsInputParams> = props => {
-  const { id, label, className = '', errorText, value, forwardedRef, ...rest } = props;
+  const { id, label, className = '', errorText, value, forwardedRef, formGroup, ...rest } = props;
 
   const [showPassword, setShowPassword] = useState(false);
   const handleTogglePassword = () => {
