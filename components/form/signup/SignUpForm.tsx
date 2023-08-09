@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import FsAccordion from '@/components/UI/FsAccordion';
-import MainPanel from '@/components/registration/MainPanel';
-import AddressPanel from '@/components/registration/AddressPanel';
+import MainPanel from '@/components/signup/MainPanel';
+import AddressPanel from '@/components/signup/AddressPanel';
 import FsCheckbox from '@/components/UI/FsCheckbox';
 import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
@@ -109,26 +109,26 @@ const mainInputFields: FormItemFieldsParams[] = [
   },
 ];
 const SignUpForm = () => {
-  const [expanded, setExpanded] = useState<string | false>(false);
+  const [expanded, setExpanded] = useState<string | false>('panel1');
 
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
   return (
-    <form className='auth__form'>
-      <h2 className='form__title'>Sign Up</h2>
-      <div className='form__content'>
+    <form className='form__signup'>
+      <h2>Sign Up</h2>
+      <div className='signup__content'>
         <FsAccordion name='panel1' expanded={expanded} handleChange={handleChange} summary='Main Info'>
-          <div className='form__columns'>
+          <div className='layout-2-columns'>
             <MainPanel main={mainInputFields} />
           </div>
         </FsAccordion>
         <FsAccordion name='panel2' expanded={expanded} handleChange={handleChange} summary='Address'>
-          <div className='form__columns'>
-            <div className='form__fieldset'>
+          <div className='layout-2-columns'>
+            <div className='signup__item'>
               <AddressPanel address={address} title='Shipping address' />
             </div>
-            <div className='form__fieldset'>
+            <div className='signup__item'>
               <AddressPanel address={address} title='Billing address' />
             </div>
           </div>

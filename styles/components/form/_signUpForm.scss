@@ -1,5 +1,4 @@
-
-.auth__form {
+.form__signup {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,19 +46,14 @@
 
 }
 
-.form__content {
+.signup__content {
   h5 {
     margin-bottom: 10px;
   }
 }
 
-.form__columns {
-  display: flex;
-  justify-content: space-between;
-}
 
-.form__fieldset {
-  flex-basis: 49%;
+.signup__item {
   border-radius: 4px;
   border: 1px solid #FFF;
   padding: 10px 20px;
@@ -73,8 +67,9 @@
   }
 
   p {
-    @include font(38px, 700, normal);
+    @include font(38px, 400, normal);
     font-family: var(--pecita);
+    color: $color-text;
   }
 
   img {
@@ -82,7 +77,7 @@
   }
 }
 
-.form__fieldset-container {
+.signup__item-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,8 +88,3 @@
   display: flex;
   gap: 10px;
 }
-
-
-
-
-

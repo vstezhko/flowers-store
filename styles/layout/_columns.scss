@@ -1,0 +1,38 @@
+.layout-2-columns{
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  >*{
+    flex-basis: 49%;
+  }
+  //
+  //@include media-tablet{
+  //  flex-direction: column-reverse;
+  //  align-items: center;
+  //  column-gap: 0;
+  //  row-gap: 5.5rem;
+  //}
+  //
+  //@include media-mobile{
+  //  row-gap: 3.6rem;
+  //}
+}
+
+.layout-3-columns{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5.3rem;
+  >*{
+    flex-basis: 36%;
+  }
+}
+
+
+.layout-4-columns{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 40px;
+  row-gap: 30px;
+}
