@@ -8,7 +8,14 @@ const MainPanel = ({ main }: { main: FormItemFieldsParams[] }) => {
     <>
       <div className='signup__item'>
         {main.map((input: FormItemFieldsParams) => (
-          <FsInput key={input.id} label={input.label} type={input.type} errorText={'dcfvgbnm'} name={input.name} />
+          <FsInput
+            id={input.id.toString()}
+            key={input.id}
+            label={input.label}
+            type={input.type}
+            errorText={'dcfvgbnm'}
+            name={input.name}
+          />
         ))}
       </div>
       <div className='signup__item'>
