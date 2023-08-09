@@ -40,11 +40,11 @@
   .MuiInputBase-root {
     border-radius: 5px;
     background: #FAFAFA;
-    height: 40px;
+    height: 30px;
 
     input {
-      padding-top: 10px;
-      padding-bottom: 10px;
+      //padding-top: 5px;
+      //padding-bottom: 5px;
       @extend %font-secondary;
       color: $color-primary;
       font-size: 14px;

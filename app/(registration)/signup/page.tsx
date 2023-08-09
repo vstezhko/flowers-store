@@ -96,14 +96,14 @@ const address: FormItemFieldsParams[] = [
         id: 6,
         name: 'apartment',
         type: 'text',
-        label: 'apartment',
+        label: 'apt.',
         value: '',
       },
       {
         id: 7,
         name: 'postalCode',
         type: 'text',
-        label: 'postal code',
+        label: 'zip code',
         value: '',
       },
     ],
@@ -155,7 +155,7 @@ const Registration = () => {
                   <AddressPanel address={address} title='Billing address' />
                 </div>
               </div>
-              <FsCheckbox label='use the same data for both billing' />
+              <FsCheckbox label='use the same data for billing address' />
             </FsAccordion>
           </div>
           <FsButton onClick={() => console.log('loh')} className={FsButtonType.REGULAR} label='SEND' />
