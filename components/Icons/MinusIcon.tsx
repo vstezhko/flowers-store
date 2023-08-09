@@ -7,7 +7,7 @@ const MinusIcon = (props: IconParams) => (
     {...props}
     sx={{ width: '9px', height: '9px', stroke: 'rgb(255, 255, 255)' }}
     viewBox='0 0 9 2'
-    stroke-width='2'>
+    strokeWidth='2'>
     <line xmlns='http://www.w3.org/2000/svg' y1='1' x2='9' y2='1' />
   </SvgIcon>
 );

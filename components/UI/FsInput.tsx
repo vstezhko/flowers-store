@@ -1,17 +1,22 @@
+'use state';
+
 import React, { useState } from 'react';
 import { IconButton, InputAdornment, StandardTextFieldProps, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export interface FsInputParams extends Omit<StandardTextFieldProps, 'ref'> {
+  id: string;
   value?: string;
   label?: string;
   className?: string;
   errorText?: string;
   forwardedRef?: React.Ref<HTMLInputElement>;
+  disabled?: boolean;
+  focused?: boolean;
 }
 
 const FsInput: React.FC<FsInputParams> = props => {
-  const { label, className = '', errorText, value, forwardedRef, ...rest } = props;
+  const { id, label, className = '', errorText, value, forwardedRef, ...rest } = props;
 
   const [showPassword, setShowPassword] = useState(false);
   const handleTogglePassword = () => {
@@ -23,11 +28,19 @@ const FsInput: React.FC<FsInputParams> = props => {
       {...rest}
       type={showPassword ? 'text' : rest.type || 'text'}
       fullWidth
-      // ref={forwardedRef}
       className={`fsInput ${className}`}
       label={label || ' '}
       helperText={errorText && rest.error ? errorText : ' '}
+      InputLabelProps={{
+        id: id,
+        htmlFor: id,
+      }}
+      FormHelperTextProps={{
+        id: id,
+      }}
       InputProps={{
+        'aria-describedby': id,
+        id: id,
         inputRef: forwardedRef,
         endAdornment:
           rest.type === 'password' ? (
