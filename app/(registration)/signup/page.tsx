@@ -2,7 +2,7 @@
 import FormContainer from '@/components/form/FormContainer';
 import SignUpForm from '@/components/form/signup/SignUpForm';
 
-const Registration = () => {
+const SignUp = () => {
   return (
     <FormContainer>
       <SignUpForm />
@@ -10,4 +10,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default SignUp;

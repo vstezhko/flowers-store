@@ -1,7 +1,7 @@
 import React from 'react';
 import FsInput from '@/components/UI/FsInput';
 import Wing from '@/public/img/png/wing.png';
-import { FormItemFieldsParams } from '@/app/(registration)/signup/page';
+import { FormItemFieldsParams } from '@/components/form/signup/SignUpForm';
 
 const MainPanel = ({ main }: { main: FormItemFieldsParams[] }) => {
   return (

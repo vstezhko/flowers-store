@@ -1,7 +1,7 @@
 import FsInput from '@/components/UI/FsInput';
 import FsPhoneInput from '@/components/UI/FsPhoneInput';
 import FsCheckbox from '@/components/UI/FsCheckbox';
-import { FormItemFieldsParams } from '@/app/(registration)/signup/page';
+import { FormItemFieldsParams } from '@/components/form/signup/SignUpForm';
 
 const AddressPanel = ({ address, title }: { address: FormItemFieldsParams[]; title: string }) => {
   return (
