@@ -178,7 +178,7 @@ const data = {
   [FormGroups.BILLING_ADDRESS]: billingAddress,
 };
 const SignUp = () => {
-  return <FormContainer childComponent={signUpForm} data={data}></FormContainer>;
+  return <FormContainer childComponent={signUpForm} data={data} pathName='Login' path='/login' title='Sign up' />;
 };
 
 export default SignUp;

@@ -1,24 +1,32 @@
 'use client';
-import LeafLeft from '@/public/img/png/leaf-left.png';
-import LeafRight from '@/public/img/png/leaf-right.png';
-import Leaf from '@/public/img/png/leaf.png';
-import { Paper } from '@mui/material';
+import FormContainer, { FormItemFieldsParams } from '@/components/form/FormContainer';
+import LoginForm from '@/components/form/login/LoginForm';
+import { FormGroups } from '@/types/enums';
 
+const userLoginFields: FormItemFieldsParams[] = [
+  {
+    id: 1,
+    name: 'email',
+    type: 'text',
+    label: 'email',
+    value: '',
+  },
+  {
+    id: 2,
+    name: 'password',
+    type: 'password',
+    label: 'password',
+    value: '',
+  },
+];
 const Login = () => {
   return (
-    <div className='login__background-img'>
-      <div className='background-img background-img_left'>
-        <img src={LeafLeft.src} alt='leaf' />
-      </div>
-      <div className='background-img background-img_right'>
-        <img src={LeafRight.src} alt='leaf' />
-      </div>
-      <Paper elevation={3}>
-        <form className='login__form'>
-          <img src={Leaf.src} alt='leaf' className='form-img' />
-        </form>
-      </Paper>
-    </div>
+    <FormContainer
+      pathName='Sign Up'
+      path='/signup'
+      title='Login'
+      childComponent={LoginForm}
+      data={{ [FormGroups.LOGIN]: userLoginFields }}></FormContainer>
   );
 };
 
