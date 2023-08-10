@@ -17,31 +17,37 @@
 //media-queries
 
 @mixin large {
-  @media (max-width: #{$mq-large}) {
+  @media (max-width: $mq-large) {
     @content;
   }
 }
 
 @mixin medium {
-  @media (max-width: #{$mq-medium}) {
+  @media (max-width: $mq-medium) {
     @content;
   }
 }
 
 @mixin small {
-  @media (max-width: #{$mq-small}) {
+  @media (max-width: $mq-small) {
     @content;
   }
 }
 
 @mixin mobile {
-  @media (max-width: #{$mq-mobile}) {
+  @media (max-width: $mq-mobile) {
+    @content;
+  }
+}
+
+@mixin medium-mobile {
+  @media (max-width: $mq-m-mobile) {
     @content;
   }
 }
 
 @mixin small-mobile {
-  @media (max-width: #{$mq-small-mobile}) {
+  @media (max-width: $mq-s-mobile) {
     @content;
   }
 }
