@@ -11,3 +11,9 @@ export enum FormGroups {
   BILLING_ADDRESS = 'billingAddress',
   LOGIN = 'login',
 }
+
+export enum ValidationRuleGroup {
+  EMAIL = 'email',
+  PASSWORD = 'password',
+  COMMON = 'common',
+}

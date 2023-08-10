@@ -5,19 +5,21 @@ import { Paper } from '@mui/material';
 import Link from 'next/link';
 import Leaf from '@/public/img/png/leaf.png';
 import LeafSmall from '@/public/img/png/leaf-small.png';
-import { useFormik } from 'formik';
+import { FormikConfig, FormikProps, useFormik } from 'formik';
 import { generateInitialFormikValue } from '@/utils/generateInitialFormikValue';
-import { FormGroups, FsButtonType } from '@/types/enums';
+import { FormGroups, FsButtonType, ValidationRuleGroup } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
+import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
+import { object } from 'yup';
 
 export interface FormItemFieldParams {
   id: number;
   formGroup: FormGroups;
+  validationRuleGroup: ValidationRuleGroup;
   name: string;
   type?: string;
   label?: string;
   value?: string;
-  data?: FormItemFieldsParams[];
 }
 
 export interface FormItemUnionFieldsParams {
@@ -26,6 +28,9 @@ export interface FormItemUnionFieldsParams {
 }
 
 export type FormItemFieldsParams = FormItemUnionFieldsParams | FormItemFieldParams;
+
+export type formikValuesType = Record<FormGroups, Record<string, string>>;
+
 const FormContainer = ({
   childComponent,
   data,
@@ -33,27 +38,30 @@ const FormContainer = ({
   path,
   pathName,
 }: {
-  childComponent: (data: Record<FormGroups, FormItemFieldsParams[]>) => React.JSX.Element;
+  childComponent: (
+    data: Record<FormGroups, FormItemFieldsParams[]>,
+    formik: FormikProps<formikValuesType>
+  ) => React.JSX.Element;
   data: Record<string, FormItemFieldsParams[]>;
   title: string;
   path: string;
   pathName: string;
 }) => {
-  const validationSchema = {};
+  const validationSchema = object(generateFormikFieldsRules(data));
+  // const validationSchema = generateFormikFieldsRules(data);
+  console.log(validationSchema);
 
-  const formik = useFormik({
-    initialValues: {
-      email: 'foobar@example.com',
-      password: 'foobar',
-    },
+  const initialValues: Record<FormGroups, Record<string, string>> = generateInitialFormikValue(data);
+
+  const formikConfig: FormikConfig<formikValuesType> = {
+    initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
     },
-  });
+  };
 
-  const initialValues = generateInitialFormikValue(data);
-  console.log(initialValues);
+  const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
 
   return (
     <div className='form-container__background-img'>
@@ -72,7 +80,7 @@ const FormContainer = ({
         <img src={LeafSmall.src} alt='leaf' className='form-img-bottom' />
         <form className='form' onSubmit={formik.handleSubmit}>
           <h2>{title}</h2>
-          {childComponent(data)}
+          {childComponent(data, formik)}
           <FsButton onClick={() => console.log('loh')} className={FsButtonType.REGULAR} label='SEND' />
         </form>
       </Paper>

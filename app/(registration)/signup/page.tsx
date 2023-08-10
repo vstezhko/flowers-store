@@ -1,12 +1,13 @@
 'use client';
 import FormContainer, { FormItemFieldsParams } from '@/components/form/FormContainer';
-import { FormGroups } from '@/types/enums';
+import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 import signUpForm from '@/components/form/signup/SignUpForm';
 
 const shippingAddress: FormItemFieldsParams[] = [
   {
     id: 1,
     formGroup: FormGroups.SHIPPING_ADDRESS,
+    validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'country',
     type: 'text',
     label: 'country',
@@ -15,6 +16,7 @@ const shippingAddress: FormItemFieldsParams[] = [
   {
     id: 2,
     formGroup: FormGroups.SHIPPING_ADDRESS,
+    validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'city',
     type: 'text',
     label: 'city',
@@ -24,6 +26,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     id: 3,
     name: 'streetName',
     formGroup: FormGroups.SHIPPING_ADDRESS,
+    validationRuleGroup: ValidationRuleGroup.COMMON,
     type: 'text',
     label: 'street',
     value: '',
@@ -34,6 +37,7 @@ const shippingAddress: FormItemFieldsParams[] = [
       {
         id: 1,
         formGroup: FormGroups.SHIPPING_ADDRESS,
+        validationRuleGroup: ValidationRuleGroup.COMMON,
         name: 'building',
         type: 'text',
         label: 'building',
@@ -42,6 +46,7 @@ const shippingAddress: FormItemFieldsParams[] = [
       {
         id: 2,
         formGroup: FormGroups.SHIPPING_ADDRESS,
+        validationRuleGroup: ValidationRuleGroup.COMMON,
         name: 'apartment',
         type: 'text',
         label: 'apt.',
@@ -50,6 +55,7 @@ const shippingAddress: FormItemFieldsParams[] = [
       {
         id: 3,
         formGroup: FormGroups.SHIPPING_ADDRESS,
+        validationRuleGroup: ValidationRuleGroup.COMMON,
         name: 'postalCode',
         type: 'text',
         label: 'zip code',
@@ -60,6 +66,7 @@ const shippingAddress: FormItemFieldsParams[] = [
   {
     id: 5,
     formGroup: FormGroups.SHIPPING_ADDRESS,
+    validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'phone',
     type: 'phone',
     label: 'phone',
@@ -70,6 +77,7 @@ const billingAddress: FormItemFieldsParams[] = [
   {
     id: 1,
     formGroup: FormGroups.BILLING_ADDRESS,
+    validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'country',
     type: 'text',
     label: 'country',
@@ -78,6 +86,7 @@ const billingAddress: FormItemFieldsParams[] = [
   {
     id: 2,
     formGroup: FormGroups.BILLING_ADDRESS,
+    validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'city',
     type: 'text',
     label: 'city',
@@ -87,6 +96,7 @@ const billingAddress: FormItemFieldsParams[] = [
     id: 3,
     name: 'streetName',
     formGroup: FormGroups.BILLING_ADDRESS,
+    validationRuleGroup: ValidationRuleGroup.COMMON,
     type: 'text',
     label: 'street',
     value: '',
@@ -97,6 +107,7 @@ const billingAddress: FormItemFieldsParams[] = [
       {
         id: 1,
         formGroup: FormGroups.BILLING_ADDRESS,
+        validationRuleGroup: ValidationRuleGroup.COMMON,
         name: 'building',
         type: 'text',
         label: 'building',
@@ -105,6 +116,7 @@ const billingAddress: FormItemFieldsParams[] = [
       {
         id: 2,
         formGroup: FormGroups.BILLING_ADDRESS,
+        validationRuleGroup: ValidationRuleGroup.COMMON,
         name: 'apartment',
         type: 'text',
         label: 'apt.',
@@ -113,6 +125,7 @@ const billingAddress: FormItemFieldsParams[] = [
       {
         id: 3,
         formGroup: FormGroups.BILLING_ADDRESS,
+        validationRuleGroup: ValidationRuleGroup.COMMON,
         name: 'postalCode',
         type: 'text',
         label: 'zip code',
@@ -123,6 +136,7 @@ const billingAddress: FormItemFieldsParams[] = [
   {
     id: 5,
     formGroup: FormGroups.BILLING_ADDRESS,
+    validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'phone',
     type: 'phone',
     label: 'phone',
@@ -133,6 +147,7 @@ const mainInputFields: FormItemFieldsParams[] = [
   {
     id: 1,
     formGroup: FormGroups.CUSTOMER,
+    validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'firstName',
     type: 'text',
     label: 'firstName',
@@ -141,6 +156,7 @@ const mainInputFields: FormItemFieldsParams[] = [
   {
     id: 2,
     formGroup: FormGroups.CUSTOMER,
+    validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'lastName',
     type: 'text',
     label: 'lastName',
@@ -149,6 +165,7 @@ const mainInputFields: FormItemFieldsParams[] = [
   {
     id: 3,
     formGroup: FormGroups.CUSTOMER,
+    validationRuleGroup: ValidationRuleGroup.EMAIL,
     name: 'email',
     type: 'text',
     label: 'email',
@@ -157,6 +174,7 @@ const mainInputFields: FormItemFieldsParams[] = [
   {
     id: 4,
     formGroup: FormGroups.CUSTOMER,
+    validationRuleGroup: ValidationRuleGroup.PASSWORD,
     name: 'password',
     type: 'password',
     label: 'password',
@@ -165,6 +183,7 @@ const mainInputFields: FormItemFieldsParams[] = [
   {
     id: 5,
     formGroup: FormGroups.CUSTOMER,
+    validationRuleGroup: ValidationRuleGroup.PASSWORD,
     name: 'password',
     type: 'password',
     label: 'repeat password',
