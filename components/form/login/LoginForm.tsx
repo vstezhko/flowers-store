@@ -1,28 +1,13 @@
 import React from 'react';
-import { FormItemFieldsParams } from '@/components/form/signup/SignUpForm';
 import MainPanel from '@/components/form/MainPanel';
+import { FormGroups } from '@/types/enums';
+import { FormItemFieldsParams } from '@/components/form/FormContainer';
 
-const userLoginFields: FormItemFieldsParams[] = [
-  {
-    id: 1,
-    name: 'email',
-    type: 'text',
-    label: 'email',
-    value: '',
-  },
-  {
-    id: 2,
-    name: 'password',
-    type: 'password',
-    label: 'password',
-    value: '',
-  },
-];
-const LoginForm = () => {
+const LoginForm = (data: Record<FormGroups, FormItemFieldsParams[]>) => {
   return (
     <div className='form__content'>
       <div className='layout-2-columns'>
-        <MainPanel data={userLoginFields} page='login' />
+        <MainPanel data={data.login} page='login' />
       </div>
     </div>
   );
