@@ -23,8 +23,6 @@ export const menuItems: MenuParamsWithoutPathName[] = [
   { id: 4, path: '/', title: '', icon: <LogoIcon /> },
   { id: 5, path: '/info', title: 'Info for clients', icon: null },
   { id: 6, path: '/profile', title: 'My profile', icon: <UserIcon /> },
-  { id: 7, path: '/login', title: 'Login', icon: null },
-  { id: 8, path: '/signup', title: 'Sigh up', icon: null },
 ];
 
 const Header = () => {
@@ -54,7 +52,7 @@ const Header = () => {
         </div>
       </div>
       <div className='header-nav'>
-        <NavMenu menuItems={menuItems} currency={true} />
+        <NavMenu menuItems={menuItems} />
       </div>
     </header>
   );

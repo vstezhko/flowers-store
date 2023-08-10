@@ -5,25 +5,18 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import { MenuParamsWithoutPathName } from '@/components/header/Header';
 
-export interface NavMenuProps {
-  menuItems: MenuParamsWithoutPathName[];
-  currency: boolean;
-}
-
-const NavMenu: React.FC<NavMenuProps> = ({ menuItems, currency }) => {
+const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   const pathname = usePathname();
   return (
     <nav className='nav container'>
       {menuItems.map(({ id, path, title, icon }) => (
         <NavLink path={path} key={id} title={title} pathName={pathname} icon={icon} />
       ))}
-      {currency && (
-        <div className='nav__currency'>
-          {/*TODO: add radio btn*/}
-          <p>EUR</p>
-          <p>USD</p>
-        </div>
-      )}
+      <div className='nav__auth'>
+        <NavLink path='/login' title='Login' pathName='' icon={null} />
+        <p>|</p>
+        <NavLink path='/signup' title='Sign Up' pathName='' icon={null} />
+      </div>
     </nav>
   );
 };

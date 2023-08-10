@@ -3,7 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .nav__link {
@@ -45,10 +46,8 @@
 }
 
 
-.nav__currency{
-  @extend %transition;
-  & > p:hover{
-    color: $color-primary-hover;
-  }
+.nav__auth{
+  display: flex;
+  gap: 10px;
 }
 
