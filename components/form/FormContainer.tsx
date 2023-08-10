@@ -47,8 +47,11 @@ const FormContainer = ({
   path: string;
   pathName: string;
 }) => {
-  const validationSchema = object(generateFormikFieldsRules(data));
-  // const validationSchema = generateFormikFieldsRules(data);
+  const nestedSchema = Object.entries(generateFormikFieldsRules(data)).map(([key, value]) =>
+    object().shape({ [key]: value })
+  );
+
+  const validationSchema = object().shape(Object.assign(nestedSchema));
   console.log(validationSchema);
 
   const initialValues: Record<FormGroups, Record<string, string>> = generateInitialFormikValue(data);
@@ -87,5 +90,4 @@ const FormContainer = ({
     </div>
   );
 };
-
 export default FormContainer;

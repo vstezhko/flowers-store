@@ -1,18 +1,11 @@
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 import { FormItemFieldsParams } from '@/components/form/FormContainer';
-import { object, string, StringSchema } from 'yup';
+import { string, StringSchema } from 'yup';
 
 const RulesForFields = {
-  [ValidationRuleGroup.COMMON]: string().max(40, 'Too Long!').required('Required'),
-  [ValidationRuleGroup.EMAIL]: string().trim().email('Invalid email').required('Email is required'),
-  [ValidationRuleGroup.PASSWORD]: string()
-    .trim()
-    .min(8, 'Password must be at least 8 characters long')
-    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-    .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
-    .matches(/[0-9]/, 'Password must contain at least one digit')
-    .matches(/[!@#$%^&*]/, 'Password must contain at least one special character')
-    .required('Password is required'),
+  [ValidationRuleGroup.COMMON]: string().min(2, 'min').required('Required'),
+  [ValidationRuleGroup.EMAIL]: string().min(2, 'min').required('Required'),
+  [ValidationRuleGroup.PASSWORD]: string().min(2, 'min').required('Required'),
 };
 
 export const generateFormikFieldsRules = (
@@ -25,9 +18,8 @@ export const generateFormikFieldsRules = (
     if ('name' in item && item.name) {
       if (!acc[item.formGroup]) {
         // @ts-ignore
-        acc[item.formGroup] = object({});
+        acc[item.formGroup] = {};
       }
-      console.log(acc.fields);
       // @ts-ignore
       acc[item.formGroup][item.name] = RulesForFields[item.validationRuleGroup];
     }
