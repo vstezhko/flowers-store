@@ -6,6 +6,7 @@ import { FormGroups } from '@/types/enums';
 const userLoginFields: FormItemFieldsParams[] = [
   {
     id: 1,
+    formGroup: FormGroups.LOGIN,
     name: 'email',
     type: 'text',
     label: 'email',
@@ -13,6 +14,7 @@ const userLoginFields: FormItemFieldsParams[] = [
   },
   {
     id: 2,
+    formGroup: FormGroups.LOGIN,
     name: 'password',
     type: 'password',
     label: 'password',
