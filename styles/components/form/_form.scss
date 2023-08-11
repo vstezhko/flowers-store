@@ -94,7 +94,7 @@
     text-align: center;
   }
 
-  p {
+  &.text p {
     @include font(2.375rem, 400, normal);
     font-family: var(--pecita);
 
@@ -120,6 +120,15 @@
     padding: 10px 10px;
   }
 
+  .input__container {
+    margin-bottom: 10px;
+
+    .MuiFormControl-root.fsInput .MuiFormHelperText-root {
+      top: 23px;
+      right: -14px;
+    }
+
+  }
 }
 
 .panel__item-container {
