@@ -1,12 +1,13 @@
 'use client';
 import FormContainer, { FormItemFieldsParams } from '@/components/form/FormContainer';
 import LoginForm from '@/components/form/login/LoginForm';
-import { FormGroups } from '@/types/enums';
+import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 
 const userLoginFields: FormItemFieldsParams[] = [
   {
     id: 1,
     formGroup: FormGroups.LOGIN,
+    validationRuleGroup: ValidationRuleGroup.EMAIL,
     name: 'email',
     type: 'text',
     label: 'email',
@@ -15,6 +16,7 @@ const userLoginFields: FormItemFieldsParams[] = [
   {
     id: 2,
     formGroup: FormGroups.LOGIN,
+    validationRuleGroup: ValidationRuleGroup.PASSWORD,
     name: 'password',
     type: 'password',
     label: 'password',
@@ -28,7 +30,8 @@ const Login = () => {
       path='/signup'
       title='Login'
       childComponent={LoginForm}
-      data={{ [FormGroups.LOGIN]: userLoginFields }}></FormContainer>
+      data={{ [FormGroups.LOGIN]: userLoginFields }}
+    />
   );
 };
 
