@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 
 const API_URL = 'https://api.europe-west1.gcp.commercetools.com';
@@ -15,7 +16,7 @@ const AuthInstance = axios.create({
   },
 });
 
-export const authPost = (url: string, body = {}) => AuthInstance.post(url, body);
+export const authPost = (url: string, body = {}) => AuthInstance.post(url, body).then(res => res.data);
 
 const ApiInstance = axios.create({
   baseURL: API_URL,

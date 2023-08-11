@@ -15,6 +15,7 @@ import {
 } from '@/utils/fonts';
 import React from 'react';
 import { Providers } from '@/redux/providers';
+import MiddleWareComponent from '@/components/middleware/MiddleWareComponent';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -42,7 +43,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               }
             `}</style>
           </head>
-          <body>{children}</body>
+          <body>
+            <MiddleWareComponent>{children}</MiddleWareComponent>
+          </body>
         </html>
       </ThemeProvider>
     </Providers>

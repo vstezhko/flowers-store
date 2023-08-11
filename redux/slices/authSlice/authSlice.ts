@@ -22,7 +22,10 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     auth: (state: AuthState, action: PayloadAction<AuthState>) => {
-      state = { ...action.payload };
+      state.access_token = action.payload.access_token;
+      state.expires_in = action.payload.expires_in;
+      state.scope = action.payload.scope;
+      state.token_type = action.payload.token_type;
     },
   },
   extraReducers: builder => {
@@ -32,7 +35,10 @@ export const authSlice = createSlice({
       })
       .addCase(getAccessTokenAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action);
+        state.access_token = action.payload.access_token;
+        state.expires_in = action.payload.expires_in;
+        state.scope = action.payload.scope;
+        state.token_type = action.payload.token_type;
       });
   },
 });
