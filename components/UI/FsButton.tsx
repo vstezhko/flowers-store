@@ -12,7 +12,7 @@ interface FSButtonParams {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: FsButtonType;
   children?: ReactNode;
-  type: 'button' | 'submit' | 'reset' | undefined;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 }
 
 const FsButton: React.FC<FSButtonParams> = props => {

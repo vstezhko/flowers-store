@@ -3,8 +3,9 @@ import { FormItemFieldsParams } from '@/components/form/FormContainer';
 import { ref, string, StringSchema } from 'yup';
 
 const RulesForFields = {
-  [ValidationRuleGroup.COMMON]: string().required('required'),
+  [ValidationRuleGroup.COMMON]: string().max(25, 'too long').required('required'),
   [ValidationRuleGroup.EMAIL]: string()
+    .max(25, 'too long')
     .test('no-leading-trailing-space', 'should not contain leading or trailing whitespace', value => {
       if (!value) return true;
       return !/^\s|\s$/.test(value);
@@ -21,6 +22,7 @@ const RulesForFields = {
     .email('enter a valid email')
     .required('required'),
   [ValidationRuleGroup.PASSWORD]: string()
+    .max(25, 'too long')
     .required('required')
     .min(8, 'should be 8 or more characters')
     .matches(/^(?=.*\d)/, 'should contain at least one digit')
@@ -31,6 +33,7 @@ const RulesForFields = {
     .required('retype your password.')
     .oneOf([ref(`${FormGroups.CUSTOMER}-${ValidationRuleGroup.PASSWORD}`)], 'your passwords do not match.'),
   [ValidationRuleGroup.PHONE]: string()
+    .max(25, 'too long')
     .matches(/^[^_]*$/, 'invalid phone number.')
     .required('required'),
 };
