@@ -66,7 +66,7 @@ const shippingAddress: FormItemFieldsParams[] = [
   {
     id: 5,
     formGroup: FormGroups.SHIPPING_ADDRESS,
-    validationRuleGroup: ValidationRuleGroup.COMMON,
+    validationRuleGroup: ValidationRuleGroup.PHONE,
     name: 'phone',
     type: 'phone',
     label: 'phone',
@@ -136,7 +136,7 @@ const billingAddress: FormItemFieldsParams[] = [
   {
     id: 5,
     formGroup: FormGroups.BILLING_ADDRESS,
-    validationRuleGroup: ValidationRuleGroup.COMMON,
+    validationRuleGroup: ValidationRuleGroup.PHONE,
     name: 'phone',
     type: 'phone',
     label: 'phone',
@@ -183,10 +183,10 @@ const mainInputFields: FormItemFieldsParams[] = [
   {
     id: 5,
     formGroup: FormGroups.CUSTOMER,
-    validationRuleGroup: ValidationRuleGroup.PASSWORD,
-    name: 'password',
+    validationRuleGroup: ValidationRuleGroup.CONFIRM_PASSWORD,
+    name: 'confirmPassword',
     type: 'password',
-    label: 'repeat password',
+    label: 'confirm password',
     value: '',
   },
 ];

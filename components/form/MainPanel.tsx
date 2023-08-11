@@ -14,6 +14,8 @@ const MainPanel = ({
   page: string;
   formik: FormikProps<formikValuesType>;
 }) => {
+  console.log(formik.values);
+
   return (
     <>
       <div className='panel__item'>
@@ -25,10 +27,11 @@ const MainPanel = ({
           if ('value' in inputData) {
             const { id, value, name, formGroup, ...rest } = inputData;
 
-            const compoundName = `${formGroup}_${name}`;
+            const compoundName = `${formGroup}-${name}`;
 
             return (
               <FsInput
+                {...rest}
                 id={inputData.id.toString()}
                 key={inputData.id}
                 name={compoundName}
@@ -38,7 +41,6 @@ const MainPanel = ({
                 error={(formik.touched[compoundName] && Boolean(formik.errors[compoundName])) || false}
                 label={inputData.label || ''}
                 formGroup={formGroup}
-                {...rest}
                 errorText={
                   formik.touched[compoundName] && formik.errors[compoundName] ? formik.errors[compoundName] : ' '
                 }

@@ -15,5 +15,7 @@ export enum FormGroups {
 export enum ValidationRuleGroup {
   EMAIL = 'email',
   PASSWORD = 'password',
+  CONFIRM_PASSWORD = 'confirmPassword',
   COMMON = 'common',
+  PHONE = 'phone',
 }

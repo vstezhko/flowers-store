@@ -19,7 +19,7 @@ const AddressPanel = ({
       {data.map((inputData: FormItemFieldsParams) => {
         let compoundName;
         if ('name' in inputData) {
-          compoundName = `${inputData.formGroup}_${inputData.name}`;
+          compoundName = `${inputData.formGroup}-${inputData.name}`;
         }
 
         return 'type' in inputData && inputData.type && compoundName ? (

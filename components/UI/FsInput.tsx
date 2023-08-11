@@ -36,6 +36,7 @@ const FsInput: React.FC<FsInputParams> = props => {
     validationRuleGroup,
     onChange,
     onBlur,
+    type,
     ...rest
   } = props;
 
@@ -44,11 +45,13 @@ const FsInput: React.FC<FsInputParams> = props => {
     setShowPassword(prevShowPassword => !prevShowPassword);
   };
 
+  console.log(value);
+
   return (
     <TextField
       name={name}
       label={label || ' '}
-      type={showPassword ? 'text' : rest.type || 'text'}
+      type={showPassword ? 'text' : type || 'text'}
       onBlur={onBlur}
       value={value || ''}
       onChange={onChange}
@@ -68,7 +71,7 @@ const FsInput: React.FC<FsInputParams> = props => {
         id: id,
         inputRef: forwardedRef,
         endAdornment:
-          rest.type === 'password' ? (
+          type === 'password' ? (
             <InputAdornment position='end'>
               <IconButton onClick={handleTogglePassword} edge='end' style={{ color: '#5B4A58' }}>
                 {showPassword ? <VisibilityOff /> : <Visibility />}

@@ -17,13 +17,15 @@ const CustomInput = forwardRef((props: FsInputParams, forwardedRef) => {
 CustomInput.displayName = 'CustomInput';
 
 const FsPhoneInput = (props: FsInputParams) => {
+  console.log(props);
   return (
     <InputMask<CustomInputProps>
+      {...props}
       component={CustomInput}
       showMask={true}
       mask='+48 ___ ___ ___'
       replacement={{ _: /\d/ }}
-      {...props}
+      name={`${props.formGroup}-${props.name}`}
     />
   );
 };
