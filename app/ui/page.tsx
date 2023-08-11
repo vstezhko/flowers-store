@@ -2,11 +2,10 @@
 
 import React from 'react';
 import FsButton from '@/components/UI/FsButton';
-import { FsButtonType } from '@/types/enums';
+import { FormGroups, FsButtonType } from '@/types/enums';
 import PlusIcon from '@/components/Icons/PlusIcon';
 import MinusIcon from '@/components/Icons/MinusIcon';
 import FsInput from '@/components/UI/FsInput';
-import FsPhoneInput from '@/components/UI/FsPhoneInput';
 import FsCheckbox from '@/components/UI/FsCheckbox';
 
 const onClick = () => console.log('btn clicked');
@@ -24,19 +23,30 @@ const Pages = () => {
         <FsButton className={FsButtonType.ICON} onClick={onClick} icon={<MinusIcon />} disabled={true} />
       </div>
       <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
-        <FsInput id='1' label='First name' defaultValue='unactive' />
-        <FsInput id='2' label='Last name' errorText='Error Text' defaultValue='focused' focused />
-        <FsInput id='3' label='Last name' errorText='Error Text' defaultValue='error' error />
-        <FsInput id='3' label='Last name' errorText='Error Text' defaultValue='error' disabled />
-      </div>
-      <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
-        <FsInput id='4' type='password' label='Password' defaultValue='unactive' />
-        <FsInput id='5' type='password' label='Password' focused defaultValue='focused' />
-        <FsInput id='6' type='password' label='Password' error errorText='Error Text' defaultValue='error' />
-      </div>
-      <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
-        <FsPhoneInput id='7' label='Phone' />
-        <FsPhoneInput id='8' label='Phone' defaultValue={'+48 123 456 789'} />
+        <FsInput
+          id='1'
+          label='First name'
+          defaultValue='unactive'
+          errorText=' '
+          formGroup={FormGroups.CUSTOMER}
+          name='dddddd'
+          onBlur={() => {}}
+          onChange={() => {}}
+          value='q'
+          disabled
+        />
+        {/*  <FsInput id='2' label='Last name' errorText='Error Text' defaultValue='focused' focused />*/}
+        {/*  <FsInput id='3' label='Last name' errorText='Error Text' defaultValue='error' error />*/}
+        {/*  <FsInput id='3' label='Last name' errorText='Error Text' defaultValue='error' disabled />*/}
+        {/*</div>*/}
+        {/*<div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>*/}
+        {/*  <FsInput id='4' type='password' label='Password' defaultValue='unactive' />*/}
+        {/*  <FsInput id='5' type='password' label='Password' focused defaultValue='focused' />*/}
+        {/*  <FsInput id='6' type='password' label='Password' error errorText='Error Text' defaultValue='error' />*/}
+        {/*</div>*/}
+        {/*<div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>*/}
+        {/*  <FsPhoneInput id='7' label='Phone' />*/}
+        {/*  <FsPhoneInput id='8' label='Phone' defaultValue={'+48 123 456 789'} />*/}
       </div>
       <div style={{ display: 'flex', gap: '10px', alignItems: 'center', padding: '10px' }}>
         <FsCheckbox label='set as default shipping address' />

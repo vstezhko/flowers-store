@@ -6,6 +6,10 @@
 
 html {
   background: $color-background;
+
+  @include small {
+    font-size: 14px;
+  }
 }
 
 a {

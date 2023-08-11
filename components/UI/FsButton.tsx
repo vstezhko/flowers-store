@@ -9,9 +9,10 @@ interface FSButtonParams {
   loading?: boolean;
   disabled?: boolean;
   startIcon?: ReactElement;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: FsButtonType;
   children?: ReactNode;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 }
 
 const FsButton: React.FC<FSButtonParams> = props => {
@@ -24,6 +25,8 @@ const FsButton: React.FC<FSButtonParams> = props => {
     onClick = e => e,
     className = FsButtonType.REGULAR,
     children,
+    type,
+    ...rest
   } = props;
   //
   const content = (
@@ -41,12 +44,14 @@ const FsButton: React.FC<FSButtonParams> = props => {
 
   return (
     <Button
+      {...rest}
       color='primary'
       variant='contained'
       className={`fsButton ${className}`}
       disabled={disabled || false}
       startIcon={loading ? null : startIcon}
-      onClick={handleClick}>
+      onClick={handleClick}
+      type={type}>
       {content}
     </Button>
   );

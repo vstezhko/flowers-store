@@ -19,11 +19,12 @@ CustomInput.displayName = 'CustomInput';
 const FsPhoneInput = (props: FsInputParams) => {
   return (
     <InputMask<CustomInputProps>
+      {...props}
       component={CustomInput}
       showMask={true}
       mask='+48 ___ ___ ___'
       replacement={{ _: /\d/ }}
-      {...props}
+      name={`${props.formGroup}-${props.name}`}
     />
   );
 };
