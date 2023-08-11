@@ -45,8 +45,6 @@ const FsInput: React.FC<FsInputParams> = props => {
     setShowPassword(prevShowPassword => !prevShowPassword);
   };
 
-  console.log(value);
-
   return (
     <TextField
       name={name}

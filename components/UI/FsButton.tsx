@@ -44,14 +44,14 @@ const FsButton: React.FC<FSButtonParams> = props => {
 
   return (
     <Button
+      {...rest}
       color='primary'
       variant='contained'
       className={`fsButton ${className}`}
       disabled={disabled || false}
       startIcon={loading ? null : startIcon}
       onClick={handleClick}
-      type={type}
-      {...rest}>
+      type={type}>
       {content}
     </Button>
   );

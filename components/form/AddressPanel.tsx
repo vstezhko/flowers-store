@@ -63,7 +63,7 @@ const AddressPanel = ({
               inputData.data.map(subInput => {
                 let subCompoundName;
                 if ('name' in subInput) {
-                  subCompoundName = `${subInput.formGroup}_${subInput.name}`;
+                  subCompoundName = `${subInput.formGroup}-${subInput.name}`;
                 }
 
                 if ('value' in subInput && subCompoundName) {
@@ -74,7 +74,7 @@ const AddressPanel = ({
                       value={formik.values[subCompoundName] || ''}
                       label={subInput.label || ''}
                       type={subInput.type}
-                      name={subInput.name}
+                      name={subCompoundName}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       errorText={

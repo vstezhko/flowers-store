@@ -9,7 +9,7 @@ export const generateInitialFormikValue = (
 
   return inputsArray.reduce((acc, item) => {
     if ('name' in item && item.name) {
-      acc[`${item.formGroup}_${item.name}`] = '';
+      acc[`${item.formGroup}-${item.name}`] = '';
     }
 
     if ('data' in item && item.data) {

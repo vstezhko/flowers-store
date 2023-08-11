@@ -3,39 +3,39 @@ import { FormItemFieldsParams } from '@/components/form/FormContainer';
 import { ref, string, StringSchema } from 'yup';
 
 const RulesForFields = {
-  [ValidationRuleGroup.COMMON]: string().max(25, 'too long').required('required'),
+  [ValidationRuleGroup.COMMON]: string().required('required').max(25, 'too long'),
   [ValidationRuleGroup.EMAIL]: string()
+    .required('required')
     .max(25, 'too long')
-    .test('no-leading-trailing-space', 'should not contain leading or trailing whitespace', value => {
+    .test('no-leading-trailing-space', 'no leading or trailing whitespace', value => {
       if (!value) return true;
       return !/^\s|\s$/.test(value);
     })
-    .test('valid-email', 'should contain an "@" symbol', value => {
+    .test('valid-email', 'should contain an "@"', value => {
       if (!value) return true;
       return value.includes('@');
     })
     .test('valid-domain', 'should contain a domain name', value => {
       if (!value) return true;
-      const domainRegex = /^[^\s@]+\.([^\s@.]+\.)*[^\s@.]+$/;
+      const domainRegex = /([\wЁёА-я-]{2,})\.([\wЁёА-я-]{2,})/;
       return domainRegex.test(value);
     })
-    .email('enter a valid email')
-    .required('required'),
+    .email('enter a valid email'),
   [ValidationRuleGroup.PASSWORD]: string()
-    .max(25, 'too long')
     .required('required')
-    .min(8, 'should be 8 or more characters')
-    .matches(/^(?=.*\d)/, 'should contain at least one digit')
-    .matches(/(?=.*[a-z])(?=.*[A-Z])\w+/, 'should contain at least one uppercase and lowercase character')
-    .matches(/\d/, 'should contain at least one number')
-    .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, 'should contain at least one special character'),
+    .max(25, 'too long')
+    .min(8, 'min 8 characters.')
+    .matches(/^(?=.*\d)/, 'need at least 1 digit')
+    .matches(/(?=.*[A-Z])/, 'need 1 uppercase character')
+    .matches(/(?=.*[a-z])/, 'need 1 lowercase character')
+    .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, 'need at least 1 special symbol'),
   [ValidationRuleGroup.CONFIRM_PASSWORD]: string()
     .required('retype your password.')
-    .oneOf([ref(`${FormGroups.CUSTOMER}-${ValidationRuleGroup.PASSWORD}`)], 'your passwords do not match.'),
+    .oneOf([ref(`${FormGroups.CUSTOMER}-${ValidationRuleGroup.PASSWORD}`)], 'passwords mismatch'),
   [ValidationRuleGroup.PHONE]: string()
+    .required('required')
     .max(25, 'too long')
-    .matches(/^[^_]*$/, 'invalid phone number.')
-    .required('required'),
+    .matches(/^[^_]*$/, 'invalid phone number.'),
 };
 export const generateFormikFieldsRules = (
   inputs: Record<FormGroups, FormItemFieldsParams[]> | FormItemFieldsParams[],

@@ -5,6 +5,15 @@ import signUpForm from '@/components/form/signup/SignUpForm';
 
 const shippingAddress: FormItemFieldsParams[] = [
   {
+    id: 15,
+    formGroup: FormGroups.SHIPPING_ADDRESS,
+    validationRuleGroup: ValidationRuleGroup.PHONE,
+    name: 'phone',
+    type: 'phone',
+    label: 'phone',
+    value: '',
+  },
+  {
     id: 11,
     formGroup: FormGroups.SHIPPING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.COMMON,
@@ -63,17 +72,17 @@ const shippingAddress: FormItemFieldsParams[] = [
       },
     ],
   },
+];
+const billingAddress: FormItemFieldsParams[] = [
   {
-    id: 15,
-    formGroup: FormGroups.SHIPPING_ADDRESS,
+    id: 5,
+    formGroup: FormGroups.BILLING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.PHONE,
     name: 'phone',
     type: 'phone',
     label: 'phone',
     value: '',
   },
-];
-const billingAddress: FormItemFieldsParams[] = [
   {
     id: 1,
     formGroup: FormGroups.BILLING_ADDRESS,
@@ -132,15 +141,6 @@ const billingAddress: FormItemFieldsParams[] = [
         value: '',
       },
     ],
-  },
-  {
-    id: 5,
-    formGroup: FormGroups.BILLING_ADDRESS,
-    validationRuleGroup: ValidationRuleGroup.PHONE,
-    name: 'phone',
-    type: 'phone',
-    label: 'phone',
-    value: '',
   },
 ];
 const mainInputFields: FormItemFieldsParams[] = [

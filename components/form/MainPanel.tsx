@@ -14,8 +14,6 @@ const MainPanel = ({
   page: string;
   formik: FormikProps<formikValuesType>;
 }) => {
-  console.log(formik.values);
-
   return (
     <>
       <div className='panel__item'>
@@ -49,7 +47,7 @@ const MainPanel = ({
           }
         })}
       </div>
-      <div className='panel__item'>
+      <div className='panel__item text'>
         {page === 'login' && <TextLoginPanel />}
         {page === 'signup' && <TextSignUpPanel />}
       </div>

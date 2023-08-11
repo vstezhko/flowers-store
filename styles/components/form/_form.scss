@@ -54,13 +54,23 @@
     text-align: center;
   }
 
-  p {
+  &.text p {
     @include font(38px, 400, normal);
     font-family: var(--pecita);
   }
 
   img {
     max-width: 80px;
+  }
+
+  .input__container {
+    margin-bottom: 10px;
+
+    .MuiFormControl-root.fsInput .MuiFormHelperText-root {
+      top: 23px;
+      right: -14px;
+    }
+
   }
 }
 
