@@ -3,17 +3,17 @@
   justify-content: center;
   column-gap: 10px;
 
-  >* {
+  > * {
     flex-basis: 49%;
   }
 
-  @include small {
+  @include medium-mobile {
     flex-direction: column-reverse;
     align-items: center;
     column-gap: 0;
     row-gap: 1rem;
   }
-  
+
 }
 
 .layout-3-columns {
@@ -22,7 +22,7 @@
   align-items: center;
   column-gap: 5.3rem;
 
-  >* {
+  > * {
     flex-basis: 36%;
   }
 }
