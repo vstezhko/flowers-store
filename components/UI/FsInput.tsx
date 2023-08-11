@@ -46,7 +46,7 @@ const FsInput: React.FC<FsInputParams> = props => {
 
   return (
     <TextField
-      name={`${formGroup}.${name}`}
+      name={name}
       label={label || ' '}
       type={showPassword ? 'text' : rest.type || 'text'}
       onBlur={onBlur}

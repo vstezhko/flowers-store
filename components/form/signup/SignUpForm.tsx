@@ -24,20 +24,10 @@ const SignUpForm = (data: Record<FormGroups, FormItemFieldsParams[]>, formik: Fo
       <FsAccordion name='panel2' expanded={expanded} handleChange={handleChange} summary='Address'>
         <div className='layout-2-columns'>
           <div className='panel__item'>
-            <AddressPanel
-              data={data.shippingAddress}
-              title='Shipping address'
-              formik={formik}
-              addressType={FormGroups.SHIPPING_ADDRESS}
-            />
+            <AddressPanel data={data.shippingAddress} title='Shipping address' formik={formik} />
           </div>
           <div className='panel__item'>
-            <AddressPanel
-              data={data.billingAddress}
-              title='Billing address'
-              formik={formik}
-              addressType={FormGroups.BILLING_ADDRESS}
-            />
+            <AddressPanel data={data.billingAddress} title='Billing address' formik={formik} />
           </div>
         </div>
         <FsCheckbox label='use the same data for billing address' />

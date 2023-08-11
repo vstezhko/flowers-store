@@ -16,12 +16,7 @@ export const generateFormikFieldsRules = (
 
   return inputsArray.reduce((acc, item) => {
     if ('name' in item && item.name) {
-      if (!acc[item.formGroup]) {
-        // @ts-ignore
-        acc[item.formGroup] = {};
-      }
-      // @ts-ignore
-      acc[item.formGroup][item.name] = RulesForFields[item.validationRuleGroup];
+      acc[`${item.formGroup}_${item.name}`] = RulesForFields[item.validationRuleGroup];
     }
 
     if ('data' in item && item.data) {

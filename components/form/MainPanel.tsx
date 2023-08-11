@@ -4,7 +4,6 @@ import TextLoginPanel from '@/components/form/login/TextLoginPanel';
 import TextSignUpPanel from '@/components/form/signup/TextSignUpPanel';
 import { formikValuesType, FormItemFieldsParams } from '@/components/form/FormContainer';
 import { FormikProps } from 'formik';
-import { FormGroups } from '@/types/enums';
 
 const MainPanel = ({
   data,
@@ -15,9 +14,6 @@ const MainPanel = ({
   page: string;
   formik: FormikProps<formikValuesType>;
 }) => {
-  console.log('errors', formik.errors);
-  console.log('touched', formik.touched);
-
   return (
     <>
       <div className='panel__item'>
@@ -27,31 +23,24 @@ const MainPanel = ({
           }
 
           if ('value' in inputData) {
-            const { id, value, name, ...rest } = inputData;
+            const { id, value, name, formGroup, ...rest } = inputData;
+
+            const compoundName = `${formGroup}_${name}`;
 
             return (
               <FsInput
                 id={inputData.id.toString()}
                 key={inputData.id}
-                name={name}
-                value={formik.values[FormGroups.CUSTOMER][inputData.name] || ''}
+                name={compoundName}
+                value={formik.values[compoundName] || ''}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={
-                  formik.touched[FormGroups.CUSTOMER] && formik.errors[FormGroups.CUSTOMER]
-                    ? formik.touched[FormGroups.CUSTOMER][inputData.name] &&
-                      Boolean(formik.errors[FormGroups.CUSTOMER][inputData.name])
-                    : false
-                }
+                error={(formik.touched[compoundName] && Boolean(formik.errors[compoundName])) || false}
                 label={inputData.label || ''}
+                formGroup={formGroup}
                 {...rest}
                 errorText={
-                  formik.touched[FormGroups.CUSTOMER] && formik.errors[FormGroups.CUSTOMER]
-                    ? formik.touched[FormGroups.CUSTOMER][inputData.name] &&
-                      formik.errors[FormGroups.CUSTOMER][inputData.name]
-                      ? formik.errors[FormGroups.CUSTOMER][inputData.name]
-                      : ' '
-                    : ' '
+                  formik.touched[compoundName] && formik.errors[compoundName] ? formik.errors[compoundName] : ' '
                 }
               />
             );

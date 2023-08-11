@@ -29,7 +29,7 @@ export interface FormItemUnionFieldsParams {
 
 export type FormItemFieldsParams = FormItemUnionFieldsParams | FormItemFieldParams;
 
-export type formikValuesType = Record<FormGroups, Record<string, string>>;
+export type formikValuesType = Record<string, string>;
 
 const FormContainer = ({
   childComponent,
@@ -47,14 +47,9 @@ const FormContainer = ({
   path: string;
   pathName: string;
 }) => {
-  const nestedSchema = Object.entries(generateFormikFieldsRules(data)).map(([key, value]) =>
-    object().shape({ [key]: value })
-  );
+  const validationSchema = object().shape(generateFormikFieldsRules(data));
 
-  const validationSchema = object().shape(Object.assign(nestedSchema));
-  console.log(validationSchema);
-
-  const initialValues: Record<FormGroups, Record<string, string>> = generateInitialFormikValue(data);
+  const initialValues: Record<string, string> = generateInitialFormikValue(data);
 
   const formikConfig: FormikConfig<formikValuesType> = {
     initialValues: initialValues,
@@ -84,7 +79,7 @@ const FormContainer = ({
         <form className='form' onSubmit={formik.handleSubmit}>
           <h2>{title}</h2>
           {childComponent(data, formik)}
-          <FsButton onClick={() => console.log('loh')} className={FsButtonType.REGULAR} label='SEND' />
+          <FsButton type='submit' className={FsButtonType.REGULAR} label='SEND' />
         </form>
       </Paper>
     </div>
