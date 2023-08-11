@@ -13,7 +13,7 @@ const MainPanel = ({ data, page }: { data: FormItemFieldsParams[]; page: string 
           return <FsInput id={input.id.toString()} key={input.id} {...rest} />;
         })}
       </div>
-      <div className='panel__item'>
+      <div className='panel__item panel__text'>
         {page === 'login' && <TextLoginPanel />}
         {page === 'signup' && <TextSignUpPanel />}
       </div>
