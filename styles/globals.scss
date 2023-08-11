@@ -39,15 +39,20 @@ body {
 .main {
   display: flex;
   flex-direction: column;
-  padding: $padding-main 0;
   flex-grow: 1;
+
 }
 
 .container {
+  width: 100%;
   max-width: $content-width;
   margin: 0 auto;
   padding: 0 15px;
   flex-grow: 1;
+
+  &_padding{
+    padding-top: 179px;
+  }
 }
 
 .highlight {

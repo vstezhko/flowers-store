@@ -49,9 +49,10 @@
   max-width: 700px;
   min-height: 300px;
   padding: 70px 0 30px;
-  background-color: #CEDDD6;
+  background-color: $color-form;
   margin: 0 20px;
   width: 100%;
+
 
 
   @include small {
@@ -159,8 +160,8 @@
 }
 
 .form__content {
+  background-color: $color-inner-form;
   width: 100%;
-  background-color: #EBF0E3;
   padding: 20px 20px;
   border-radius: 6px;
 

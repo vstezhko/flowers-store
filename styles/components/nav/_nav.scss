@@ -1,12 +1,20 @@
 
 .nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.logo{
+
+  grid-column: span 2;
+
 }
 
 .nav__link {
+  grid-column: span 1;
+  justify-content: center;
   display: flex;
   align-items: center;
   column-gap: 10px;
@@ -24,10 +32,10 @@
     color: $color-primary-hover;
   }
 
-  .flower-icon{
-    position: absolute;
-    left: -20px;
-  }
+  //.flower-icon{
+  //  position: absolute;
+  //  left: -20px;
+  //}
 }
 
 
@@ -45,10 +53,12 @@
 }
 
 
-.nav__currency{
-  @extend %transition;
-  & > p:hover{
-    color: $color-primary-hover;
+.nav__auth{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  & > p{
+    align-self: center;
   }
 }
 

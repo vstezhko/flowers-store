@@ -12,19 +12,18 @@ export interface MenuParams {
   title: string;
   icon: React.ReactNode | null;
   pathName: string;
+  className: string;
 }
 
-export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon'>;
+export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon' | 'className'>;
 
 export const menuItems: MenuParamsWithoutPathName[] = [
-  { id: 1, path: '/catalog', title: 'Catalog', icon: null },
-  { id: 2, path: '/reviews', title: 'Reviews', icon: null },
-  { id: 3, path: '/contacts', title: 'Contacts', icon: null },
-  { id: 4, path: '/', title: '', icon: <LogoIcon /> },
-  { id: 5, path: '/info', title: 'Info for clients', icon: null },
-  { id: 6, path: '/profile', title: 'My profile', icon: <UserIcon /> },
-  { id: 7, path: '/login', title: 'Login', icon: null },
-  { id: 8, path: '/signup', title: 'Sigh up', icon: null },
+  { id: 1, path: '/catalog', title: 'Catalog', icon: null, className: '' },
+  { id: 2, path: '/reviews', title: 'Reviews', icon: null, className: '' },
+  { id: 3, path: '/contacts', title: 'Contacts', icon: null, className: '' },
+  { id: 4, path: '/', title: '', icon: <LogoIcon />, className: 'logo' },
+  { id: 5, path: '/info', title: 'Info for clients', icon: null, className: '' },
+  { id: 6, path: '/profile', title: 'My profile', icon: <UserIcon />, className: '' },
 ];
 
 const Header = () => {
@@ -54,7 +53,7 @@ const Header = () => {
         </div>
       </div>
       <div className='header-nav'>
-        <NavMenu menuItems={menuItems} currency={true} />
+        <NavMenu menuItems={menuItems} />
       </div>
     </header>
   );
