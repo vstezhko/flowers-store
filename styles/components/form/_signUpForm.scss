@@ -20,10 +20,12 @@
     box-shadow: none;
     background-color: transparent;
 
-
-    &:last-child {
-      border-top: 2px solid #CEDDD6;
+      border-bottom: 2px solid #CEDDD6;
+    &:last-child{
+      border-bottom: none;
     }
+
+
 
     &:before {
       display: none;

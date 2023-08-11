@@ -9,25 +9,25 @@ p {
 }
 
 h1 {
-  @include font(38px,700, normal);
+  @include font(2.375rem, 700, normal);
 }
 
 h2 {
-  @include font(32px,400, normal);
+  @include font(2rem,400, normal);
 }
 
 h3 {
-  @include font(24px,400, normal);
+  @include font(1.5rem,400, normal);
 }
 
 h4 {
-  @include font(18px,700,normal);
+  @include font(1.125rem,700,normal);
 }
 
 h5 {
-  @include font(16px,400, normal);
+  @include font(1rem, 400, normal);
 }
 
 h6 {
-  @include font(14px,700, normal);
+  @include font(0.875rem,700, normal);
 }

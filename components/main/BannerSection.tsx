@@ -5,19 +5,12 @@ import { useRouter } from 'next/navigation';
 import MainBanner from '@/public/img/jpeg/main-banner.jpg';
 import { FsButtonType } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
-import { menuItems } from '@/components/header/Header';
 
 export default function BannerSection() {
   const router = useRouter();
   const handleBtnClick = () => {
     router.push('/catalog');
   };
-  const catalog = menuItems.find(item => item.title === 'Catalog');
-
-  if (!catalog) {
-    // Add redirection to the NotFound page;
-    throw new Error('Catalog is not found');
-  }
 
   return (
     <section className='banner-section'>

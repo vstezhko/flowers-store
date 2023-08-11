@@ -47,7 +47,7 @@ const MainPanel = ({
           }
         })}
       </div>
-      <div className='panel__item text'>
+      <div className='panel__item panel__text text'>
         {page === 'login' && <TextLoginPanel />}
         {page === 'signup' && <TextSignUpPanel />}
       </div>
