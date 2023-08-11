@@ -5,11 +5,15 @@ import { useRouter } from 'next/navigation';
 import MainBanner from '@/public/img/jpeg/main-banner.jpg';
 import { FsButtonType } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
+// import { useDispatch } from '@/redux/store';
+// import { getAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 
 export default function BannerSection() {
   const router = useRouter();
+  // const dispatch = useDispatch();
   const handleBtnClick = () => {
     router.push('/catalog');
+    // dispatch(getAccessTokenAsync());
   };
 
   return (
