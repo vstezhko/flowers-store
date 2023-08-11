@@ -36,6 +36,7 @@ body {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+
 }
 
 .container {
@@ -44,6 +45,10 @@ body {
   margin: 0 auto;
   padding: 0 15px;
   flex-grow: 1;
+
+  &_padding{
+    padding-top: 179px;
+  }
 }
 
 .highlight {

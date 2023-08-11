@@ -33,7 +33,7 @@
   position: relative;
   min-height: 300px;
   padding: 70px 0 30px;
-  background-color: #CEDDD6;
+  background-color: $color-form;
 }
 
 
@@ -92,7 +92,7 @@
 }
 
 .form__content {
-  background-color: #EBF0E3;
+  background-color: $color-inner-form;
   padding: 20px 20px;
   border-radius: 6px;
 
