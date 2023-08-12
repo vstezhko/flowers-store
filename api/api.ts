@@ -1,10 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
+import { generateUrlSearchParams } from '@/utils/generateUrlSearchParams';
 
 const API_URL = 'https://api.europe-west1.gcp.commercetools.com';
 const Auth_URL = 'https://auth.europe-west1.gcp.commercetools.com';
-const CLIENT_ID = 'brQH_xH3k4pfrEPPkWdDm4V4';
-const SECRET_KEY = 'nP9N2kwbOZU6cig6p1k20ULmdYfg7-u0';
+const CLIENT_ID = 'S431txCLRt08ojpFOSqFby3O';
+const SECRET_KEY = 'txRXWh8btqPaPkzrmCJzwUunS9btca67';
 
 const basicAuth = btoa(`${CLIENT_ID}:${SECRET_KEY}`);
 
@@ -16,13 +17,15 @@ const AuthApiInstance = axios.create({
   },
 });
 
-export const authPost = (url: string, body = {}) => AuthApiInstance.post(url, body).then(res => res.data);
+export const authPost = (url: string, body = {}) =>
+  AuthApiInstance.post(url, generateUrlSearchParams(body)).then(res => res.data);
 
-const ApiInstance = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  },
-});
-
-export const get = (url: string, config = {}) => ApiInstance.get(url, config).then(res => res.data);
+export const apiInstanceToken = (token: string) => {
+  return axios.create({
+    baseURL: API_URL,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
+};
