@@ -6,6 +6,9 @@ const API_URL = 'https://api.europe-west1.gcp.commercetools.com';
 const Auth_URL = 'https://auth.europe-west1.gcp.commercetools.com';
 const CLIENT_ID = 'S431txCLRt08ojpFOSqFby3O';
 const SECRET_KEY = 'txRXWh8btqPaPkzrmCJzwUunS9btca67';
+export const SCOPE =
+  'manage_my_quotes:flowers-store manage_my_quote_requests:flowers-store manage_my_payments:flowers-store view_published_products:flowers-store manage_my_business_units:flowers-store view_categories:flowers-store manage_my_shopping_lists:flowers-store view_products:flowers-store manage_my_profile:flowers-store create_anonymous_token:flowers-store manage_my_orders:flowers-store view_product_selections:flowers-store';
+export const PROJECT_KEY = 'flowers-store';
 
 const basicAuth = btoa(`${CLIENT_ID}:${SECRET_KEY}`);
 
@@ -35,7 +38,7 @@ export const ApiInstance = (token: string) => {
 //     .get(url, {})
 //     .then(res => res.data);
 //
-// const post = (url: string, token: string, body: object) =>
-//   ApiInstance(token)
-//     .get(url, body)
-//     .then(res => res.data);
+export const post = (url: string, token: string, body: string) =>
+  ApiInstance(token)
+    .post(url, body)
+    .then(res => res.data);
