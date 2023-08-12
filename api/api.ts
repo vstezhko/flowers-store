@@ -20,7 +20,7 @@ const AuthApiInstance = axios.create({
 export const authPost = (url: string, body = {}) =>
   AuthApiInstance.post(url, generateUrlSearchParams(body)).then(res => res.data);
 
-export const apiInstanceToken = (token: string) => {
+export const ApiInstance = (token: string) => {
   return axios.create({
     baseURL: API_URL,
     headers: {
@@ -29,3 +29,13 @@ export const apiInstanceToken = (token: string) => {
     },
   });
 };
+
+// const get = (url: string, token: string) =>
+//   ApiInstance(token)
+//     .get(url, {})
+//     .then(res => res.data);
+//
+// const post = (url: string, token: string, body: object) =>
+//   ApiInstance(token)
+//     .get(url, body)
+//     .then(res => res.data);
