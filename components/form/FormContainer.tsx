@@ -11,6 +11,9 @@ import { FormGroups, FsButtonType, ValidationRuleGroup } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
+import { useDispatch } from '@/redux/store';
+import { loginAsync } from '@/redux/slices/loginSlice/thunks';
+import { TokenService } from '@/api/services/Token.service';
 
 export interface FormItemFieldParams {
   id: number;
@@ -50,12 +53,25 @@ const FormContainer = ({
   const validationSchema = object().shape(generateFormikFieldsRules(data));
 
   const initialValues: Record<string, string> = generateInitialFormikValue(data);
+  const dispatch = useDispatch();
+  const token = TokenService.getAccessToken();
 
   const formikConfig: FormikConfig<formikValuesType> = {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
       console.log(values);
+      if (token) {
+        dispatch(
+          loginAsync({
+            values: {
+              email: values['login-email'],
+              password: values['login-password'],
+            },
+            token: token,
+          })
+        );
+      }
     },
   };
 

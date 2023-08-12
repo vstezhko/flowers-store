@@ -1,16 +1,14 @@
-import { getClientAccessToken } from '@/redux/slices/authSlice/getClientAccessToken';
 import { createAppAsyncThunk } from '@/redux/createAppAsyncThunk';
-import { getAnonymousAccessToken } from '@/redux/slices/authSlice/getAnonymousAccessToken';
-import { getCustomerAccessToken } from '@/redux/slices/authSlice/getCustomerAccessToken';
+import { AuthService } from '@/api/services/Auth.services';
 
 export const getClientAccessTokenAsync = createAppAsyncThunk('auth/getClientAccessToken', async () => {
-  return getClientAccessToken();
+  return AuthService.getClientAccessToken();
 });
 
 export const getAnonymousAccessTokenAsync = createAppAsyncThunk('auth/getAnonymousAccessToken', async () => {
-  return getAnonymousAccessToken();
+  return AuthService.getAnonymousAccessToken();
 });
 
 export const getCustomerAccessTokenAsync = createAppAsyncThunk('auth/getCustomerAccessToken', async () => {
-  return getCustomerAccessToken();
+  return AuthService.getCustomerAccessToken();
 });
