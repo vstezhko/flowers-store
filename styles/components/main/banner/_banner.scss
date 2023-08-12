@@ -9,9 +9,15 @@
     justify-content: center;
     position: relative;
     margin-top: 179px;
-    height:70vh;
+    height: 70vh;
     width: 100%;
     overflow: hidden;
+
+    @include small {
+      margin-top: 129px;
+      height: 55vh;
+    }
+
   }
 
   &__img {
@@ -45,6 +51,11 @@
 
   &__text-block h1 {
     font-size: 4rem;
+
+    @include small {
+      font-size: 2.5rem;
+    }
+
   }
 
 }
