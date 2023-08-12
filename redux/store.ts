@@ -6,13 +6,8 @@ import {
 } from 'react-redux';
 import { reducer } from '@/redux/rootReducer';
 
-// const serializableMiddleware = createSerializableStateInvariantMiddleware({
-//   ignoredActionPaths: ['payload.headers'],
-// });
-
 export const reduxStore = configureStore({
   reducer: reducer,
-  // middleware: [serializableMiddleware],
 });
 
 export const useDispatch = () => useReduxDispatch<ReduxDispatch>();
