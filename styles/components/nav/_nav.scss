@@ -1,6 +1,6 @@
 .nav {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(16, 1fr);
   padding-top: 10px;
   padding-bottom: 10px;
   gap: 15px;
@@ -19,8 +19,12 @@
 
 }
 
-.logo {
-  grid-column: span 2;
+.nav__link.logo {
+  grid-column: span 4;
+
+  @include mobile {
+    grid-column: span 1;
+  }
 
   svg {
     @include mobile {
@@ -64,7 +68,7 @@
   top: 10px;
 }
 
-.nav__burger span:nth-child(3){
+.nav__burger span:nth-child(3) {
   top: 20px;
 }
 
@@ -117,11 +121,11 @@
 
       .nav__mobile-links {
         gap: 25px;
-  
+
         h5 {
           font-size: 1.5rem;
         }
-  
+
       }
 
     }
@@ -138,7 +142,7 @@
 }
 
 .nav__link {
-  grid-column: span 1;
+  grid-column: span 2;
   justify-content: center;
   display: flex;
   align-items: center;
@@ -158,8 +162,11 @@
     color: $color-primary-hover;
   }
 
-}
+  @include mobile {
+    grid-column: span 1;
+  }
 
+}
 
 .link-title,
 .nav__currency {
@@ -181,6 +188,7 @@
   flex-wrap: wrap;
   height: fit-content;
   column-gap: 10px;
+  grid-column: span 3;
 
   &>p {
     align-self: center;
@@ -188,10 +196,26 @@
 
   @include mobile {
     justify-content: flex-end;
+    grid-column: span 1;
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+
   }
 
 }
 
 .nav__mobile-links h5::after {
   content: ' ❯';
+}
+
+.nav__info-for-clients {
+  grid-column: span 3;
+
+  @include mobile {
+    grid-column: span 1;
+  }
+
 }
