@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { useMediaQuery } from '@mui/material';
 import { MenuParamsWithoutPathName } from '@/components/header/Header';
@@ -16,6 +16,10 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   if (matches) {
     return (
