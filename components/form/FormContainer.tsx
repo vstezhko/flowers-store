@@ -13,7 +13,7 @@ import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
 import { useDispatch, useSelector } from '@/redux/store';
-import { loginAsync } from '@/redux/slices/loginSlice/thunks';
+import { getCustomerAsync, loginAsync } from '@/redux/slices/loginSlice/thunks';
 import { useSnackbar } from 'notistack';
 import { TokenService } from '@/api/services/Token.service';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
@@ -75,23 +75,24 @@ const FormContainer = ({
     validationSchema: validationSchema,
     onSubmit: async values => {
       if (token) {
-        const response = await dispatch(
-          loginAsync({
-            values: {
-              email: values['login-email'],
-              password: values['login-password'],
-            },
-            token: token,
-          })
-        );
+        const loginPayload = {
+          email: values['login-email'],
+          password: values['login-password'],
+        };
+
+        const response = await dispatch(loginAsync({ values: loginPayload, token }));
 
         if (response.payload) {
-          dispatch(
-            getCustomerAccessTokenAsync({
-              username: values['login-email'],
-              password: values['login-password'],
-            })
-          );
+          const loginCredentials = {
+            username: loginPayload.email,
+            password: loginPayload.password,
+          };
+
+          const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
+
+          if (customerToken.payload.access_token) {
+            dispatch(getCustomerAsync(customerToken.payload.access_token));
+          }
         }
       }
     },

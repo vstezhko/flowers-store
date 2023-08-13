@@ -79,7 +79,11 @@ export const loginSlice = createSlice({
         state.variant = 'error';
         state.isLogin = false;
       })
-      .addCase(getCustomerAsync.fulfilled, setCustomers);
+      .addCase(getCustomerAsync.fulfilled, (state: LoginState, action: PayloadAction<LoginState>) => {
+        setCustomers(state, action);
+        state.message = '';
+        state.variant = 'success';
+      });
   },
 });
 
