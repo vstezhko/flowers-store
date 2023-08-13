@@ -1,10 +1,11 @@
-import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf, isFulfilled, PayloadAction } from '@reduxjs/toolkit';
 import {
   getAnonymousAccessTokenAsync,
   getClientAccessTokenAsync,
   getCustomerAccessTokenAsync,
 } from '@/redux/slices/authSlice/thunks';
 import { TokenService } from '@/api/services/Token.service';
+import { TokenType } from '@/types/enums';
 
 interface AuthState {
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
@@ -36,8 +37,6 @@ export const authSlice = createSlice({
       state.expires_in = action.payload.expires_in;
       state.scope = action.payload.scope;
       state.token_type = action.payload.token_type;
-
-      if (action.payload.access_token) TokenService.setAccessTokenToLS(action.payload.access_token);
     };
 
     builder
@@ -51,14 +50,20 @@ export const authSlice = createSlice({
           state.status = 'pending';
         }
       )
-      .addMatcher(
-        isAnyOf(
-          getClientAccessTokenAsync.fulfilled,
-          getAnonymousAccessTokenAsync.fulfilled,
-          getCustomerAccessTokenAsync.fulfilled
-        ),
-        setAccessToken
-      );
+      .addMatcher(isFulfilled(getClientAccessTokenAsync), (state: AuthState, action: PayloadAction<AuthState>) => {
+        setAccessToken(state, action);
+        if (action.payload.access_token) TokenService.setAccessTokenToLS(action.payload.access_token, TokenType.CLIENT);
+      })
+      .addMatcher(isFulfilled(getAnonymousAccessTokenAsync), (state: AuthState, action: PayloadAction<AuthState>) => {
+        setAccessToken(state, action);
+        if (action.payload.access_token)
+          TokenService.setAccessTokenToLS(action.payload.access_token, TokenType.ANONYMOUS);
+      })
+      .addMatcher(isFulfilled(getCustomerAccessTokenAsync), (state: AuthState, action: PayloadAction<AuthState>) => {
+        setAccessToken(state, action);
+        if (action.payload.access_token)
+          TokenService.setAccessTokenToLS(action.payload.access_token, TokenType.CUSTOMER);
+      });
   },
 });
 

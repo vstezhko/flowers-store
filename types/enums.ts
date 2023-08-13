@@ -19,3 +19,9 @@ export enum ValidationRuleGroup {
   COMMON = 'common',
   PHONE = 'phone',
 }
+
+export enum TokenType {
+  CLIENT = 'client',
+  ANONYMOUS = 'anonymous',
+  CUSTOMER = 'customer',
+}
