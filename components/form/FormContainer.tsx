@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from '@/redux/store';
 import { loginAsync } from '@/redux/slices/loginSlice/thunks';
 import { useSnackbar } from 'notistack';
 import { TokenService } from '@/api/services/Token.service';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export interface FormItemFieldParams {
   id: number;
@@ -58,10 +58,10 @@ const FormContainer = ({
   const initialValues: Record<string, string> = generateInitialFormikValue(data);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const { message, variant } = useSelector(state => state.login);
+  const { message, variant, isLogin } = useSelector(state => state.login);
   const router = useRouter();
-
   const [token, setToken] = useState('');
+  const currentPath = usePathname();
 
   useEffect(() => {
     const access_token = TokenService.getAccessToken();
@@ -73,7 +73,7 @@ const FormContainer = ({
     validationSchema: validationSchema,
     onSubmit: async values => {
       if (token) {
-        const response = await dispatch(
+        dispatch(
           loginAsync({
             values: {
               email: values['login-email'],
@@ -82,12 +82,13 @@ const FormContainer = ({
             token: token,
           })
         );
-        if (response.payload) {
-          router.push('/');
-        }
       }
     },
   };
+
+  useEffect(() => {
+    if (isLogin && currentPath === '/login') router.push('/');
+  }, [isLogin, currentPath, router]);
 
   useEffect(() => {
     if (message) {
