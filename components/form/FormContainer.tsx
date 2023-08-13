@@ -14,7 +14,6 @@ import { object } from 'yup';
 import { useDispatch, useSelector } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import { loginAsync } from '@/redux/slices/loginSlice/thunks';
-import { TokenService } from '@/api/services/Token.service';
 import { useSnackbar } from 'notistack';
 
 export interface FormItemFieldParams {
@@ -57,24 +56,23 @@ const FormContainer = ({
   const initialValues: Record<string, string> = generateInitialFormikValue(data);
   const dispatch = useDispatch();
   const router = useRouter();
-
-  const token = TokenService.getAccessToken();
   const { enqueueSnackbar } = useSnackbar();
+  const { access_token } = useSelector(state => state.auth);
   const { message, variant, isLogin } = useSelector(state => state.login);
 
   const formikConfig: FormikConfig<formikValuesType> = {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
-      if (token) {
-        if (token) {
+      if (access_token) {
+        if (access_token) {
           dispatch(
             loginAsync({
               values: {
                 email: values['login-email'],
                 password: values['login-password'],
               },
-              token: token,
+              token: access_token,
             })
           );
         }
@@ -86,7 +84,7 @@ const FormContainer = ({
     if (message) {
       enqueueSnackbar(message, { variant });
     }
-  }, [message, enqueueSnackbar, dispatch]);
+  }, [message, variant, enqueueSnackbar, dispatch]);
 
   useEffect(() => {
     if (isLogin) {
@@ -94,7 +92,7 @@ const FormContainer = ({
     } else {
       router.replace('/login');
     }
-  }, [isLogin]);
+  }, [isLogin, router]);
 
   const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
 
