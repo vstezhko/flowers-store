@@ -1,4 +1,5 @@
-import { authPost, PROJECT_KEY, SCOPE } from '@/api/api';
+import { authPost, post, PROJECT_KEY, SCOPE } from '@/api/api';
+import { LoginValues } from '@/types/interface';
 
 const getClientAccessToken = async () => {
   const body = {
@@ -27,8 +28,19 @@ const getCustomerAccessToken = async () => {
   return authPost(`/oauth/${PROJECT_KEY}/customers/token`, body);
 };
 
+const login = async (values: LoginValues, token: string) => {
+  const body = JSON.stringify({
+    scope: SCOPE,
+    email: values.email,
+    password: values.password,
+  });
+
+  return post(`/${PROJECT_KEY}/me/login`, token, body);
+};
+
 export const AuthService = {
   getClientAccessToken,
   getAnonymousAccessToken,
   getCustomerAccessToken,
+  login,
 };

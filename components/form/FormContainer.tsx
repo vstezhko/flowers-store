@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LeafLeft from '@/public/img/png/leaf-left.png';
 import LeafRight from '@/public/img/png/leaf-right.png';
 import { Paper } from '@mui/material';
@@ -11,9 +11,11 @@ import { FormGroups, FsButtonType, ValidationRuleGroup } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
-import { useDispatch } from '@/redux/store';
+import { useDispatch, useSelector } from '@/redux/store';
+import { useRouter } from 'next/navigation';
 import { loginAsync } from '@/redux/slices/loginSlice/thunks';
 import { TokenService } from '@/api/services/Token.service';
+import { useSnackbar } from 'notistack';
 
 export interface FormItemFieldParams {
   id: number;
@@ -54,26 +56,45 @@ const FormContainer = ({
 
   const initialValues: Record<string, string> = generateInitialFormikValue(data);
   const dispatch = useDispatch();
+  const router = useRouter();
+
   const token = TokenService.getAccessToken();
+  const { enqueueSnackbar } = useSnackbar();
+  const { message, variant, isLogin } = useSelector(state => state.login);
 
   const formikConfig: FormikConfig<formikValuesType> = {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
-      console.log(values);
       if (token) {
-        dispatch(
-          loginAsync({
-            values: {
-              email: values['login-email'],
-              password: values['login-password'],
-            },
-            token: token,
-          })
-        );
+        if (token) {
+          dispatch(
+            loginAsync({
+              values: {
+                email: values['login-email'],
+                password: values['login-password'],
+              },
+              token: token,
+            })
+          );
+        }
       }
     },
   };
+
+  useEffect(() => {
+    if (message) {
+      enqueueSnackbar(message, { variant });
+    }
+  }, [message, enqueueSnackbar, dispatch]);
+
+  useEffect(() => {
+    if (isLogin) {
+      router.replace('/');
+    } else {
+      router.replace('/login');
+    }
+  }, [isLogin]);
 
   const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
 

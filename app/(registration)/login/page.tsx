@@ -2,6 +2,7 @@
 import FormContainer, { FormItemFieldsParams } from '@/components/form/FormContainer';
 import LoginForm from '@/components/form/login/LoginForm';
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
+import { SnackbarProvider } from 'notistack';
 
 const userLoginFields: FormItemFieldsParams[] = [
   {
@@ -25,13 +26,15 @@ const userLoginFields: FormItemFieldsParams[] = [
 ];
 const Login = () => {
   return (
-    <FormContainer
-      pathName='Sign Up'
-      path='/signup'
-      title='Login'
-      childComponent={LoginForm}
-      data={{ [FormGroups.LOGIN]: userLoginFields }}
-    />
+    <SnackbarProvider maxSnack={3}>
+      <FormContainer
+        pathName='Sign Up'
+        path='/signup'
+        title='Login'
+        childComponent={LoginForm}
+        data={{ [FormGroups.LOGIN]: userLoginFields }}
+      />
+    </SnackbarProvider>
   );
 };
 
