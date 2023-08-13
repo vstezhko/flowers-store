@@ -1,4 +1,4 @@
-'use state';
+'use client';
 
 import React, { useState } from 'react';
 import { IconButton, InputAdornment, StandardTextFieldProps, TextField } from '@mui/material';
