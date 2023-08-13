@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { loginAsync } from '@/redux/slices/loginSlice/thunks';
+import { getCustomerAsync, loginAsync } from '@/redux/slices/loginSlice/thunks';
 
 interface LoginState {
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
@@ -72,7 +72,8 @@ export const loginSlice = createSlice({
         state.message = action.error.message ? action.error.message : '';
         state.variant = 'error';
         state.isLogin = false;
-      });
+      })
+      .addCase(getCustomerAsync.fulfilled, setCustomers);
   },
 });
 

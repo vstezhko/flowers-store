@@ -17,6 +17,7 @@ import { loginAsync } from '@/redux/slices/loginSlice/thunks';
 import { useSnackbar } from 'notistack';
 import { TokenService } from '@/api/services/Token.service';
 import { usePathname, useRouter } from 'next/navigation';
+import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 
 export interface FormItemFieldParams {
   id: number;
@@ -73,7 +74,7 @@ const FormContainer = ({
     validationSchema: validationSchema,
     onSubmit: async values => {
       if (token) {
-        dispatch(
+        const response = await dispatch(
           loginAsync({
             values: {
               email: values['login-email'],
@@ -82,6 +83,15 @@ const FormContainer = ({
             token: token,
           })
         );
+
+        if (response.payload) {
+          dispatch(
+            getCustomerAccessTokenAsync({
+              username: values['login-email'],
+              password: values['login-password'],
+            })
+          );
+        }
       }
     },
   };

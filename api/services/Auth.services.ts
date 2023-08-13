@@ -17,11 +17,11 @@ const getAnonymousAccessToken = async () => {
   return authPost(`/oauth/${PROJECT_KEY}/anonymous/token`, body);
 };
 
-const getCustomerAccessToken = async () => {
+const getCustomerAccessToken = async ({ username, password }: { username: string; password: string }) => {
   const body = {
     grant_type: 'password',
-    username: 'viktoriastezhko@gmail.com',
-    password: '123',
+    username: username,
+    password: password,
     scope: SCOPE,
   };
 

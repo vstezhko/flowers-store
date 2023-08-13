@@ -33,11 +33,14 @@ export const ApiInstance = (token: string) => {
   });
 };
 
-// const get = (url: string, token: string) =>
-//   ApiInstance(token)
-//     .get(url, {})
-//     .then(res => res.data);
-//
+export const get = (url: string, token: string) =>
+  ApiInstance(token)
+    .get(url)
+    .then(res => res.data)
+    .catch(error => {
+      return Promise.reject(error.response.data.message);
+    });
+
 export const post = (url: string, token: string, body: string) =>
   ApiInstance(token)
     .post(url, body)
