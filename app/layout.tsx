@@ -16,7 +16,7 @@ import {
 import React from 'react';
 import { Providers } from '@/redux/providers';
 import MiddleWareComponent from '@/components/middleware/MiddleWareComponent';
-import { SnackbarProvider } from 'notistack';
+import { SnackBarProvider } from '@/components/provider/SnackBar';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -45,9 +45,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `}</style>
           </head>
           <body>
-            <SnackbarProvider maxSnack={3}>
+            <SnackBarProvider>
               <MiddleWareComponent>{children}</MiddleWareComponent>
-            </SnackbarProvider>
+            </SnackBarProvider>
           </body>
         </html>
       </ThemeProvider>
