@@ -52,22 +52,28 @@ const initialState: LoginState = {
 export const loginSlice = createSlice({
   name: 'login',
   initialState,
-  reducers: {},
+  reducers: {
+    removeMessage: (state: LoginState) => {
+      state.message = '';
+    },
+  },
   extraReducers: builder => {
     const setCustomers = (state: LoginState, action: PayloadAction<LoginState>) => {
       state.status = 'idle';
       state.isLogin = true;
       state.customer = action.payload.customer;
       state.anonymousCart = action.payload.anonymousCart;
-      state.message = 'Success login';
-      state.variant = 'success';
     };
 
     builder
       .addCase(loginAsync.pending, state => {
         state.status = 'pending';
       })
-      .addCase(loginAsync.fulfilled, setCustomers)
+      .addCase(loginAsync.fulfilled, (state: LoginState, action: PayloadAction<LoginState>) => {
+        setCustomers(state, action);
+        state.message = 'Success login';
+        state.variant = 'success';
+      })
       .addCase(loginAsync.rejected, (state, action) => {
         state.message = action.error.message ? action.error.message : '';
         state.variant = 'error';

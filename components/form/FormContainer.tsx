@@ -16,8 +16,9 @@ import { useDispatch, useSelector } from '@/redux/store';
 import { loginAsync } from '@/redux/slices/loginSlice/thunks';
 import { useSnackbar } from 'notistack';
 import { TokenService } from '@/api/services/Token.service';
-import { usePathname, useRouter } from 'next/navigation';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
+import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import { usePathname, useRouter } from 'next/navigation';
 
 export interface FormItemFieldParams {
   id: number;
@@ -103,6 +104,7 @@ const FormContainer = ({
   useEffect(() => {
     if (message) {
       enqueueSnackbar(message, { variant });
+      dispatch(loginSlice.actions.removeMessage);
     }
   }, [message, variant, enqueueSnackbar, dispatch]);
 
