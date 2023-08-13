@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import LeafLeft from '@/public/img/png/leaf-left.png';
 import LeafRight from '@/public/img/png/leaf-right.png';
 import { Paper } from '@mui/material';
@@ -12,9 +13,10 @@ import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
 import { useDispatch, useSelector } from '@/redux/store';
-import { useRouter } from 'next/navigation';
 import { loginAsync } from '@/redux/slices/loginSlice/thunks';
 import { useSnackbar } from 'notistack';
+import { TokenService } from '@/api/services/Token.service';
+import { useRouter } from 'next/navigation';
 
 export interface FormItemFieldParams {
   id: number;
@@ -55,26 +57,33 @@ const FormContainer = ({
 
   const initialValues: Record<string, string> = generateInitialFormikValue(data);
   const dispatch = useDispatch();
-  const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
-  const { access_token } = useSelector(state => state.auth);
-  const { message, variant, isLogin } = useSelector(state => state.login);
+  const { message, variant } = useSelector(state => state.login);
+  const router = useRouter();
+
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    const access_token = TokenService.getAccessToken();
+    if (access_token) setToken(access_token);
+  }, [token]);
 
   const formikConfig: FormikConfig<formikValuesType> = {
     initialValues: initialValues,
     validationSchema: validationSchema,
-    onSubmit: values => {
-      if (access_token) {
-        if (access_token) {
-          dispatch(
-            loginAsync({
-              values: {
-                email: values['login-email'],
-                password: values['login-password'],
-              },
-              token: access_token,
-            })
-          );
+    onSubmit: async values => {
+      if (token) {
+        const response = await dispatch(
+          loginAsync({
+            values: {
+              email: values['login-email'],
+              password: values['login-password'],
+            },
+            token: token,
+          })
+        );
+        if (response.payload) {
+          router.push('/');
         }
       }
     },
@@ -85,14 +94,6 @@ const FormContainer = ({
       enqueueSnackbar(message, { variant });
     }
   }, [message, variant, enqueueSnackbar, dispatch]);
-
-  useEffect(() => {
-    if (isLogin) {
-      router.replace('/');
-    } else {
-      router.replace('/login');
-    }
-  }, [isLogin, router]);
 
   const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
 

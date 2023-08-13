@@ -41,4 +41,7 @@ export const ApiInstance = (token: string) => {
 export const post = (url: string, token: string, body: string) =>
   ApiInstance(token)
     .post(url, body)
-    .then(res => res.data);
+    .then(res => res.data)
+    .catch(error => {
+      return Promise.reject(error.response.data.message);
+    });
