@@ -35,9 +35,23 @@
 
 }
 
+.header-menu__address {
+
+  @include small {
+    display: none;
+  }
+
+}
+
 .header-menu__phone {
   background-color: $color-primary-light;
   padding: 5px 20px;
+
+  @include small {
+    padding: 5px 0;
+    background-color: $color-primary;
+  }
+
 }
 
 .phone {
@@ -46,6 +60,15 @@
   text-decoration: none;
   align-self: flex-end;
 }
+
+.header-menu__phone>.phone {
+
+  @include small {
+    display: none;
+  }
+
+}
+
 
 .phone__container {
   display: flex;

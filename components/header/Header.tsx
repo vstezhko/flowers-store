@@ -13,16 +13,17 @@ export interface MenuParams {
   icon: React.ReactNode | null;
   pathName: string;
   className: string;
+  mobile?: boolean;
 }
 
-export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon' | 'className'>;
+export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon' | 'className' | 'mobile'>;
 
 export const menuItems: MenuParamsWithoutPathName[] = [
-  { id: 1, path: '/catalog', title: 'Catalog', icon: null, className: '' },
-  { id: 2, path: '/reviews', title: 'Reviews', icon: null, className: '' },
-  { id: 3, path: '/contacts', title: 'Contacts', icon: null, className: '' },
+  { id: 1, path: '/catalog', title: 'Catalog', icon: null, className: '', mobile: true },
+  { id: 2, path: '/reviews', title: 'Reviews', icon: null, className: '', mobile: true },
+  { id: 3, path: '/contacts', title: 'Contacts', icon: null, className: '', mobile: true },
   { id: 4, path: '/', title: '', icon: <LogoIcon />, className: 'logo' },
-  { id: 5, path: '/info', title: 'Info for clients', icon: null, className: '' },
+  { id: 5, path: '/info', title: 'Info for clients', icon: null, className: '', mobile: true },
   { id: 6, path: '/profile', title: 'My profile', icon: <UserIcon />, className: '' },
 ];
 
