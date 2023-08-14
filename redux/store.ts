@@ -1,13 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import {
   useSelector as useReduxSelector,
   useDispatch as useReduxDispatch,
   type TypedUseSelectorHook,
 } from 'react-redux';
 import { reducer } from '@/redux/rootReducer';
+import loginMiddleware from '@/redux/loginMiddleware';
 
 export const reduxStore = configureStore({
   reducer: reducer,
+  middleware: [...getDefaultMiddleware(), loginMiddleware],
 });
 
 export const useDispatch = () => useReduxDispatch<ReduxDispatch>();

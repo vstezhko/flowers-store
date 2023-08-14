@@ -1,7 +1,6 @@
 import { reduxStore } from '@/redux/store';
 
 const setAccessTokenToLS = (token: string, type: string) => {
-  console.log(type);
   const tokenWithType = JSON.stringify({
     type,
     token,

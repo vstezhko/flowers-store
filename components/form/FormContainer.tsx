@@ -17,8 +17,8 @@ import { getCustomerAsync, loginAsync } from '@/redux/slices/loginSlice/thunks';
 import { useSnackbar } from 'notistack';
 import { TokenService } from '@/api/services/Token.service';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
-import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { usePathname, useRouter } from 'next/navigation';
+import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 
 export interface FormItemFieldParams {
   id: number;
@@ -59,8 +59,8 @@ const FormContainer = ({
 
   const initialValues: Record<string, string> = generateInitialFormikValue(data);
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
   const { message, variant, isLogin } = useSelector(state => state.login);
+  const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const [token, setToken] = useState('');
   const currentPath = usePathname();
@@ -80,17 +80,19 @@ const FormContainer = ({
           password: values['login-password'],
         };
 
+        // @ts-ignore
         const response = await dispatch(loginAsync({ values: loginPayload, token }));
-
         if (response.payload) {
           const loginCredentials = {
             username: loginPayload.email,
             password: loginPayload.password,
           };
 
+          // @ts-ignore
           const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
 
           if (customerToken.payload.access_token) {
+            // @ts-ignore
             dispatch(getCustomerAsync(customerToken.payload.access_token));
           }
         }
