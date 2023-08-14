@@ -12,12 +12,14 @@ const setAccessTokenToLS = (token: string, type: string) => {
 const getAccessTokenFromLS = () =>
   localStorage.getItem('access_token') ? JSON.parse(<string>localStorage.getItem('access_token')) : null;
 
-const removeAccessTokenFromLS = () => localStorage.removeItem('access_token');
-
 const getAccessToken = () => {
   const { auth } = reduxStore.getState();
   const tokenFromLS = getAccessTokenFromLS();
   return auth.access_token || tokenFromLS?.token;
+};
+
+const removeAccessTokenFromLS = () => {
+  localStorage.removeItem('access_token');
 };
 
 export const TokenService = {
