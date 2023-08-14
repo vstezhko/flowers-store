@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import {
   useSelector as useReduxSelector,
   useDispatch as useReduxDispatch,
@@ -9,7 +9,7 @@ import loginMiddleware from '@/redux/loginMiddleware';
 
 export const reduxStore = configureStore({
   reducer: reducer,
-  middleware: [...getDefaultMiddleware(), loginMiddleware],
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(loginMiddleware),
 });
 
 export const useDispatch = () => useReduxDispatch<ReduxDispatch>();

@@ -4,7 +4,7 @@ import { loginAsync } from '@/redux/slices/loginSlice/thunks';
 
 const loginMiddleware: Middleware = store => next => action => {
   if (action.type === loginAsync.pending.type) {
-    store.dispatch(loginSlice.actions.setMessage(''));
+    store.dispatch(loginSlice.actions.setMessage({ message: '', variant: 'error' }));
   } else if (action.type === loginAsync.rejected.type) {
     if (action.error && action.error.message) {
       store.dispatch(loginSlice.actions.setMessage({ message: action.error.message, variant: 'error' }));

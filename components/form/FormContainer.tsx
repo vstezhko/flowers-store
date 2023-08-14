@@ -80,7 +80,6 @@ const FormContainer = ({
           password: values['login-password'],
         };
 
-        // @ts-ignore
         const response = await dispatch(loginAsync({ values: loginPayload, token }));
         if (response.payload) {
           const loginCredentials = {
@@ -88,11 +87,9 @@ const FormContainer = ({
             password: loginPayload.password,
           };
 
-          // @ts-ignore
           const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
 
           if (customerToken.payload.access_token) {
-            // @ts-ignore
             dispatch(getCustomerAsync(customerToken.payload.access_token));
           }
         }
