@@ -53,6 +53,9 @@ export const loginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
+    setIsLogin: (state, action: PayloadAction<boolean>) => {
+      state.isLogin = action.payload;
+    },
     removeMessage: (state: LoginState) => {
       state.message = '';
     },

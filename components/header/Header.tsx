@@ -13,6 +13,7 @@ export interface MenuParams {
   pathName: string;
   className: string;
   mobile?: boolean;
+  onClick?: () => void;
 }
 
 export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon' | 'className' | 'mobile'>;
