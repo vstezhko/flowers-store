@@ -100,7 +100,7 @@ const FormContainer = ({
   useEffect(() => {
     if (message) {
       enqueueSnackbar(message, { variant });
-      dispatch(loginSlice.actions.removeMessage);
+      dispatch(loginSlice.actions.removeMessage());
     }
   }, [message, variant, enqueueSnackbar, dispatch]);
 

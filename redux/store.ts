@@ -5,8 +5,8 @@ import {
   type TypedUseSelectorHook,
 } from 'react-redux';
 import { reducer } from '@/redux/rootReducer';
-import loginMiddleware from '@/redux/loginMiddleware';
-import authMiddleware from '@/redux/authMiddleware';
+import loginMiddleware from '@/redux/middleware/loginMiddleware';
+import authMiddleware from '@/redux/middleware/authMiddleware';
 
 export const reduxStore = configureStore({
   reducer: reducer,

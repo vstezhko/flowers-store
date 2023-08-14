@@ -10,6 +10,7 @@ const Profile = () => {
   const handleLogout = () => {
     TokenService.removeTokensFromLS();
     dispatch(loginSlice.actions.setIsLogin(false));
+    dispatch(loginSlice.actions.removeCustomer());
   };
 
   return (
