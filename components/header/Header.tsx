@@ -4,7 +4,6 @@ import HeaderCart from '@/components/header/HeaderCart';
 import NavMenu from '@/components/nav/NavMenu';
 import React from 'react';
 import LogoIcon from '@/components/Icons/LogoIcon';
-import UserIcon from '@/components/Icons/UserIcon';
 
 export interface MenuParams {
   id: number;
@@ -23,8 +22,7 @@ export const menuItems: MenuParamsWithoutPathName[] = [
   { id: 2, path: '/reviews', title: 'Reviews', icon: null, className: '', mobile: true },
   { id: 3, path: '/contacts', title: 'Contacts', icon: null, className: '', mobile: true },
   { id: 4, path: '/', title: '', icon: <LogoIcon />, className: 'logo' },
-  { id: 5, path: '/info', title: 'Info for clients', icon: null, className: '', mobile: true },
-  { id: 6, path: '/profile', title: 'My profile', icon: <UserIcon />, className: '' },
+  { id: 5, path: '/info', title: 'Info for clients', icon: null, className: 'nav__info-for-clients', mobile: true },
 ];
 
 const Header = () => {
