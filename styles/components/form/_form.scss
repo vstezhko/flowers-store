@@ -14,7 +14,7 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 0 20px 20px;
+  padding: 0 10px 20px;
   width: 100%;
 
   @include small {
@@ -76,8 +76,17 @@
 }
 
 .panel__text {
-  @include medium-mobile {
+  @include mobile {
     display: none !important;
+  }
+
+  &.text p {
+    @include font(2.375rem, 400, normal);
+    font-family: var(--pecita);
+
+    @include small-mobile {
+      @include font(2.1rem, 400, normal);
+    }
   }
 }
 
@@ -95,14 +104,6 @@
     text-align: center;
   }
 
-  &.text p {
-    @include font(2.375rem, 400, normal);
-    font-family: var(--pecita);
-
-    @include small-mobile {
-      @include font(2.1rem, 400, normal);
-    }
-  }
 
   img {
     max-width: 80px;
@@ -218,10 +219,4 @@
 
 }
 
-.css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root {
 
-  @include medium {
-    min-height: 2.5rem;
-  }
-
-}

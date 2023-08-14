@@ -59,6 +59,10 @@ export const loginSlice = createSlice({
     removeMessage: (state: LoginState) => {
       state.message = '';
     },
+    setMessage: (state: LoginState, action) => {
+      state.message = action.payload.message;
+      state.variant = action.payload.variant;
+    },
   },
   extraReducers: builder => {
     const setCustomers = (state: LoginState, action: PayloadAction<LoginState>) => {
@@ -72,20 +76,20 @@ export const loginSlice = createSlice({
       .addCase(loginAsync.pending, state => {
         state.status = 'pending';
       })
-      .addCase(loginAsync.fulfilled, (state: LoginState, action: PayloadAction<LoginState>) => {
-        setCustomers(state, action);
-        state.message = 'Success login';
-        state.variant = 'success';
+      .addCase(loginAsync.fulfilled, (state: LoginState) => {
+        state.isLogin = true;
+        // state.message = 'Success login';
+        // state.variant = 'success';
       })
-      .addCase(loginAsync.rejected, (state, action) => {
-        state.message = action.error.message ? action.error.message : '';
-        state.variant = 'error';
+      .addCase(loginAsync.rejected, state => {
+        // state.message = action.error.message ? action.error.message : '';
+        // state.variant = 'error';
         state.isLogin = false;
       })
       .addCase(getCustomerAsync.fulfilled, (state: LoginState, action: PayloadAction<LoginState>) => {
         setCustomers(state, action);
-        state.message = '';
-        state.variant = 'success';
+        // state.message = '';
+        // state.variant = 'success';
       });
   },
 });

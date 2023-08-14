@@ -12,7 +12,6 @@ const MiddleWareComponent = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const token = TokenService.getAccessToken();
     const type_token = TokenService.getAccessTokenFromLS();
-
     if (!token) dispatch(getClientAccessTokenAsync());
     if (token && !isLogin && type_token?.type === TokenType.CUSTOMER) dispatch(getCustomerAsync(token));
   });

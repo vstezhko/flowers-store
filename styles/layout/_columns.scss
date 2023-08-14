@@ -7,7 +7,7 @@
     flex-basis: 49%;
   }
 
-  @include medium-mobile {
+  @include mobile {
     flex-direction: column-reverse;
     align-items: center;
     column-gap: 0;

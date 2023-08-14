@@ -5,9 +5,11 @@ import {
   type TypedUseSelectorHook,
 } from 'react-redux';
 import { reducer } from '@/redux/rootReducer';
+import loginMiddleware from '@/redux/loginMiddleware';
 
 export const reduxStore = configureStore({
   reducer: reducer,
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(loginMiddleware),
 });
 
 export const useDispatch = () => useReduxDispatch<ReduxDispatch>();
