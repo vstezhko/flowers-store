@@ -11,7 +11,7 @@ type CustomInputProps = FsInputParams & {
   label?: string;
 };
 
-const CustomInput = forwardRef((props: CustomInputProps, forwardedRef) => {
+const CustomInput = forwardRef((props: CustomInputProps, forwardedRef: Ref<HTMLInputElement>) => {
   const { id, ...rest } = props;
   return <FsInput {...rest} id={id} forwardedRef={forwardedRef as Ref<HTMLInputElement>} />;
 });
