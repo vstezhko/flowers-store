@@ -5,7 +5,7 @@ import { TokenService } from '@/api/services/Token.service';
 import { getCustomerAsync } from '@/redux/slices/loginSlice/thunks';
 import { TokenType } from '@/types/enums';
 
-const MiddleWareComponent = ({ children }: { children: React.ReactNode }) => {
+const AuthComponent = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
   const { customer } = useSelector(state => state.login);
   const { access_token } = useSelector(state => state.auth);
@@ -17,9 +17,9 @@ const MiddleWareComponent = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const token = TokenService.getAccessTokenFromLS();
-    if (token?.type === TokenType.CUSTOMER && !customer.id) dispatch(getCustomerAsync(token.token));
-  }, [access_token, customer.id, dispatch]);
+    if (token?.type === TokenType.CUSTOMER && !customer?.id) dispatch(getCustomerAsync(token.token));
+  }, [access_token, customer?.id, dispatch]);
 
   return <>{children}</>;
 };
-export default MiddleWareComponent;
+export default AuthComponent;

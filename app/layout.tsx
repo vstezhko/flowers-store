@@ -15,7 +15,7 @@ import {
 } from '@/utils/fonts';
 import React from 'react';
 import { Providers } from '@/redux/providers';
-import MiddleWareComponent from '@/components/middleware/MiddleWareComponent';
+import AuthComponent from '@/components/middleware/AuthComponent';
 import { SnackBarProvider } from '@/components/provider/SnackBar';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </head>
           <body>
             <SnackBarProvider>
-              <MiddleWareComponent>{children}</MiddleWareComponent>
+              <AuthComponent>{children}</AuthComponent>
             </SnackBarProvider>
           </body>
         </html>
