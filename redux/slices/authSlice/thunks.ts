@@ -9,6 +9,9 @@ export const getAnonymousAccessTokenAsync = createAppAsyncThunk('auth/getAnonymo
   return AuthService.getAnonymousAccessToken();
 });
 
-export const getCustomerAccessTokenAsync = createAppAsyncThunk('auth/getCustomerAccessToken', async () => {
-  return AuthService.getCustomerAccessToken();
-});
+export const getCustomerAccessTokenAsync = createAppAsyncThunk(
+  'auth/getCustomerAccessToken',
+  async ({ username, password }: { username: string; password: string }) => {
+    return AuthService.getCustomerAccessToken({ username, password });
+  }
+);

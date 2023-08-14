@@ -5,11 +5,11 @@ import { forwardRef } from 'react';
 import { InputMask } from '@react-input/mask';
 import FsInput, { FsInputParams } from '@/components/UI/FsInput';
 
-type CustomInputProps = {
+type CustomInputProps = FsInputParams & {
   label?: string;
 };
 
-const CustomInput = forwardRef((props: FsInputParams, forwardedRef) => {
+const CustomInput = forwardRef((props: CustomInputProps, forwardedRef: Ref<HTMLInputElement>) => {
   const { id, ...rest } = props;
   return <FsInput {...rest} id={id} forwardedRef={forwardedRef as Ref<HTMLInputElement>} />;
 });
