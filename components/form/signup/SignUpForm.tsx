@@ -28,12 +28,12 @@ const SignUpForm = (data: Record<FormGroups, FormItemFieldsParams[]>, formik: Fo
           <div className='layout-2-columns'>
             <div className='panel__item'>
               <AddressPanel data={data.shippingAddress} title='Shipping address' formik={formik} />
+              <FsCheckbox label='use the same data for billing address' />
             </div>
             <div className='panel__item'>
               <AddressPanel data={data.billingAddress} title='Billing address' formik={formik} />
             </div>
           </div>
-          <FsCheckbox label='use the same data for billing address' />
         </FsAccordion>
       ) : (
         <>

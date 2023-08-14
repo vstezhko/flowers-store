@@ -6,6 +6,11 @@
   .MuiAccordionSummary-content.Mui-expanded {
     margin: 10px 0;
   }
+  .MuiButtonBase-root.MuiAccordionSummary-root{
+    @include medium {
+      min-height: 2.5rem;
+    }
+  }
   .MuiAccordionSummary-root.Mui-expanded {
     min-height: 40px;
   }
