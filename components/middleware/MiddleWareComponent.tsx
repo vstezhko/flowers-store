@@ -7,14 +7,18 @@ import { TokenType } from '@/types/enums';
 
 const MiddleWareComponent = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
-  const { isLogin } = useSelector(state => state.login);
+  const { customer } = useSelector(state => state.login);
+  const { access_token } = useSelector(state => state.auth);
 
   useEffect(() => {
-    const token = TokenService.getAccessToken();
-    const type_token = TokenService.getAccessTokenFromLS();
+    const token = TokenService.getAccessTokenFromLS();
     if (!token) dispatch(getClientAccessTokenAsync());
-    if (token && !isLogin && type_token?.type === TokenType.CUSTOMER) dispatch(getCustomerAsync(token));
   });
+
+  useEffect(() => {
+    const token = TokenService.getAccessTokenFromLS();
+    if (token?.type === TokenType.CUSTOMER && !customer.id) dispatch(getCustomerAsync(token.token));
+  }, [access_token, customer.id, dispatch]);
 
   return <>{children}</>;
 };

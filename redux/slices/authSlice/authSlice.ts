@@ -28,7 +28,20 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setAccessToken: (
+      state: AuthState,
+      action: {
+        payload: Pick<AuthState, 'access_token' | 'expires_in' | 'scope'> & { tokenType: TokenType };
+      }
+    ) => {
+      state.access_token = action.payload.access_token;
+      state.expires_in = action.payload.expires_in;
+      state.scope = action.payload.scope;
+      if (action.payload.access_token)
+        TokenService.setAccessTokenToLS(action.payload.access_token, action.payload.tokenType);
+    },
+  },
   extraReducers: builder => {
     const setAccessToken = (state: AuthState, action: PayloadAction<AuthState>) => {
       state.status = 'idle';
@@ -58,11 +71,15 @@ export const authSlice = createSlice({
         setAccessToken(state, action);
         if (action.payload.access_token)
           TokenService.setAccessTokenToLS(action.payload.access_token, TokenType.ANONYMOUS);
+        if (action.payload.refresh_token)
+          TokenService.setRefreshTokenToLS(action.payload.refresh_token, TokenType.ANONYMOUS);
       })
       .addMatcher(isFulfilled(getCustomerAccessTokenAsync), (state: AuthState, action: PayloadAction<AuthState>) => {
         setAccessToken(state, action);
         if (action.payload.access_token)
           TokenService.setAccessTokenToLS(action.payload.access_token, TokenType.CUSTOMER);
+        if (action.payload.refresh_token)
+          TokenService.setRefreshTokenToLS(action.payload.refresh_token, TokenType.CUSTOMER);
       });
   },
 });

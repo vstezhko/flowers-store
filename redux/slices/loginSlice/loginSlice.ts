@@ -78,18 +78,13 @@ export const loginSlice = createSlice({
       })
       .addCase(loginAsync.fulfilled, (state: LoginState) => {
         state.isLogin = true;
-        // state.message = 'Success login';
-        // state.variant = 'success';
       })
       .addCase(loginAsync.rejected, state => {
-        // state.message = action.error.message ? action.error.message : '';
-        // state.variant = 'error';
         state.isLogin = false;
       })
       .addCase(getCustomerAsync.fulfilled, (state: LoginState, action: PayloadAction<LoginState>) => {
         setCustomers(state, action);
-        // state.message = '';
-        // state.variant = 'success';
+        state.message = '';
       });
   },
 });
