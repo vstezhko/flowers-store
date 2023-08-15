@@ -149,12 +149,20 @@
   gap: 20px;
   z-index: 1000;
 
-  & > a {
-    @include font(18px, 400, normal);
+  &>a {
 
-    &:hover {
-      transform: scale(1.03);
+    @include font(18px, 400, normal);
+    transition: transform 0.2s ease-in-out;
+    transform: perspective(2px) translateZ(0);
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+
+    @include hover {
+      &:hover {
+        transform: scale(1.03);
+      }
     }
+
   }
 
 
@@ -178,7 +186,7 @@
 .background-img {
   position: absolute;
 
-  & > img {
+  &>img {
     @include small-mobile {
       max-width: 180px;
     }
@@ -218,5 +226,3 @@
   }
 
 }
-
-
