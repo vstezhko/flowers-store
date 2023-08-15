@@ -131,6 +131,10 @@
     }
 
   }
+
+  &.billing{
+    justify-content: flex-start;
+  }
 }
 
 .panel__item-container {

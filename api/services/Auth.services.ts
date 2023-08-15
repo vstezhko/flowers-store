@@ -47,10 +47,22 @@ const login = async (values: LoginValues, token: string) => {
   return post(`/${PROJECT_KEY}/me/login`, token, body);
 };
 
+const signUp = async (values: LoginValues, token: string) => {
+  const body = JSON.stringify({
+    email: values.email,
+    firstName: 'John',
+    lastName: 'Doe',
+    password: values.password,
+  });
+
+  return post(`/${PROJECT_KEY}/me/signup`, token, body);
+};
+
 export const AuthService = {
   getClientAccessToken,
   getAnonymousAccessToken,
   getCustomerAccessToken,
   refreshCustomerAccessToken,
   login,
+  signUp,
 };

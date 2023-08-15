@@ -1,6 +1,6 @@
 'use client';
 import FormContainer, { FormItemFieldsParams } from '@/components/form/FormContainer';
-import { FormGroups, ValidationRuleGroup } from '@/types/enums';
+import { FormGroups, Pages, ValidationRuleGroup } from '@/types/enums';
 import signUpForm from '@/components/form/signup/SignUpForm';
 
 const shippingAddress: FormItemFieldsParams[] = [
@@ -11,16 +11,16 @@ const shippingAddress: FormItemFieldsParams[] = [
     name: 'phone',
     type: 'phone',
     label: 'phone',
-    value: '',
+    value: [],
   },
   {
     id: 11,
     formGroup: FormGroups.SHIPPING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'country',
-    type: 'text',
+    type: 'select',
     label: 'country',
-    value: '',
+    value: ['Poland', 'Germany', 'France'],
   },
   {
     id: 12,
@@ -29,7 +29,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     name: 'city',
     type: 'text',
     label: 'city',
-    value: '',
+    value: [],
   },
   {
     id: 13,
@@ -38,7 +38,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     validationRuleGroup: ValidationRuleGroup.COMMON,
     type: 'text',
     label: 'street',
-    value: '',
+    value: [],
   },
   {
     id: 14,
@@ -50,7 +50,7 @@ const shippingAddress: FormItemFieldsParams[] = [
         name: 'building',
         type: 'text',
         label: 'building',
-        value: '',
+        value: [],
       },
       {
         id: 112,
@@ -59,7 +59,7 @@ const shippingAddress: FormItemFieldsParams[] = [
         name: 'apartment',
         type: 'text',
         label: 'apt.',
-        value: '',
+        value: [],
       },
       {
         id: 113,
@@ -68,7 +68,7 @@ const shippingAddress: FormItemFieldsParams[] = [
         name: 'postalCode',
         type: 'text',
         label: 'zip code',
-        value: '',
+        value: [],
       },
     ],
   },
@@ -81,16 +81,16 @@ const billingAddress: FormItemFieldsParams[] = [
     name: 'phone',
     type: 'phone',
     label: 'phone',
-    value: '',
+    value: [],
   },
   {
     id: 1,
     formGroup: FormGroups.BILLING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'country',
-    type: 'text',
+    type: 'select',
     label: 'country',
-    value: '',
+    value: ['Poland', 'Germany', 'France'],
   },
   {
     id: 2,
@@ -99,7 +99,7 @@ const billingAddress: FormItemFieldsParams[] = [
     name: 'city',
     type: 'text',
     label: 'city',
-    value: '',
+    value: [],
   },
   {
     id: 3,
@@ -108,7 +108,7 @@ const billingAddress: FormItemFieldsParams[] = [
     validationRuleGroup: ValidationRuleGroup.COMMON,
     type: 'text',
     label: 'street',
-    value: '',
+    value: [],
   },
   {
     id: 4,
@@ -120,7 +120,7 @@ const billingAddress: FormItemFieldsParams[] = [
         name: 'building',
         type: 'text',
         label: 'building',
-        value: '',
+        value: [],
       },
       {
         id: 20,
@@ -129,7 +129,7 @@ const billingAddress: FormItemFieldsParams[] = [
         name: 'apartment',
         type: 'text',
         label: 'apt.',
-        value: '',
+        value: [],
       },
       {
         id: 30,
@@ -138,7 +138,7 @@ const billingAddress: FormItemFieldsParams[] = [
         name: 'postalCode',
         type: 'text',
         label: 'zip code',
-        value: '',
+        value: [],
       },
     ],
   },
@@ -151,7 +151,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'firstName',
     type: 'text',
     label: 'firstName',
-    value: '',
+    value: [],
   },
   {
     id: 22,
@@ -160,7 +160,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'lastName',
     type: 'text',
     label: 'lastName',
-    value: '',
+    value: [],
   },
   {
     id: 23,
@@ -169,7 +169,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'email',
     type: 'text',
     label: 'email',
-    value: '',
+    value: [],
   },
   {
     id: 24,
@@ -178,7 +178,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'password',
     type: 'password',
     label: 'password',
-    value: '',
+    value: [],
   },
   {
     id: 25,
@@ -187,7 +187,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'confirmPassword',
     type: 'password',
     label: 'confirm password',
-    value: '',
+    value: [],
   },
 ];
 
@@ -197,7 +197,16 @@ const data = {
   [FormGroups.BILLING_ADDRESS]: billingAddress,
 };
 const SignUp = () => {
-  return <FormContainer childComponent={signUpForm} data={data} pathName='Login' path='/login' title='Sign up' />;
+  return (
+    <FormContainer
+      childComponent={signUpForm}
+      data={data}
+      pathName='Login'
+      path='/login'
+      page={Pages.SIGNUP}
+      title='Sign up'
+    />
+  );
 };
 
 export default SignUp;

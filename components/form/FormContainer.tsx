@@ -8,7 +8,7 @@ import Leaf from '@/public/img/png/leaf.png';
 import LeafSmall from '@/public/img/png/leaf-small.png';
 import { FormikConfig, FormikProps, useFormik } from 'formik';
 import { generateInitialFormikValue } from '@/utils/generateInitialFormikValue';
-import { FormGroups, FsButtonType, ValidationRuleGroup } from '@/types/enums';
+import { FormGroups, FsButtonType, Pages, ValidationRuleGroup } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
@@ -27,7 +27,7 @@ export interface FormItemFieldParams {
   name: string;
   type?: string;
   label?: string;
-  value?: string;
+  value?: string[];
 }
 
 export interface FormItemUnionFieldsParams {
@@ -45,6 +45,7 @@ const FormContainer = ({
   title,
   path,
   pathName,
+  page,
 }: {
   childComponent: (
     data: Record<FormGroups, FormItemFieldsParams[]>,
@@ -54,6 +55,7 @@ const FormContainer = ({
   title: string;
   path: string;
   pathName: string;
+  page: Pages;
 }) => {
   const validationSchema = object().shape(generateFormikFieldsRules(data));
 
@@ -64,6 +66,26 @@ const FormContainer = ({
   const router = useRouter();
   const currentPath = usePathname();
 
+  const login = async (values: formikValuesType, token: string) => {
+    const loginPayload = {
+      email: values['login-email'],
+      password: values['login-password'],
+    };
+    const response = await dispatch(loginAsync({ values: loginPayload, token }));
+    if (response.payload) {
+      const loginCredentials = {
+        username: loginPayload.email,
+        password: loginPayload.password,
+      };
+
+      const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
+
+      if (customerToken.payload.access_token) {
+        dispatch(getCustomerAsync(customerToken.payload.access_token));
+      }
+    }
+  };
+
   const formikConfig: FormikConfig<formikValuesType> = {
     initialValues: initialValues,
     validationSchema: validationSchema,
@@ -71,23 +93,10 @@ const FormContainer = ({
       const token = TokenService.getAccessToken();
 
       if (token) {
-        const loginPayload = {
-          email: values['login-email'],
-          password: values['login-password'],
-        };
-
-        const response = await dispatch(loginAsync({ values: loginPayload, token }));
-        if (response.payload) {
-          const loginCredentials = {
-            username: loginPayload.email,
-            password: loginPayload.password,
-          };
-
-          const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
-
-          if (customerToken.payload.access_token) {
-            dispatch(getCustomerAsync(customerToken.payload.access_token));
-          }
+        if (page === Pages.LOGIN) {
+          await login(values, token);
+        } else {
+          console.log(values);
         }
       }
     },
