@@ -41,9 +41,8 @@
   height: 22px;
   cursor: pointer;
   position: relative;
-  @extend %transition;
   z-index: 102;
-  transition: .5s ease-in-out;
+  transition: 0.5s ease-in-out;
   transform: rotate(0deg);
 }
 
@@ -57,7 +56,7 @@
   opacity: 1;
   left: 0;
   transform: rotate(0deg);
-  transition: 0.3s ease-in-out;
+  @extend %transition;
 }
 
 .nav__burger span:nth-child(2) {
@@ -148,18 +147,28 @@
   align-items: center;
   column-gap: 10px;
   position: relative;
-  @extend %transition;
 
-  &:hover .nav-icon rect {
-    stroke: $color-primary-hover;
+
+  & .nav-icon rect,
+  & .nav-icon path,
+  & .link-title {
+    @extend %transition;
   }
 
-  &:hover .nav-icon path {
-    fill: $color-primary-hover;
-  }
+  @include hover {
 
-  &:hover .link-title {
-    color: $color-primary-hover;
+    &:hover .nav-icon rect {
+      stroke: $color-primary-hover;
+    }
+
+    &:hover .nav-icon path {
+      fill: $color-primary-hover;
+    }
+
+    &:hover .link-title {
+      color: $color-primary-hover;
+    }
+
   }
 
   @include mobile {
