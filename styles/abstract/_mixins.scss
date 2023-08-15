@@ -40,6 +40,13 @@
   }
 }
 
+@mixin mobile-min {
+  @media (min-width: $mq-mobile) {
+    @content;
+  }
+}
+
+
 @mixin medium-mobile {
   @media (max-width: $mq-m-mobile) {
     @content;
