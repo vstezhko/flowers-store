@@ -4,25 +4,27 @@ import { getCustomerAsync, loginAsync } from '@/redux/slices/loginSlice/thunks';
 interface LoginState {
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
   isLogin: boolean;
-  customer: {
-    addresses: [];
-    email: string | null;
-    firstName: string | null;
-    id: string | null;
-    isEmailVerified: boolean;
-    lastName: string | null;
-    password: string | null;
-    version: number | null;
-    createdAt: string | null;
-    lastModifiedAt: string | null;
-    authenticationMode: string | null;
-  };
+  customer: Customer;
   anonymousCart?: {
     id: string | null;
     typeId: string | null;
   };
   message: string;
   variant: 'error' | 'success';
+}
+
+interface Customer {
+  addresses: [];
+  email: string | null;
+  firstName: string | null;
+  id: string | null;
+  isEmailVerified: boolean;
+  lastName: string | null;
+  password: string | null;
+  version: number | null;
+  createdAt: string | null;
+  lastModifiedAt: string | null;
+  authenticationMode: string | null;
 }
 
 const initialState: LoginState = {
@@ -59,17 +61,29 @@ export const loginSlice = createSlice({
     removeMessage: (state: LoginState) => {
       state.message = '';
     },
+    removeCustomer: state => {
+      state.customer = {
+        addresses: [],
+        email: null,
+        firstName: null,
+        id: null,
+        isEmailVerified: false,
+        lastName: null,
+        password: null,
+        version: null,
+        createdAt: null,
+        lastModifiedAt: null,
+        authenticationMode: null,
+      };
+    },
     setMessage: (state: LoginState, action) => {
       state.message = action.payload.message;
       state.variant = action.payload.variant;
     },
   },
   extraReducers: builder => {
-    const setCustomers = (state: LoginState, action: PayloadAction<LoginState>) => {
-      state.status = 'idle';
-      state.isLogin = true;
-      state.customer = action.payload.customer;
-      state.anonymousCart = action.payload.anonymousCart;
+    const setCustomers = (state: LoginState, action: PayloadAction<Customer>) => {
+      state.customer = action.payload;
     };
 
     builder
@@ -78,18 +92,13 @@ export const loginSlice = createSlice({
       })
       .addCase(loginAsync.fulfilled, (state: LoginState) => {
         state.isLogin = true;
-        // state.message = 'Success login';
-        // state.variant = 'success';
       })
       .addCase(loginAsync.rejected, state => {
-        // state.message = action.error.message ? action.error.message : '';
-        // state.variant = 'error';
         state.isLogin = false;
       })
-      .addCase(getCustomerAsync.fulfilled, (state: LoginState, action: PayloadAction<LoginState>) => {
+      .addCase(getCustomerAsync.fulfilled, (state: LoginState, action: PayloadAction<Customer>) => {
         setCustomers(state, action);
-        // state.message = '';
-        // state.variant = 'success';
+        state.message = '';
       });
   },
 });

@@ -28,6 +28,15 @@ const getCustomerAccessToken = async ({ username, password }: { username: string
   return authPost(`/oauth/${PROJECT_KEY}/customers/token`, body);
 };
 
+const refreshCustomerAccessToken = async (refreshToken: string) => {
+  const body = {
+    grant_type: 'refresh_token',
+    refresh_token: refreshToken,
+  };
+
+  return authPost(`/oauth/${PROJECT_KEY}/customers/token`, body);
+};
+
 const login = async (values: LoginValues, token: string) => {
   const body = JSON.stringify({
     scope: SCOPE,
@@ -42,5 +51,6 @@ export const AuthService = {
   getClientAccessToken,
   getAnonymousAccessToken,
   getCustomerAccessToken,
+  refreshCustomerAccessToken,
   login,
 };

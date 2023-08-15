@@ -8,8 +8,9 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    TokenService.removeAccessTokenFromLS();
+    TokenService.removeTokensFromLS();
     dispatch(loginSlice.actions.setIsLogin(false));
+    dispatch(loginSlice.actions.removeCustomer());
   };
 
   return (

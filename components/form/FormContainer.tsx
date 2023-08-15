@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import LeafLeft from '@/public/img/png/leaf-left.png';
 import LeafRight from '@/public/img/png/leaf-right.png';
 import { Paper } from '@mui/material';
@@ -62,18 +62,14 @@ const FormContainer = ({
   const { message, variant, isLogin } = useSelector(state => state.login);
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
-  const [token, setToken] = useState('');
   const currentPath = usePathname();
-
-  useEffect(() => {
-    const access_token = TokenService.getAccessToken();
-    if (access_token) setToken(access_token);
-  }, [token]);
 
   const formikConfig: FormikConfig<formikValuesType> = {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: async values => {
+      const token = TokenService.getAccessToken();
+
       if (token) {
         const loginPayload = {
           email: values['login-email'],
@@ -104,7 +100,7 @@ const FormContainer = ({
   useEffect(() => {
     if (message) {
       enqueueSnackbar(message, { variant });
-      dispatch(loginSlice.actions.removeMessage);
+      dispatch(loginSlice.actions.removeMessage());
     }
   }, [message, variant, enqueueSnackbar, dispatch]);
 
