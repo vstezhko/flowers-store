@@ -34,6 +34,20 @@
   }
 }
 
+.nav__link.logout{
+  padding: 10px;
+  border: 1px solid $color-primary;
+  border-radius: 4px;
+
+  &:hover h5{
+    color: $color-shade-0 !important;
+  }
+
+  &:hover{
+    background-color: $color-primary-light;
+  }
+}
+
 .nav__burger {
   align-items: center;
   justify-content: center;
@@ -206,17 +220,18 @@
   @include mobile {
     justify-content: flex-end;
     grid-column: span 1;
-
-    svg {
-      width: 30px;
-      height: 30px;
-    }
+    column-gap: 5px;
 
     h5 {
       text-align: right;
     }
 
+    .nav__link:last-child{
+      margin-right: 10px;
+    }
+
   }
+
 
 }
 
