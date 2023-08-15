@@ -2,16 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Skeleton, useMediaQuery } from '@mui/material';
 import { MenuParamsWithoutPathName } from '@/components/header/Header';
 import NavLink from '@/components/nav/NavLink';
 import MobileMenu from '@/components/nav/MobileMenu';
 import BurgerIcon from '@/components/nav/BurderIcon';
 import { ReduxState } from '@/redux/store';
-import UserIcon from '../Icons/UserIcon';
+// import UserIcon from '../Icons/UserIcon';
 import { TokenService } from '@/api/services/Token.service';
 import { TokenType } from '@/types/enums';
+import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 
 const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   const pathname = usePathname();
@@ -20,6 +21,14 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    TokenService.removeTokensFromLS();
+    dispatch(loginSlice.actions.setIsLogin(false));
+    dispatch(loginSlice.actions.removeCustomer());
   };
 
   const { access_token } = useSelector((state: ReduxState) => state.auth);
@@ -31,7 +40,8 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   }, [access_token]);
 
   const authContent = (
-    <NavLink path='/profile' title={matches ? '' : 'My Profile'} pathName={pathname} icon={<UserIcon />} className='' />
+    // <NavLink path='/profile' title={matches ? '' : 'My Profile'} pathName={pathname} icon={<UserIcon />} className='' />
+    <NavLink title='Log out' pathName='' path='/' icon={null} className='' onClick={handleLogout} />
   );
   const guestContent = (
     <>
