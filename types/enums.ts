@@ -12,6 +12,11 @@ export enum FormGroups {
   LOGIN = 'login',
 }
 
+export enum Pages {
+  LOGIN = 'login',
+  SIGNUP = 'signup',
+}
+
 export enum ValidationRuleGroup {
   EMAIL = 'email',
   PASSWORD = 'password',

@@ -9,7 +9,8 @@
 
 //input
 
-@mixin inputLabelFont {
+@mixin
+inputLabelFont {
   @include font(14px, 700, 120%);
   font-family: var(--karton);
 }

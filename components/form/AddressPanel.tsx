@@ -3,6 +3,7 @@ import FsPhoneInput from '@/components/UI/FsPhoneInput';
 import FsCheckbox from '@/components/UI/FsCheckbox';
 import { formikValuesType, FormItemFieldsParams } from '@/components/form/FormContainer';
 import { FormikProps } from 'formik';
+import FsSelect from '@/components/UI/FsSelect';
 
 const AddressPanel = ({
   data,
@@ -20,6 +21,26 @@ const AddressPanel = ({
         let compoundName;
         if ('name' in inputData) {
           compoundName = `${inputData.formGroup}-${inputData.name}`;
+        }
+
+        if ('type' in inputData && compoundName && inputData.type === 'select') {
+          return (
+            <FsSelect
+              key={inputData.id}
+              options={inputData.value || []}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              name={compoundName}
+              id={inputData.id.toString()}
+              label={inputData.label || ''}
+              value={formik.values[compoundName]}
+              formgroup={inputData.formGroup}
+              error={(formik.touched[compoundName] && Boolean(formik.errors[compoundName])) || false}
+              errorText={
+                formik.touched[compoundName] && formik.errors[compoundName] ? formik.errors[compoundName] : ' '
+              }
+            />
+          );
         }
 
         return 'type' in inputData && inputData.type && compoundName ? (

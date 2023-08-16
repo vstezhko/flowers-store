@@ -8,17 +8,18 @@ import Leaf from '@/public/img/png/leaf.png';
 import LeafSmall from '@/public/img/png/leaf-small.png';
 import { FormikConfig, FormikProps, useFormik } from 'formik';
 import { generateInitialFormikValue } from '@/utils/generateInitialFormikValue';
-import { FormGroups, FsButtonType, ValidationRuleGroup } from '@/types/enums';
+import { FormGroups, FsButtonType, Pages, ValidationRuleGroup } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
 import { useDispatch, useSelector } from '@/redux/store';
-import { getCustomerAsync, loginAsync } from '@/redux/slices/loginSlice/thunks';
+import { getCustomerAsync, loginAsync, sighUpAsync } from '@/redux/slices/loginSlice/thunks';
 import { useSnackbar } from 'notistack';
 import { TokenService } from '@/api/services/Token.service';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 import { usePathname, useRouter } from 'next/navigation';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import { deletePrefixKey } from '@/utils/deletePrefixKey';
 
 export interface FormItemFieldParams {
   id: number;
@@ -27,7 +28,7 @@ export interface FormItemFieldParams {
   name: string;
   type?: string;
   label?: string;
-  value?: string;
+  value?: string[];
 }
 
 export interface FormItemUnionFieldsParams {
@@ -45,6 +46,7 @@ const FormContainer = ({
   title,
   path,
   pathName,
+  page,
 }: {
   childComponent: (
     data: Record<FormGroups, FormItemFieldsParams[]>,
@@ -54,6 +56,7 @@ const FormContainer = ({
   title: string;
   path: string;
   pathName: string;
+  page: Pages;
 }) => {
   const validationSchema = object().shape(generateFormikFieldsRules(data));
 
@@ -64,37 +67,55 @@ const FormContainer = ({
   const router = useRouter();
   const currentPath = usePathname();
 
+  const login = async (values: formikValuesType, token: string) => {
+    if (token) {
+      const loginPayload = deletePrefixKey(values);
+      const { email, password } = loginPayload;
+      const response = await dispatch(loginAsync({ loginPayload, token }));
+      if (response.payload) {
+        const loginCredentials = {
+          username: email,
+          password,
+        };
+
+        const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
+        if (customerToken.payload.access_token) {
+          dispatch(getCustomerAsync(customerToken.payload.access_token));
+        }
+      }
+    }
+  };
+
+  const signUp = async (values: formikValuesType, token: string) => {
+    if (token) {
+      const signUpPayload = deletePrefixKey(values);
+      const { email, password } = signUpPayload;
+      const response = await dispatch(sighUpAsync({ signUpPayload, token }));
+      if (response.payload) {
+        const loginPayload = {
+          email,
+          password,
+        };
+        await login(loginPayload, token);
+      }
+    }
+  };
+
   const formikConfig: FormikConfig<formikValuesType> = {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: async values => {
       const token = TokenService.getAccessToken();
-
-      if (token) {
-        const loginPayload = {
-          email: values['login-email'],
-          password: values['login-password'],
-        };
-
-        const response = await dispatch(loginAsync({ values: loginPayload, token }));
-        if (response.payload) {
-          const loginCredentials = {
-            username: loginPayload.email,
-            password: loginPayload.password,
-          };
-
-          const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
-
-          if (customerToken.payload.access_token) {
-            dispatch(getCustomerAsync(customerToken.payload.access_token));
-          }
-        }
+      if (page === Pages.LOGIN) {
+        await login(values, token);
+      } else {
+        await signUp(values, token);
       }
     },
   };
 
   useEffect(() => {
-    if (isLogin && currentPath === '/login') router.push('/');
+    if (isLogin && (currentPath === '/login' || currentPath === '/signup')) router.push('/');
   }, [isLogin, currentPath, router]);
 
   useEffect(() => {
