@@ -1,4 +1,4 @@
-import { InputLabel, MenuItem, Select, SelectProps } from '@mui/material';
+import { FormHelperText, InputLabel, MenuItem, Select, SelectProps } from '@mui/material';
 import React from 'react';
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 import { FormikProps } from 'formik';
@@ -11,7 +11,6 @@ export interface FsSelectParams extends Omit<SelectProps, 'ref'> {
   label: string;
   className?: string;
   errorText?: string | undefined;
-  forwardedRef?: React.Ref<HTMLInputElement>;
   disabled?: boolean;
   focused?: boolean;
   validationRuleGroup?: ValidationRuleGroup;
@@ -44,11 +43,7 @@ const FsSelect: React.FC<FsSelectParams> = props => {
           </MenuItem>
         ))}
       </Select>
-      <p
-        className='MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-rmhgeq-MuiFormHelperText-root'
-        id={id}>
-        {errorText}
-      </p>
+      <FormHelperText id={id}>{errorText}</FormHelperText>
     </div>
   );
 };

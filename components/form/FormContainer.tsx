@@ -13,12 +13,13 @@ import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
 import { useDispatch, useSelector } from '@/redux/store';
-import { getCustomerAsync, loginAsync } from '@/redux/slices/loginSlice/thunks';
+import { getCustomerAsync, loginAsync, sighUpAsync } from '@/redux/slices/loginSlice/thunks';
 import { useSnackbar } from 'notistack';
 import { TokenService } from '@/api/services/Token.service';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 import { usePathname, useRouter } from 'next/navigation';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import { deletePrefixKey } from '@/utils/deletePrefixKey';
 
 export interface FormItemFieldParams {
   id: number;
@@ -67,21 +68,35 @@ const FormContainer = ({
   const currentPath = usePathname();
 
   const login = async (values: formikValuesType, token: string) => {
-    const loginPayload = {
-      email: values['login-email'],
-      password: values['login-password'],
-    };
-    const response = await dispatch(loginAsync({ values: loginPayload, token }));
-    if (response.payload) {
-      const loginCredentials = {
-        username: loginPayload.email,
-        password: loginPayload.password,
-      };
+    if (token) {
+      const loginPayload = deletePrefixKey(values);
+      const { email, password } = loginPayload;
+      const response = await dispatch(loginAsync({ loginPayload, token }));
+      if (response.payload) {
+        const loginCredentials = {
+          username: email,
+          password,
+        };
 
-      const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
+        const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
+        if (customerToken.payload.access_token) {
+          dispatch(getCustomerAsync(customerToken.payload.access_token));
+        }
+      }
+    }
+  };
 
-      if (customerToken.payload.access_token) {
-        dispatch(getCustomerAsync(customerToken.payload.access_token));
+  const signUp = async (values: formikValuesType, token: string) => {
+    if (token) {
+      const signUpPayload = deletePrefixKey(values);
+      const { email, password } = signUpPayload;
+      const response = await dispatch(sighUpAsync({ signUpPayload, token }));
+      if (response.payload) {
+        const loginPayload = {
+          email,
+          password,
+        };
+        await login(loginPayload, token);
       }
     }
   };
@@ -91,19 +106,16 @@ const FormContainer = ({
     validationSchema: validationSchema,
     onSubmit: async values => {
       const token = TokenService.getAccessToken();
-
-      if (token) {
-        if (page === Pages.LOGIN) {
-          await login(values, token);
-        } else {
-          console.log(values);
-        }
+      if (page === Pages.LOGIN) {
+        await login(values, token);
+      } else {
+        await signUp(values, token);
       }
     },
   };
 
   useEffect(() => {
-    if (isLogin && currentPath === '/login') router.push('/');
+    if (isLogin && (currentPath === '/login' || currentPath === '/signup')) router.push('/');
   }, [isLogin, currentPath, router]);
 
   useEffect(() => {
