@@ -9,10 +9,12 @@ const AddressPanel = ({
   data,
   title,
   formik,
+  disabled,
 }: {
   data: FormItemFieldsParams[];
   title: string;
   formik: FormikProps<formikValuesType>;
+  disabled?: boolean;
 }) => {
   return (
     <>
@@ -39,6 +41,7 @@ const AddressPanel = ({
               errorText={
                 formik.touched[compoundName] && formik.errors[compoundName] ? formik.errors[compoundName] : ' '
               }
+              disabled={disabled}
             />
           );
         }
@@ -59,6 +62,7 @@ const AddressPanel = ({
               }
               error={(formik.touched[compoundName] && Boolean(formik.errors[compoundName])) || false}
               formGroup={inputData.formGroup}
+              disabled={disabled}
             />
           ) : (
             <FsPhoneInput
@@ -75,6 +79,7 @@ const AddressPanel = ({
               }
               error={(formik.touched[compoundName] && Boolean(formik.errors[compoundName])) || false}
               formGroup={inputData.formGroup}
+              disabled={disabled}
             />
           )
         ) : (
@@ -105,6 +110,7 @@ const AddressPanel = ({
                       }
                       error={(formik.touched[subCompoundName] && Boolean(formik.errors[subCompoundName])) || false}
                       formGroup={subInput.formGroup}
+                      disabled={disabled}
                     />
                   );
                 }

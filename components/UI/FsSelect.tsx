@@ -22,10 +22,10 @@ export interface FsSelectParams extends Omit<SelectProps, 'ref'> {
 }
 
 const FsSelect: React.FC<FsSelectParams> = props => {
-  const { id, name, label, error, value, onChange, onBlur, options, className, errorText, ...rest } = props;
+  const { id, name, label, error, value, onChange, onBlur, options, className, errorText, disabled, ...rest } = props;
   return (
     <div className={`fsSelect__container fsSelect ${className}`}>
-      <InputLabel variant='standard' htmlFor={name} className={error ? 'Mui-error' : ''}>
+      <InputLabel variant='standard' htmlFor={name} className={error ? 'Mui-error' : ''} disabled={disabled}>
         {label}
       </InputLabel>
       <Select
@@ -36,6 +36,7 @@ const FsSelect: React.FC<FsSelectParams> = props => {
         onChange={onChange}
         onBlur={onBlur}
         className={error ? 'Mui-error' : ''}
+        disabled={disabled}
         {...rest}>
         {options?.map((opt: string, index: number) => (
           <MenuItem key={index} value={opt}>
