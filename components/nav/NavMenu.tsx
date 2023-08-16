@@ -2,17 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
 import { Skeleton, useMediaQuery } from '@mui/material';
 import { MenuParamsWithoutPathName } from '@/components/header/Header';
 import NavLink from '@/components/nav/NavLink';
 import MobileMenu from '@/components/nav/MobileMenu';
 import BurgerIcon from '@/components/nav/BurderIcon';
-import { ReduxState } from '@/redux/store';
+import { ReduxState, useDispatch, useSelector } from '@/redux/store';
 // import UserIcon from '../Icons/UserIcon';
 import { TokenService } from '@/api/services/Token.service';
 import { TokenType } from '@/types/enums';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import FlowerIcon from '@/components/Icons/FlowerIcon';
+import { useSnackbar } from 'notistack';
 
 const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   const pathname = usePathname();
@@ -24,11 +25,13 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   };
 
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleLogout = () => {
     TokenService.removeTokensFromLS();
     dispatch(loginSlice.actions.setIsLogin(false));
     dispatch(loginSlice.actions.removeCustomer());
+    enqueueSnackbar('Successful logout', { variant: 'success' });
   };
 
   const { access_token } = useSelector((state: ReduxState) => state.auth);
@@ -41,12 +44,12 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
 
   const authContent = (
     // <NavLink path='/profile' title={matches ? '' : 'My Profile'} pathName={pathname} icon={<UserIcon />} className='' />
-    <NavLink title='Log out' pathName='' path='/' icon={null} className='' onClick={handleLogout} />
+    <NavLink title='Log out' pathName='' path='/' icon={null} className='logout' onClick={handleLogout} />
   );
   const guestContent = (
     <>
       <NavLink path='/login' title='Login' pathName='' icon={null} className='' />
-      <p>|</p>
+      <FlowerIcon />
       <NavLink path='/signup' title='Sign Up' pathName='' icon={null} className='' />
     </>
   );
