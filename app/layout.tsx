@@ -15,7 +15,7 @@ import {
 } from '@/utils/fonts';
 import React from 'react';
 import { Providers } from '@/redux/providers';
-import AuthComponent from '@/components/middleware/AuthComponent';
+import AuthComponent from '@/components/AuthComponent';
 import { SnackBarProvider } from '@/components/provider/SnackBar';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
