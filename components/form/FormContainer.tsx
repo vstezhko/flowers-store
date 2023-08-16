@@ -1,8 +1,8 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import LeafLeft from '@/public/img/png/leaf-left.png';
 import LeafRight from '@/public/img/png/leaf-right.png';
-import { Paper } from '@mui/material';
+import { Paper, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import Leaf from '@/public/img/png/leaf.png';
 import LeafSmall from '@/public/img/png/leaf-small.png';
@@ -49,8 +49,9 @@ const FormContainer = ({
   page,
 }: {
   childComponent: (
-    data: Record<FormGroups, FormItemFieldsParams[]>,
-    formik: FormikProps<formikValuesType>
+    data1: Record<string, FormItemFieldsParams[]>,
+    formik1: FormikProps<formikValuesType>,
+    open: Record<string, string | boolean>
   ) => React.JSX.Element;
   data: Record<string, FormItemFieldsParams[]>;
   title: string;
@@ -66,7 +67,9 @@ const FormContainer = ({
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const currentPath = usePathname();
-
+  const [open, setOpen] = useState({ name: '', state: false });
+  const [isValid, setIsValid] = useState(false);
+  const matches = useMediaQuery('(max-width:500px)');
   const login = async (values: formikValuesType, token: string) => {
     if (token) {
       const loginPayload = deletePrefixKey(values);
@@ -126,6 +129,7 @@ const FormContainer = ({
   }, [message, variant, enqueueSnackbar, dispatch]);
 
   const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
+  console.log(formik.isValidating);
 
   return (
     <div className='form-container__background-img'>
@@ -144,8 +148,43 @@ const FormContainer = ({
         <img src={LeafSmall.src} alt='leaf' className='form-img-bottom' />
         <form className='form' onSubmit={formik.handleSubmit}>
           <h2>{title}</h2>
-          {childComponent(data, formik)}
-          <FsButton type='submit' className={FsButtonType.REGULAR} label='SEND' />
+          {childComponent(data, formik, open)}
+          {page === Pages.SIGNUP ? (
+            !isValid ? (
+              <FsButton
+                className={FsButtonType.REGULAR}
+                type='submit'
+                label='Further'
+                onClick={async e => {
+                  e.preventDefault();
+                  const errors = await formik.validateForm();
+                  const customerErrorsArray = Object.keys(errors)
+                    .filter(key => key.includes('customer'))
+                    .map(key => ({ [key]: errors[key] }));
+                  if (customerErrorsArray.length === 0) {
+                    setOpen({ name: 'panel2', state: true });
+                    if (matches) {
+                      const shippingErrorsArray = Object.keys(errors)
+                        .filter(key => key.includes('shipping'))
+                        .map(key => ({ [key]: errors[key] }));
+                      if (shippingErrorsArray.length === 0) {
+                        setOpen({ name: 'panel3', state: true });
+                        setIsValid(true);
+                      }
+                    } else {
+                      setIsValid(true);
+                    }
+                  } else {
+                    formik.handleSubmit();
+                  }
+                }}
+              />
+            ) : (
+              <FsButton type='submit' className={FsButtonType.REGULAR} label='SEND' />
+            )
+          ) : (
+            <FsButton type='submit' className={FsButtonType.REGULAR} label='SEND' />
+          )}
         </form>
       </Paper>
     </div>

@@ -12,7 +12,7 @@ const FsAccordion = ({
   name,
 }: {
   children: React.ReactNode;
-  expanded: string | false;
+  expanded: string | boolean;
   handleChange: (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
   summary: string;
   name: string;

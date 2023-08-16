@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FsAccordion from '@/components/UI/FsAccordion';
 import MainPanel from '@/components/form/MainPanel';
 import AddressPanel from '@/components/form/AddressPanel';
@@ -8,13 +8,22 @@ import { formikValuesType, FormItemFieldsParams } from '@/components/form/FormCo
 import { FormikProps } from 'formik';
 import { useMediaQuery } from '@mui/material';
 
-const SignUpForm = (data: Record<FormGroups, FormItemFieldsParams[]>, formik: FormikProps<formikValuesType>) => {
+const SignUpForm = (
+  data: Record<FormGroups, FormItemFieldsParams[]>,
+  formik: FormikProps<formikValuesType>,
+  open: Record<string, string | boolean>
+) => {
+  console.log(open);
   const matches = useMediaQuery('(max-width:500px)');
   const [expanded, setExpanded] = useState<string | false>('panel1');
 
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  useEffect(() => {
+    if (open.state) setExpanded(open.name as string);
+  }, [open]);
 
   return (
     <div className='form__content'>
