@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FsAccordion from '@/components/UI/FsAccordion';
 import MainPanel from '@/components/form/MainPanel';
 import AddressPanel from '@/components/form/AddressPanel';
@@ -8,13 +8,23 @@ import { formikValuesType, FormItemFieldsParams } from '@/components/form/FormCo
 import { FormikProps } from 'formik';
 import { useMediaQuery } from '@mui/material';
 
-const SignUpForm = (data: Record<FormGroups, FormItemFieldsParams[]>, formik: FormikProps<formikValuesType>) => {
+const SignUpForm = (
+  data: Record<FormGroups, FormItemFieldsParams[]>,
+  formik: FormikProps<formikValuesType>,
+  open: Record<string, string | boolean>
+) => {
+  console.log(open);
   const matches = useMediaQuery('(max-width:500px)');
   const [expanded, setExpanded] = useState<string | false>('panel1');
 
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
+  
+  useEffect(() => {
+    if (open.state) setExpanded(open.name as string);
+  }, [open]);
+
 
   const [disabled, setDisabled] = useState(false);
   const setBillingAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +52,12 @@ const SignUpForm = (data: Record<FormGroups, FormItemFieldsParams[]>, formik: Fo
         </div>
       </FsAccordion>
       {!matches ? (
-        <FsAccordion name='panel2' expanded={expanded} handleChange={handleChange} summary='Address'>
+        <FsAccordion
+          name='panel2'
+          expanded={expanded}
+          disabled={open.name !== 'panel2'}
+          handleChange={handleChange}
+          summary='Address'>
           <div className='layout-2-columns'>
             <div className='panel__item'>
               <AddressPanel data={data.shippingAddress} title='Shipping address' formik={formik} />
@@ -55,13 +70,23 @@ const SignUpForm = (data: Record<FormGroups, FormItemFieldsParams[]>, formik: Fo
         </FsAccordion>
       ) : (
         <>
-          <FsAccordion name='panel2' expanded={expanded} handleChange={handleChange} summary='Shipping address'>
+          <FsAccordion
+            name='panel2'
+            expanded={expanded}
+            handleChange={handleChange}
+            summary='Shipping address'
+            disabled={expanded === 'panel1' && open.name !== 'panel3'}>
             <div className='panel__item'>
               <AddressPanel data={data.shippingAddress} title='' formik={formik} />
               <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
             </div>
           </FsAccordion>
-          <FsAccordion name='panel3' expanded={expanded} handleChange={handleChange} summary='Billing address'>
+          <FsAccordion
+            name='panel3'
+            expanded={expanded}
+            handleChange={handleChange}
+            summary='Billing address'
+            disabled={open.name !== 'panel3'}>
             <div className='panel__item'>
               <AddressPanel data={data.billingAddress} title='' formik={formik} disabled={disabled} />
             </div>
