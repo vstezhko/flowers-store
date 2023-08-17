@@ -21,7 +21,7 @@ export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title'
 export const menuItems: MenuParamsWithoutPathName[] = [
   { id: 1, path: '/catalog', title: 'Catalog', icon: null, className: 'link', mobile: true },
   { id: 2, path: '/discounts', title: 'Discounts', icon: null, className: 'link', mobile: true },
-  { id: 3, path: '/about', title: 'About us', icon: null, className: 'link', mobile: true },
+  { id: 3, path: '/about', title: 'About Us', icon: null, className: 'link', mobile: true },
   { id: 4, path: '/', title: '', icon: <LogoIcon />, className: 'logo' },
   { id: 5, path: '/reviews', title: 'Reviews', icon: null, className: 'link', mobile: true },
   { id: 6, path: '/contacts', title: 'Contacts', icon: null, className: 'link', mobile: true },

@@ -12,14 +12,14 @@
 .nav__link.logo {
   max-width: 160px;
   flex-grow: 1;
+  @include small {
+    max-width: 130px;
+  }
 
   @include mobile {
     max-width: 120px;
   }
 
-  @include small {
-    max-width: 130px;
-  }
 
   svg {
     @include small {
@@ -154,13 +154,12 @@
 }
 
 
-
 .nav__mobile-container.open {
 
   @include small {
     left: 0;
 
-    & > img{
+    & > img {
       position: absolute;
       right: 0;
       bottom: 0;
@@ -203,16 +202,16 @@
 }
 
 
-
 .link-title {
   color: $color-primary;
   text-transform: uppercase;
   cursor: pointer;
+
   &_active {
     text-decoration: underline;
     font-weight: 700;
 
-    @include small{
+    @include small {
       text-decoration: none;
     }
   }
@@ -239,26 +238,32 @@
   width: 120px;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   height: fit-content;
-  column-gap: 10px;
+  gap: 10px;
+
+  @include small-mobile{
+    flex-direction: column;
+    align-items: flex-end;
+
+    & > .nav__link{
+      width: 40px;
+      & > h5{
+        width: 100%;
+        text-align: left;
+      }
+    }
+  }
 
   & > p {
     align-self: center;
   }
 
-  @include mobile {
-    justify-content: flex-end;
-    column-gap: 5px;
-
-    h5 {
-      text-align: right;
+  & > .flower-icon{
+    @include small-mobile{
+      display: none;
     }
-
-    .nav__link:last-child {
-      margin-right: 10px;
-    }
-
   }
 }
 

@@ -49,7 +49,7 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   );
   const guestContent = (
     <>
-      <NavLink path='/login' title='Login' pathName='' icon={null} className='' />
+      <NavLink path='/login' title='Sign In' pathName='' icon={null} className='' />
       <FlowerIcon />
       <NavLink path='/signup' title='Sign Up' pathName='' icon={null} className='' />
     </>
