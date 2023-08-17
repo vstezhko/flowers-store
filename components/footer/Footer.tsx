@@ -1,19 +1,18 @@
 import React from 'react';
-// import { MenuParams } from '@/components/header/Header';
+import { MenuParams } from '@/components/header/Header';
+import PhoneIcon from '@/components/Icons/PhoneIcon';
+import NavLink from '@/components/nav/NavLink';
+import ContactForm from '@/components/form/contactForm/ContactForm';
 
-// import NavMenu from '@/components/nav/NavMenu';
-// // import PhoneIcon from '@/components/Icons/PhoneIcon';
-//
-// export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon'>;
-//
-// const menuItems: MenuParamsWithoutPathName[] = [
-//   { id: 1, path: '/catalog', title: 'Catalog', icon: null },
-//   { id: 2, path: '/discounts', title: 'Discounts', icon: null },
-//   { id: 3, path: '/reviews', title: 'Reviews', icon: null },
-//   { id: 4, path: '/contacts', title: 'Contacts', icon: null },
-//   { id: 6, path: '/offer', title: 'Offer', icon: null },
-//   { id: 5, path: '/info', title: 'Info for clients', icon: null },
-// ];
+export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon'>;
+
+const menuItems: MenuParamsWithoutPathName[] = [
+  { id: 1, path: '/order', title: 'Order Placement', icon: null },
+  { id: 2, path: '/faq', title: 'Questions and Answers', icon: null },
+  { id: 3, path: '/order-modification', title: 'Order Modification or Cancellation', icon: null },
+  { id: 4, path: '/delivery', title: 'Delivery and Payment Methods', icon: null },
+  { id: 5, path: '/discount', title: 'Our Discounts', icon: null },
+];
 
 const getCurrentYear = () => {
   return new Date().getFullYear();
@@ -21,32 +20,57 @@ const getCurrentYear = () => {
 const Footer = () => {
   return (
     <footer className='footer'>
-      {/*<div className='footer-nav'>*/}
-      {/*  <NavMenu menuItems={menuItems} currency={false} />*/}
-      {/*</div>*/}
-      <div className='footer-menu'>
-        <div className='footer-menu__container container'>
-          <div className='footer-menu__item menu__info'>
-            <h4>Contact Information</h4>
-            {/*<p>Address</p>*/}
-            {/*<div className='menu__info-phone'>*/}
-            {/*  <PhoneIcon />*/}
-            {/*  <a className='phone' href='tel:+78083535335'>*/}
-            {/*    + 7 808 353 53 35*/}
-            {/*  </a>*/}
-            {/*</div>*/}
-            {/*<p>Shop hours: Mon-Sat from 8 am to 10 pm</p>*/}
-          </div>
-          <div className='footer-menu__item menu__clients'>
-            <h4>For Clients</h4>
-          </div>
-          <div className='footer-menu__item menu__form'>
-            <h4>Any questions? Contact us</h4>
+      <div className='footer-menu__container layout-3-columns container'>
+        <div className='footer-menu__item menu__info'>
+          <h4>Contact Information</h4>
+          <div className='info__block'>
+            <div className='info__block'>
+              <p>
+                <span>Address:</span>
+              </p>
+              <p>Warsaw, Pola Karolinskie 2a</p>
+            </div>
+            <div className='info__block info__block_phone'>
+              <PhoneIcon />
+              <a className='phone' href='tel:+78083535335'>
+                + 7 808 353 53 35
+              </a>
+            </div>
+            <div className='info__block info__block_phone'>
+              <PhoneIcon />
+              <a className='phone' href='tel:+78083535335'>
+                + 7 808 353 53 35
+              </a>
+            </div>
+            <div className='info__block'>
+              <p>
+                <span>Shop hours:</span>
+              </p>
+              <p>Mon-Sat from 8 am to 10 pm</p>
+            </div>
           </div>
         </div>
-        <span className='line'></span>
-        <div className='footer__date'>© {getCurrentYear()} Flowers store</div>
+        <div className='footer-menu__item menu__clients'>
+          <h4>For Clients</h4>
+          <div className='info__block'>
+            {menuItems.map(link => (
+              <NavLink
+                key={link.id}
+                path={link.path}
+                title={link.title}
+                icon={link.icon}
+                pathName=''
+                className='footer-link'
+              />
+            ))}
+          </div>
+        </div>
+        <div className='footer-menu__item menu__form'>
+          <h4>Any questions? Contact us</h4>
+          <ContactForm />
+        </div>
       </div>
+      <div className='footer__date'>© {getCurrentYear()} Flowers store</div>
     </footer>
   );
 };
