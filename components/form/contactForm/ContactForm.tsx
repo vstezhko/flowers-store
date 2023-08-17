@@ -29,8 +29,8 @@ const ContactForm = () => {
   const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
 
   useEffect(() => {
-    if (formik.isSubmitting && !formik.errors) formik.resetForm();
-  }, [formik.isSubmitting]);
+    if (formik.isSubmitting && formik.isValid) formik.resetForm();
+  }, [formik.isSubmitting, formik.isValid]);
 
   return (
     <form className='info__block' onSubmit={formik.handleSubmit}>
