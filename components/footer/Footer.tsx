@@ -7,11 +7,10 @@ import ContactForm from '@/components/form/contactForm/ContactForm';
 export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon'>;
 
 const menuItems: MenuParamsWithoutPathName[] = [
-  { id: 1, path: '/order', title: 'Order Placement', icon: null },
-  { id: 2, path: '/faq', title: 'Questions and Answers', icon: null },
-  { id: 3, path: '/order-modification', title: 'Order Modification or Cancellation', icon: null },
-  { id: 4, path: '/delivery', title: 'Delivery and Payment Methods', icon: null },
-  { id: 5, path: '/discount', title: 'Our Discounts', icon: null },
+  { id: 1, path: '/info/offer', title: 'Offer', icon: null },
+  { id: 2, path: '/info/order', title: 'Order Placement', icon: null },
+  { id: 3, path: '/info/faq', title: 'Questions and Answers', icon: null },
+  { id: 4, path: '/info/delivery', title: 'Delivery and Payment Methods', icon: null },
 ];
 
 const getCurrentYear = () => {
@@ -33,21 +32,23 @@ const Footer = () => {
               </div>
               <div className='info__block info__block_phone'>
                 <PhoneIcon />
-                <a className='phone' href='tel:+78083535335'>
-                  + 7 808 353 53 35
+                <a className='phone' href='tel:+48573888888'>
+                  + 48 573 888 888
                 </a>
               </div>
               <div className='info__block info__block_phone'>
                 <PhoneIcon />
-                <a className='phone' href='tel:+78083535335'>
-                  + 7 808 353 53 35
+                <a className='phone' href='tel:+48573888888'>
+                  + 48 573 888 888
                 </a>
               </div>
               <div className='info__block'>
                 <p>
                   <span>Shop hours:</span>
                 </p>
-                <p>Mon-Sat from 8 am to 10 pm</p>
+                <p>
+                  Mon-Sat from <span>8 am</span> to <span>10 pm</span>
+                </p>
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@ import NavLink from '@/components/nav/NavLink';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { MenuParamsWithoutPathName } from '@/components/header/Header';
+import LeafRight from '@/public/img/png/leaf-right.png';
 
 interface MobileMenuProps {
   menuItems: MenuParamsWithoutPathName[];
@@ -20,6 +21,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, isOpen }) => {
             <NavLink path={path} key={id} title={title} pathName={pathname} icon={icon} className={className} />
           ))}
       </div>
+      <img src={LeafRight.src} alt='leaf' />
     </div>
   );
 };

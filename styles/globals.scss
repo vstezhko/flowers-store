@@ -41,20 +41,41 @@ body {
   flex-direction: column;
   flex-grow: 1;
 
+  &__container{
+    padding-top: 179px;
+    flex-grow: 1;
+    background-image: url('../public/img/png/texture.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @include small{
+      padding-top: 149px;
+    }
+
+
+    @include mobile{
+      padding-top: 129px;
+    }
+  }
 }
 
 .container {
   width: 100%;
+  height: 100%;
   max-width: $content-width;
   margin: 0 auto;
   padding: 0 15px;
-  flex-grow: 1;
-
-  &_padding{
-    padding-top: 179px;
-  }
 }
 
 .highlight {
   color: $color-brand-1;
+}
+
+
+.page{
+  padding: 50px 0;
+
+  &__title{
+    text-align: center;
+  }
 }

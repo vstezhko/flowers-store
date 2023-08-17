@@ -1,7 +1,7 @@
 'use client';
 
 const Info = () => {
-  return <div>Info</div>;
+  return <section className='page'>Info</section>;
 };
 
 export default Info;

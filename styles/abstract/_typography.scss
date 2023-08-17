@@ -10,6 +10,10 @@ p {
 
 h1 {
   @include font(2.375rem, 700, normal);
+
+  @include mobile{
+    @include font(1.8rem, 700, normal);
+  }
 }
 
 h2 {
