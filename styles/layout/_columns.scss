@@ -8,7 +8,7 @@
   }
 
   @include mobile {
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: center;
     column-gap: 0;
     row-gap: 1rem;

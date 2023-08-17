@@ -25,9 +25,13 @@ const SignUpForm = (
   }, [open]);
 
   const [disabled, setDisabled] = useState(false);
+  const [shippingAddressValid, setShippingAddressValid] = useState(false);
+
   const setBillingAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked;
+    const touchedFields: { [key: string]: boolean } = {};
     setDisabled(checked);
+
     if (checked) {
       const formFields = formik.values;
       for (const field in formFields) {
@@ -36,14 +40,13 @@ const SignUpForm = (
             const value = formFields[field];
             const billingField = `${FormGroups.BILLING_ADDRESS}-${field.slice(FormGroups.SHIPPING_ADDRESS.length + 1)}`;
             formik.setFieldValue(billingField, value);
+            touchedFields[billingField] = false;
           }
         }
       }
+      formik.setTouched(touchedFields);
     }
   };
-
-  const [shippingAddressValid, setShippingAddressValid] = useState(false);
-  console.log(!shippingAddressValid && disabled);
 
   return (
     <div className='form__content'>
@@ -67,7 +70,9 @@ const SignUpForm = (
                 formik={formik}
                 setIsValid={setShippingAddressValid}
               />
-              <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
+              {shippingAddressValid && (
+                <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
+              )}
             </div>
             <div className='panel__item billing'>
               <AddressPanel
@@ -88,8 +93,15 @@ const SignUpForm = (
             summary='Shipping address'
             disabled={expanded === 'panel1' && open.name !== 'panel3'}>
             <div className='panel__item'>
-              <AddressPanel data={data.shippingAddress} title='' formik={formik} />
-              <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
+              <AddressPanel
+                data={data.shippingAddress}
+                title='Shipping address'
+                formik={formik}
+                setIsValid={setShippingAddressValid}
+              />
+              {shippingAddressValid && (
+                <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
+              )}
             </div>
           </FsAccordion>
           <FsAccordion
