@@ -33,7 +33,12 @@ const SignUpForm = (
         </div>
       </FsAccordion>
       {!matches ? (
-        <FsAccordion name='panel2' expanded={expanded} handleChange={handleChange} summary='Address'>
+        <FsAccordion
+          name='panel2'
+          expanded={expanded}
+          disabled={open.name !== 'panel2'}
+          handleChange={handleChange}
+          summary='Address'>
           <div className='layout-2-columns'>
             <div className='panel__item'>
               <AddressPanel data={data.shippingAddress} title='Shipping address' formik={formik} />
@@ -46,13 +51,23 @@ const SignUpForm = (
         </FsAccordion>
       ) : (
         <>
-          <FsAccordion name='panel2' expanded={expanded} handleChange={handleChange} summary='Shipping address'>
+          <FsAccordion
+            name='panel2'
+            expanded={expanded}
+            handleChange={handleChange}
+            summary='Shipping address'
+            disabled={expanded === 'panel1' && open.name !== 'panel3'}>
             <div className='panel__item'>
               <AddressPanel data={data.shippingAddress} title='' formik={formik} />
               <FsCheckbox label='use the same data for billing address' />
             </div>
           </FsAccordion>
-          <FsAccordion name='panel3' expanded={expanded} handleChange={handleChange} summary='Billing address'>
+          <FsAccordion
+            name='panel3'
+            expanded={expanded}
+            handleChange={handleChange}
+            summary='Billing address'
+            disabled={open.name !== 'panel3'}>
             <div className='panel__item'>
               <AddressPanel data={data.billingAddress} title='' formik={formik} />
             </div>

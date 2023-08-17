@@ -154,7 +154,7 @@ const FormContainer = ({
               <FsButton
                 className={FsButtonType.REGULAR}
                 type='submit'
-                label='Further'
+                label='Next'
                 onClick={async e => {
                   e.preventDefault();
                   const errors = await formik.validateForm();
