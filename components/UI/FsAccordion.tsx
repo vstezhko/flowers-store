@@ -10,15 +10,17 @@ const FsAccordion = ({
   handleChange,
   summary,
   name,
+  disabled,
 }: {
   children: React.ReactNode;
-  expanded: string | false;
+  expanded: string | boolean;
   handleChange: (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
   summary: string;
   name: string;
+  disabled?: boolean;
 }) => {
   return (
-    <Accordion expanded={expanded === name} onChange={handleChange(name)}>
+    <Accordion expanded={expanded === name} onChange={handleChange(name)} disabled={disabled}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
         <h4>{summary}</h4>
       </AccordionSummary>
