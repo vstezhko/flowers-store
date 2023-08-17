@@ -20,49 +20,51 @@ const getCurrentYear = () => {
 const Footer = () => {
   return (
     <footer className='footer'>
-      <div className='footer-menu__container layout-3-columns container'>
-        <div className='footer-menu__item menu__info'>
-          <h4>Contact Information</h4>
-          <div className='info__block'>
-            <div className='info__block'>
-              <p>
-                <span>Address:</span>
-              </p>
-              <p>Warsaw, Pola Karolinskie 2a</p>
-            </div>
-            <div className='info__block info__block_phone'>
-              <PhoneIcon />
-              <a className='phone' href='tel:+78083535335'>
-                + 7 808 353 53 35
-              </a>
-            </div>
-            <div className='info__block info__block_phone'>
-              <PhoneIcon />
-              <a className='phone' href='tel:+78083535335'>
-                + 7 808 353 53 35
-              </a>
-            </div>
-            <div className='info__block'>
-              <p>
-                <span>Shop hours:</span>
-              </p>
-              <p>Mon-Sat from 8 am to 10 pm</p>
+      <div className='footer-menu__container container'>
+        <div className='footer-menu__item layout-2-columns'>
+          <div className='menu__item'>
+            <h4>Contact Information</h4>
+            <div className='info__block-container'>
+              <div className='info__block'>
+                <p>
+                  <span>Address:</span>
+                </p>
+                <p>Warsaw, Pola Karolinskie 2a</p>
+              </div>
+              <div className='info__block info__block_phone'>
+                <PhoneIcon />
+                <a className='phone' href='tel:+78083535335'>
+                  + 7 808 353 53 35
+                </a>
+              </div>
+              <div className='info__block info__block_phone'>
+                <PhoneIcon />
+                <a className='phone' href='tel:+78083535335'>
+                  + 7 808 353 53 35
+                </a>
+              </div>
+              <div className='info__block'>
+                <p>
+                  <span>Shop hours:</span>
+                </p>
+                <p>Mon-Sat from 8 am to 10 pm</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className='footer-menu__item menu__clients'>
-          <h4>For Clients</h4>
-          <div className='info__block'>
-            {menuItems.map(link => (
-              <NavLink
-                key={link.id}
-                path={link.path}
-                title={link.title}
-                icon={link.icon}
-                pathName=''
-                className='footer-link'
-              />
-            ))}
+          <div className='menu__item'>
+            <h4>For Clients</h4>
+            <div className='info__block'>
+              {menuItems.map(link => (
+                <NavLink
+                  key={link.id}
+                  path={link.path}
+                  title={link.title}
+                  icon={link.icon}
+                  pathName=''
+                  className='footer-link'
+                />
+              ))}
+            </div>
           </div>
         </div>
         <div className='footer-menu__item menu__form'>
