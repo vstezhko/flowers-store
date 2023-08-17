@@ -23,6 +23,7 @@ export enum ValidationRuleGroup {
   CONFIRM_PASSWORD = 'confirmPassword',
   COMMON = 'common',
   PHONE = 'phone',
+  NOVALIDATE = 'novalidate',
 }
 
 export enum TokenType {

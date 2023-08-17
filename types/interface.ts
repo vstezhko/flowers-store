@@ -24,9 +24,9 @@ export interface customerDraft {
   password: string;
   addresses: address[];
   shippingAddressIds: number[];
-  defaultShippingAddressId?: number;
+  defaultShippingAddress?: number | null;
   billingAddressIds: number[];
-  defaultBillingAddressId?: number;
+  defaultBillingAddress?: number | null;
 }
 
 export interface selectInputOptions {

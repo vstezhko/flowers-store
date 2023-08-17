@@ -76,6 +76,15 @@ const shippingAddress: FormItemFieldsParams[] = [
       },
     ],
   },
+  {
+    id: 155,
+    name: 'default',
+    formGroup: FormGroups.SHIPPING_ADDRESS,
+    validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
+    type: 'checkbox',
+    label: 'set as default shipping address',
+    value: [],
+  },
 ];
 const billingAddress: FormItemFieldsParams[] = [
   {
@@ -149,6 +158,15 @@ const billingAddress: FormItemFieldsParams[] = [
         value: [],
       },
     ],
+  },
+  {
+    id: 166,
+    name: 'default',
+    formGroup: FormGroups.BILLING_ADDRESS,
+    validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
+    type: 'checkbox',
+    label: 'set as default billing address',
+    value: [],
   },
 ];
 const mainInputFields: FormItemFieldsParams[] = [

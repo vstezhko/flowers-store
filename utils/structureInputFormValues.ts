@@ -1,8 +1,8 @@
 import { FormGroups } from '@/types/enums';
 
-export const structureInputValues = (inputObject: Record<string, string>) => {
+export const structureInputValues = (inputObject: Record<string, string | boolean>) => {
   return Object.entries(inputObject).reduce(
-    (obj: Record<FormGroups, Record<string, string>>, [key, value]) => {
+    (obj: Record<FormGroups, Record<string, string | boolean>>, [key, value]) => {
       const [inputGroupName, inputFieldName] = key.split('-');
 
       if (inputGroupName && inputFieldName && Object.values(FormGroups).includes(inputGroupName as FormGroups)) {
@@ -14,6 +14,6 @@ export const structureInputValues = (inputObject: Record<string, string>) => {
 
       return obj;
     },
-    {} as Record<FormGroups, Record<string, string>>
+    {} as Record<FormGroups, Record<string, string | boolean>>
   );
 };
