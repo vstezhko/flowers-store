@@ -10,8 +10,7 @@ export const createCustomerDraft = (inputValues: Record<string, Record<string, s
     addresses: [
       {
         phone: inputValues[FormGroups.SHIPPING_ADDRESS].phone,
-        // country: inputValues[FormGroups.SHIPPING_ADDRESS].country,
-        country: 'PL',
+        country: inputValues[FormGroups.SHIPPING_ADDRESS].country,
         city: inputValues[FormGroups.SHIPPING_ADDRESS].city,
         streetName: inputValues[FormGroups.SHIPPING_ADDRESS].streetName,
         building: inputValues[FormGroups.SHIPPING_ADDRESS].building,
@@ -20,8 +19,7 @@ export const createCustomerDraft = (inputValues: Record<string, Record<string, s
       },
       {
         phone: inputValues[FormGroups.BILLING_ADDRESS].phone,
-        // country: inputValues[FormGroups.BILLING_ADDRESS].country,
-        country: 'PL',
+        country: inputValues[FormGroups.BILLING_ADDRESS].country,
         city: inputValues[FormGroups.BILLING_ADDRESS].city,
         streetName: inputValues[FormGroups.BILLING_ADDRESS].streetName,
         building: inputValues[FormGroups.BILLING_ADDRESS].building,

@@ -22,6 +22,7 @@ import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { deletePrefixKey } from '@/utils/deletePrefixKey';
 import { structureInputValues } from '@/utils/structureInputFormValues';
 import { createCustomerDraft } from '@/utils/createCustomerDraft';
+import { selectInputOptions } from '@/types/interface';
 
 export interface FormItemFieldParams {
   id: number;
@@ -30,7 +31,7 @@ export interface FormItemFieldParams {
   name: string;
   type?: string;
   label?: string;
-  value?: string[];
+  value?: string[] | selectInputOptions[];
 }
 
 export interface FormItemUnionFieldsParams {

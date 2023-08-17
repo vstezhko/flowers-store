@@ -28,3 +28,8 @@ export interface customerDraft {
   billingAddressIds: number[];
   defaultBillingAddressId?: number;
 }
+
+export interface selectInputOptions {
+  code: string;
+  name: string;
+}
