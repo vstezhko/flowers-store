@@ -20,11 +20,10 @@ const SignUpForm = (
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
-  
+
   useEffect(() => {
     if (open.state) setExpanded(open.name as string);
   }, [open]);
-
 
   const [disabled, setDisabled] = useState(false);
   const setBillingAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
