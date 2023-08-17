@@ -2,16 +2,16 @@
   display: flex;
   justify-content: center;
   column-gap: 10px;
+  width: 100%;
 
-  > * {
+  & > * {
     flex-basis: 49%;
   }
 
   @include mobile {
-    flex-direction: column-reverse;
-    align-items: center;
-    column-gap: 0;
-    row-gap: 1rem;
+    & > * {
+      flex-basis: 100%;
+    }
   }
 
 }
