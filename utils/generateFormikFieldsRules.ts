@@ -26,8 +26,8 @@ const RulesForFields = {
     .max(25, 'too long')
     .min(8, 'min 8 characters.')
     .matches(/^(?=.*\d)/, 'need at least 1 digit')
-    .matches(/(?=.*[A-Z])/, 'need 1 uppercase character')
-    .matches(/(?=.*[a-z])/, 'need 1 lowercase character')
+    .matches(/(?=.*[A-ZА-ЯЁ])/, 'need 1 uppercase character')
+    .matches(/(?=.*[a-zа-яё])/, 'need 1 lowercase character')
     .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, 'need at least 1 special symbol'),
   [ValidationRuleGroup.CONFIRM_PASSWORD]: string()
     .required('retype your password.')

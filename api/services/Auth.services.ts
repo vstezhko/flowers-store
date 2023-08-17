@@ -1,4 +1,5 @@
 import { authPost, post, PROJECT_KEY, SCOPE } from '@/api/api';
+import { customerDraft } from '@/types/interface';
 
 const getClientAccessToken = async () => {
   const body = {
@@ -47,15 +48,8 @@ const login = async (values: Record<string, string>, token: string) => {
   return post(`/${PROJECT_KEY}/me/login`, token, body);
 };
 
-const signUp = async (values: Record<string, string>, token: string) => {
-  const { email, password, lastName, firstName } = values;
-  const body = JSON.stringify({
-    email,
-    firstName,
-    lastName,
-    password,
-  });
-
+const signUp = async (values: customerDraft, token: string) => {
+  const body = JSON.stringify(values);
   return post(`/${PROJECT_KEY}/me/signup`, token, body);
 };
 

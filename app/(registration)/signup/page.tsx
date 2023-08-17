@@ -20,7 +20,11 @@ const shippingAddress: FormItemFieldsParams[] = [
     name: 'country',
     type: 'select',
     label: 'country',
-    value: ['Poland', 'Germany', 'France'],
+    value: [
+      { code: 'PL', name: 'Poland' },
+      { code: 'DE', name: 'Germany' },
+      { code: 'FX', name: 'France' },
+    ],
   },
   {
     id: 12,
@@ -90,7 +94,11 @@ const billingAddress: FormItemFieldsParams[] = [
     name: 'country',
     type: 'select',
     label: 'country',
-    value: ['Poland', 'Germany', 'France'],
+    value: [
+      { code: 'PL', name: 'Poland' },
+      { code: 'DE', name: 'Germany' },
+      { code: 'FX', name: 'France' },
+    ],
   },
   {
     id: 2,

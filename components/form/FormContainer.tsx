@@ -20,6 +20,9 @@ import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 import { usePathname, useRouter } from 'next/navigation';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { deletePrefixKey } from '@/utils/deletePrefixKey';
+import { structureInputValues } from '@/utils/structureInputFormValues';
+import { createCustomerDraft } from '@/utils/createCustomerDraft';
+import { selectInputOptions } from '@/types/interface';
 
 export interface FormItemFieldParams {
   id: number;
@@ -28,7 +31,7 @@ export interface FormItemFieldParams {
   name: string;
   type?: string;
   label?: string;
-  value?: string[];
+  value?: selectInputOptions[];
 }
 
 export interface FormItemUnionFieldsParams {
@@ -91,14 +94,14 @@ const FormContainer = ({
 
   const signUp = async (values: formikValuesType, token: string) => {
     if (token) {
-      const signUpPayload = deletePrefixKey(values);
-      const { email, password } = signUpPayload;
+      const structuredValues = structureInputValues(values);
+      const signUpPayload = createCustomerDraft(structuredValues);
+      const loginPayload = {
+        email: structuredValues[FormGroups.CUSTOMER]?.email ? structuredValues[FormGroups.CUSTOMER].email : '',
+        password: structuredValues[FormGroups.CUSTOMER]?.password ? structuredValues[FormGroups.CUSTOMER].password : '',
+      };
       const response = await dispatch(sighUpAsync({ signUpPayload, token }));
       if (response.payload) {
-        const loginPayload = {
-          email,
-          password,
-        };
         await login(loginPayload, token);
       }
     }
