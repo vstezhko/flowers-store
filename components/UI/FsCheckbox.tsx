@@ -4,16 +4,20 @@ import Checkbox from '@mui/material/Checkbox';
 import { FormControlLabelProps } from '@mui/material/FormControlLabel/FormControlLabel';
 
 export interface FsCheckboxParams extends Omit<FormControlLabelProps, 'control'> {
+  onToggle?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
 }
 
 const FsCheckbox: React.FC<FsCheckboxParams> = props => {
-  const { className, checked, ...rest } = props;
+  let { className, checked, onToggle, ...rest } = props;
 
-  const [isChecked, setIsChecked] = useState(checked);
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked); // Update the state when the checkbox is clicked
+    if (typeof onToggle === 'function') {
+      onToggle(event);
+    }
   };
 
   return (

@@ -25,6 +25,24 @@ const SignUpForm = (
     if (open.state) setExpanded(open.name as string);
   }, [open]);
 
+  const [disabled, setDisabled] = useState(false);
+  const setBillingAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked;
+    setDisabled(checked);
+    if (checked) {
+      const formFields = formik.values;
+      for (const field in formFields) {
+        if (Object.prototype.hasOwnProperty.call(formFields, field)) {
+          if (RegExp(`^${FormGroups.SHIPPING_ADDRESS}-`).test(field)) {
+            const value = formFields[field];
+            const billingField = `${FormGroups.BILLING_ADDRESS}-${field.slice(FormGroups.SHIPPING_ADDRESS.length + 1)}`;
+            formik.setFieldValue(billingField, value);
+          }
+        }
+      }
+    }
+  };
+
   return (
     <div className='form__content'>
       <FsAccordion name='panel1' expanded={expanded} handleChange={handleChange} summary='Main Info'>
@@ -42,10 +60,10 @@ const SignUpForm = (
           <div className='layout-2-columns'>
             <div className='panel__item'>
               <AddressPanel data={data.shippingAddress} title='Shipping address' formik={formik} />
-              <FsCheckbox label='use the same data for billing address' />
+              <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
             </div>
             <div className='panel__item billing'>
-              <AddressPanel data={data.billingAddress} title='Billing address' formik={formik} />
+              <AddressPanel data={data.billingAddress} title='Billing address' formik={formik} disabled={disabled} />
             </div>
           </div>
         </FsAccordion>
@@ -59,7 +77,7 @@ const SignUpForm = (
             disabled={expanded === 'panel1' && open.name !== 'panel3'}>
             <div className='panel__item'>
               <AddressPanel data={data.shippingAddress} title='' formik={formik} />
-              <FsCheckbox label='use the same data for billing address' />
+              <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
             </div>
           </FsAccordion>
           <FsAccordion
@@ -69,7 +87,7 @@ const SignUpForm = (
             summary='Billing address'
             disabled={open.name !== 'panel3'}>
             <div className='panel__item'>
-              <AddressPanel data={data.billingAddress} title='' formik={formik} />
+              <AddressPanel data={data.billingAddress} title='' formik={formik} disabled={disabled} />
             </div>
           </FsAccordion>
         </>
