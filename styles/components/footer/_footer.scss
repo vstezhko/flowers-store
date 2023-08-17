@@ -38,24 +38,40 @@
   justify-content: space-between;
   padding-top: 20px;
   padding-bottom: 20px;
+  gap: 20px;
 
   @include mobile {
-    padding-top: 15px;
-  }
-
-  @include small {
     flex-direction: column;
+    padding-top: 15px;
     gap: 10px;
+    & > * {
+      flex-basis: 100%;
+    }
   }
 
-  .footer-menu__item {
+
+
+  .footer-menu__item, .menu__item {
+    width: 100%;
     & > h4 {
       color: $color-brand-1;
       @include font(1.125rem, 700, normal);
+      margin-bottom: 10px;
+      @include small-mobile {
+       text-align: center;
+        margin-bottom:0;
+      }
     }
   }
 }
 
+.footer-menu__item {
+  @include small-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
 
 .footer__date {
   width: 100%;
@@ -76,7 +92,7 @@
 
 .menu__info-phone {
   .phone {
-    color: #FFF;
+    color: $color-shade-0;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -84,9 +100,17 @@
   }
 
   .phone-icon {
-    color: #fff;
+    color: $color-shade-0;
     width: 11px;
     height: 15px;
+  }
+}
+
+.info__block-container, .info__block {
+  @include small-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -96,30 +120,31 @@
   flex-direction: column;
   gap: 5px;
   padding: 10px 0;
-  color: #fff;
+  color: $color-shade-0;
 
 
-  & label {
-    color: #fff;
-    font-size: 12px !important;
-    left: 0 !important;
+& label {
+  color: $color-shade-0;
+  font-size: 12px !important;
+  left: 0 !important;
+}
+
+p > span {
+  color: $color-brand-1;
+}
+
+&_phone {
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 0;
+
+  .phone-icon {
+    width: 15px;
+    height: 18px;
   }
+}
 
-  p > span {
-    color: $color-brand-1;
-  }
-
-  &_phone {
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-    padding: 10px 0;
-
-    .phone-icon {
-      width: 15px;
-      height: 18px;
-    }
-  }
 }
 
 .footer-link {
@@ -131,3 +156,4 @@
   }
 
 }
+
