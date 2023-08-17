@@ -71,7 +71,7 @@ const FormContainer = ({
   const currentPath = usePathname();
   const [open, setOpen] = useState({ name: '', state: false });
   const [isValid, setIsValid] = useState(false);
-  const matches = useMediaQuery('(max-width:500px)');
+  const matches = useMediaQuery('(max-width:650px)');
   const login = async (values: formikValuesType, token: string) => {
     if (token) {
       const loginPayload = deletePrefixKey(values);
@@ -131,7 +131,6 @@ const FormContainer = ({
   }, [message, variant, enqueueSnackbar, dispatch]);
 
   const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
-  console.log(formik.isValidating);
 
   return (
     <div className='form-container__background-img'>

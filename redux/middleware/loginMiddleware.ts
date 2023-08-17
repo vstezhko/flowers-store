@@ -15,7 +15,17 @@ const loginMiddleware: Middleware = store => next => action => {
       store.dispatch(loginSlice.actions.setMessage({ message: action.error.message, variant: 'error' }));
     }
   } else if (action.type === loginAsync.fulfilled.type) {
-    store.dispatch(loginSlice.actions.setMessage({ message: 'successful login', variant: 'success' }));
+    const { isSignUp } = store.getState().login;
+    if (isSignUp) {
+      store.dispatch(
+        loginSlice.actions.setMessage({
+          message: "You've successfully registered and logged in",
+          variant: 'success',
+        })
+      );
+    } else {
+      store.dispatch(loginSlice.actions.setMessage({ message: 'successful login', variant: 'success' }));
+    }
   }
 
   return next(action);

@@ -30,6 +30,7 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   const handleLogout = () => {
     TokenService.removeTokensFromLS();
     dispatch(loginSlice.actions.setIsLogin(false));
+    dispatch(loginSlice.actions.setIsSignUp(false));
     dispatch(loginSlice.actions.removeCustomer());
     enqueueSnackbar('Successful logout', { variant: 'success' });
   };

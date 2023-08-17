@@ -4,6 +4,7 @@ import { getCustomerAsync, loginAsync, sighUpAsync } from '@/redux/slices/loginS
 interface LoginState {
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
   isLogin: boolean;
+  isSignUp: boolean;
   customer: Customer;
   anonymousCart?: {
     id: string | null;
@@ -30,6 +31,7 @@ interface Customer {
 const initialState: LoginState = {
   status: 'idle',
   isLogin: false,
+  isSignUp: false,
   customer: {
     addresses: [],
     email: null,
@@ -57,6 +59,9 @@ export const loginSlice = createSlice({
   reducers: {
     setIsLogin: (state, action: PayloadAction<boolean>) => {
       state.isLogin = action.payload;
+    },
+    setIsSignUp: (state, action: PayloadAction<boolean>) => {
+      state.isSignUp = action.payload;
     },
     removeMessage: (state: LoginState) => {
       state.message = '';
@@ -97,7 +102,11 @@ export const loginSlice = createSlice({
         state.isLogin = false;
       })
       .addCase(sighUpAsync.fulfilled, (state: LoginState, action: PayloadAction<Customer>) => {
+        state.isSignUp = true;
         setCustomers(state, action);
+      })
+      .addCase(sighUpAsync.rejected, state => {
+        state.isSignUp = false;
       })
       .addCase(getCustomerAsync.fulfilled, (state: LoginState, action: PayloadAction<Customer>) => {
         setCustomers(state, action);
