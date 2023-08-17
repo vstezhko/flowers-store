@@ -14,9 +14,11 @@ const loginMiddleware: Middleware = store => next => action => {
     } else {
       store.dispatch(loginSlice.actions.setMessage({ message: action.error.message, variant: 'error' }));
     }
-  } else if (action.type === sighUpAsync.fulfilled.type) {
-    store.dispatch(loginSlice.actions.setMessage({ message: 'successful registration', variant: 'success' }));
   }
+
+  // else if (action.type === sighUpAsync.fulfilled.type) {
+  //   store.dispatch(loginSlice.actions.setMessage({ message: 'successful registration', variant: 'success' }));
+  // }
 
   return next(action);
 };
