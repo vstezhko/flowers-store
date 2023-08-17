@@ -13,7 +13,6 @@ const SignUpForm = (
   formik: FormikProps<formikValuesType>,
   open: Record<string, string | boolean>
 ) => {
-  console.log(open);
   const matches = useMediaQuery('(max-width:500px)');
   const [expanded, setExpanded] = useState<string | false>('panel1');
 
@@ -43,6 +42,9 @@ const SignUpForm = (
     }
   };
 
+  const [shippingAddressValid, setShippingAddressValid] = useState(false);
+  console.log(!shippingAddressValid && disabled);
+
   return (
     <div className='form__content'>
       <FsAccordion name='panel1' expanded={expanded} handleChange={handleChange} summary='Main Info'>
@@ -59,11 +61,21 @@ const SignUpForm = (
           summary='Address'>
           <div className='layout-2-columns'>
             <div className='panel__item'>
-              <AddressPanel data={data.shippingAddress} title='Shipping address' formik={formik} />
+              <AddressPanel
+                data={data.shippingAddress}
+                title='Shipping address'
+                formik={formik}
+                setIsValid={setShippingAddressValid}
+              />
               <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
             </div>
             <div className='panel__item billing'>
-              <AddressPanel data={data.billingAddress} title='Billing address' formik={formik} disabled={disabled} />
+              <AddressPanel
+                data={data.billingAddress}
+                title='Billing address'
+                formik={formik}
+                disabled={!shippingAddressValid || disabled}
+              />
             </div>
           </div>
         </FsAccordion>
@@ -87,7 +99,12 @@ const SignUpForm = (
             summary='Billing address'
             disabled={open.name !== 'panel3'}>
             <div className='panel__item'>
-              <AddressPanel data={data.billingAddress} title='' formik={formik} disabled={disabled} />
+              <AddressPanel
+                data={data.billingAddress}
+                title=''
+                formik={formik}
+                disabled={shippingAddressValid || disabled}
+              />
             </div>
           </FsAccordion>
         </>

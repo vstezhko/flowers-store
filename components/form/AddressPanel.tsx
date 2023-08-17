@@ -4,18 +4,66 @@ import FsCheckbox from '@/components/UI/FsCheckbox';
 import { formikValuesType, FormItemFieldsParams } from '@/components/form/FormContainer';
 import { FormikProps } from 'formik';
 import FsSelect from '@/components/UI/FsSelect';
+import { useCallback, useEffect } from 'react';
+import { FormGroups } from '@/types/enums';
 
 const AddressPanel = ({
   data,
   title,
   formik,
   disabled,
+  setIsValid,
 }: {
   data: FormItemFieldsParams[];
   title: string;
   formik: FormikProps<formikValuesType>;
   disabled?: boolean;
+  setIsValid?: (isValid: boolean) => void;
 }) => {
+  const isFieldValid = useCallback(
+    (fieldName: string) => {
+      return !Boolean(formik.errors[fieldName]) && formik.values[fieldName] !== '';
+    },
+    [formik.errors, formik.values]
+  );
+
+  const checkAddressValidity = useCallback(() => {
+    let isPanelValid = true;
+
+    for (const inputData of data) {
+      let compoundName;
+      if ('name' in inputData && inputData.formGroup === FormGroups.SHIPPING_ADDRESS) {
+        compoundName = `${inputData.formGroup}-${inputData.name}`;
+        if (!isFieldValid(compoundName)) {
+          isPanelValid = false;
+          break;
+        }
+      }
+
+      if ('data' in inputData && inputData.data) {
+        for (const subInput of inputData.data) {
+          if ('name' in subInput) {
+            const subCompoundName = `${subInput.formGroup}-${subInput.name}`;
+            if (!isFieldValid(subCompoundName)) {
+              isPanelValid = false;
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    return isPanelValid;
+  }, [data, isFieldValid]);
+
+  useEffect(() => {
+    const isValid = checkAddressValidity();
+    debugger;
+    if (setIsValid) {
+      setIsValid(isValid);
+    }
+  }, [checkAddressValidity, setIsValid]);
+
   return (
     <>
       <h5>{title}</h5>
