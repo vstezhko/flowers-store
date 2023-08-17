@@ -39,7 +39,7 @@ const ContactForm = () => {
           id='firstName'
           name='name'
           label='firstName'
-          value={formik.values.name || ''}
+          value={(formik.values.name as string) || ''}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={(formik.touched.name && Boolean(formik.errors.name)) || false}
@@ -49,7 +49,7 @@ const ContactForm = () => {
           id='email'
           name='email'
           label='email'
-          value={formik.values.email || ''}
+          value={(formik.values.email as string) || ''}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={(formik.touched.email && Boolean(formik.errors.email)) || false}
@@ -60,7 +60,7 @@ const ContactForm = () => {
         id='text'
         name='text'
         label='text'
-        value={formik.values.text || ''}
+        value={(formik.values.text as string) || ''}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         className='form__textarea'
