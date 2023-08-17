@@ -48,6 +48,31 @@ const SignUpForm = (
     }
   };
 
+  const shippingPanel = (
+    <div className='panel__item'>
+      <AddressPanel
+        data={data.shippingAddress}
+        title='Shipping address'
+        formik={formik}
+        setIsValid={setShippingAddressValid}
+      />
+      {shippingAddressValid && (
+        <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
+      )}
+    </div>
+  );
+
+  const billingPanel = (
+    <div className='panel__item billing'>
+      <AddressPanel
+        data={data.billingAddress}
+        title='Billing address'
+        formik={formik}
+        disabled={!shippingAddressValid || disabled}
+      />
+    </div>
+  );
+
   return (
     <div className='form__content'>
       <FsAccordion name='panel1' expanded={expanded} handleChange={handleChange} summary='Main Info'>
@@ -63,25 +88,8 @@ const SignUpForm = (
           handleChange={handleChange}
           summary='Address'>
           <div className='layout-2-columns'>
-            <div className='panel__item'>
-              <AddressPanel
-                data={data.shippingAddress}
-                title='Shipping address'
-                formik={formik}
-                setIsValid={setShippingAddressValid}
-              />
-              {shippingAddressValid && (
-                <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
-              )}
-            </div>
-            <div className='panel__item billing'>
-              <AddressPanel
-                data={data.billingAddress}
-                title='Billing address'
-                formik={formik}
-                disabled={!shippingAddressValid || disabled}
-              />
-            </div>
+            {shippingPanel}
+            {billingPanel}
           </div>
         </FsAccordion>
       ) : (
@@ -92,17 +100,7 @@ const SignUpForm = (
             handleChange={handleChange}
             summary='Shipping address'
             disabled={expanded === 'panel1' && open.name !== 'panel3'}>
-            <div className='panel__item'>
-              <AddressPanel
-                data={data.shippingAddress}
-                title='Shipping address'
-                formik={formik}
-                setIsValid={setShippingAddressValid}
-              />
-              {shippingAddressValid && (
-                <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
-              )}
-            </div>
+            {shippingPanel}
           </FsAccordion>
           <FsAccordion
             name='panel3'
@@ -110,14 +108,7 @@ const SignUpForm = (
             handleChange={handleChange}
             summary='Billing address'
             disabled={open.name !== 'panel3'}>
-            <div className='panel__item'>
-              <AddressPanel
-                data={data.billingAddress}
-                title=''
-                formik={formik}
-                disabled={shippingAddressValid || disabled}
-              />
-            </div>
+            {billingPanel}
           </FsAccordion>
         </>
       )}

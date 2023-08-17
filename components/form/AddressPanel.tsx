@@ -58,7 +58,6 @@ const AddressPanel = ({
 
   useEffect(() => {
     const isValid = checkAddressValidity();
-    debugger;
     if (setIsValid) {
       setIsValid(isValid);
     }
