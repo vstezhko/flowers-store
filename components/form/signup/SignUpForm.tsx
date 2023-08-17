@@ -13,7 +13,7 @@ const SignUpForm = (
   formik: FormikProps<formikValuesType>,
   open: Record<string, string | boolean>
 ) => {
-  const matches = useMediaQuery('(max-width:500px)');
+  const matches = useMediaQuery('(max-width:650px)');
   const [expanded, setExpanded] = useState<string | false>('panel1');
 
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
