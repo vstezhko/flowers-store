@@ -11,11 +11,11 @@ export interface FsInputParams extends Omit<StandardTextFieldProps, 'ref'> {
   value?: string;
   label: string;
   className?: string;
-  errorText: string | undefined;
+  errorText?: string | undefined;
   forwardedRef?: React.Ref<HTMLInputElement>;
   disabled?: boolean;
   focused?: boolean;
-  formGroup: FormGroups;
+  formGroup?: FormGroups;
   validationRuleGroup?: ValidationRuleGroup;
   onChange: FormikProps<formikValuesType>['handleChange'];
   onBlur: FormikProps<formikValuesType>['handleBlur'];

@@ -24,24 +24,24 @@
   }
 }
 
-.footer-menu {
-  background-color: $color-primary;
-  padding: 23px 0;
+.footer {
+  background-color: $color-primary-light;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  @include mobile {
-    padding: 15px 0;
-  }
-
 }
 
 .footer-menu__container {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  @include mobile {
+    padding-top: 15px;
+  }
 
   @include small {
     flex-direction: column;
@@ -49,7 +49,7 @@
   }
 
   .footer-menu__item {
-    &>h4 {
+    & > h4 {
       color: $color-brand-1;
       @include font(1.125rem, 700, normal);
     }
@@ -57,23 +57,20 @@
 }
 
 
-.line {
-  display: block;
-  width: 100%;
-  height: 1px;
-  background-color: $color-secondary;
-  margin: 43px 0 22px;
-
-  @include mobile {
-    margin: 20px 0 10px;
-  }
-
-}
-
-
 .footer__date {
+  width: 100%;
+  padding: 22px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid $color-secondary;
+  background-color: $color-primary;
   color: $color-secondary;
   @include font(16px, 400, normal);
+
+  @include mobile {
+    padding: 20px;
+  }
 }
 
 
@@ -91,4 +88,46 @@
     width: 11px;
     height: 15px;
   }
+}
+
+
+.info__block {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 0;
+  color: #fff;
+
+
+  & label {
+    color: #fff;
+    font-size: 12px !important;
+    left: 0 !important;
+  }
+
+  p > span {
+    color: $color-brand-1;
+  }
+
+  &_phone {
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 0;
+
+    .phone-icon {
+      width: 15px;
+      height: 18px;
+    }
+  }
+}
+
+.footer-link {
+  justify-content: flex-start;
+  padding: 10px 0;
+
+  h5 {
+    color: #fff !important;
+  }
+
 }
