@@ -31,7 +31,7 @@ export interface FormItemFieldParams {
   name: string;
   type?: string;
   label?: string;
-  value?: string[] | selectInputOptions[];
+  value?: selectInputOptions[];
 }
 
 export interface FormItemUnionFieldsParams {

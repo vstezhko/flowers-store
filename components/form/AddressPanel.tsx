@@ -25,11 +25,11 @@ const AddressPanel = ({
           compoundName = `${inputData.formGroup}-${inputData.name}`;
         }
 
-        if ('type' in inputData && compoundName && inputData.type === 'select') {
+        if ('type' in inputData && compoundName && inputData.type === 'select' && inputData.value?.length) {
           return (
             <FsSelect
               key={inputData.id}
-              options={inputData.value || []}
+              options={inputData.value}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               name={compoundName}
