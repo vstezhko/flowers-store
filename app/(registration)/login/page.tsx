@@ -28,7 +28,7 @@ const Login = () => {
     <FormContainer
       pathName='Sign Up'
       path='/signup'
-      title='Login'
+      title='Sign in'
       childComponent={LoginForm}
       page={Pages.LOGIN}
       data={{ [FormGroups.LOGIN]: userLoginFields }}
