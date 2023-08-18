@@ -13,7 +13,7 @@ import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
 import { useDispatch, useSelector } from '@/redux/store';
-import { getCustomerAsync, loginAsync, sighUpAsync } from '@/redux/slices/loginSlice/thunks';
+import { getCustomerAsync, loginAsync, signUpAsync } from '@/redux/slices/loginSlice/thunks';
 import { useSnackbar } from 'notistack';
 import { TokenService } from '@/api/services/Token.service';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';

@@ -7,7 +7,7 @@ import {
 import { TokenService } from '@/api/services/Token.service';
 import { TokenType } from '@/types/enums';
 
-interface AuthState {
+export interface AuthState {
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
   access_token: string | null;
   refresh_token?: string | null;
