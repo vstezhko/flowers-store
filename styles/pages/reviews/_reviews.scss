@@ -5,12 +5,12 @@
 
   @include mobile{
     grid-template-columns: 1fr;
+    gap: 0;
   }
 
   &__block {
     width: 100%;
-    height: auto;
-    min-height: 200px;
+    height: fit-content;
     position: relative;
 
     & > img {
@@ -24,7 +24,7 @@
 
   .block__content {
     position: absolute;
-    top: 30%;
+    top: 25%;
     left: 20px;
     right: 20px;
     padding: 30px;
