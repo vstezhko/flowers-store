@@ -100,7 +100,7 @@ const FormContainer = ({
         email: structuredValues[FormGroups.CUSTOMER]?.email ? structuredValues[FormGroups.CUSTOMER].email : '',
         password: structuredValues[FormGroups.CUSTOMER]?.password ? structuredValues[FormGroups.CUSTOMER].password : '',
       };
-      const response = await dispatch(sighUpAsync({ signUpPayload, token }));
+      const response = await dispatch(signUpAsync({ signUpPayload, token }));
       if (response.payload) {
         await login(loginPayload, token);
       }
