@@ -37,7 +37,7 @@ const refreshCustomerAccessToken = async (refreshToken: string) => {
   return authPost(`/oauth/${PROJECT_KEY}/customers/token`, body);
 };
 
-const login = async (values: Record<string, string>, token: string) => {
+const login = async (values: Record<string, string | boolean>, token: string) => {
   const { email, password } = values;
   const body = JSON.stringify({
     scope: SCOPE,

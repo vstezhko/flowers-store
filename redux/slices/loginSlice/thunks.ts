@@ -5,7 +5,7 @@ import { customerDraft } from '@/types/interface';
 
 export const loginAsync = createAppAsyncThunk(
   'login/login',
-  async ({ loginPayload, token }: { loginPayload: Record<string, string>; token: string }) => {
+  async ({ loginPayload, token }: { loginPayload: Record<string, string | boolean>; token: string }) => {
     return AuthService.login(loginPayload, token);
   }
 );

@@ -44,8 +44,8 @@ export const generateFormikFieldsRules = (
   const inputsArray = !Array.isArray(inputs) ? [...Object.values(inputs).flatMap(arr => arr)] : inputs;
 
   return inputsArray.reduce((acc, item) => {
-    if ('name' in item && item.name) {
-      acc[`${item.formGroup}-${item.name}`] = RulesForFields[item.validationRuleGroup];
+    if ('name' in item && item.name && item.validationRuleGroup !== ValidationRuleGroup.NOVALIDATE) {
+      acc[`${item.formGroup}-${item.name}`] = RulesForFields[item.validationRuleGroup] as StringSchema;
     }
 
     if ('data' in item && item.data) {

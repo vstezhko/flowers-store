@@ -41,7 +41,7 @@ export interface FormItemUnionFieldsParams {
 
 export type FormItemFieldsParams = FormItemUnionFieldsParams | FormItemFieldParams;
 
-export type formikValuesType = Record<string, string>;
+export type formikValuesType = Record<string, string | boolean>;
 
 const FormContainer = ({
   childComponent,
@@ -64,7 +64,7 @@ const FormContainer = ({
 }) => {
   const validationSchema = object().shape(generateFormikFieldsRules(data));
 
-  const initialValues: Record<string, string> = generateInitialFormikValue(data);
+  const initialValues: Record<string, string | boolean> = generateInitialFormikValue(data);
   const dispatch = useDispatch();
   const { message, variant, isLogin } = useSelector(state => state.login);
   const { enqueueSnackbar } = useSnackbar();
@@ -80,8 +80,8 @@ const FormContainer = ({
       const response = await dispatch(loginAsync({ loginPayload, token }));
       if (response.payload) {
         const loginCredentials = {
-          username: email,
-          password,
+          username: email as string,
+          password: password as string,
         };
 
         const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
