@@ -9,7 +9,7 @@ export const loginAsync = createAppAsyncThunk(
     return AuthService.login(loginPayload, token);
   }
 );
-export const sighUpAsync = createAppAsyncThunk(
+export const signUpAsync = createAppAsyncThunk(
   'login/signup',
   async ({ signUpPayload, token }: { signUpPayload: customerDraft; token: string }) => {
     return AuthService.signUp(signUpPayload, token);
