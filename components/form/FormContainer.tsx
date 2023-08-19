@@ -17,7 +17,7 @@ import { getCustomerAsync, loginAsync, sighUpAsync } from '@/redux/slices/loginS
 import { useSnackbar } from 'notistack';
 import { TokenService } from '@/api/services/Token.service';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { deletePrefixKey } from '@/utils/deletePrefixKey';
 import { structureInputValues } from '@/utils/structureInputFormValues';
@@ -66,10 +66,9 @@ const FormContainer = ({
 
   const initialValues: Record<string, string> = generateInitialFormikValue(data);
   const dispatch = useDispatch();
-  const { message, variant, isLogin } = useSelector(state => state.login);
+  const { message, variant } = useSelector(state => state.login);
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
-  const currentPath = usePathname();
   const [open, setOpen] = useState({ name: '', state: false });
   const [isValid, setIsValid] = useState(false);
   const matches = useMediaQuery('(max-width:650px)');
@@ -79,6 +78,7 @@ const FormContainer = ({
       const { email, password } = loginPayload;
       const response = await dispatch(loginAsync({ loginPayload, token }));
       if (response.payload) {
+        router.push('/', { scroll: false });
         const loginCredentials = {
           username: email,
           password,
@@ -119,10 +119,10 @@ const FormContainer = ({
       }
     },
   };
-
-  useEffect(() => {
-    if (isLogin && (currentPath === '/login' || currentPath === '/signup')) router.push('/');
-  }, [isLogin, currentPath, router]);
+  //
+  // useEffect(() => {
+  //   if (isLogin) router.push('/', { scroll: false });
+  // });
 
   useEffect(() => {
     if (message) {
