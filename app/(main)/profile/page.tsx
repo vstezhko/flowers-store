@@ -14,8 +14,8 @@ const Profile = () => {
   };
 
   return (
-    <section>
-      <p>Profile</p>
+    <section className='page'>
+      <h1 className='page__title'>Profile</h1>
       <NavLink title='Log out' pathName='' path='/' icon={null} className='' onClick={handleLogout} />
     </section>
   );

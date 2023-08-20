@@ -42,6 +42,7 @@
     justify-content: center;
     padding: 1.5rem;
     z-index: 1;
+    user-select: none;
   }
 
   &__text {

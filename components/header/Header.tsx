@@ -19,11 +19,12 @@ export interface MenuParams {
 export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon' | 'className' | 'mobile'>;
 
 export const menuItems: MenuParamsWithoutPathName[] = [
-  { id: 1, path: '/catalog', title: 'Catalog', icon: null, className: '', mobile: true },
-  { id: 2, path: '/reviews', title: 'Reviews', icon: null, className: '', mobile: true },
-  { id: 3, path: '/contacts', title: 'Contacts', icon: null, className: '', mobile: true },
+  { id: 1, path: '/catalog', title: 'Catalog', icon: null, className: 'link', mobile: true },
+  { id: 2, path: '/discounts', title: 'Discounts', icon: null, className: 'link', mobile: true },
+  { id: 3, path: '/about', title: 'About Us', icon: null, className: 'link', mobile: true },
   { id: 4, path: '/', title: '', icon: <LogoIcon />, className: 'logo' },
-  { id: 5, path: '/info', title: 'Info for clients', icon: null, className: 'nav__info-for-clients', mobile: true },
+  { id: 5, path: '/reviews', title: 'Reviews', icon: null, className: 'link', mobile: true },
+  { id: 6, path: '/contacts', title: 'Contacts', icon: null, className: 'link', mobile: true },
 ];
 
 const Header = () => {
@@ -41,12 +42,12 @@ const Header = () => {
             <PhoneIcon />
             <div className='phone__container'>
               <p>WhatsApp</p>
-              <a className='phone' href='tel:+78083535335'>
-                + 7 808 353 53 35
+              <a className='phone' href='tel:+48573888888'>
+                + 48 573 888 888
               </a>
             </div>
-            <a className='phone' href='tel:+78083535335'>
-              + 7 808 353 53 35
+            <a className='phone' href='tel:+48573888888'>
+              + 48 573 888 888
             </a>
           </div>
           <HeaderCart sum='0' />

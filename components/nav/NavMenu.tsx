@@ -17,7 +17,7 @@ import { useSnackbar } from 'notistack';
 
 const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   const pathname = usePathname();
-  const matches = useMediaQuery('(max-width:650px)');
+  const matches = useMediaQuery('(max-width:768px)');
   const logo = menuItems.find(item => item.className === 'logo');
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
@@ -49,7 +49,7 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   );
   const guestContent = (
     <>
-      <NavLink path='/login' title='Login' pathName='' icon={null} className='' />
+      <NavLink path='/login' title='Sign In' pathName='' icon={null} className='' />
       <FlowerIcon />
       <NavLink path='/signup' title='Sign Up' pathName='' icon={null} className='' />
     </>
@@ -63,7 +63,9 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
     <nav className='nav container'>
       {matches ? (
         <>
-          <BurgerIcon onClick={toggleMenu} isOpen={menuOpen} />
+          <div className='nav__burger-container'>
+            <BurgerIcon onClick={toggleMenu} isOpen={menuOpen} />
+          </div>
           <MobileMenu menuItems={menuItems} isOpen={menuOpen} />
           {logo && (
             <NavLink

@@ -227,7 +227,7 @@ const SignUp = () => {
     <FormContainer
       childComponent={signUpForm}
       data={data}
-      pathName='Login'
+      pathName='Sign in'
       path='/login'
       page={Pages.SIGNUP}
       title='Sign up'

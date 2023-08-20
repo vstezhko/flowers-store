@@ -2,8 +2,8 @@
 
 const Offer = () => {
   return (
-    <div className='offer'>
-      <h1>OFFER AGREEMENT</h1>
+    <section className='page offer'>
+      <h1 className='page__title'>OFFER AGREEMENT</h1>
       <p>
         This Offer Agreement (hereinafter referred to as the &quot;Agreement&quot;) constitutes an official offer from
         the Flowers Store with Delivery (hereinafter referred to as the &quot;Seller&quot; or &quot;Shop&quot;) to
@@ -75,7 +75,7 @@ const Offer = () => {
         7.3. All disputes and disagreements arising from the performance of this Agreement are resolved through
         negotiations between the parties.
       </p>
-    </div>
+    </section>
   );
 };
 

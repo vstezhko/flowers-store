@@ -10,8 +10,16 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     <div className='wrapper'>
       <Header />
       <main className='main'>
-        {usePathname() === '/' ? <BannerSection /> : null}
-        <div className={usePathname() === '/' ? 'container' : 'container container_padding'}> {children}</div>
+        {usePathname() === '/' ? (
+          <>
+            <BannerSection />
+            <div className='container'> {children}</div>
+          </>
+        ) : (
+          <div className='main__container'>
+            <div className='container'> {children}</div>
+          </div>
+        )}
       </main>
       <Footer />
     </div>
