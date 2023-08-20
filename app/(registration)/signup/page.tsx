@@ -29,7 +29,7 @@ const shippingAddress: FormItemFieldsParams[] = [
   {
     id: 12,
     formGroup: FormGroups.SHIPPING_ADDRESS,
-    validationRuleGroup: ValidationRuleGroup.COMMON,
+    validationRuleGroup: ValidationRuleGroup.NAME,
     name: 'city',
     type: 'text',
     label: 'city',
@@ -68,7 +68,7 @@ const shippingAddress: FormItemFieldsParams[] = [
       {
         id: 113,
         formGroup: FormGroups.SHIPPING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.COMMON,
+        validationRuleGroup: ValidationRuleGroup.POSTAL_CODE_SHIPPING,
         name: 'postalCode',
         type: 'text',
         label: 'zip code',
@@ -112,7 +112,7 @@ const billingAddress: FormItemFieldsParams[] = [
   {
     id: 2,
     formGroup: FormGroups.BILLING_ADDRESS,
-    validationRuleGroup: ValidationRuleGroup.COMMON,
+    validationRuleGroup: ValidationRuleGroup.NAME,
     name: 'city',
     type: 'text',
     label: 'city',
@@ -151,7 +151,7 @@ const billingAddress: FormItemFieldsParams[] = [
       {
         id: 30,
         formGroup: FormGroups.BILLING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.COMMON,
+        validationRuleGroup: ValidationRuleGroup.POSTAL_CODE_BILLING,
         name: 'postalCode',
         type: 'text',
         label: 'zip code',
@@ -173,7 +173,7 @@ const mainInputFields: FormItemFieldsParams[] = [
   {
     id: 21,
     formGroup: FormGroups.CUSTOMER,
-    validationRuleGroup: ValidationRuleGroup.COMMON,
+    validationRuleGroup: ValidationRuleGroup.NAME,
     name: 'firstName',
     type: 'text',
     label: 'firstName',
@@ -182,7 +182,7 @@ const mainInputFields: FormItemFieldsParams[] = [
   {
     id: 22,
     formGroup: FormGroups.CUSTOMER,
-    validationRuleGroup: ValidationRuleGroup.COMMON,
+    validationRuleGroup: ValidationRuleGroup.NAME,
     name: 'lastName',
     type: 'text',
     label: 'lastName',

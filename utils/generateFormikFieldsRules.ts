@@ -2,12 +2,29 @@ import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 import { FormItemFieldsParams } from '@/components/form/FormContainer';
 import { ref, string, StringSchema } from 'yup';
 
+const getZipValidation = (mainField: string): StringSchema => {
+  return string()
+    .required('required')
+    .when(mainField, {
+      is: 'DE',
+      then: schema => schema.matches(/^\d{5}$/, 'invalid'),
+    })
+    .when(mainField, {
+      is: 'PL',
+      then: schema => schema.matches(/^\d{2}-\d{3}$/, 'invalid'),
+    })
+    .when(mainField, {
+      is: 'FX',
+      then: schema => schema.matches(/^\d{2}[ ]?\d{3}$/, 'invalid'),
+    });
+};
+
 const RulesForFields = {
   [ValidationRuleGroup.COMMON]: string().required('required').max(25, 'too long'),
   [ValidationRuleGroup.EMAIL]: string()
     .required('required')
     .max(25, 'too long')
-    .test('no-leading-trailing-space', 'no leading or trailing whitespace', value => {
+    .test('no-leading-trailing-space', 'no leading or trailing spaces', value => {
       if (!value) return true;
       return !/^\s|\s$/.test(value);
     })
@@ -24,10 +41,14 @@ const RulesForFields = {
   [ValidationRuleGroup.PASSWORD]: string()
     .required('required')
     .max(25, 'too long')
-    .min(8, 'min 8 characters.')
+    .test('no-leading-trailing-space', 'no leading or trailing spaces', value => {
+      if (!value) return true;
+      return !/^\s|\s$/.test(value);
+    })
+    .min(8, 'min 8 characters')
     .matches(/^(?=.*\d)/, 'need at least 1 digit')
-    .matches(/(?=.*[A-ZА-ЯЁ])/, 'need 1 uppercase character')
-    .matches(/(?=.*[a-zа-яё])/, 'need 1 lowercase character')
+    .matches(/(?=.*[A-Z])/, 'need 1 uppercase (A-Z)')
+    .matches(/(?=.*[a-z])/, 'need 1 lowercase (a-z)')
     .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, 'need at least 1 special symbol'),
   [ValidationRuleGroup.CONFIRM_PASSWORD]: string()
     .required('retype your password.')
@@ -35,7 +56,14 @@ const RulesForFields = {
   [ValidationRuleGroup.PHONE]: string()
     .required('required')
     .max(25, 'too long')
-    .matches(/^[^_]*$/, 'invalid phone number.'),
+    .matches(/^[^_]*$/, 'invalid phone number'),
+  [ValidationRuleGroup.NAME]: string()
+    .required('required')
+    .max(25, 'too long')
+    .matches(/^[^!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/, 'no special characters')
+    .matches(/^[^0-9]*$/, 'no numbers'),
+  [ValidationRuleGroup.POSTAL_CODE_SHIPPING]: getZipValidation(`${FormGroups.SHIPPING_ADDRESS}-country`),
+  [ValidationRuleGroup.POSTAL_CODE_BILLING]: getZipValidation(`${FormGroups.BILLING_ADDRESS}-country`),
 };
 export const generateFormikFieldsRules = (
   inputs: Record<FormGroups, FormItemFieldsParams[]> | FormItemFieldsParams[],

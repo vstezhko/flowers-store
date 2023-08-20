@@ -23,6 +23,9 @@ export enum ValidationRuleGroup {
   CONFIRM_PASSWORD = 'confirmPassword',
   COMMON = 'common',
   PHONE = 'phone',
+  NAME = 'name',
+  POSTAL_CODE_SHIPPING = 'shippingPostalCode',
+  POSTAL_CODE_BILLING = 'billingPostalCode',
   NOVALIDATE = 'novalidate',
 }
 
