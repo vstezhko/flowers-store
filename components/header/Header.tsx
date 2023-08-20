@@ -32,23 +32,17 @@ const Header = () => {
     <header className='header'>
       <div className='header-menu'>
         <div className='header-menu__container container'>
+          <div className='header-menu__phone'>
+            <PhoneIcon />
+            <a className='phone' href='tel:+48573888888'>
+              + 48 573 888 888
+            </a>
+          </div>
           <div className='header-menu__address'>
             <BulletIcon />
             <p>
               <span>Warsaw,</span> Pola Karolinskie 2a
             </p>
-          </div>
-          <div className='header-menu__phone'>
-            <PhoneIcon />
-            <div className='phone__container'>
-              <p>WhatsApp</p>
-              <a className='phone' href='tel:+48573888888'>
-                + 48 573 888 888
-              </a>
-            </div>
-            <a className='phone' href='tel:+48573888888'>
-              + 48 573 888 888
-            </a>
           </div>
           <HeaderCart sum='0' />
         </div>
