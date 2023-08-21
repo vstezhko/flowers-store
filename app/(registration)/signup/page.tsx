@@ -200,7 +200,7 @@ const mainInputFields: FormItemFieldsParams[] = [
   {
     id: 22,
     formGroup: FormGroups.CUSTOMER,
-    validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
+    validationRuleGroup: ValidationRuleGroup.BIRTHDAY,
     name: 'birthday',
     type: 'date',
     label: 'birthday',
