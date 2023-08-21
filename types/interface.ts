@@ -23,9 +23,9 @@ export interface customerDraft {
   email: string;
   password: string;
   addresses: address[];
-  shippingAddressIds: number[];
+  shippingAddresses: number[];
   defaultShippingAddress?: number | null;
-  billingAddressIds: number[];
+  billingAddresses: number[];
   defaultBillingAddress?: number | null;
 }
 
