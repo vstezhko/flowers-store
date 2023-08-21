@@ -20,37 +20,37 @@ import { SnackBarProvider } from '@/components/provider/SnackBar';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Providers>
-      <ThemeProvider theme={FSTheme}>
-        <html lang='en'>
-          <head>
-            <title>Flowers store</title>
-            <meta
-              name='description'
-              content="Discover the enchantment of nature\' s finest blooms. Fresh and artistic
+    <html lang='en'>
+      <head>
+        <title>Flowers store</title>
+        <meta
+          name='description'
+          content="Discover the enchantment of nature\' s finest blooms. Fresh and artistic
                   floral arrangements for every occasion. Unforgettable moments await at our Flowers Store."
-            />
-            <style jsx global>{`
-              :root {
-                --literal-reg: ${literalReg.style.fontFamily};
-                --literal-bold: ${literalBold.style.fontFamily};
-                --literal-light: ${literalLight.style.fontFamily};
-                --roboto-reg: ${robotoReg.style.fontFamily};
-                --roboto-med: ${robotoMed.style.fontFamily};
-                --pt-sans: ${ptSans.style.fontFamily};
-                --karton: ${karton.style.fontFamily};
-                --karton2: ${karton2.style.fontFamily};
-                --pecita: ${pecita.style.fontFamily};
-              }
-            `}</style>
-          </head>
-          <body>
+        />
+        <style jsx global>{`
+          :root {
+            --literal-reg: ${literalReg.style.fontFamily};
+            --literal-bold: ${literalBold.style.fontFamily};
+            --literal-light: ${literalLight.style.fontFamily};
+            --roboto-reg: ${robotoReg.style.fontFamily};
+            --roboto-med: ${robotoMed.style.fontFamily};
+            --pt-sans: ${ptSans.style.fontFamily};
+            --karton: ${karton.style.fontFamily};
+            --karton2: ${karton2.style.fontFamily};
+            --pecita: ${pecita.style.fontFamily};
+          }
+        `}</style>
+      </head>
+      <body>
+        <Providers>
+          <ThemeProvider theme={FSTheme}>
             <SnackBarProvider>
               <AuthComponent>{children}</AuthComponent>
             </SnackBarProvider>
-          </body>
-        </html>
-      </ThemeProvider>
-    </Providers>
+          </ThemeProvider>
+        </Providers>
+      </body>
+    </html>
   );
 }

@@ -8,6 +8,7 @@ import Discounts from '@/public/img/png/discounts.png';
 export default function FeaturesSection() {
   const itemsData = [
     {
+      id: 1,
       img: Delivery.src,
       textStart: '',
       highlight: 'Free delivery',
@@ -15,6 +16,7 @@ export default function FeaturesSection() {
       alt: 'Delivery',
     },
     {
+      id: 2,
       img: Gifts.src,
       textStart: 'Postcard ',
       highlight: 'as a gift',
@@ -22,6 +24,7 @@ export default function FeaturesSection() {
       alt: 'Gifts',
     },
     {
+      id: 3,
       img: DeliveryHours.src,
       textStart: '',
       highlight: 'Round the clock',
@@ -29,6 +32,7 @@ export default function FeaturesSection() {
       alt: '24/7',
     },
     {
+      id: 4,
       img: Discounts.src,
       textStart: 'Cumulative ',
       highlight: 'discount system',
@@ -40,7 +44,7 @@ export default function FeaturesSection() {
     <section className='features'>
       <ul className='features__galery'>
         {itemsData.map(item => (
-          <li className='features__item' key={item.img}>
+          <li className='features__item' key={item.id}>
             <div className='features__img-container'>
               <Image fill={true} src={item.img} alt={item.alt} className='features__img' />
             </div>
