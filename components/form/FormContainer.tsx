@@ -63,7 +63,6 @@ const FormContainer = ({
   page: Pages;
 }) => {
   const validationSchema = object().shape(generateFormikFieldsRules(data));
-
   const initialValues: Record<string, string | boolean> = generateInitialFormikValue(data);
   const dispatch = useDispatch();
   const { message, variant } = useSelector(state => state.login);
@@ -119,10 +118,6 @@ const FormContainer = ({
       }
     },
   };
-  //
-  // useEffect(() => {
-  //   if (isLogin) router.push('/', { scroll: false });
-  // });
 
   useEffect(() => {
     if (message) {
@@ -132,6 +127,20 @@ const FormContainer = ({
   }, [message, variant, enqueueSnackbar, dispatch]);
 
   const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
+
+  const updateTouchedStateForFieldGroup = (excludeGroups: string[]) => {
+    const touchedFields: Record<string, boolean> = {};
+
+    Object.keys(formik.values).forEach(field => {
+      const fieldGroup = field.split('-')[0];
+
+      if (!excludeGroups.includes(fieldGroup)) {
+        touchedFields[field] = false;
+      }
+    });
+
+    formik.setTouched(touchedFields);
+  };
 
   return (
     <div className='form-container__background-img'>
@@ -164,12 +173,14 @@ const FormContainer = ({
                     .filter(key => key.includes('customer'))
                     .map(key => ({ [key]: errors[key] }));
                   if (customerErrorsArray.length === 0) {
+                    updateTouchedStateForFieldGroup([FormGroups.CUSTOMER]);
                     setOpen({ name: 'panel2', state: true });
                     if (matches) {
                       const shippingErrorsArray = Object.keys(errors)
                         .filter(key => key.includes('shipping'))
                         .map(key => ({ [key]: errors[key] }));
                       if (shippingErrorsArray.length === 0) {
+                        updateTouchedStateForFieldGroup([FormGroups.CUSTOMER, FormGroups.SHIPPING_ADDRESS]);
                         setOpen({ name: 'panel3', state: true });
                         setIsValid(true);
                       }

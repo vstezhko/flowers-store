@@ -1,3 +1,4 @@
+import React, { ChangeEvent } from 'react';
 import FsInput from '@/components/UI/FsInput';
 import FsPhoneInput from '@/components/UI/FsPhoneInput';
 import FsCheckbox from '@/components/UI/FsCheckbox';
@@ -67,6 +68,11 @@ const AddressPanel = ({
     }
   }, [checkAddressValidity, setIsValid]);
 
+  const onChangeHandler = (e: ChangeEvent<any>) => {
+    formik.setFieldTouched('type');
+    formik.handleChange(e);
+  };
+
   return (
     <>
       <h5>{title}</h5>
@@ -82,15 +88,24 @@ const AddressPanel = ({
               key={inputData.id}
               options={inputData.value}
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              onChange={(e: ChangeEvent) => {
+                formik.setFieldTouched('type');
+                formik.handleChange(e);
+              }}
               name={compoundName}
               id={inputData.id.toString()}
               label={inputData.label || ''}
               value={formik.values[compoundName] as string}
               formgroup={inputData.formGroup}
-              error={(formik.touched[compoundName] && Boolean(formik.errors[compoundName])) || false}
+              error={
+                ((formik.touched[compoundName] || formik.values[compoundName]) &&
+                  Boolean(formik.errors[compoundName])) ||
+                false
+              }
               errorText={
-                formik.touched[compoundName] && formik.errors[compoundName] ? formik.errors[compoundName] : ' '
+                (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
+                  ? formik.errors[compoundName]
+                  : ' '
               }
               disabled={disabled}
             />
@@ -106,12 +121,18 @@ const AddressPanel = ({
               label={inputData.label || ''}
               type={inputData.type}
               name={inputData.name}
-              onChange={formik.handleChange}
+              onChange={onChangeHandler}
               onBlur={formik.handleBlur}
               errorText={
-                formik.touched[compoundName] && formik.errors[compoundName] ? formik.errors[compoundName] : ' '
+                (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
+                  ? formik.errors[compoundName]
+                  : ' '
               }
-              error={(formik.touched[compoundName] && Boolean(formik.errors[compoundName])) || false}
+              error={
+                ((formik.touched[compoundName] || formik.values[compoundName]) &&
+                  Boolean(formik.errors[compoundName])) ||
+                false
+              }
               formGroup={inputData.formGroup}
               disabled={disabled}
             />
@@ -126,13 +147,19 @@ const AddressPanel = ({
               label={inputData.label || ''}
               type={inputData.type}
               name={compoundName}
-              onChange={formik.handleChange}
+              onChange={onChangeHandler}
               onBlur={formik.handleBlur}
               value={formik.values[compoundName] as string}
               errorText={
-                formik.touched[compoundName] && formik.errors[compoundName] ? formik.errors[compoundName] : ' '
+                (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
+                  ? formik.errors[compoundName]
+                  : ' '
               }
-              error={(formik.touched[compoundName] && Boolean(formik.errors[compoundName])) || false}
+              error={
+                ((formik.touched[compoundName] || formik.values[compoundName]) &&
+                  Boolean(formik.errors[compoundName])) ||
+                false
+              }
               formGroup={inputData.formGroup}
               disabled={disabled}
             />
@@ -159,14 +186,19 @@ const AddressPanel = ({
                         label={subInput.label || ''}
                         type={subInput.type}
                         name={subCompoundName}
-                        onChange={formik.handleChange}
+                        onChange={onChangeHandler}
                         onBlur={formik.handleBlur}
                         errorText={
-                          formik.touched[subCompoundName] && formik.errors[subCompoundName]
+                          (formik.touched[subCompoundName] || formik.values[subCompoundName]) &&
+                          formik.errors[subCompoundName]
                             ? formik.errors[subCompoundName]
                             : ' '
                         }
-                        error={(formik.touched[subCompoundName] && Boolean(formik.errors[subCompoundName])) || false}
+                        error={
+                          ((formik.touched[subCompoundName] || formik.values[subCompoundName]) &&
+                            Boolean(formik.errors[subCompoundName])) ||
+                          false
+                        }
                         formGroup={subInput.formGroup}
                         disabled={disabled}
                       />

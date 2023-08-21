@@ -29,22 +29,21 @@ const SignUpForm = (
 
   const setBillingAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked;
-    const touchedFields: { [key: string]: boolean } = {};
     setDisabled(checked);
 
     if (checked) {
       const formFields = formik.values;
+      const newValues = { ...formik.values };
       for (const field in formFields) {
         if (Object.prototype.hasOwnProperty.call(formFields, field)) {
           if (RegExp(`^${FormGroups.SHIPPING_ADDRESS}-`).test(field)) {
             const value = formFields[field];
             const billingField = `${FormGroups.BILLING_ADDRESS}-${field.slice(FormGroups.SHIPPING_ADDRESS.length + 1)}`;
-            formik.setFieldValue(billingField, value);
-            touchedFields[billingField] = false;
+            newValues[billingField] = value;
           }
         }
       }
-      formik.setTouched(touchedFields);
+      formik.setValues(newValues);
     }
   };
 
