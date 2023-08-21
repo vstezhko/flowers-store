@@ -43,8 +43,8 @@ describe('AuthService', () => {
           postalCode: '12345',
         },
       ],
-      shippingAddressIds: [0],
-      billingAddressIds: [0],
+      shippingAddresses: [0],
+      billingAddresses: [1],
     };
 
     (api.post as jest.Mock).mockResolvedValue({ success: true });

@@ -97,8 +97,8 @@ describe('loginSlice', () => {
           postalCode: '12345',
         },
       ],
-      shippingAddressIds: [0],
-      billingAddressIds: [0],
+      shippingAddresses: [0],
+      billingAddresses: [1],
     };
     const mockToken = 'mockToken';
     const mockAuthService = jest.spyOn(AuthService, 'signUp').mockResolvedValue(mockToken);

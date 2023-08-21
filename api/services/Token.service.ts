@@ -8,7 +8,6 @@ const setAccessTokenToLS = (token: string, type: string) => {
   localStorage.setItem('access_token', tokenWithType);
 };
 const setRefreshTokenToLS = (token: string, type: string) => {
-  console.log(type);
   const tokenWithType = JSON.stringify({
     type,
     token,
