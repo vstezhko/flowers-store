@@ -132,7 +132,6 @@ const FormContainer = ({
   }, [message, variant, enqueueSnackbar, dispatch]);
 
   const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
-  console.log(formik.values);
 
   return (
     <div className='form-container__background-img'>
