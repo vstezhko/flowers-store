@@ -9,8 +9,8 @@
 
 .header-menu {
   display: flex;
-  align-items: center;
   background-color: $color-primary;
+  padding: 10px 0;
 }
 
 .header-menu__container {
@@ -18,6 +18,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+
+  & > * {
+    flex-basis: 33%;
+
+    @include small {
+      flex-basis: 48%;
+    }
+  }
 }
 
 .header-menu__address,
@@ -27,7 +36,7 @@
   column-gap: 10px;
   color: $color-shade-0;
 
-  &>p span {
+  & > p span {
     color: $color-brand-1;
     @include font(16px, 700, normal);
     margin-right: 2px;
@@ -36,7 +45,7 @@
 }
 
 .header-menu__address {
-
+  justify-content: center;
   @include small {
     display: none;
   }
@@ -44,12 +53,11 @@
 }
 
 .header-menu__phone {
-  background-color: $color-primary-light;
-  padding: 5px 20px;
+  justify-content: flex-start;
 
   @include small {
-    padding: 5px 0;
     background-color: $color-primary;
+    justify-content: flex-start;
   }
 
 }
@@ -59,34 +67,16 @@
   @include font(16px, 700, normal);
   text-decoration: none;
   align-self: flex-end;
-}
-
-.header-menu__phone>.phone {
 
   @include small {
-    display: none;
+    @include font(12px, 700, normal);
   }
-
 }
 
-
-.phone__container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-transform: uppercase;
-  @include font(10px, 700, normal);
-
-  p {
-    flex-grow: 1;
-    display: flex;
-    align-items: flex-end;
-  }
-
-}
 
 .header-menu__cart {
   display: flex;
+  justify-content: flex-end;
   gap: 10px;
   align-items: center;
 

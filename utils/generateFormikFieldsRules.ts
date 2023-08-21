@@ -20,6 +20,19 @@ const getZipValidation = (mainField: string): StringSchema => {
 };
 
 const RulesForFields = {
+  [ValidationRuleGroup.BIRTHDAY]: string()
+    .required('required')
+    .test('at-least-13-years', 'at least 13 years old', value => {
+      if (!value) return false;
+      const today = new Date();
+      const birthDate = new Date(value);
+      const ageDiff = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        return ageDiff - 1 >= 13;
+      }
+      return ageDiff >= 13;
+    }),
   [ValidationRuleGroup.COMMON]: string().required('required').max(25, 'too long'),
   [ValidationRuleGroup.EMAIL]: string()
     .required('required')

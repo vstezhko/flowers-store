@@ -27,6 +27,7 @@ export enum ValidationRuleGroup {
   POSTAL_CODE_SHIPPING = 'shippingPostalCode',
   POSTAL_CODE_BILLING = 'billingPostalCode',
   NOVALIDATE = 'novalidate',
+  BIRTHDAY = 'birthday',
 }
 
 export enum TokenType {

@@ -5,7 +5,7 @@ import signUpForm from '@/components/form/signup/SignUpForm';
 
 const shippingAddress: FormItemFieldsParams[] = [
   {
-    id: 15,
+    id: 1,
     formGroup: FormGroups.SHIPPING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.PHONE,
     name: 'phone',
@@ -14,7 +14,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     value: [],
   },
   {
-    id: 11,
+    id: 2,
     formGroup: FormGroups.SHIPPING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'country',
@@ -27,7 +27,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     ],
   },
   {
-    id: 12,
+    id: 3,
     formGroup: FormGroups.SHIPPING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.NAME,
     name: 'city',
@@ -36,7 +36,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     value: [],
   },
   {
-    id: 13,
+    id: 4,
     name: 'streetName',
     formGroup: FormGroups.SHIPPING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.COMMON,
@@ -45,10 +45,10 @@ const shippingAddress: FormItemFieldsParams[] = [
     value: [],
   },
   {
-    id: 14,
+    id: 5,
     data: [
       {
-        id: 111,
+        id: 13,
         formGroup: FormGroups.SHIPPING_ADDRESS,
         validationRuleGroup: ValidationRuleGroup.COMMON,
         name: 'building',
@@ -57,7 +57,7 @@ const shippingAddress: FormItemFieldsParams[] = [
         value: [],
       },
       {
-        id: 112,
+        id: 14,
         formGroup: FormGroups.SHIPPING_ADDRESS,
         validationRuleGroup: ValidationRuleGroup.COMMON,
         name: 'apartment',
@@ -66,7 +66,7 @@ const shippingAddress: FormItemFieldsParams[] = [
         value: [],
       },
       {
-        id: 113,
+        id: 15,
         formGroup: FormGroups.SHIPPING_ADDRESS,
         validationRuleGroup: ValidationRuleGroup.POSTAL_CODE_SHIPPING,
         name: 'postalCode',
@@ -77,7 +77,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     ],
   },
   {
-    id: 155,
+    id: 6,
     name: 'default',
     formGroup: FormGroups.SHIPPING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
@@ -88,7 +88,7 @@ const shippingAddress: FormItemFieldsParams[] = [
 ];
 const billingAddress: FormItemFieldsParams[] = [
   {
-    id: 5,
+    id: 7,
     formGroup: FormGroups.BILLING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.PHONE,
     name: 'phone',
@@ -97,7 +97,7 @@ const billingAddress: FormItemFieldsParams[] = [
     value: [],
   },
   {
-    id: 1,
+    id: 8,
     formGroup: FormGroups.BILLING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.COMMON,
     name: 'country',
@@ -110,7 +110,7 @@ const billingAddress: FormItemFieldsParams[] = [
     ],
   },
   {
-    id: 2,
+    id: 9,
     formGroup: FormGroups.BILLING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.NAME,
     name: 'city',
@@ -119,7 +119,7 @@ const billingAddress: FormItemFieldsParams[] = [
     value: [],
   },
   {
-    id: 3,
+    id: 10,
     name: 'streetName',
     formGroup: FormGroups.BILLING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.COMMON,
@@ -128,10 +128,10 @@ const billingAddress: FormItemFieldsParams[] = [
     value: [],
   },
   {
-    id: 4,
+    id: 11,
     data: [
       {
-        id: 10,
+        id: 16,
         formGroup: FormGroups.BILLING_ADDRESS,
         validationRuleGroup: ValidationRuleGroup.COMMON,
         name: 'building',
@@ -140,7 +140,7 @@ const billingAddress: FormItemFieldsParams[] = [
         value: [],
       },
       {
-        id: 20,
+        id: 17,
         formGroup: FormGroups.BILLING_ADDRESS,
         validationRuleGroup: ValidationRuleGroup.COMMON,
         name: 'apartment',
@@ -149,7 +149,7 @@ const billingAddress: FormItemFieldsParams[] = [
         value: [],
       },
       {
-        id: 30,
+        id: 18,
         formGroup: FormGroups.BILLING_ADDRESS,
         validationRuleGroup: ValidationRuleGroup.POSTAL_CODE_BILLING,
         name: 'postalCode',
@@ -160,7 +160,7 @@ const billingAddress: FormItemFieldsParams[] = [
     ],
   },
   {
-    id: 166,
+    id: 12,
     name: 'default',
     formGroup: FormGroups.BILLING_ADDRESS,
     validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
@@ -171,7 +171,7 @@ const billingAddress: FormItemFieldsParams[] = [
 ];
 const mainInputFields: FormItemFieldsParams[] = [
   {
-    id: 21,
+    id: 19,
     formGroup: FormGroups.CUSTOMER,
     validationRuleGroup: ValidationRuleGroup.NAME,
     name: 'firstName',
@@ -180,7 +180,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     value: [],
   },
   {
-    id: 22,
+    id: 20,
     formGroup: FormGroups.CUSTOMER,
     validationRuleGroup: ValidationRuleGroup.NAME,
     name: 'lastName',
@@ -189,7 +189,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     value: [],
   },
   {
-    id: 23,
+    id: 21,
     formGroup: FormGroups.CUSTOMER,
     validationRuleGroup: ValidationRuleGroup.EMAIL,
     name: 'email',
@@ -198,7 +198,16 @@ const mainInputFields: FormItemFieldsParams[] = [
     value: [],
   },
   {
-    id: 24,
+    id: 22,
+    formGroup: FormGroups.CUSTOMER,
+    validationRuleGroup: ValidationRuleGroup.BIRTHDAY,
+    name: 'birthday',
+    type: 'date',
+    label: 'birthday',
+    value: [],
+  },
+  {
+    id: 23,
     formGroup: FormGroups.CUSTOMER,
     validationRuleGroup: ValidationRuleGroup.PASSWORD,
     name: 'password',
@@ -207,7 +216,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     value: [],
   },
   {
-    id: 25,
+    id: 24,
     formGroup: FormGroups.CUSTOMER,
     validationRuleGroup: ValidationRuleGroup.CONFIRM_PASSWORD,
     name: 'confirmPassword',

@@ -34,7 +34,7 @@ const MainPanel = ({
             return (
               <FsInput
                 {...rest}
-                id={inputData.id.toString()}
+                id={inputData.name}
                 key={inputData.id}
                 name={compoundName}
                 value={(formik.values[compoundName] as string) || ''}
