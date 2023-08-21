@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import FsInput from '@/components/UI/FsInput';
 import TextLoginPanel from '@/components/form/login/TextLoginPanel';
 import TextSignUpPanel from '@/components/form/signup/TextSignUpPanel';
@@ -14,6 +14,10 @@ const MainPanel = ({
   page: string;
   formik: FormikProps<formikValuesType>;
 }) => {
+  const onChangeHandler = (e: ChangeEvent<any>) => {
+    formik.setFieldTouched('type');
+    formik.handleChange(e);
+  };
   return (
     <>
       <div className='panel__item'>
@@ -34,13 +38,19 @@ const MainPanel = ({
                 key={inputData.id}
                 name={compoundName}
                 value={(formik.values[compoundName] as string) || ''}
-                onChange={formik.handleChange}
+                onChange={onChangeHandler}
                 onBlur={formik.handleBlur}
-                error={(formik.touched[compoundName] && Boolean(formik.errors[compoundName])) || false}
                 label={inputData.label || ''}
                 formGroup={formGroup}
+                error={
+                  ((formik.touched[compoundName] || formik.values[compoundName]) &&
+                    Boolean(formik.errors[compoundName])) ||
+                  false
+                }
                 errorText={
-                  formik.touched[compoundName] && formik.errors[compoundName] ? formik.errors[compoundName] : ' '
+                  (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
+                    ? formik.errors[compoundName]
+                    : ' '
                 }
               />
             );
