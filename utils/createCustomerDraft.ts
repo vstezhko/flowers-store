@@ -27,8 +27,8 @@ export const createCustomerDraft = (inputValues: Record<string, Record<string, s
         postalCode: inputValues[FormGroups.BILLING_ADDRESS].postalCode as string,
       },
     ],
-    shippingAddressIds: [0],
-    billingAddressIds: [1],
+    shippingAddresses: [0],
+    billingAddresses: [1],
     defaultShippingAddress: inputValues[FormGroups.SHIPPING_ADDRESS].default ? 0 : null,
     defaultBillingAddress: inputValues[FormGroups.BILLING_ADDRESS].default ? 1 : null,
   };
