@@ -8,7 +8,7 @@ import Leaf from '@/public/img/png/leaf.png';
 import LeafSmall from '@/public/img/png/leaf-small.png';
 import { FormikConfig, FormikProps, useFormik } from 'formik';
 import { generateInitialFormikValue } from '@/utils/generateInitialFormikValue';
-import { FormGroups, FsButtonType, Pages, ValidationRuleGroup } from '@/types/enums';
+import { FormGroups, FsButtonType, Pages, TokenType, ValidationRuleGroup } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
@@ -17,7 +17,7 @@ import { getCustomerAsync, loginAsync, signUpAsync } from '@/redux/slices/loginS
 import { useSnackbar } from 'notistack';
 import { TokenService } from '@/api/services/Token.service';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { deletePrefixKey } from '@/utils/deletePrefixKey';
 import { structureInputValues } from '@/utils/structureInputFormValues';
@@ -125,6 +125,13 @@ const FormContainer = ({
       dispatch(loginSlice.actions.removeMessage());
     }
   }, [message, variant, enqueueSnackbar, dispatch]);
+
+  const currentPath = usePathname();
+
+  useEffect(() => {
+    const isLogin = TokenService.getAccessTokenFromLS().type === TokenType.CUSTOMER;
+    if (isLogin && (currentPath === '/login' || currentPath === '/signup')) router.push('/');
+  }, [currentPath, router]);
 
   const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
 
