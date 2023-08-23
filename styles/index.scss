@@ -19,8 +19,11 @@
 @import "components/main/banner/_banner";
 @import "components/form/_form";
 @import "components/form/_signUpForm";
+@import "components/catalog/_smallCard";
+
 //pages
 @import "pages/offer/_offer";
 @import "pages/notFound/_notFound";
 @import "pages/about/_about";
 @import "pages/reviews/_reviews";
+@import "pages/catalog/_catalog";

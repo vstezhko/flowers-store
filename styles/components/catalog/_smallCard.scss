@@ -1,0 +1,51 @@
+
+.small-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 263px;
+  height: 386px;
+  border-radius: 5px;
+  font-family: var(--josefin-sans);
+
+  &__image-container {
+    position: relative;
+    width: 100%;
+    height: 230px;
+  }
+
+  &__image {
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  &__name {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 10px 20px 0;
+    width: 100%;
+  }
+
+  &__description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    padding: 0 20px;
+    line-height: 1.25rem;
+    height: 2.5rem;
+    width: 100%;
+  }
+
+  &__price {
+    text-align: center;
+    font-weight: 700;
+    padding: 10px 20px 20px;
+    width: 100%;
+  }
+
+}
