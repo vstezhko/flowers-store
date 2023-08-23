@@ -1,0 +1,45 @@
+.form {
+  .MuiAccordion-root.Mui-expanded {
+    margin: 0;
+    box-shadow: none;
+  }
+  .MuiAccordionSummary-content.Mui-expanded {
+    margin: 10px 0;
+  }
+  .MuiButtonBase-root.MuiAccordionSummary-root{
+    @include medium {
+      min-height: 2.5rem;
+    }
+  }
+  .MuiAccordionSummary-root.Mui-expanded {
+    min-height: 40px;
+  }
+  .MuiAccordionDetails-root {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .MuiPaper-root {
+    display: block;
+    box-shadow: none;
+    background-color: transparent;
+
+      border-bottom: 2px solid #CEDDD6;
+    &:last-child{
+      border-bottom: none;
+    }
+
+
+
+    &:before {
+      display: none;
+    }
+  }
+}
+
+
+.input__container {
+  display: flex;
+  gap: 10px;
+}

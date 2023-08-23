@@ -1,3 +1,85 @@
+@import "@/styles/abstract/variables";
+
+* {
+  box-sizing: border-box;
+}
+
 html {
-  background: #F9F8FB;
+  background: $color-background;
+
+  @include small {
+    font-size: 14px;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  @extend %font-primary;
+  width: 100%;
+  min-height: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  color: $color-primary;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  &__container{
+    padding-top: 179px;
+    flex-grow: 1;
+    background-image: url('../public/img/png/texture.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @include small{
+      padding-top: 149px;
+    }
+
+
+    @include mobile{
+      padding-top: 129px;
+    }
+  }
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  max-width: $content-width;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.highlight {
+  color: $color-brand-1;
+}
+
+
+.page{
+  padding: 50px 0;
+
+  &__title{
+    text-align: center;
+  }
+
+  &__content{
+    padding-top: 50px;
+  }
 }

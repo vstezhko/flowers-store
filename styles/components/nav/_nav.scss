@@ -1,0 +1,273 @@
+.nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  gap: 15px;
+  align-items: center;
+
+}
+
+.nav__link.logo {
+  max-width: 160px;
+  flex-grow: 1;
+  @include small {
+    max-width: 130px;
+  }
+
+  @include mobile {
+    max-width: 120px;
+  }
+
+
+  svg {
+    @include small {
+      width: 130px;
+      height: 90px;
+    }
+    @include mobile {
+      width: 120px;
+      height: 70px;
+    }
+  }
+}
+
+.nav__link.logout {
+  @include mobile-min {
+    padding: 10px;
+    border: 1px solid $color-primary;
+    border-radius: 4px;
+
+    &:hover h5 {
+      color: $color-shade-0 !important;
+    }
+
+    &:hover {
+      background-color: $color-primary-light;
+    }
+  }
+}
+
+.nav__burger {
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+  position: relative;
+  z-index: 102;
+  transition: 0.5s ease-in-out;
+  transform: rotate(0deg);
+}
+
+.nav__burger-container {
+  @include small {
+    width: 120px;
+  }
+}
+
+
+.nav__burger span {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: $color-primary;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  @extend %transition;
+}
+
+.nav__burger span:nth-child(2) {
+  top: 0px;
+}
+
+.nav__burger span:nth-child(2) {
+  top: 10px;
+}
+
+.nav__burger span:nth-child(3) {
+  top: 20px;
+}
+
+.nav__burger.open span:nth-child(1) {
+  top: 10px;
+  transform: rotate(135deg);
+}
+
+.nav__burger.open span:nth-child(2) {
+  opacity: 0;
+  left: -20px;
+}
+
+.nav__burger.open span:nth-child(3) {
+  top: 10px;
+  transform: rotate(-135deg);
+}
+
+.nav__mobile-container {
+  @include small {
+    display: block;
+    position: absolute;
+    top: 39px;
+    left: -$mq-small;
+    overflow-x: hidden;
+    width: 100%;
+    z-index: 101;
+    background-color: $color-background;
+    height: 100vh;
+    padding-top: 110px;
+    transition: 0.5s;
+
+    .nav__mobile-links {
+      padding: 0 45px;
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+
+      h5 {
+        font-size: 1.5rem;
+        text-align: left;
+      }
+
+    }
+
+    @include small-mobile {
+      padding-top: 100px;
+
+      .nav__mobile-links {
+        gap: 25px;
+
+        h5 {
+          font-size: 1.5rem;
+        }
+
+      }
+
+    }
+
+  }
+}
+
+
+.nav__mobile-container.open {
+
+  @include small {
+    left: 0;
+
+    & > img {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      max-width: 300px;
+      z-index: -100;
+    }
+  }
+
+}
+
+.nav__link {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  position: relative;
+
+
+  & .nav-icon rect,
+  & .nav-icon path,
+  & .link-title {
+    @extend %transition;
+  }
+
+  @include hover {
+
+    &:hover .nav-icon rect {
+      stroke: $color-primary-hover;
+    }
+
+    &:hover .nav-icon path {
+      fill: $color-primary-hover;
+    }
+
+    &:hover .link-title {
+      color: $color-primary-hover;
+    }
+
+  }
+}
+
+
+.link-title {
+  color: $color-primary;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &_active {
+    text-decoration: underline;
+    font-weight: 700;
+
+    @include small {
+      text-decoration: none;
+    }
+  }
+}
+
+.link {
+  width: 114px;
+  max-width: 114px;
+
+  & > h5 {
+    width: 100%;
+    text-align: left;
+  }
+
+
+  @include small {
+    width: 300px;
+    max-width: 300px;
+    justify-content: flex-start;
+  }
+}
+
+.nav__auth {
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: fit-content;
+  gap: 10px;
+
+  @include small-mobile{
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+
+    & > .nav__link{
+      width: 40px;
+      & > h5{
+        width: 100%;
+        text-align: left;
+      }
+    }
+  }
+
+  & > p {
+    align-self: center;
+  }
+
+  & > .flower-icon{
+    @include small-mobile{
+      margin-right: 15px;
+    }
+  }
+}
+
+.nav__mobile-links h5::after {
+  content: ' ❯';
+}
+

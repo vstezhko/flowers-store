@@ -1,0 +1,159 @@
+.footer-nav {
+  background-color: $color-primary-light;
+  padding: 30px 0;
+
+  .nav__link {
+    @extend %transition;
+
+    .flower-icon {
+      display: none;
+    }
+
+    @include hover {
+
+      &:hover .link-title {
+        color: $color-primary;
+      }
+
+    }
+
+  }
+
+  .link-title {
+    color: $color-shade-0;
+  }
+}
+
+.footer {
+  background-color: $color-primary-light;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-menu__container {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  gap: 20px;
+
+  @include mobile {
+    flex-direction: column;
+    padding-top: 15px;
+    gap: 10px;
+    & > * {
+      flex-basis: 100%;
+    }
+  }
+
+
+
+  .footer-menu__item, .menu__item {
+    width: 100%;
+    & > h4 {
+      color: $color-brand-1;
+      @include font(1.125rem, 700, normal);
+      margin-bottom: 10px;
+      @include small-mobile {
+       text-align: center;
+        margin-bottom:0;
+      }
+    }
+  }
+}
+
+.footer-menu__item {
+  @include small-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.footer__date {
+  width: 100%;
+  padding: 22px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid $color-secondary;
+  background-color: $color-primary;
+  color: $color-secondary;
+  @include font(16px, 400, normal);
+
+  @include mobile {
+    padding: 20px;
+  }
+}
+
+
+.menu__info-phone {
+  .phone {
+    color: $color-shade-0;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .phone-icon {
+    color: $color-shade-0;
+    width: 11px;
+    height: 15px;
+  }
+}
+
+.info__block-container, .info__block {
+  @include small-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+.info__block {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 0;
+  color: $color-shade-0;
+
+
+& label {
+  color: $color-shade-0;
+  font-size: 12px !important;
+  left: 0 !important;
+}
+
+p > span {
+  color: $color-brand-1;
+}
+
+&_phone {
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 0;
+
+  .phone-icon {
+    width: 15px;
+    height: 18px;
+  }
+}
+
+}
+
+.footer-link {
+  justify-content: flex-start;
+  padding: 10px 0;
+
+  h5 {
+    color: #fff !important;
+  }
+
+}
+

@@ -1,0 +1,37 @@
+.layout-2-columns {
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  width: 100%;
+
+  & > * {
+    flex-basis: 49%;
+  }
+
+  @include mobile {
+    & > * {
+      flex-basis: 100%;
+    }
+  }
+
+}
+
+.layout-3-columns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5.3rem;
+
+  > * {
+    flex-basis: 36%;
+  }
+}
+
+
+.layout-4-columns {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 40px;
+  row-gap: 30px;
+}

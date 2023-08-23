@@ -1,0 +1,41 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+h1 {
+  @include font(2.375rem, 700, normal);
+
+  @include mobile{
+    @include font(1.8rem, 700, normal);
+  }
+}
+
+h2 {
+  @include font(2rem, 400, normal);
+
+  @include small {
+    @include font(1.5rem, 400, normal);
+  }
+}
+
+h3 {
+  @include font(1.5rem, 400, normal);
+}
+
+h4 {
+  @include font(1.125rem, 700, normal);
+}
+
+h5 {
+  @include font(1rem, 400, normal);
+}
+
+h6 {
+  @include font(0.875rem, 700, normal);
+}

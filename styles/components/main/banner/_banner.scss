@@ -1,0 +1,62 @@
+.banner-section {
+  width: 100%;
+  background-color: $color-shade-0;
+
+
+  &__img-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 179px;
+    height: 70vh;
+    width: 100%;
+    overflow: hidden;
+
+    @include small {
+      margin-top: 129px;
+      height: 55vh;
+    }
+
+  }
+
+  &__img {
+    object-fit: cover;
+  }
+
+  &__content {
+    z-index: 1;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__text-block {
+    display: flex;
+    height: 100%;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 1;
+    user-select: none;
+  }
+
+  &__text {
+    text-align: center;
+    color: $color-primary;
+  }
+
+  &__text-block h1 {
+    font-size: 4rem;
+
+    @include small {
+      font-size: 2.5rem;
+    }
+
+  }
+
+}
