@@ -7,13 +7,11 @@ import { MenuParamsWithoutPathName } from '@/components/header/Header';
 import NavLink from '@/components/nav/NavLink';
 import MobileMenu from '@/components/nav/MobileMenu';
 import BurgerIcon from '@/components/nav/BurderIcon';
-import { ReduxState, useDispatch, useSelector } from '@/redux/store';
-// import UserIcon from '../Icons/UserIcon';
+import { ReduxState, useSelector } from '@/redux/store';
+import UserIcon from '../Icons/UserIcon';
 import { TokenService } from '@/api/services/Token.service';
 import { TokenType } from '@/types/enums';
-import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import FlowerIcon from '@/components/Icons/FlowerIcon';
-import { useSnackbar } from 'notistack';
 
 const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   const pathname = usePathname();
@@ -22,17 +20,6 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-  };
-
-  const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
-
-  const handleLogout = () => {
-    TokenService.removeTokensFromLS();
-    dispatch(loginSlice.actions.setIsLogin(false));
-    dispatch(loginSlice.actions.setIsSignUp(false));
-    dispatch(loginSlice.actions.removeCustomer());
-    enqueueSnackbar('Successful logout', { variant: 'success' });
   };
 
   const { access_token } = useSelector((state: ReduxState) => state.auth);
@@ -44,8 +31,7 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
   }, [access_token]);
 
   const authContent = (
-    // <NavLink path='/profile' title={matches ? '' : 'My Profile'} pathName={pathname} icon={<UserIcon />} className='' />
-    <NavLink title='Log out' pathName='' path='/' icon={null} className='logout' onClick={handleLogout} />
+    <NavLink path='/profile' title={matches ? '' : 'My Profile'} pathName={pathname} icon={<UserIcon />} className='' />
   );
   const guestContent = (
     <>

@@ -1,0 +1,41 @@
+.profile__container{
+
+  .MuiBox-root{
+    @include small(){
+      flex-direction: column;
+    }
+  }
+
+  .MuiTabs-root{
+    @include small-mobile(){
+      min-height: 30px;
+    }
+  }
+
+  .MuiTabs-flexContainer{
+    width: 250px;
+    align-items: center;
+    padding: 30px 0;
+    @include small(){
+      padding: 0 10px;
+      width: 100%;
+    }
+  }
+
+  button{
+    width: 100%;
+    @include small(){
+     width: 30%;
+    }
+
+    @include small-mobile(){
+      padding: 6px 10px;
+      @include font(9px, 700, normal);
+      min-height: 30px;
+    }
+  }
+  .fsButton{
+    max-width: 150px !important;
+    margin-top: 20px;
+  }
+}
