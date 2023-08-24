@@ -126,7 +126,9 @@ const Catalog = () => {
             productName={product.masterData.current.name?.en || 'No product name'}
             price={
               product.masterData.current.masterVariant.prices?.[0].value.centAmount
-                ? `From ${product.masterData.current.masterVariant.prices[0].value.centAmount} ${product.masterData.current.masterVariant.prices[0].value.currencyCode}`
+                ? `From ${product.masterData.current.masterVariant.prices[0].value.centAmount / 100} ${
+                    product.masterData.current.masterVariant.prices[0].value.currencyCode
+                  }`
                 : 'Upon request'
             }
             description={product.masterData.current.description?.en || 'No description available'}
