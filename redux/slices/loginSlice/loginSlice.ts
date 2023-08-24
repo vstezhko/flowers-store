@@ -115,4 +115,4 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { actions: authActions } = loginSlice;
+export const { actions } = loginSlice;
