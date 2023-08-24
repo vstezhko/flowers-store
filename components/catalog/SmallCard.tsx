@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Box, Button, Paper } from '@mui/material';
 import Link from 'next/link';
+import noImage from '@/public/img/jpeg/no-image.jpg';
 
 const SmallProductCard = ({
   productName,
@@ -14,11 +15,18 @@ const SmallProductCard = ({
   price: string;
   image: string;
 }) => {
+  const [src, setSrc] = useState(image);
+
   return (
     <Link href='/catalog'>
       <Paper className='small-card'>
         <div className='small-card__image-container'>
-          <Image className='small-card__image' src={image} alt='Product photo' layout='fill'></Image>
+          <Image
+            className='small-card__image'
+            src={src}
+            onError={() => setSrc(noImage.src)}
+            alt='Product photo'
+            layout='fill'></Image>
         </div>
         <div className='small-card__text-content'>
           <div className='small-card__name'>{productName}</div>

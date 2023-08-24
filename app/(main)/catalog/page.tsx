@@ -4,6 +4,7 @@ import SmallProductCard from '@/components/catalog/SmallCard';
 import { useEffect, useState } from 'react';
 import { TokenService } from '@/api/services/Token.service';
 import { useSnackbar } from 'notistack';
+import noImage from '@/public/img/jpeg/no-image.jpg';
 
 export interface ProductCategory {
   typeId: string;
@@ -132,7 +133,11 @@ const Catalog = () => {
                 : 'Upon request'
             }
             description={product.masterData.current.description?.en || 'No description available'}
-            image={product.masterData.current.masterVariant.images[0].url || 'No image available'}
+            image={
+              product.masterData.current.masterVariant.images[0].url
+                ? product.masterData.current.masterVariant.images[0].url
+                : noImage.src
+            }
           />
         ))}
       </div>
