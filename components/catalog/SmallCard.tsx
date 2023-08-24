@@ -1,20 +1,28 @@
 import React from 'react';
 import Image from 'next/image';
-import MainBanner from '@/public/img/jpeg/main-banner.jpg';
 import { Box, Paper } from '@mui/material';
 
-const SmallProductCard = () => {
+const SmallProductCard = ({
+  productName,
+  description,
+  price,
+  image,
+}: {
+  productName: string;
+  description: string;
+  price: string;
+  image: string;
+}) => {
   return (
     <Paper className='small-card'>
       <div className='small-card__image-container'>
-        <Image className='small-card__image' src={MainBanner.src} alt='Product photo' layout='fill'></Image>
+        <Image className='small-card__image' src={image} alt='Product photo' layout='fill'></Image>
       </div>
-      <div className='small-card__name'>Sample Card Name</div>
+      <div className='small-card__name'>{productName}</div>
       <Box component='div' sx={{ textOverflow: 'ellipsis' }} className='small-card__description'>
-        Moved in with your partner? Started a new job? Moved to a different city? New adventures call for special floral
-        arrangements. A dreamy and at the same time colorful bouquet in p
+        {description}
       </Box>
-      <div className='small-card__price'> From 100€</div>
+      <div className='small-card__price'>{price}</div>
     </Paper>
   );
 };
