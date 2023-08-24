@@ -74,7 +74,7 @@ interface Channel {
   id: string;
 }
 
-interface ProductVariant {
+export interface ProductVariant {
   id: number;
   sku: string;
   key: string;

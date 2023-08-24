@@ -1,0 +1,23 @@
+.product {
+  .product-block {
+    display: flex;
+    justify-content: space-between;
+    gap: 35px;
+    margin-bottom: 40px;
+  }
+
+  .product-block__images {
+    width: 450px;
+    height: 600px;
+  }
+
+  .product-block__info {
+    width: 100%
+  }
+
+  .product-block__variants {
+    display: flex;
+    gap: 10px;
+  }
+
+}
