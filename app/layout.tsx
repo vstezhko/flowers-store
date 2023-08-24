@@ -12,6 +12,7 @@ import {
   karton2,
   ptSans,
   pecita,
+  josefinSans,
 } from '@/utils/fonts';
 import React from 'react';
 import { Providers } from '@/redux/providers';
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             --karton: ${karton.style.fontFamily};
             --karton2: ${karton2.style.fontFamily};
             --pecita: ${pecita.style.fontFamily};
+            --josefin-sans: ${josefinSans.style.fontFamily};
           }
         `}</style>
       </head>
