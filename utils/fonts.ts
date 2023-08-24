@@ -1,5 +1,5 @@
 import localFont from 'next/font/local';
-import { PT_Sans, Roboto } from 'next/font/google';
+import { PT_Sans, Roboto, Josefin_Sans } from 'next/font/google';
 
 export const robotoReg = Roboto({
   weight: '400',
@@ -12,11 +12,18 @@ export const robotoMed = Roboto({
   variable: '--roboto-med',
 });
 
+export const josefinSans = Josefin_Sans({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--josefin-sans',
+});
+
 export const ptSans = PT_Sans({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--pt-sans',
 });
+
 export const literalReg = localFont({
   src: '../public/fonts/literal-regular.otf',
   variable: '--literal-reg',
@@ -29,10 +36,12 @@ export const literalLight = localFont({
   src: '../public/fonts/literal-light.otf',
   variable: '--literal-light',
 });
+
 export const karton = localFont({
   src: '../public/fonts/karton.otf',
   variable: '--karton',
 });
+
 export const karton2 = localFont({
   src: '../public/fonts/karton2.ttf',
   variable: '--karton2',
