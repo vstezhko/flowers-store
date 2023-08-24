@@ -2,9 +2,8 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { FormGroups, FsButtonType } from '@/types/enums';
+import { FormGroups } from '@/types/enums';
 import { FormItemFieldsParams } from '@/components/form/FormContainer';
-import FsButton from '@/components/UI/FsButton';
 import { useMediaQuery } from '@mui/material';
 
 interface TabPanelProps {
@@ -53,7 +52,6 @@ export default function FsTabs({ tabs, data }: { tabs: string[]; data: Record<Fo
         {tabs.map((tab, index) => (
           <Tab key={index} label={tab} {...a11yProps(index)} />
         ))}
-        {!matches && <FsButton className={FsButtonType.REGULAR} label='Log Out' />}
       </Tabs>
       <TabPanel value={value} index={0}>
         Item One

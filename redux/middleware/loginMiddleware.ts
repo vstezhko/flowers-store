@@ -24,7 +24,7 @@ const loginMiddleware: Middleware = store => next => action => {
         })
       );
     } else {
-      store.dispatch(loginSlice.actions.setMessage({ message: 'successful login', variant: 'success' }));
+      store.dispatch(loginSlice.actions.setMessage({ message: 'Successful login', variant: 'success' }));
     }
   }
 
