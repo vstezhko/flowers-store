@@ -2,13 +2,13 @@
 import FormContainer from '@/components/form/FormContainer';
 import { Pages } from '@/types/enums';
 import signUpForm from '@/components/form/signup/SignUpForm';
-import { data } from '@/data/data';
+import { authData } from '@/data/authData';
 
 const SignUp = () => {
   return (
     <FormContainer
       childComponent={signUpForm}
-      data={data}
+      data={authData}
       pathName='Sign in'
       path='/login'
       page={Pages.SIGNUP}

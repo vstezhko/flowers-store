@@ -6,6 +6,7 @@ const colorBrand1 = '#6AAE55';
 const colorBrand2 = '#F2994A';
 const colorPrimary = '#5B4A58';
 const colorError = '#EB5757';
+const colorLight = '#FFFFFF';
 
 const FSTheme = createTheme({
   components: {
@@ -13,6 +14,16 @@ const FSTheme = createTheme({
       styleOverrides: {
         root: {
           color: colorPrimary,
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        outlined: {
+          color: colorBrand1,
+        },
+        contained: {
+          color: colorLight,
         },
       },
     },

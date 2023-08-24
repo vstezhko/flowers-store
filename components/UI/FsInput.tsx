@@ -3,7 +3,7 @@ import { IconButton, InputAdornment, StandardTextFieldProps, TextField } from '@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 import { FormikProps } from 'formik';
-import { formikValuesType } from '@/components/form/FormContainer';
+import { formikValuesType } from '@/types/types';
 
 export interface FsInputParams extends Omit<StandardTextFieldProps, 'ref'> {
   id: string;
@@ -18,7 +18,7 @@ export interface FsInputParams extends Omit<StandardTextFieldProps, 'ref'> {
   formGroup?: FormGroups;
   validationRuleGroup?: ValidationRuleGroup;
   onChange: FormikProps<formikValuesType>['handleChange'];
-  onBlur: FormikProps<formikValuesType>['handleBlur'];
+  onBlur?: FormikProps<formikValuesType>['handleBlur'];
 }
 
 const FsInput: React.FC<FsInputParams> = props => {

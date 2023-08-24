@@ -14,7 +14,7 @@ export interface LoginState {
   variant: 'error' | 'success';
 }
 
-interface Customer {
+export interface Customer {
   addresses: [];
   email: string | null;
   firstName: string | null;
@@ -26,6 +26,7 @@ interface Customer {
   createdAt: string | null;
   lastModifiedAt: string | null;
   authenticationMode: string | null;
+  dateOfBirth: string | null;
 }
 
 export const initialState: LoginState = {
@@ -44,6 +45,7 @@ export const initialState: LoginState = {
     createdAt: null,
     lastModifiedAt: null,
     authenticationMode: null,
+    dateOfBirth: null,
   },
   anonymousCart: {
     id: null,
@@ -79,6 +81,7 @@ export const loginSlice = createSlice({
         createdAt: null,
         lastModifiedAt: null,
         authenticationMode: null,
+        dateOfBirth: null,
       };
     },
     setMessage: (state: LoginState, action) => {

@@ -1,5 +1,5 @@
-import { FormItemFieldsParams } from '@/components/form/FormContainer';
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
+import { FormItemFieldsParams } from '@/types/types';
 
 const shippingAddress: FormItemFieldsParams[] = [
   {
@@ -9,7 +9,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     name: 'phone',
     type: 'phone',
     label: 'phone',
-    value: [],
+    value: '',
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     name: 'country',
     type: 'select',
     label: 'country',
-    value: [
+    options: [
       { code: 'PL', name: 'Poland' },
       { code: 'DE', name: 'Germany' },
       { code: 'FX', name: 'France' },
@@ -31,7 +31,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     name: 'city',
     type: 'text',
     label: 'city',
-    value: [],
+    value: '',
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     validationRuleGroup: ValidationRuleGroup.COMMON,
     type: 'text',
     label: 'street',
-    value: [],
+    value: '',
   },
   {
     id: 5,
@@ -52,7 +52,7 @@ const shippingAddress: FormItemFieldsParams[] = [
         name: 'building',
         type: 'text',
         label: 'building',
-        value: [],
+        value: '',
       },
       {
         id: 14,
@@ -61,7 +61,7 @@ const shippingAddress: FormItemFieldsParams[] = [
         name: 'apartment',
         type: 'text',
         label: 'apt.',
-        value: [],
+        value: '',
       },
       {
         id: 15,
@@ -70,7 +70,7 @@ const shippingAddress: FormItemFieldsParams[] = [
         name: 'postalCode',
         type: 'text',
         label: 'zip code',
-        value: [],
+        value: '',
       },
     ],
   },
@@ -81,7 +81,7 @@ const shippingAddress: FormItemFieldsParams[] = [
     validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
     type: 'checkbox',
     label: 'set as default shipping address',
-    value: [],
+    value: '',
   },
 ];
 const billingAddress: FormItemFieldsParams[] = [
@@ -92,7 +92,7 @@ const billingAddress: FormItemFieldsParams[] = [
     name: 'phone',
     type: 'phone',
     label: 'phone',
-    value: [],
+    value: '',
   },
   {
     id: 8,
@@ -101,7 +101,7 @@ const billingAddress: FormItemFieldsParams[] = [
     name: 'country',
     type: 'select',
     label: 'country',
-    value: [
+    options: [
       { code: 'PL', name: 'Poland' },
       { code: 'DE', name: 'Germany' },
       { code: 'FX', name: 'France' },
@@ -114,7 +114,7 @@ const billingAddress: FormItemFieldsParams[] = [
     name: 'city',
     type: 'text',
     label: 'city',
-    value: [],
+    value: '',
   },
   {
     id: 10,
@@ -123,7 +123,7 @@ const billingAddress: FormItemFieldsParams[] = [
     validationRuleGroup: ValidationRuleGroup.COMMON,
     type: 'text',
     label: 'street',
-    value: [],
+    value: '',
   },
   {
     id: 11,
@@ -135,7 +135,7 @@ const billingAddress: FormItemFieldsParams[] = [
         name: 'building',
         type: 'text',
         label: 'building',
-        value: [],
+        value: '',
       },
       {
         id: 17,
@@ -144,7 +144,7 @@ const billingAddress: FormItemFieldsParams[] = [
         name: 'apartment',
         type: 'text',
         label: 'apt.',
-        value: [],
+        value: '',
       },
       {
         id: 18,
@@ -153,7 +153,7 @@ const billingAddress: FormItemFieldsParams[] = [
         name: 'postalCode',
         type: 'text',
         label: 'zip code',
-        value: [],
+        value: '',
       },
     ],
   },
@@ -164,7 +164,7 @@ const billingAddress: FormItemFieldsParams[] = [
     validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
     type: 'checkbox',
     label: 'set as default billing address',
-    value: [],
+    value: '',
   },
 ];
 const mainInputFields: FormItemFieldsParams[] = [
@@ -175,7 +175,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'firstName',
     type: 'text',
     label: 'firstName',
-    value: [],
+    value: '',
   },
   {
     id: 20,
@@ -184,7 +184,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'lastName',
     type: 'text',
     label: 'lastName',
-    value: [],
+    value: '',
   },
   {
     id: 21,
@@ -193,7 +193,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'email',
     type: 'text',
     label: 'email',
-    value: [],
+    value: '',
   },
   {
     id: 22,
@@ -202,7 +202,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'birthday',
     type: 'date',
     label: 'birthday',
-    value: [],
+    value: '',
   },
   {
     id: 23,
@@ -211,7 +211,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'password',
     type: 'password',
     label: 'password',
-    value: [],
+    value: '',
   },
   {
     id: 24,
@@ -220,11 +220,11 @@ const mainInputFields: FormItemFieldsParams[] = [
     name: 'confirmPassword',
     type: 'password',
     label: 'confirm password',
-    value: [],
+    value: '',
   },
 ];
 
-export const data = {
+export const authData = {
   [FormGroups.CUSTOMER]: mainInputFields,
   [FormGroups.SHIPPING_ADDRESS]: shippingAddress,
   [FormGroups.BILLING_ADDRESS]: billingAddress,

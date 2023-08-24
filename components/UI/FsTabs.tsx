@@ -1,10 +1,8 @@
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import { FormGroups } from '@/types/enums';
-import { FormItemFieldsParams } from '@/components/form/FormContainer';
-import { useMediaQuery } from '@mui/material';
+import { FormItemFieldsParams } from '@/types/types';
+import PersonalInfoForm from '@/components/form/personalForm/PersonalInfoForm';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -21,8 +19,9 @@ function TabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
+      className='tab__panel'
       {...other}>
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <div className='tab__panel-container'>{children}</div>}
     </div>
   );
 }
@@ -34,34 +33,24 @@ function a11yProps(index: number) {
   };
 }
 
-export default function FsTabs({ tabs, data }: { tabs: string[]; data: Record<FormGroups, FormItemFieldsParams[]> }) {
-  const [value, setValue] = React.useState(0);
-  console.log(data);
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+export default function FsTabs({ tabs, customer }: { tabs: string[]; customer: FormItemFieldsParams[] }) {
+  const [tabValue, setTabValue] = React.useState(0);
+  const handleChange = (event: React.SyntheticEvent, newTab: number) => {
+    setTabValue(newTab);
   };
-  const matches = useMediaQuery('(max-width:768px)');
+
+  console.log(customer);
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: '#EBF0E3', display: 'flex', borderRadius: '8px' }}>
-      <Tabs
-        orientation={matches ? 'horizontal' : 'vertical'}
-        value={value}
-        onChange={handleChange}
-        sx={{ borderRight: 1, borderColor: 'divider' }}>
+    <div className='tabs'>
+      <Tabs orientation='vertical' value={tabValue} sx={{ marginRight: '20px' }} onChange={handleChange}>
         {tabs.map((tab, index) => (
           <Tab key={index} label={tab} {...a11yProps(index)} />
         ))}
       </Tabs>
-      <TabPanel value={value} index={0}>
-        Item One
+      <TabPanel value={tabValue} index={0}>
+        <PersonalInfoForm customer={customer} />
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-    </Box>
+    </div>
   );
 }

@@ -2,7 +2,7 @@
 import '@/styles/index.scss';
 import { ThemeProvider } from '@mui/material';
 import FSTheme from '@/MUI/theme';
-import { karton, pecita, avenirReg, avenirBold,  josefinSans } from '@/utils/fonts';
+import { karton, pecita, avenirReg, avenirBold } from '@/utils/fonts';
 import React from 'react';
 import { Providers } from '@/redux/providers';
 import AuthComponent from '@/components/AuthComponent';
@@ -24,7 +24,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             --pecita: ${pecita.style.fontFamily};
             --avenir-reg: ${avenirReg.style.fontFamily};
             --avenir-bold: ${avenirBold.style.fontFamily};
-            --josefin-sans: ${josefinSans.style.fontFamily};
           }
         `}</style>
       </head>

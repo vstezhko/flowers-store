@@ -1,5 +1,4 @@
 import localFont from 'next/font/local';
-import { Josefin_Sans } from 'next/font/google';
 
 export const karton = localFont({
   src: '../public/fonts/karton.otf',
@@ -19,10 +18,4 @@ export const avenirReg = localFont({
 export const avenirBold = localFont({
   src: '../public/fonts/Avenir-bold.otf',
   variable: '--avenir-bold',
-});
-
-export const josefinSans = Josefin_Sans({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  variable: '--josefin-sans',
 });
