@@ -35,6 +35,7 @@ const FsInput: React.FC<FsInputParams> = props => {
     onChange,
     onBlur,
     type,
+    disabled,
     ...rest
   } = props;
 
@@ -51,6 +52,7 @@ const FsInput: React.FC<FsInputParams> = props => {
       onBlur={onBlur}
       value={value || ''}
       onChange={onChange}
+      disabled={disabled}
       fullWidth
       className={`fsInput ${className}`}
       helperText={errorText}
@@ -70,7 +72,7 @@ const FsInput: React.FC<FsInputParams> = props => {
           type === 'password' ? (
             <InputAdornment position='end'>
               <IconButton onClick={handleTogglePassword} edge='end' style={{ color: '#5B4A58' }}>
-                {showPassword ? <VisibilityOff /> : <Visibility />}
+                {!showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
           ) : (

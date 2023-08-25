@@ -15,7 +15,7 @@ export interface LoginState {
 }
 
 export interface Customer {
-  addresses: [];
+  addresses: ICustomerAddress[];
   email: string | null;
   firstName: string | null;
   id: string | null;
@@ -27,6 +27,22 @@ export interface Customer {
   lastModifiedAt: string | null;
   authenticationMode: string | null;
   dateOfBirth: string | null;
+}
+
+export interface ICustomerAddress {
+  city: string;
+  country: string;
+  email: string;
+  firstName: string;
+  id: string;
+  lastName: string;
+  mobile: string;
+  phone: string;
+  postalCode: string;
+  streetName: string;
+  building: string;
+  title: string;
+  apartment: string;
 }
 
 export const initialState: LoginState = {

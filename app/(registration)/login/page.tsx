@@ -12,7 +12,7 @@ const userLoginFields: FormItemFieldsParams[] = [
     name: 'email',
     type: 'text',
     label: 'email',
-    value: [],
+    value: '',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const userLoginFields: FormItemFieldsParams[] = [
     name: 'password',
     type: 'password',
     label: 'password',
-    value: [],
+    value: '',
   },
 ];
 const Login = () => {

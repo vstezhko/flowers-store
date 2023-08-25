@@ -12,9 +12,6 @@ const PersonalInfoForm = ({ customer }: { customer: FormItemFieldsParams[] }) =>
       <form className='form-customer'>
         <div className='form__content'>
           {customer.map(inputData => {
-            if ('data' in inputData) {
-              return <></>;
-            }
             if ('value' in inputData) {
               const { id, value, name, formGroup, ...rest } = inputData;
               const compoundName = `${formGroup}-${name}`;
@@ -28,6 +25,7 @@ const PersonalInfoForm = ({ customer }: { customer: FormItemFieldsParams[] }) =>
                   onChange={() => console.log('jjj')}
                   label={inputData.label || ''}
                   formGroup={formGroup}
+                  disabled={true}
                 />
               );
             }

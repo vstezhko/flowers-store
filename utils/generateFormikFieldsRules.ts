@@ -1,6 +1,6 @@
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
-import { FormItemFieldsParams } from '@/components/form/FormContainer';
 import { ref, string, StringSchema } from 'yup';
+import { FormItemFieldsParams } from '@/types/types';
 
 const getZipValidation = (mainField: string): StringSchema => {
   return string()

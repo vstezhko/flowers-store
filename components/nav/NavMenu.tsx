@@ -69,7 +69,7 @@ const ProfileContent = () => {
               <NavLink path='/profile' title='My Profile' pathName='' icon={null} className='' />
             </ListItem>
             <ListItem>
-              <FsButton className={FsButtonType.REGULAR} label='Log Out' onClick={handleLogout} />
+              <FsButton className={FsButtonType.SMALL} variant='outlined' label='Log Out' onClick={handleLogout} />
             </ListItem>
           </List>
         ) : (

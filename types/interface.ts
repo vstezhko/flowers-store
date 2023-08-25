@@ -25,6 +25,7 @@ export interface customerDraft {
   lastName: string;
   email: string;
   password: string;
+  dateOfBirth: string;
   addresses: address[];
   shippingAddresses: number[];
   defaultShippingAddress?: number | null;

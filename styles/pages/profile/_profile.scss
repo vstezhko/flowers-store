@@ -1,5 +1,4 @@
 .profile__container {
-
   .MuiTabs-root {
     width: 263px;
     border-radius: 8px;
@@ -45,6 +44,7 @@
     display: flex;
     gap: 4%;
     padding: 30px;
+    height: 100%;
   }
 
 }
@@ -52,6 +52,7 @@
 
 .tabs {
   display: flex;
+  min-height: 440px;
 }
 
 
@@ -60,26 +61,33 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  height: 100%;
   width: 48%;
+  gap: 20px;
+
+  .form__content{
+   height: 337px;
+  }
 }
+
+
 
 .form__btn-container {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 40px;
   width: 100%;
 }
 
 .profile__container-img{
   width: 48%;
-  height: 328px;
+  height: 337px;
   position: relative;
+
 
   .profile__img{
     width: 100%;
     height: auto;
     object-fit: cover;
+    border-radius: 8px;
   }
 }

@@ -32,6 +32,7 @@ describe('AuthService', () => {
       password: 'testpassword',
       firstName: 'John',
       lastName: 'Doe',
+      dateOfBirth: '2000-08-17',
       addresses: [
         {
           phone: '1234567890',

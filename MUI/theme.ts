@@ -21,6 +21,10 @@ const FSTheme = createTheme({
       styleOverrides: {
         outlined: {
           color: colorBrand1,
+          '&:hover': {
+            backgroundColor: colorBrand1,
+            color: colorLight,
+          },
         },
         contained: {
           color: colorLight,

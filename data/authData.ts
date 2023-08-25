@@ -199,7 +199,7 @@ const mainInputFields: FormItemFieldsParams[] = [
     id: 22,
     formGroup: FormGroups.CUSTOMER,
     validationRuleGroup: ValidationRuleGroup.BIRTHDAY,
-    name: 'birthday',
+    name: 'dateOfBirth',
     type: 'date',
     label: 'birthday',
     value: '',
