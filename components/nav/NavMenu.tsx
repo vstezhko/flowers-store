@@ -52,7 +52,7 @@ const ProfileContent = () => {
     <div className='nav__profile'>
       <Button aria-describedby={ID} onClick={handleClick}>
         <UserIcon />
-        <p>Profile</p>
+        <h5>Profile</h5>
       </Button>
       <Popover
         id={ID}

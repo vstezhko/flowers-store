@@ -249,11 +249,15 @@
     color: $color-primary;
     font-size: 1rem;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
 
+    svg{
+      margin-bottom: 2px;
+    }
+
     @include medium-mobile(){
-      p {
+      h5 {
         display: none;
       }
     }

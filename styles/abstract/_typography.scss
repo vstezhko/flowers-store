@@ -33,9 +33,12 @@ h4 {
 }
 
 h5 {
-  @include font(0.8rem, 400, normal);
+  @include font(1rem, 400, normal);
+  @include medium(){
+    @include font(0.8rem, 400, normal);
+  }
 }
 
 h6 {
-  @include font(0.7rem, 700, normal);
+  @include font(0.875rem, 700, normal);
 }
