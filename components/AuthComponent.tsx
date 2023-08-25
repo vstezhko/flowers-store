@@ -4,6 +4,8 @@ import { getClientAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 import { TokenService } from '@/api/services/Token.service';
 import { getCustomerAsync } from '@/redux/slices/loginSlice/thunks';
 import { TokenType } from '@/types/enums';
+import { enqueueSnackbar } from 'notistack';
+import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 
 const AuthComponent = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
@@ -19,6 +21,15 @@ const AuthComponent = ({ children }: { children: React.ReactNode }) => {
     const token = TokenService.getAccessTokenFromLS();
     if (token?.type === TokenType.CUSTOMER && !customer?.id) dispatch(getCustomerAsync(token.token));
   }, [access_token, customer?.id, dispatch]);
+
+  const { message, variant } = useSelector(state => state.snackbar);
+  useEffect(() => {
+    console.log('message', message);
+    if (message) {
+      enqueueSnackbar(message, { variant });
+      dispatch(snackbarSlice.actions.removeMessage());
+    }
+  }, [dispatch, message, variant]);
 
   return <>{children}</>;
 };

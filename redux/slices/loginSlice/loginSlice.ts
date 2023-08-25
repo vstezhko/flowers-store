@@ -10,8 +10,6 @@ export interface LoginState {
     id: string | null;
     typeId: string | null;
   };
-  message: string;
-  variant: 'error' | 'success';
 }
 
 interface Customer {
@@ -49,8 +47,6 @@ export const initialState: LoginState = {
     id: null,
     typeId: null,
   },
-  message: '',
-  variant: 'success',
 };
 
 export const loginSlice = createSlice({
@@ -62,9 +58,6 @@ export const loginSlice = createSlice({
     },
     setIsSignUp: (state, action: PayloadAction<boolean>) => {
       state.isSignUp = action.payload;
-    },
-    removeMessage: (state: LoginState) => {
-      state.message = '';
     },
     removeCustomer: state => {
       state.customer = {
@@ -80,10 +73,6 @@ export const loginSlice = createSlice({
         lastModifiedAt: null,
         authenticationMode: null,
       };
-    },
-    setMessage: (state: LoginState, action) => {
-      state.message = action.payload.message;
-      state.variant = action.payload.variant;
     },
   },
   extraReducers: builder => {
@@ -110,7 +99,6 @@ export const loginSlice = createSlice({
       })
       .addCase(getCustomerAsync.fulfilled, (state: LoginState, action: PayloadAction<Customer>) => {
         setCustomers(state, action);
-        state.message = '';
       });
   },
 });

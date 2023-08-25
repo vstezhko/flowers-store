@@ -3,7 +3,6 @@ import { ProductService } from '@/api/services/Products.services';
 import SmallProductCard from '@/components/catalog/SmallCard';
 import { useEffect, useState } from 'react';
 import { TokenService } from '@/api/services/Token.service';
-import { useSnackbar } from 'notistack';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 
 export interface ProductCategory {
@@ -103,19 +102,14 @@ interface Product {
 
 const Catalog = () => {
   const [productsPage, setProductsPage] = useState<Product[]>([]);
-  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const fetchProducts = async () => {
-      try {
-        const products = await ProductService.getProducts(TokenService.getAccessTokenFromLS().token);
-        setProductsPage(products.results);
-      } catch (innerError) {
-        enqueueSnackbar('An error occurred while fetching products. Try again later!');
-      }
+      const products = await ProductService.getProducts(TokenService.getAccessTokenFromLS().token);
+      setProductsPage(products.results);
     };
     fetchProducts();
-  }, [enqueueSnackbar]);
+  }, []);
 
   return (
     <section className='catalog page'>
