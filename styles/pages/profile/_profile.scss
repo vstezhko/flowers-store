@@ -36,6 +36,7 @@
 
       @include small() {
         width: 25%;
+        border-bottom: none;
       }
 
       @include mobile() {
