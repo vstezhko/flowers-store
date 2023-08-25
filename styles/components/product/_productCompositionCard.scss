@@ -3,12 +3,14 @@
   border-radius: 10px;
   padding: 20px;
   height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: flex-start;
 
-  h5 {
-    margin-bottom: 20px;
-  }
-
-  ul {
+  .product-composition-card__list {
+    flex-grow: 1;
     padding-left: 17px;
+    overflow-x: scroll;
   }
 }

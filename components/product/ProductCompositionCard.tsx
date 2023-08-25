@@ -9,13 +9,22 @@ const ProductCompositionCard: React.FC<ProductCompositionCardProps> = ({ items }
   return (
     <div className='product-composition-card'>
       <h5>Composition</h5>
-      {items?.length && <ul>{items?.map((item, index) => <li key={index}>{item}</li>)}</ul>}
+      {items?.length && (
+        <ul className='product-composition-card__list'>{items?.map((item, index) => <li key={index}>{item}</li>)}</ul>
+      )}
       {items !== undefined && !items.length && (
-        <ul>
+        <ul className='product-composition-card__list'>
           <li>There is no information about this bouquet</li>
         </ul>
       )}
-      {!items && <Skeleton variant='rounded' width={210} height={100} />}
+      {!items && (
+        <>
+          <Skeleton variant='rectangular' width={200} height={30} />
+          <Skeleton variant='rectangular' width={200} height={30} />
+          <Skeleton variant='rectangular' width={200} height={30} />
+          <Skeleton variant='rectangular' width={200} height={30} />
+        </>
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 .product-variant-card {
   cursor: pointer;
-  width: 175px;
+  min-width: 175px;
   margin: 10px 0;
   border-radius: 10px;
   background: $color-shade-0;
@@ -10,6 +10,8 @@
   gap: 5px;
   position: relative;
   transition: all 0.3s;
+  border: 1px solid $color-shade-0;
+  flex-grow: 1;
 
 
   &:hover {

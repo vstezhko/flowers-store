@@ -133,6 +133,10 @@ export const productSlice = createSlice({
       state.id = action.payload.id;
       Object.assign(state, action.payload.masterData.staged);
     });
+
+    builder.addCase(getProductByIdAsync.rejected, state => {
+      state.status = 'failed';
+    });
   },
 });
 
