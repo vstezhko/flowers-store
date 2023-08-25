@@ -8,7 +8,6 @@ const tabsName: string[] = ['Personal Info', 'Shipping Address', 'Billing Addres
 
 const ProfileFormContainer = () => {
   const { customer } = useSelector(state => state.login);
-  console.log(customer);
   const shipping = customer.addresses.length > 0 ? customer.addresses[0] : null;
   const billing = customer.addresses.length > 0 ? customer.addresses[1] : null;
 
@@ -93,8 +92,8 @@ const ProfileFormContainer = () => {
         formGroup: FormGroups.SHIPPING_ADDRESS,
         validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
         type: 'checkbox',
-        label: 'set as default shipping address',
-        value: '',
+        label: 'default shipping address',
+        value: customer?.defaultShippingAddressId,
       },
     ];
   }, [customer]);
@@ -177,11 +176,11 @@ const ProfileFormContainer = () => {
       {
         id: 19,
         name: 'default',
-        formGroup: FormGroups.SHIPPING_ADDRESS,
+        formGroup: FormGroups.BILLING_ADDRESS,
         validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
         type: 'checkbox',
-        label: 'set as default shipping address',
-        value: '',
+        label: 'default shipping address',
+        value: customer?.defaultBillingAddressId,
       },
     ];
   }, [customer]);

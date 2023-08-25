@@ -27,6 +27,8 @@ export interface Customer {
   lastModifiedAt: string | null;
   authenticationMode: string | null;
   dateOfBirth: string | null;
+  defaultShippingAddressId: string | null;
+  defaultBillingAddressId: string | null;
 }
 
 export interface ICustomerAddress {
@@ -62,6 +64,8 @@ export const initialState: LoginState = {
     lastModifiedAt: null,
     authenticationMode: null,
     dateOfBirth: null,
+    defaultShippingAddressId: null,
+    defaultBillingAddressId: null,
   },
   anonymousCart: {
     id: null,
@@ -98,6 +102,8 @@ export const loginSlice = createSlice({
         lastModifiedAt: null,
         authenticationMode: null,
         dateOfBirth: null,
+        defaultShippingAddressId: null,
+        defaultBillingAddressId: null,
       };
     },
     setMessage: (state: LoginState, action) => {

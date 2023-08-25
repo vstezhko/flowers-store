@@ -115,10 +115,8 @@ const PersonalAddressForm = ({ address, type }: { address: FormItemFieldsParams[
                 <FsCheckbox
                   name={compoundName}
                   key={inputData.id}
-                  // onToggle={formik.handleChange}
-                  // onBlur={formik.handleBlur}
                   label={inputData.label}
-                  value={inputData.value}
+                  checked={!!inputData.value}
                   disabled={true}
                 />
               );

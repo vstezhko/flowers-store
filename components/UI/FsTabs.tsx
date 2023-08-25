@@ -51,8 +51,6 @@ export default function FsTabs({
     setTabValue(newTab);
   };
 
-  console.log(shippingAddress);
-
   return (
     <div className='tabs'>
       <Tabs orientation='vertical' value={tabValue} sx={{ marginRight: '20px' }} onChange={handleChange}>
