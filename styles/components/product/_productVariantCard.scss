@@ -9,7 +9,7 @@
   flex-direction: column;
   gap: 5px;
   position: relative;
-  transition: all 0.3s;
+  @extend %transition;
   border: 1px solid $color-shade-0;
   flex-grow: 1;
 
