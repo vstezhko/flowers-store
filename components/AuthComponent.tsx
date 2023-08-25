@@ -24,7 +24,6 @@ const AuthComponent = ({ children }: { children: React.ReactNode }) => {
 
   const { message, variant } = useSelector(state => state.snackbar);
   useEffect(() => {
-    console.log('message', message);
     if (message) {
       enqueueSnackbar(message, { variant });
       dispatch(snackbarSlice.actions.removeMessage());
