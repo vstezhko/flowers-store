@@ -1,0 +1,11 @@
+.searchbar {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+
+  &__divider {
+    height: 28px;
+    margin: 0 4px;
+  }
+
+}
