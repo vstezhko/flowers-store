@@ -1,10 +1,6 @@
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { FormItemFieldsParams } from '@/types/types';
-import PersonalInfoForm from '@/components/form/personalForm/PersonalInfoForm';
-import PersonalAddressForm from '@/components/form/personalForm/PersonalAddressForm';
-import { FormGroups } from '@/types/enums';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -35,17 +31,12 @@ function a11yProps(index: number) {
   };
 }
 
-export default function FsTabs({
-  tabs,
-  customer,
-  shippingAddress,
-  billingAddress,
-}: {
+interface FsTabsProps {
   tabs: string[];
-  customer: FormItemFieldsParams[];
-  shippingAddress: FormItemFieldsParams[];
-  billingAddress: FormItemFieldsParams[];
-}) {
+  components: React.JSX.Element[];
+}
+
+export default function FsTabs({ tabs, components }: FsTabsProps) {
   const [tabValue, setTabValue] = React.useState(0);
   const handleChange = (event: React.SyntheticEvent, newTab: number) => {
     setTabValue(newTab);
@@ -58,15 +49,11 @@ export default function FsTabs({
           <Tab key={index} label={tab} {...a11yProps(index)} />
         ))}
       </Tabs>
-      <TabPanel value={tabValue} index={0}>
-        <PersonalInfoForm customer={customer} />
-      </TabPanel>
-      <TabPanel value={tabValue} index={1}>
-        <PersonalAddressForm address={shippingAddress} type={FormGroups.SHIPPING_ADDRESS} />
-      </TabPanel>
-      <TabPanel value={tabValue} index={2}>
-        <PersonalAddressForm address={billingAddress} type={FormGroups.BILLING_ADDRESS} />
-      </TabPanel>
+      {components?.map((component: React.JSX.Element, index: number) => (
+        <TabPanel key={index} value={tabValue} index={index}>
+          {component}
+        </TabPanel>
+      ))}
     </div>
   );
 }

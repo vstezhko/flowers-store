@@ -3,6 +3,8 @@ import FsTabs from '@/components/UI/FsTabs';
 import { useSelector } from '@/redux/store';
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 import { FormItemFieldsParams } from '@/types/types';
+import PersonalInfoForm from '@/components/form/personalForm/PersonalInfoForm';
+import PersonalAddressForm from '@/components/form/personalForm/PersonalAddressForm';
 
 const tabsName: string[] = ['Personal Info', 'Shipping Address', 'Billing Address'];
 
@@ -232,14 +234,29 @@ const ProfileFormContainer = () => {
     [FormGroups.BILLING_ADDRESS]: billingAddress,
   };
 
+  interface ChildComponent {
+    component: React.JSX.Element;
+  }
+
+  const children: ChildComponent[] = [
+    {
+      component: <PersonalInfoForm customer={customerData[FormGroups.CUSTOMER]} />,
+    },
+    {
+      component: (
+        <PersonalAddressForm address={customerData[FormGroups.SHIPPING_ADDRESS]} type={FormGroups.SHIPPING_ADDRESS} />
+      ),
+    },
+    {
+      component: (
+        <PersonalAddressForm address={customerData[FormGroups.BILLING_ADDRESS]} type={FormGroups.BILLING_ADDRESS} />
+      ),
+    },
+  ];
+
   return (
     <div className='profile__container'>
-      <FsTabs
-        tabs={tabsName}
-        customer={customerData[FormGroups.CUSTOMER]}
-        shippingAddress={customerData[FormGroups.SHIPPING_ADDRESS]}
-        billingAddress={customerData[FormGroups.BILLING_ADDRESS]}
-      />
+      <FsTabs tabs={tabsName} components={children.map(child => child.component)} />
     </div>
   );
 };
