@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Button, List, ListItem, Popover, useMediaQuery } from '@mui/material';
 import { MenuParamsWithoutPathName } from '@/components/header/Header';
 import NavLink from '@/components/nav/NavLink';
@@ -12,10 +12,11 @@ import { useDispatch, useSelector } from '@/redux/store';
 import { TokenService } from '@/api/services/Token.service';
 import { FsButtonType, TokenType } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
-import { useSnackbar } from 'notistack';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 
 const ProfileContent = () => {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -38,14 +39,14 @@ const ProfileContent = () => {
   }, [access_token]);
 
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleLogout = () => {
     TokenService.removeTokensFromLS();
     dispatch(loginSlice.actions.setIsLogin(false));
     dispatch(loginSlice.actions.setIsSignUp(false));
     dispatch(loginSlice.actions.removeCustomer());
-    enqueueSnackbar('Successful logout', { variant: 'success' });
+    dispatch(snackbarSlice.actions.setMessage({ message: 'Successful logout', variant: 'success' }));
+    router.push('/');
   };
 
   return (
