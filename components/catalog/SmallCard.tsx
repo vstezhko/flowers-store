@@ -5,11 +5,13 @@ import Link from 'next/link';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 
 const SmallProductCard = ({
+  id,
   productName,
   description,
   price,
   image,
 }: {
+  id: string;
   productName: string;
   description: string;
   price: string;
@@ -18,7 +20,7 @@ const SmallProductCard = ({
   const [src, setSrc] = useState(image);
 
   return (
-    <Link href='/catalog'>
+    <Link href={`/catalog/product/${id}`}>
       <Paper className='small-card'>
         <div className='small-card__image-container'>
           <Image

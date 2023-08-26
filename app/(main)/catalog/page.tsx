@@ -97,7 +97,7 @@ interface CurrentProductData {
 }
 
 interface Product {
-  id: string | null;
+  id: string;
   masterData: ProductMasterData;
 }
 
@@ -124,6 +124,7 @@ const Catalog = () => {
         {productsPage.map(product => (
           <SmallProductCard
             key={product.id}
+            id={product.id}
             productName={product.masterData.current.name?.en || 'No product name'}
             price={
               product.masterData.current.masterVariant.prices?.[0].value.centAmount
