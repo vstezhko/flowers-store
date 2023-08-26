@@ -12,8 +12,8 @@ import { useDispatch, useSelector } from '@/redux/store';
 import { TokenService } from '@/api/services/Token.service';
 import { FsButtonType, TokenType } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
-import { useSnackbar } from 'notistack';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 
 const ProfileContent = () => {
   const router = useRouter();
@@ -39,14 +39,13 @@ const ProfileContent = () => {
   }, [access_token]);
 
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleLogout = () => {
     TokenService.removeTokensFromLS();
     dispatch(loginSlice.actions.setIsLogin(false));
     dispatch(loginSlice.actions.setIsSignUp(false));
     dispatch(loginSlice.actions.removeCustomer());
-    enqueueSnackbar('Successful logout', { variant: 'success' });
+    dispatch(snackbarSlice.actions.setMessage({ message: 'Successful logout', variant: 'success' }));
     router.push('/');
   };
 
