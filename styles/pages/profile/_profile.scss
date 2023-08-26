@@ -16,7 +16,7 @@
 
   .tabs {
     display: flex;
-    min-height: 440px;
+    min-height: 490px;
     @include small() {
       flex-direction: column;
     }
@@ -82,7 +82,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   width: 48%;
   gap: 20px;
 
@@ -91,7 +91,13 @@
   }
 
   .form__content {
-    height: 337px;
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+
+    .switch{
+      align-self: flex-end;
+    }
 
     @include medium-mobile() {
       border-radius: 0 0 8px 8px;
@@ -109,7 +115,7 @@
 
 .profile__container-img {
   width: 48%;
-  height: 337px;
+  height: 360px;
   position: relative;
 
   @include medium-mobile() {

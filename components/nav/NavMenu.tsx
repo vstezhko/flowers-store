@@ -53,7 +53,7 @@ const ProfileContent = () => {
     <div className='nav__profile'>
       <Button aria-describedby={ID} onClick={handleClick}>
         <UserIcon />
-        <h5>ProfileContainer</h5>
+        <h5>Profile</h5>
       </Button>
       <Popover
         id={ID}
@@ -68,7 +68,7 @@ const ProfileContent = () => {
         {tokenType === TokenType.CUSTOMER ? (
           <List>
             <ListItem>
-              <NavLink path='/profile' title='My ProfileContainer' pathName='' icon={null} className='' />
+              <NavLink path='/profile' title='My Profile' pathName='' icon={null} className='' />
             </ListItem>
             <ListItem>
               <FsButton className={FsButtonType.SMALL} variant='outlined' label='Log Out' onClick={handleLogout} />

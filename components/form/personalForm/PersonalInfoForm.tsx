@@ -2,7 +2,7 @@ import FsInput from '@/components/UI/FsInput';
 import * as React from 'react';
 import { FormItemFieldsParams } from '@/types/types';
 
-const PersonalInfoForm = (data: FormItemFieldsParams[]) => {
+const PersonalInfoForm = (data: FormItemFieldsParams[], checked: boolean) => {
   return data?.map(inputData => {
     if ('value' in inputData) {
       const { id, value, name, formGroup, ...rest } = inputData;
@@ -17,7 +17,7 @@ const PersonalInfoForm = (data: FormItemFieldsParams[]) => {
           onChange={() => console.log('jjj')}
           label={inputData.label || ''}
           formGroup={formGroup}
-          disabled={true}
+          disabled={!checked}
         />
       );
     }

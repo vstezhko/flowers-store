@@ -6,7 +6,7 @@ import { ChangeEvent } from 'react';
 import FsPhoneInput from '@/components/UI/FsPhoneInput';
 import FsCheckbox from '@/components/UI/FsCheckbox';
 
-const PersonalAddressForm = (data: FormItemFieldsParams[]) => {
+const PersonalAddressForm = (data: FormItemFieldsParams[], checked: boolean) => {
   return data?.map((inputData: FormItemFieldsParams) => {
     let compoundName;
     if ('name' in inputData) {
@@ -27,7 +27,7 @@ const PersonalAddressForm = (data: FormItemFieldsParams[]) => {
           label={inputData.label || ''}
           value={inputData.value || null || undefined}
           formgroup={inputData.formGroup}
-          disabled={true}
+          disabled={!checked}
         />
       );
     }
@@ -46,7 +46,7 @@ const PersonalAddressForm = (data: FormItemFieldsParams[]) => {
           }}
           // onBlur={formik.handleBlur}
           formGroup={inputData.formGroup}
-          disabled={true}
+          disabled={!checked}
         />
       );
     }
@@ -63,7 +63,7 @@ const PersonalAddressForm = (data: FormItemFieldsParams[]) => {
           }}
           value={inputData.value || null || undefined}
           formGroup={inputData.formGroup}
-          disabled={true}
+          disabled={!checked}
         />
       );
     }
@@ -92,7 +92,7 @@ const PersonalAddressForm = (data: FormItemFieldsParams[]) => {
                       console.log(e);
                     }}
                     formGroup={subInput.formGroup}
-                    disabled={true}
+                    disabled={!checked}
                   />
                 );
               }
@@ -108,7 +108,7 @@ const PersonalAddressForm = (data: FormItemFieldsParams[]) => {
           key={inputData.id}
           label={inputData.label}
           checked={!!inputData.value}
-          disabled={true}
+          disabled={!checked}
         />
       );
     }
