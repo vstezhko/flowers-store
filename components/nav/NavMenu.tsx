@@ -59,6 +59,7 @@ const ProfileContent = () => {
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
+        disableScrollLock={true}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
