@@ -15,7 +15,7 @@ export default function BannerSection() {
   return (
     <section className='banner-section'>
       <div className='banner-section__img-container'>
-        <Image fill={true} src={MainBanner.src} alt='Welcome' className='banner-section__img' />
+        <Image fill src={MainBanner} alt='Welcome' className='banner-section__img' />
         <div className='banner-section__content'>
           <div className='banner-section__text-block'>
             <h1 className='banner-section__text'>

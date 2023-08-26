@@ -30,7 +30,7 @@ const ContactForm = () => {
 
   useEffect(() => {
     if (formik.isSubmitting && formik.isValid) formik.resetForm();
-  }, [formik.isSubmitting, formik.isValid]);
+  }, [formik, formik.isSubmitting, formik.isValid]);
 
   return (
     <form className='info__block' onSubmit={formik.handleSubmit}>

@@ -9,6 +9,13 @@
     margin: 3rem 0;
     padding-inline-start: 0;
 
+    img {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      inset: 0;
+    }
+
     @include large {
       gap: 30px 90px;
     }
