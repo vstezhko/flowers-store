@@ -16,7 +16,7 @@ import MinusIcon from '@/components/Icons/MinusIcon';
 import { Skeleton } from '@mui/material';
 
 const Product = () => {
-  const id: string = usePathname().split('/')[2];
+  const id: string = usePathname().split('/')[3];
   const dispatch = useDispatch();
   const router = useRouter();
   const product = useSelector(state => state.product);
