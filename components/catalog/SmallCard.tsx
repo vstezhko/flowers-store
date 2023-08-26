@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Box, Button, Paper } from '@mui/material';
 import noImage from '@/public/img/jpeg/no-image.jpg';
+import Link from 'next/link';
 
 const SmallProductCard = ({
   id,
