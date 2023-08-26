@@ -19,7 +19,7 @@ export default function BannerSection() {
         <div className='banner-section__content'>
           <div className='banner-section__text-block'>
             <h1 className='banner-section__text'>
-              Welcome to our <span className='highlight'>flowers store</span>
+              Welcome to our <span className='highlight'>Flowers Store</span>
             </h1>
             <h2 className='banner-section__text'>
               Discover a world of <span className='highlight'>fresh and fragrant flowers</span> with us

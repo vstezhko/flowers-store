@@ -6,7 +6,7 @@
   gap: 15px;
   width: 263px;
   border-radius: 5px;
-  font-family: var(--josefin-sans);
+  //font-family: var(--josefin-sans);
   cursor: pointer;
   opacity: 0.95;
   @extend %transition;
@@ -34,8 +34,8 @@
   &__name {
     text-align: center;
     text-transform: uppercase;
-    font-weight: 700;
     width: 100%;
+    @extend %font-secondary;
   }
 
   &__description {
@@ -43,7 +43,7 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-align: center;
+    text-align: left;
     line-height: 1.25rem;
     height: 3.75rem;
     width: 100%;
@@ -57,8 +57,8 @@
   }
 
   &__price {
-    font-weight: 700;
     width: 100%;
+    @extend %font-secondary;
   }
 
   @include small {

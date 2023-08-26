@@ -87,6 +87,8 @@ body {
 
   &__title{
     text-align: center;
+    margin-bottom: 20px;
+    @extend %font-title;
   }
 
   &__content{

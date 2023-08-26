@@ -1,7 +1,8 @@
 'use client';
-import FormContainer, { FormItemFieldsParams } from '@/components/form/FormContainer';
+import FormContainer from '@/components/form/FormContainer';
 import LoginForm from '@/components/form/login/LoginForm';
 import { FormGroups, Pages, ValidationRuleGroup } from '@/types/enums';
+import { FormItemFieldsParams } from '@/types/types';
 
 const userLoginFields: FormItemFieldsParams[] = [
   {
@@ -11,7 +12,7 @@ const userLoginFields: FormItemFieldsParams[] = [
     name: 'email',
     type: 'text',
     label: 'email',
-    value: [],
+    value: '',
   },
   {
     id: 2,
@@ -20,7 +21,7 @@ const userLoginFields: FormItemFieldsParams[] = [
     name: 'password',
     type: 'password',
     label: 'password',
-    value: [],
+    value: '',
   },
 ];
 const Login = () => {

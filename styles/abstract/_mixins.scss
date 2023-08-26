@@ -11,8 +11,9 @@
 
 @mixin
 inputLabelFont {
-  @include font(14px, 700, 120%);
-  font-family: var(--karton);
+  @include font(10px, 400, 120%);
+  font-family: var(--avenir-reg);
+  text-transform: uppercase;
 }
 
 //media-queries

@@ -1,8 +1,8 @@
 import React from 'react';
 import MainPanel from '@/components/form/MainPanel';
 import { FormGroups } from '@/types/enums';
-import { formikValuesType, FormItemFieldsParams } from '@/components/form/FormContainer';
 import { FormikProps } from 'formik';
+import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 
 const LoginForm = (data: Record<FormGroups, FormItemFieldsParams[]>, formik: FormikProps<formikValuesType>) => {
   return (

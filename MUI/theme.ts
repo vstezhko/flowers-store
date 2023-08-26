@@ -1,11 +1,12 @@
 'use client';
 import { createTheme } from '@mui/material/styles';
-import { karton, ptSans } from '@/utils/fonts';
+import { avenirBold, avenirReg } from '@/utils/fonts';
 
 const colorBrand1 = '#6AAE55';
 const colorBrand2 = '#F2994A';
 const colorPrimary = '#5B4A58';
 const colorError = '#EB5757';
+const colorLight = '#FFFFFF';
 
 const FSTheme = createTheme({
   components: {
@@ -13,6 +14,20 @@ const FSTheme = createTheme({
       styleOverrides: {
         root: {
           color: colorPrimary,
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        outlined: {
+          color: colorBrand1,
+          '&:hover': {
+            backgroundColor: colorBrand1,
+            color: colorLight,
+          },
+        },
+        contained: {
+          color: colorLight,
         },
       },
     },
@@ -31,12 +46,10 @@ const FSTheme = createTheme({
   },
   typography: {
     button: {
-      fontWeight: 700,
-      fontFamily: ptSans.style.fontFamily,
+      fontFamily: avenirBold.style.fontFamily,
     },
     body1: {
-      fontWeight: 400,
-      fontFamily: karton.style.fontFamily,
+      fontFamily: avenirReg.style.fontFamily,
       fontSize: '12px',
     },
   },

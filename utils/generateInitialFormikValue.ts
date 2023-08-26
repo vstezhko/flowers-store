@@ -1,5 +1,5 @@
 import { FormGroups } from '@/types/enums';
-import { FormItemFieldsParams } from '@/components/form/FormContainer';
+import { FormItemFieldsParams } from '@/types/types';
 
 export const generateInitialFormikValue = (
   inputs: Record<FormGroups, FormItemFieldsParams[]> | FormItemFieldsParams[],

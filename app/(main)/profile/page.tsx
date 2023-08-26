@@ -1,22 +1,11 @@
 'use client';
-import { useDispatch } from 'react-redux';
-import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
-import { TokenService } from '@/api/services/Token.service';
-import NavLink from '@/components/nav/NavLink';
+import ProfileFormContainer from '@/components/form/ProfileFormContainer';
 
 const Profile = () => {
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    TokenService.removeTokensFromLS();
-    dispatch(loginSlice.actions.setIsLogin(false));
-    dispatch(loginSlice.actions.removeCustomer());
-  };
-
   return (
     <section className='page'>
       <h1 className='page__title'>Profile</h1>
-      <NavLink title='Log out' pathName='' path='/' icon={null} className='' onClick={handleLogout} />
+      <ProfileFormContainer />
     </section>
   );
 };

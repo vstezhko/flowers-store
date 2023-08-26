@@ -11,7 +11,7 @@ export interface FsCheckboxParams extends Omit<FormControlLabelProps, 'control'>
 const FsCheckbox: React.FC<FsCheckboxParams> = props => {
   let { className, checked, onToggle, ...rest } = props;
 
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false || checked);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked); // Update the state when the checkbox is clicked

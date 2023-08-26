@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { FormikConfig, FormikProps, useFormik } from 'formik';
-import { formikValuesType } from '@/components/form/FormContainer';
 import FsInput from '@/components/UI/FsInput';
 import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
+import { formikValuesType } from '@/types/types';
 
 const ContactForm = () => {
   const { enqueueSnackbar } = useSnackbar();

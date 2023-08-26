@@ -8,7 +8,7 @@ import Leaf from '@/public/img/png/leaf.png';
 import LeafSmall from '@/public/img/png/leaf-small.png';
 import { FormikConfig, FormikProps, useFormik } from 'formik';
 import { generateInitialFormikValue } from '@/utils/generateInitialFormikValue';
-import { FormGroups, FsButtonType, Pages, TokenType, ValidationRuleGroup } from '@/types/enums';
+import { FormGroups, FsButtonType, Pages, TokenType } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
@@ -20,27 +20,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { deletePrefixKey } from '@/utils/deletePrefixKey';
 import { structureInputValues } from '@/utils/structureInputFormValues';
 import { createCustomerDraft } from '@/utils/createCustomerDraft';
-import { selectInputOptions } from '@/types/interface';
+import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 import Image from 'next/image';
-
-export interface FormItemFieldParams {
-  id: number;
-  formGroup: FormGroups;
-  validationRuleGroup: ValidationRuleGroup;
-  name: string;
-  type?: string;
-  label?: string;
-  value?: selectInputOptions[];
-}
-
-export interface FormItemUnionFieldsParams {
-  id: number | string;
-  data?: FormItemFieldsParams[];
-}
-
-export type FormItemFieldsParams = FormItemUnionFieldsParams | FormItemFieldParams;
-
-export type formikValuesType = Record<string, string | boolean>;
 
 const FormContainer = ({
   childComponent,

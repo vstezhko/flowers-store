@@ -12,8 +12,8 @@ export interface LoginState {
   };
 }
 
-interface Customer {
-  addresses: [];
+export interface Customer {
+  addresses: ICustomerAddress[];
   email: string | null;
   firstName: string | null;
   id: string | null;
@@ -24,6 +24,25 @@ interface Customer {
   createdAt: string | null;
   lastModifiedAt: string | null;
   authenticationMode: string | null;
+  dateOfBirth: string | null;
+  defaultShippingAddressId: string | null;
+  defaultBillingAddressId: string | null;
+}
+
+export interface ICustomerAddress {
+  city: string;
+  country: string;
+  email: string;
+  firstName: string;
+  id: string;
+  lastName: string;
+  mobile: string;
+  phone: string;
+  postalCode: string;
+  streetName: string;
+  building: string;
+  title: string;
+  apartment: string;
 }
 
 export const initialState: LoginState = {
@@ -42,6 +61,9 @@ export const initialState: LoginState = {
     createdAt: null,
     lastModifiedAt: null,
     authenticationMode: null,
+    dateOfBirth: null,
+    defaultShippingAddressId: null,
+    defaultBillingAddressId: null,
   },
   anonymousCart: {
     id: null,
@@ -72,6 +94,9 @@ export const loginSlice = createSlice({
         createdAt: null,
         lastModifiedAt: null,
         authenticationMode: null,
+        dateOfBirth: null,
+        defaultShippingAddressId: null,
+        defaultBillingAddressId: null,
       };
     },
   },

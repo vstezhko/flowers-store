@@ -1,7 +1,6 @@
 
 .MuiButton-root.fsButton {
   border-radius: 10px;
-  color: $color-shade-0;
 
   &.Mui-disabled {
     color: $color-shade-0;
@@ -36,4 +35,12 @@
     padding: 9px;
     line-height: 22px;
   }
+
+  &.small {
+    width: 150px;
+    font-size: 0.75rem;
+    padding: 6px;
+    line-height: 22px;
+  }
 }
+
