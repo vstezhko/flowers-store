@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Button, List, ListItem, Popover, useMediaQuery } from '@mui/material';
 import { MenuParamsWithoutPathName } from '@/components/header/Header';
 import NavLink from '@/components/nav/NavLink';
@@ -16,6 +16,7 @@ import { useSnackbar } from 'notistack';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 
 const ProfileContent = () => {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -46,6 +47,7 @@ const ProfileContent = () => {
     dispatch(loginSlice.actions.setIsSignUp(false));
     dispatch(loginSlice.actions.removeCustomer());
     enqueueSnackbar('Successful logout', { variant: 'success' });
+    router.push('/');
   };
 
   return (
