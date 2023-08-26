@@ -10,12 +10,10 @@ export interface LoginState {
     id: string | null;
     typeId: string | null;
   };
-  message: string;
-  variant: 'error' | 'success';
 }
 
-interface Customer {
-  addresses: [];
+export interface Customer {
+  addresses: ICustomerAddress[];
   email: string | null;
   firstName: string | null;
   id: string | null;
@@ -26,6 +24,25 @@ interface Customer {
   createdAt: string | null;
   lastModifiedAt: string | null;
   authenticationMode: string | null;
+  dateOfBirth: string | null;
+  defaultShippingAddressId: string | null;
+  defaultBillingAddressId: string | null;
+}
+
+export interface ICustomerAddress {
+  city: string;
+  country: string;
+  email: string;
+  firstName: string;
+  id: string;
+  lastName: string;
+  mobile: string;
+  phone: string;
+  postalCode: string;
+  streetName: string;
+  building: string;
+  title: string;
+  apartment: string;
 }
 
 export const initialState: LoginState = {
@@ -44,13 +61,14 @@ export const initialState: LoginState = {
     createdAt: null,
     lastModifiedAt: null,
     authenticationMode: null,
+    dateOfBirth: null,
+    defaultShippingAddressId: null,
+    defaultBillingAddressId: null,
   },
   anonymousCart: {
     id: null,
     typeId: null,
   },
-  message: '',
-  variant: 'success',
 };
 
 export const loginSlice = createSlice({
@@ -62,9 +80,6 @@ export const loginSlice = createSlice({
     },
     setIsSignUp: (state, action: PayloadAction<boolean>) => {
       state.isSignUp = action.payload;
-    },
-    removeMessage: (state: LoginState) => {
-      state.message = '';
     },
     removeCustomer: state => {
       state.customer = {
@@ -79,11 +94,10 @@ export const loginSlice = createSlice({
         createdAt: null,
         lastModifiedAt: null,
         authenticationMode: null,
+        dateOfBirth: null,
+        defaultShippingAddressId: null,
+        defaultBillingAddressId: null,
       };
-    },
-    setMessage: (state: LoginState, action) => {
-      state.message = action.payload.message;
-      state.variant = action.payload.variant;
     },
   },
   extraReducers: builder => {
@@ -110,7 +124,6 @@ export const loginSlice = createSlice({
       })
       .addCase(getCustomerAsync.fulfilled, (state: LoginState, action: PayloadAction<Customer>) => {
         setCustomers(state, action);
-        state.message = '';
       });
   },
 });

@@ -1,9 +1,13 @@
 %font-primary {
-  font-family: var(--karton);
+  font-family: var(--avenir-reg);
 }
 
 %font-secondary {
-  font-family: var(--pt-sans);
+  font-family: var(--avenir-bold);
+}
+
+%font-title {
+  font-family: var(--karton);
 }
 
 %transition {

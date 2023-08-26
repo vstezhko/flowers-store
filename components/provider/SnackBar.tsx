@@ -6,7 +6,7 @@ import { useSelector } from '@/redux/store';
 import HeartIcon from '@/components/Icons/HeartIcon';
 
 const SnackBarIcon = ({ id }: { id: number | string }) => {
-  const { variant } = useSelector(state => state.login);
+  const { variant } = useSelector(state => state.snackbar);
   return (
     <IconButton onClick={() => closeSnackbar(id)}>
       {variant === 'success' ? <HeartIcon /> : <BrokenHeartIcon />}

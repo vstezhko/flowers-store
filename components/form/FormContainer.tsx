@@ -8,40 +8,20 @@ import Leaf from '@/public/img/png/leaf.png';
 import LeafSmall from '@/public/img/png/leaf-small.png';
 import { FormikConfig, FormikProps, useFormik } from 'formik';
 import { generateInitialFormikValue } from '@/utils/generateInitialFormikValue';
-import { FormGroups, FsButtonType, Pages, TokenType, ValidationRuleGroup } from '@/types/enums';
+import { FormGroups, FsButtonType, Pages, TokenType } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
-import { useDispatch, useSelector } from '@/redux/store';
+import { useDispatch } from '@/redux/store';
 import { getCustomerAsync, loginAsync, signUpAsync } from '@/redux/slices/loginSlice/thunks';
-import { useSnackbar } from 'notistack';
 import { TokenService } from '@/api/services/Token.service';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 import { usePathname, useRouter } from 'next/navigation';
-import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { deletePrefixKey } from '@/utils/deletePrefixKey';
 import { structureInputValues } from '@/utils/structureInputFormValues';
 import { createCustomerDraft } from '@/utils/createCustomerDraft';
-import { selectInputOptions } from '@/types/interface';
-
-export interface FormItemFieldParams {
-  id: number;
-  formGroup: FormGroups;
-  validationRuleGroup: ValidationRuleGroup;
-  name: string;
-  type?: string;
-  label?: string;
-  value?: selectInputOptions[];
-}
-
-export interface FormItemUnionFieldsParams {
-  id: number | string;
-  data?: FormItemFieldsParams[];
-}
-
-export type FormItemFieldsParams = FormItemUnionFieldsParams | FormItemFieldParams;
-
-export type formikValuesType = Record<string, string | boolean>;
+import { formikValuesType, FormItemFieldsParams } from '@/types/types';
+import Image from 'next/image';
 
 const FormContainer = ({
   childComponent,
@@ -65,8 +45,6 @@ const FormContainer = ({
   const validationSchema = object().shape(generateFormikFieldsRules(data));
   const initialValues: Record<string, string | boolean> = generateInitialFormikValue(data);
   const dispatch = useDispatch();
-  const { message, variant } = useSelector(state => state.login);
-  const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const [open, setOpen] = useState({ name: '', state: false });
   const [isValid, setIsValid] = useState(false);
@@ -119,13 +97,6 @@ const FormContainer = ({
     },
   };
 
-  useEffect(() => {
-    if (message) {
-      enqueueSnackbar(message, { variant });
-      dispatch(loginSlice.actions.removeMessage());
-    }
-  }, [message, variant, enqueueSnackbar, dispatch]);
-
   const currentPath = usePathname();
 
   useEffect(() => {
@@ -152,18 +123,18 @@ const FormContainer = ({
   return (
     <div className='form-container__background-img'>
       <div className='background-img background-img_left'>
-        <img src={LeafLeft.src} alt='leaf' />
+        <Image src={LeafLeft} alt='leaf' />
       </div>
       <div className='background-img background-img_right'>
-        <img src={LeafRight.src} alt='leaf' />
+        <Image src={LeafRight} alt='leaf' />
       </div>
       <Paper elevation={3} className='form__paper'>
         <div className='form__links'>
           <Link href='/'>Home</Link>
           <Link href={path}>{pathName}</Link>
         </div>
-        <img src={Leaf.src} alt='leaf' className='form-img' />
-        <img src={LeafSmall.src} alt='leaf' className='form-img-bottom' />
+        <Image src={Leaf} alt='leaf' className='form-img' />
+        <Image src={LeafSmall} alt='leaf' className='form-img-bottom' />
         <form className='form' onSubmit={formik.handleSubmit}>
           <h2>{title}</h2>
           {childComponent(data, formik, open)}

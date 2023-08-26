@@ -3,6 +3,7 @@ export enum FsButtonType {
   BIG = 'big',
   MEDIUM = 'medium',
   REGULAR = 'regular',
+  SMALL = 'small',
 }
 
 export enum FormGroups {

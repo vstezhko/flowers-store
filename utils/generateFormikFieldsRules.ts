@@ -1,6 +1,6 @@
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
-import { FormItemFieldsParams } from '@/components/form/FormContainer';
 import { ref, string, StringSchema } from 'yup';
+import { FormItemFieldsParams } from '@/types/types';
 
 const getZipValidation = (mainField: string): StringSchema => {
   return string()
@@ -37,7 +37,7 @@ const RulesForFields = {
   [ValidationRuleGroup.EMAIL]: string()
     .required('required')
     .max(25, 'too long')
-    .test('no-leading-trailing-space', 'no leading or trailing spaces', value => {
+    .test('no-leading-trailing-space', 'no leading/trailing spaces', value => {
       if (!value) return true;
       return !/^\s|\s$/.test(value);
     })
@@ -54,15 +54,15 @@ const RulesForFields = {
   [ValidationRuleGroup.PASSWORD]: string()
     .required('required')
     .max(25, 'too long')
-    .test('no-leading-trailing-space', 'no leading or trailing spaces', value => {
+    .test('no-leading-trailing-space', 'no leading/trailing spaces', value => {
       if (!value) return true;
       return !/^\s|\s$/.test(value);
     })
     .min(8, 'min 8 characters')
-    .matches(/^(?=.*\d)/, 'need at least 1 digit')
+    .matches(/^(?=.*\d)/, 'need 1 digit')
     .matches(/(?=.*[A-Z])/, 'need 1 uppercase (A-Z)')
     .matches(/(?=.*[a-z])/, 'need 1 lowercase (a-z)')
-    .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, 'need at least 1 special symbol'),
+    .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, 'need 1 special symbol'),
   [ValidationRuleGroup.CONFIRM_PASSWORD]: string()
     .required('retype your password.')
     .oneOf([ref(`${FormGroups.CUSTOMER}-${ValidationRuleGroup.PASSWORD}`)], 'passwords mismatch'),

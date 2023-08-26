@@ -6,8 +6,8 @@
   .MuiInputLabel-root {
     @include inputLabelFont();
     transform: none;
-    top: -20px;
-    left: 12px;
+    top: -15px;
+    left: 0;
   }
 
   .Mui-error {
@@ -42,7 +42,7 @@
     input {
       padding-top: 5px;
       padding-bottom: 5px;
-      @extend %font-secondary;
+      @extend %font-primary;
       color: $color-primary;
       font-size: 14px;
       font-style: normal;
@@ -73,7 +73,7 @@
         .MuiTouchRipple-root {
           display: none;
         }
-        
+
       }
 
     }

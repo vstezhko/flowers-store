@@ -9,7 +9,7 @@ export default function FeaturesSection() {
   const itemsData = [
     {
       id: 1,
-      img: Delivery.src,
+      img: Delivery,
       textStart: '',
       highlight: 'Free delivery',
       textEnd: ' within the city',
@@ -17,7 +17,7 @@ export default function FeaturesSection() {
     },
     {
       id: 2,
-      img: Gifts.src,
+      img: Gifts,
       textStart: 'Postcard ',
       highlight: 'as a gift',
       textEnd: ' and a photo of delivery',
@@ -25,7 +25,7 @@ export default function FeaturesSection() {
     },
     {
       id: 3,
-      img: DeliveryHours.src,
+      img: DeliveryHours,
       textStart: '',
       highlight: 'Round the clock',
       textEnd: ' delivery',
@@ -33,7 +33,7 @@ export default function FeaturesSection() {
     },
     {
       id: 4,
-      img: Discounts.src,
+      img: Discounts,
       textStart: 'Cumulative ',
       highlight: 'discount system',
       textEnd: '',
@@ -46,7 +46,7 @@ export default function FeaturesSection() {
         {itemsData.map(item => (
           <li className='features__item' key={item.id}>
             <div className='features__img-container'>
-              <Image fill={true} src={item.img} alt={item.alt} className='features__img' />
+              <Image src={item.img} alt={item.alt} className='features__img' />
             </div>
             <div className='features__text'>
               {item.textStart}

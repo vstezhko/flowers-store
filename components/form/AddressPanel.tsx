@@ -2,11 +2,11 @@ import React, { ChangeEvent } from 'react';
 import FsInput from '@/components/UI/FsInput';
 import FsPhoneInput from '@/components/UI/FsPhoneInput';
 import FsCheckbox from '@/components/UI/FsCheckbox';
-import { formikValuesType, FormItemFieldsParams } from '@/components/form/FormContainer';
 import { FormikProps } from 'formik';
 import FsSelect from '@/components/UI/FsSelect';
 import { useCallback, useEffect } from 'react';
 import { FormGroups } from '@/types/enums';
+import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 
 const AddressPanel = ({
   data,
@@ -82,11 +82,11 @@ const AddressPanel = ({
           compoundName = `${inputData.formGroup}-${inputData.name}`;
         }
 
-        if ('type' in inputData && compoundName && inputData.type === 'select' && inputData.value?.length) {
+        if ('type' in inputData && compoundName && inputData.type === 'select' && inputData.options?.length) {
           return (
             <FsSelect
               key={inputData.id}
-              options={inputData.value}
+              options={inputData.options}
               onBlur={formik.handleBlur}
               onChange={(e: ChangeEvent) => {
                 formik.setFieldTouched('type');

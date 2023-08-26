@@ -2,8 +2,8 @@ import React, { ChangeEvent } from 'react';
 import FsInput from '@/components/UI/FsInput';
 import TextLoginPanel from '@/components/form/login/TextLoginPanel';
 import TextSignUpPanel from '@/components/form/signup/TextSignUpPanel';
-import { formikValuesType, FormItemFieldsParams } from '@/components/form/FormContainer';
 import { FormikProps } from 'formik';
+import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 
 const MainPanel = ({
   data,

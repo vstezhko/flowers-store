@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Box, Button, Paper } from '@mui/material';
-import Link from 'next/link';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 
 const SmallProductCard = ({
@@ -36,7 +35,7 @@ const SmallProductCard = ({
             {description}
           </Box>
           <div className='small-card__details'>
-            <div className='small-card__price'>{price}</div>
+            <div className='small-card__price'>{price.replace('EUR', '€')}</div>
             <Button className='small-card__button' variant='outlined'>
               More
             </Button>
