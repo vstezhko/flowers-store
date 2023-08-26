@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from '@/redux/store';
 import { getProductByIdAsync } from '@/redux/slices/productSlice/thunks';
 import { TokenService } from '@/api/services/Token.service';
@@ -16,7 +16,7 @@ import MinusIcon from '@/components/Icons/MinusIcon';
 import { Skeleton } from '@mui/material';
 
 const Product = () => {
-  const id: string = usePathname().split('/')[3];
+  const { id } = useParams() as { id: string };
   const dispatch = useDispatch();
   const router = useRouter();
   const product = useSelector(state => state.product);
