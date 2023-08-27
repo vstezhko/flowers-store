@@ -1,13 +1,14 @@
 'use client';
 import { ProductService } from '@/api/services/Products.services';
 import SmallProductCard from '@/components/catalog/SmallCard';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { TokenService } from '@/api/services/Token.service';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 import { Paper } from '@mui/material';
 import Searchbar from '@/components/catalog/SearchBar';
 import { QueryParams } from '@/types/types';
-import { actions } from '@/redux/slices/searchSlice/searchSlice';
+import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
+import { actions as snackbarActions } from '@/redux/slices/snackbarSlice/snackbarSlice';
 import { useDispatch, useSelector } from '@/redux/store';
 
 export interface ProductCategory {
@@ -119,37 +120,59 @@ const Catalog = () => {
   const searchItem = useSelector(state => state.search);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
 
-  const fetchProducts = async () => {
-    const response = await ProductService.getProducts(TokenService.getAccessTokenFromLS().token);
-    const products = response.results.map((item: ResponseProduct) => {
-      return {
-        id: item.id,
-        name: item.masterData.current.name.en,
-        price: item.masterData.current.masterVariant.prices[0].value.centAmount,
-        currency: item.masterData.current.masterVariant.prices[0].value.currencyCode,
-        image: item.masterData.current.masterVariant.images[0].url
-          ? item.masterData.current.masterVariant.images[0].url
-          : noImage.src,
-        description: item.masterData.current.description.en,
-      };
-    });
-    setProductsPage(products);
-  };
+  const fetchProducts = useCallback(async () => {
+    try {
+      const response = await ProductService.getProducts(TokenService.getAccessTokenFromLS().token);
+      const products = response.results.map((item: ResponseProduct) => {
+        return {
+          id: item.id,
+          name: item.masterData.current.name.en,
+          price: item.masterData.current.masterVariant.prices[0].value.centAmount,
+          currency: item.masterData.current.masterVariant.prices[0].value.currencyCode,
+          image: item.masterData.current.masterVariant.images[0].url
+            ? item.masterData.current.masterVariant.images[0].url
+            : noImage.src,
+          description: item.masterData.current.description.en,
+        };
+      });
+      setProductsPage(products);
+    } catch (error) {
+      debugger;
+      dispatch(
+        snackbarActions.setMessage({
+          message: 'An error occurred while fetching products. Try again later!',
+          variant: 'error',
+        })
+      );
+    }
+  }, [dispatch]);
 
-  const fetchSearchProducts = async (queryParams: QueryParams) => {
-    const response = await ProductService.getSearchProducts(TokenService.getAccessTokenFromLS().token, queryParams);
-    const products = response.results.map((item: ResponseSearchProduct) => {
-      return {
-        id: item.id,
-        name: item.name.en,
-        price: item.masterVariant.prices[0].value.centAmount,
-        currency: item.masterVariant.prices[0].value.currencyCode,
-        image: item.masterVariant.images[0].url ? item.masterVariant.images[0].url : noImage.src,
-        description: item.description.en,
-      };
-    });
-    setProductsPage(products);
-  };
+  const fetchSearchProducts = useCallback(
+    async (queryParams: QueryParams) => {
+      try {
+        const response = await ProductService.getSearchProducts(TokenService.getAccessTokenFromLS().token, queryParams);
+        const products = response.results.map((item: ResponseSearchProduct) => {
+          return {
+            id: item.id,
+            name: item.name.en,
+            price: item.masterVariant.prices[0].value.centAmount,
+            currency: item.masterVariant.prices[0].value.currencyCode,
+            image: item.masterVariant.images[0].url ? item.masterVariant.images[0].url : noImage.src,
+            description: item.description.en,
+          };
+        });
+        setProductsPage(products);
+      } catch (error) {
+        dispatch(
+          snackbarActions.setMessage({
+            message: 'An error occurred while searching products. Try again later!',
+            variant: 'error',
+          })
+        );
+      }
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     if (searchItem) {
@@ -157,7 +180,7 @@ const Catalog = () => {
     } else {
       fetchProducts();
     }
-  }, [searchItem]);
+  }, [searchItem, dispatch, fetchSearchProducts, fetchProducts]);
 
   return (
     <section className='catalog page'>
@@ -167,11 +190,11 @@ const Catalog = () => {
           <Searchbar
             className='settings__search'
             onSubmit={(newSearchItem: string) => {
-              dispatch(actions.setSearch(newSearchItem));
+              dispatch(searchActions.setSearch(newSearchItem));
               fetchSearchProducts({ 'text.en': `${newSearchItem}`, fuzzy: true });
             }}
             value={searchItem}
-            onChange={value => dispatch(actions.setSearch(value))}
+            onChange={value => dispatch(searchActions.setSearch(value))}
             inputProps={{}}
           />
         </Paper>
