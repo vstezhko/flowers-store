@@ -1,8 +1,15 @@
 import FsInput from '@/components/UI/FsInput';
 import * as React from 'react';
-import { FormItemFieldsParams } from '@/types/types';
+import { formikValuesType, FormItemFieldsParams } from '@/types/types';
+import { FormikProps } from 'formik';
+import { ChangeEvent } from 'react';
 
-const PersonalInfoForm = (data: FormItemFieldsParams[], checked: boolean) => {
+const PersonalInfoForm = (data: FormItemFieldsParams[], checked: boolean, formik: FormikProps<formikValuesType>) => {
+  const onChangeHandler = (e: ChangeEvent<any>) => {
+    formik.setFieldTouched('type');
+    formik.handleChange(e);
+  };
+
   return (
     <>
       {data?.map(inputData => {
@@ -15,8 +22,8 @@ const PersonalInfoForm = (data: FormItemFieldsParams[], checked: boolean) => {
               id={inputData.name}
               key={inputData.id}
               name={compoundName}
-              value={inputData.value ? inputData.value : undefined}
-              onChange={() => console.log('jjj')}
+              value={(formik.values[compoundName] as string) || ''}
+              onChange={onChangeHandler}
               label={inputData.label || ''}
               formGroup={formGroup}
               disabled={!checked}

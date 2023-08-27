@@ -1,12 +1,14 @@
-import { FormItemFieldsParams } from '@/types/types';
+import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 import FsInput from '@/components/UI/FsInput';
 import * as React from 'react';
 import FsSelect from '@/components/UI/FsSelect';
 import { ChangeEvent } from 'react';
 import FsPhoneInput from '@/components/UI/FsPhoneInput';
 import FsCheckbox from '@/components/UI/FsCheckbox';
+import { FormikProps } from 'formik';
 
-const PersonalAddressForm = (data: FormItemFieldsParams[], checked: boolean) => {
+const PersonalAddressForm = (data: FormItemFieldsParams[], checked: boolean, formik: FormikProps<formikValuesType>) => {
+  console.log(formik);
   return (
     <>
       {data?.map((inputData: FormItemFieldsParams) => {
