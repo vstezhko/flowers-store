@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
 import Image from 'next/image';
@@ -29,7 +29,7 @@ const ProfileFormContainer = ({
   const dispatch = useDispatch();
   const validationSchema = object().shape(generateFormikFieldsRules(data));
   const initialValues: Record<string, string | boolean> = generateInitialFormikValue(data);
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
@@ -52,11 +52,9 @@ const ProfileFormContainer = ({
 
   const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
 
-  React.useEffect(() => {
-    if (checked) {
-      formik.setValues(initialValues);
-    }
-  }, [checked]);
+  useEffect(() => {
+    formik.setValues(initialValues);
+  }, [data]);
 
   return (
     <>
