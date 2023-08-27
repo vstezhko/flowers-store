@@ -7,11 +7,11 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 const ProfileFormContainer = ({
-  childrenComponent,
+  childComponent,
   data,
   src,
 }: {
-  children: React.JSX.Element;
+  childComponent: (data1: FormItemFieldsParams[], checked: boolean) => React.JSX.Element;
   data: FormItemFieldsParams[];
   src: string;
 }) => {
@@ -30,7 +30,7 @@ const ProfileFormContainer = ({
             control={<Switch checked={checked} onChange={handleChange} size='small' />}
             label='EDIT'
           />
-          {childrenComponent(data, checked)}
+          {childComponent(data, checked)}
         </div>
         {checked && (
           <div className='form__btn-container'>

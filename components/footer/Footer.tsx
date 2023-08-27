@@ -1,8 +1,14 @@
+'use client';
+
 import React from 'react';
 import { MenuParams } from '@/components/header/Header';
 import PhoneIcon from '@/components/Icons/PhoneIcon';
 import NavLink from '@/components/nav/NavLink';
 import ContactForm from '@/components/form/contactForm/ContactForm';
+import InstagramIcon from '@/components/Icons/social/InstagramIcon';
+import SkypeIcon from '@/components/Icons/social/SkypeIcon';
+import TelegramIcon from '@/components/Icons/social/TelegramIcon';
+import WhatsAppIcon from '@/components/Icons/social/WhatsApp';
 
 export type MenuParamsWithoutPathName = Pick<MenuParams, 'id' | 'path' | 'title' | 'icon'>;
 
@@ -36,11 +42,11 @@ const Footer = () => {
                   + 48 573 888 888
                 </a>
               </div>
-              <div className='info__block info__block_phone'>
-                <PhoneIcon />
-                <a className='phone' href='tel:+48573888888'>
-                  + 48 573 888 888
-                </a>
+              <div className='info__block info__block_social'>
+                <InstagramIcon />
+                <SkypeIcon />
+                <TelegramIcon />
+                <WhatsAppIcon />
               </div>
               <div className='info__block'>
                 <p>

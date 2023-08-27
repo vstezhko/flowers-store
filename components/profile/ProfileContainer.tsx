@@ -246,7 +246,7 @@ const ProfileContainer = () => {
     {
       component: (
         <ProfileFormContainer
-          childrenComponent={PersonalInfoForm}
+          childComponent={PersonalInfoForm}
           data={customerData[FormGroups.CUSTOMER]}
           src={profileImage.src}
         />
@@ -255,7 +255,7 @@ const ProfileContainer = () => {
     {
       component: (
         <ProfileFormContainer
-          childrenComponent={PersonalAddressForm}
+          childComponent={PersonalAddressForm}
           data={customerData[FormGroups.SHIPPING_ADDRESS]}
           src={addressShippingImage.src}
         />
@@ -264,7 +264,7 @@ const ProfileContainer = () => {
     {
       component: (
         <ProfileFormContainer
-          childrenComponent={PersonalAddressForm}
+          childComponent={PersonalAddressForm}
           data={customerData[FormGroups.BILLING_ADDRESS]}
           src={addressBillingImage.src}
         />
