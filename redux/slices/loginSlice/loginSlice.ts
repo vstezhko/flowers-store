@@ -99,6 +99,12 @@ export const loginSlice = createSlice({
         defaultBillingAddressId: null,
       };
     },
+    updateCustomer: (state, action: PayloadAction<Partial<Customer>>) => {
+      state.customer = {
+        ...state.customer,
+        ...action.payload,
+      };
+    },
   },
   extraReducers: builder => {
     const setCustomers = (state: LoginState, action: PayloadAction<Customer>) => {

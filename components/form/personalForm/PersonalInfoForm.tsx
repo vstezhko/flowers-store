@@ -1,46 +1,37 @@
 import FsInput from '@/components/UI/FsInput';
-import FsButton from '@/components/UI/FsButton';
-import { FsButtonType } from '@/types/enums';
-import Image from 'next/image';
-import profileImage from '@/public/img/jpeg/profile.webp';
 import * as React from 'react';
-import { FormItemFieldsParams } from '@/types/types';
+import { formikValuesType, FormItemFieldsParams } from '@/types/types';
+import { FormikProps } from 'formik';
+import { ChangeEvent } from 'react';
 
-const PersonalInfoForm = ({ customer }: { customer: FormItemFieldsParams[] }) => {
+const PersonalInfoForm = (data: FormItemFieldsParams[], checked: boolean, formik: FormikProps<formikValuesType>) => {
+  const onChangeHandler = (e: ChangeEvent<any>) => {
+    formik.setFieldTouched('type');
+    formik.handleChange(e);
+  };
+
   return (
     <>
-      <form className='form-customer'>
-        <div className='form__content'>
-          {customer.map(inputData => {
-            if ('value' in inputData) {
-              const { id, value, name, formGroup, ...rest } = inputData;
-              const compoundName = `${formGroup}-${name}`;
-              return (
-                <FsInput
-                  {...rest}
-                  id={inputData.name}
-                  key={inputData.id}
-                  name={compoundName}
-                  value={inputData.value ? inputData.value : null || undefined}
-                  onChange={() => console.log('jjj')}
-                  label={inputData.label || ''}
-                  formGroup={formGroup}
-                  disabled={true}
-                />
-              );
-            }
-          })}
-        </div>
-        <div className='form__btn-container'>
-          <FsButton variant='outlined' label='cancel' className={FsButtonType.SMALL} />
-          <FsButton label='update' className={FsButtonType.SMALL} />
-        </div>
-      </form>
-      <div className='profile__container-img'>
-        <Image className='profile__img' src={profileImage.src} alt='Profile photo' layout='fill' />
-      </div>
+      {data?.map(inputData => {
+        if ('value' in inputData) {
+          const { id, value, name, formGroup, ...rest } = inputData;
+          const compoundName = `${formGroup}-${name}`;
+          return (
+            <FsInput
+              {...rest}
+              id={inputData.name}
+              key={inputData.id}
+              name={compoundName}
+              value={(formik.values[compoundName] as string) || ''}
+              onChange={onChangeHandler}
+              label={inputData.label || ''}
+              formGroup={formGroup}
+              disabled={!checked}
+            />
+          );
+        }
+      })}
     </>
   );
 };
-
 export default PersonalInfoForm;

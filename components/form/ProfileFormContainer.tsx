@@ -1,246 +1,85 @@
-import React, { useMemo } from 'react';
-import FsTabs from '@/components/UI/FsTabs';
-import { useSelector } from '@/redux/store';
-import { FormGroups, ValidationRuleGroup } from '@/types/enums';
-import { FormItemFieldsParams } from '@/types/types';
+import React from 'react';
+import FsButton from '@/components/UI/FsButton';
+import { FsButtonType } from '@/types/enums';
+import Image from 'next/image';
+import { formikValuesType, FormItemFieldsParams } from '@/types/types';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { object } from 'yup';
+import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
+import { generateInitialFormikValue } from '@/utils/generateInitialFormikValue';
+import { FormikConfig, FormikProps, useFormik } from 'formik';
+import { useDispatch } from '@/redux/store';
+import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import { structureInputValues } from '@/utils/structureInputFormValues';
 
-const tabsName: string[] = ['Personal Info', 'Shipping Address', 'Billing Address'];
-
-const ProfileFormContainer = () => {
-  const { customer } = useSelector(state => state.login);
-  const shipping = customer.addresses.length > 0 ? customer.addresses[0] : null;
-  const billing = customer.addresses.length > 0 ? customer.addresses[1] : null;
-
-  const shippingAddress: FormItemFieldsParams[] = useMemo(() => {
-    return [
-      {
-        id: 1,
-        formGroup: FormGroups.SHIPPING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.PHONE,
-        name: 'phone',
-        type: 'phone',
-        label: 'phone',
-        value: shipping?.phone,
-      },
-      {
-        id: 2,
-        formGroup: FormGroups.SHIPPING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.COMMON,
-        name: 'country',
-        type: 'select',
-        label: 'country',
-        value: shipping?.country,
-        options: [
-          { code: 'PL', name: 'Poland' },
-          { code: 'DE', name: 'Germany' },
-          { code: 'FX', name: 'France' },
-        ],
-      },
-      {
-        id: 3,
-        formGroup: FormGroups.SHIPPING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.NAME,
-        name: 'city',
-        type: 'text',
-        label: 'city',
-        value: shipping?.city,
-      },
-      {
-        id: 4,
-        name: 'streetName',
-        formGroup: FormGroups.SHIPPING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.COMMON,
-        type: 'text',
-        label: 'street',
-        value: shipping?.streetName,
-      },
-      {
-        id: 5,
-        data: [
-          {
-            id: 13,
-            formGroup: FormGroups.SHIPPING_ADDRESS,
-            validationRuleGroup: ValidationRuleGroup.COMMON,
-            name: 'building',
-            type: 'text',
-            label: 'building',
-            value: shipping?.building,
-          },
-          {
-            id: 14,
-            formGroup: FormGroups.SHIPPING_ADDRESS,
-            validationRuleGroup: ValidationRuleGroup.COMMON,
-            name: 'apartment',
-            type: 'text',
-            label: 'apt.',
-            value: shipping?.apartment,
-          },
-          {
-            id: 15,
-            formGroup: FormGroups.SHIPPING_ADDRESS,
-            validationRuleGroup: ValidationRuleGroup.POSTAL_CODE_SHIPPING,
-            name: 'postalCode',
-            type: 'text',
-            label: 'zip code',
-            value: shipping?.postalCode,
-          },
-        ],
-      },
-      {
-        id: 6,
-        name: 'default',
-        formGroup: FormGroups.SHIPPING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
-        type: 'checkbox',
-        label: 'default shipping address',
-        value: customer?.defaultShippingAddressId,
-      },
-    ];
-  }, [customer]);
-
-  const billingAddress: FormItemFieldsParams[] = useMemo(() => {
-    return [
-      {
-        id: 7,
-        formGroup: FormGroups.BILLING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.PHONE,
-        name: 'phone',
-        type: 'phone',
-        label: 'phone',
-        value: billing?.phone,
-      },
-      {
-        id: 8,
-        formGroup: FormGroups.BILLING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.COMMON,
-        name: 'country',
-        type: 'select',
-        label: 'country',
-        value: billing?.country,
-        options: [
-          { code: 'PL', name: 'Poland' },
-          { code: 'DE', name: 'Germany' },
-          { code: 'FX', name: 'France' },
-        ],
-      },
-      {
-        id: 9,
-        formGroup: FormGroups.BILLING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.NAME,
-        name: 'city',
-        type: 'text',
-        label: 'city',
-        value: billing?.city,
-      },
-      {
-        id: 10,
-        name: 'streetName',
-        formGroup: FormGroups.BILLING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.COMMON,
-        type: 'text',
-        label: 'street',
-        value: billing?.streetName,
-      },
-      {
-        id: 11,
-        data: [
-          {
-            id: 16,
-            formGroup: FormGroups.BILLING_ADDRESS,
-            validationRuleGroup: ValidationRuleGroup.COMMON,
-            name: 'building',
-            type: 'text',
-            label: 'building',
-            value: billing?.building,
-          },
-          {
-            id: 17,
-            formGroup: FormGroups.BILLING_ADDRESS,
-            validationRuleGroup: ValidationRuleGroup.COMMON,
-            name: 'apartment',
-            type: 'text',
-            label: 'apt.',
-            value: billing?.apartment,
-          },
-          {
-            id: 18,
-            formGroup: FormGroups.BILLING_ADDRESS,
-            validationRuleGroup: ValidationRuleGroup.POSTAL_CODE_BILLING,
-            name: 'postalCode',
-            type: 'text',
-            label: 'zip code',
-            value: billing?.postalCode,
-          },
-        ],
-      },
-      {
-        id: 19,
-        name: 'default',
-        formGroup: FormGroups.BILLING_ADDRESS,
-        validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
-        type: 'checkbox',
-        label: 'default shipping address',
-        value: customer?.defaultBillingAddressId,
-      },
-    ];
-  }, [customer]);
-
-  const mainInputFields: FormItemFieldsParams[] = useMemo(() => {
-    return [
-      {
-        id: 19,
-        formGroup: FormGroups.CUSTOMER,
-        validationRuleGroup: ValidationRuleGroup.NAME,
-        name: 'firstName',
-        type: 'text',
-        label: 'firstName',
-        value: customer.firstName,
-      },
-      {
-        id: 20,
-        formGroup: FormGroups.CUSTOMER,
-        validationRuleGroup: ValidationRuleGroup.NAME,
-        name: 'lastName',
-        type: 'text',
-        label: 'lastName',
-        value: customer.lastName,
-      },
-      {
-        id: 21,
-        formGroup: FormGroups.CUSTOMER,
-        validationRuleGroup: ValidationRuleGroup.EMAIL,
-        name: 'email',
-        type: 'text',
-        label: 'email',
-        value: customer.email,
-      },
-      {
-        id: 22,
-        formGroup: FormGroups.CUSTOMER,
-        validationRuleGroup: ValidationRuleGroup.BIRTHDAY,
-        name: 'birthday',
-        type: 'date',
-        label: 'birthday',
-        value: customer.dateOfBirth,
-      },
-    ];
-  }, [customer]);
-
-  const customerData = {
-    [FormGroups.CUSTOMER]: mainInputFields,
-    [FormGroups.SHIPPING_ADDRESS]: shippingAddress,
-    [FormGroups.BILLING_ADDRESS]: billingAddress,
+const ProfileFormContainer = ({
+  childComponent,
+  data,
+  src,
+}: {
+  childComponent: (
+    data1: FormItemFieldsParams[],
+    checked: boolean,
+    formik1: FormikProps<formikValuesType>
+  ) => React.JSX.Element;
+  data: FormItemFieldsParams[];
+  src: string;
+}) => {
+  const dispatch = useDispatch();
+  const validationSchema = object().shape(generateFormikFieldsRules(data));
+  const initialValues: Record<string, string | boolean> = generateInitialFormikValue(data);
+  const [checked, setChecked] = React.useState(false);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
   };
 
+  const formikConfig: FormikConfig<formikValuesType> = {
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    onSubmit: values => {
+      const structuredValues = structureInputValues(values);
+      const payload = {
+        email: structuredValues.customer.email as string,
+        firstName: structuredValues.customer.firstName as string,
+        lastName: structuredValues.customer.lastName as string,
+        dateOfBirth: structuredValues.customer.dateOfBirth as string,
+      };
+      dispatch(loginSlice.actions.updateCustomer(payload));
+      setChecked(false);
+    },
+  };
+
+  const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
+
+  React.useEffect(() => {
+    if (checked) {
+      formik.setValues(initialValues);
+    }
+  }, [checked]);
+
   return (
-    <div className='profile__container'>
-      <FsTabs
-        tabs={tabsName}
-        customer={customerData[FormGroups.CUSTOMER]}
-        shippingAddress={customerData[FormGroups.SHIPPING_ADDRESS]}
-        billingAddress={customerData[FormGroups.BILLING_ADDRESS]}
-      />
-    </div>
+    <>
+      <form className='form-customer' onSubmit={formik.handleSubmit}>
+        <div className='form__content'>
+          <FormControlLabel
+            className='switch'
+            control={<Switch checked={checked} onChange={handleChange} size='small' />}
+            label='EDIT'
+          />
+          {childComponent(data, checked, formik)}
+        </div>
+        {checked && (
+          <div className='form__btn-container'>
+            <FsButton variant='outlined' label='cancel' className={FsButtonType.SMALL} />
+            <FsButton label='save' type='submit' className={FsButtonType.SMALL} />
+          </div>
+        )}
+      </form>
+      <div className='profile__container-img'>
+        <Image className='profile__img' src={src} alt='ProfileContainer photo' layout='fill' />
+      </div>
+    </>
   );
 };
 

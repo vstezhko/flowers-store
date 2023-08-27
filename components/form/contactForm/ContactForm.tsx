@@ -4,11 +4,12 @@ import FsInput from '@/components/UI/FsInput';
 import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
 import * as Yup from 'yup';
-import { useSnackbar } from 'notistack';
 import { formikValuesType } from '@/types/types';
+import { useDispatch } from '@/redux/store';
+import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 
 const ContactForm = () => {
-  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
   const SignupSchema = Yup.object().shape({
     name: Yup.string().min(2, 'Too Short!').max(70, 'Too Long!').required('Required'),
     email: Yup.string().email('Invalid email').required('Required'),
@@ -21,8 +22,13 @@ const ContactForm = () => {
       text: '',
     },
     validationSchema: SignupSchema,
-    onSubmit: values => {
-      enqueueSnackbar(`Thank you, ${values.name}! We have received your message!`, { variant: 'success' });
+    onSubmit: () => {
+      dispatch(
+        snackbarSlice.actions.setMessage({
+          message: `Thank you! We have received your message!`,
+          variant: 'success',
+        })
+      );
     },
   };
 
