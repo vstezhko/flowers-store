@@ -2,13 +2,15 @@ import { SearchOutlined } from '@mui/icons-material';
 import { Divider, IconButton, InputBase, InputBaseProps, Paper } from '@mui/material';
 import { useState } from 'react';
 
-type SearchbarProps = {
+interface SearchbarProps {
   onSubmit(searchItem: string): void;
   inputProps: InputBaseProps;
   className?: string;
-};
+  value: string;
+  onChange: (value: string) => void;
+}
 const Searchbar = (props: SearchbarProps) => {
-  const [searchItem, setSearchItem] = useState('');
+  const [searchValue, setSearchValue] = useState(props.value);
 
   return (
     <Paper
@@ -17,13 +19,13 @@ const Searchbar = (props: SearchbarProps) => {
       elevation={0}
       onSubmit={e => {
         e.preventDefault();
-        props.onSubmit((searchItem as string) ?? '');
+        props.onSubmit(searchValue);
       }}>
       <InputBase
         placeholder='Search...'
-        value={searchItem}
+        value={searchValue}
         onChange={e => {
-          setSearchItem(e.target.value);
+          setSearchValue(e.target.value);
         }}
         {...props.inputProps}
       />

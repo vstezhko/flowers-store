@@ -7,6 +7,8 @@ import noImage from '@/public/img/jpeg/no-image.jpg';
 import { Paper } from '@mui/material';
 import Searchbar from '@/components/catalog/SearchBar';
 import { QueryParams } from '@/types/types';
+import { actions } from '@/redux/slices/searchSlice/searchSlice';
+import { useDispatch, useSelector } from '@/redux/store';
 
 export interface ProductCategory {
   typeId: string;
@@ -113,6 +115,8 @@ interface PageProduct {
 }
 
 const Catalog = () => {
+  const dispatch = useDispatch();
+  const searchItem = useSelector(state => state.search);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
 
   const fetchProducts = async () => {
@@ -148,8 +152,12 @@ const Catalog = () => {
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    if (searchItem) {
+      fetchSearchProducts({ 'text.en': `${searchItem}`, fuzzy: true });
+    } else {
+      fetchProducts();
+    }
+  }, [searchItem]);
 
   return (
     <section className='catalog page'>
@@ -158,9 +166,12 @@ const Catalog = () => {
         <Paper className='settings' elevation={0}>
           <Searchbar
             className='settings__search'
-            onSubmit={(searchItem: string) => {
-              fetchSearchProducts({ 'text.en': `${searchItem}`, fuzzy: true });
+            onSubmit={(newSearchItem: string) => {
+              dispatch(actions.setSearch(newSearchItem));
+              fetchSearchProducts({ 'text.en': `${newSearchItem}`, fuzzy: true });
             }}
+            value={searchItem}
+            onChange={value => dispatch(actions.setSearch(value))}
             inputProps={{}}
           />
         </Paper>
