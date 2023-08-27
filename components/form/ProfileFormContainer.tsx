@@ -9,9 +9,10 @@ import { object } from 'yup';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { generateInitialFormikValue } from '@/utils/generateInitialFormikValue';
 import { FormikConfig, FormikProps, useFormik } from 'formik';
-import { useDispatch } from '@/redux/store';
-import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import { useDispatch, useSelector } from '@/redux/store';
 import { structureInputValues } from '@/utils/structureInputFormValues';
+import { updateCustomerAsync } from '@/redux/slices/loginSlice/thunks';
+import { TokenService } from '@/api/services/Token.service';
 
 const ProfileFormContainer = ({
   childComponent,
@@ -34,18 +35,33 @@ const ProfileFormContainer = ({
     setChecked(event.target.checked);
   };
 
+  const { customer } = useSelector(state => state.login);
+
   const formikConfig: FormikConfig<formikValuesType> = {
     initialValues: initialValues,
     validationSchema: validationSchema,
-    onSubmit: values => {
+    onSubmit: async values => {
+      const token = TokenService.getAccessToken();
       const structuredValues = structureInputValues(values);
-      const payload = {
-        email: structuredValues.customer.email as string,
-        firstName: structuredValues.customer.firstName as string,
-        lastName: structuredValues.customer.lastName as string,
-        dateOfBirth: structuredValues.customer.dateOfBirth as string,
-      };
-      dispatch(loginSlice.actions.updateCustomer(payload));
+      const actions = [
+        {
+          action: 'changeEmail',
+          email: structuredValues.customer.email as string,
+        },
+        {
+          action: 'setFirstName',
+          firstName: structuredValues.customer.firstName as string,
+        },
+        {
+          action: 'setLastName',
+          lastName: structuredValues.customer.lastName as string,
+        },
+        {
+          action: 'setDateOfBirth',
+          dateOfBirth: structuredValues.customer.dateOfBirth as string,
+        },
+      ];
+      await dispatch(updateCustomerAsync({ actions, token, version: customer.version }));
       setChecked(false);
     },
   };

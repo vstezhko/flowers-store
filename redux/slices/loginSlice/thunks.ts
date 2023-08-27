@@ -19,3 +19,18 @@ export const signUpAsync = createAppAsyncThunk(
 export const getCustomerAsync = createAppAsyncThunk('login/getCustomer', async (token: string) => {
   return CustomerService.getCustomer(token);
 });
+
+export const updateCustomerAsync = createAppAsyncThunk(
+  'login/updateCustomer',
+  async ({
+    actions,
+    token,
+    version,
+  }: {
+    actions: Record<string, string | undefined>[];
+    token: string;
+    version: number | null;
+  }) => {
+    return CustomerService.updateCustomer(token, version, actions);
+  }
+);
