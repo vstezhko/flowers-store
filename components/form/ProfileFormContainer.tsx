@@ -72,6 +72,11 @@ const ProfileFormContainer = ({
     formik.setValues(initialValues);
   }, [data]);
 
+  const handleCancelUpdateData = () => {
+    formik.setValues(initialValues);
+    setChecked(false);
+  };
+
   return (
     <>
       <form className='form-customer' onSubmit={formik.handleSubmit}>
@@ -85,7 +90,12 @@ const ProfileFormContainer = ({
         </div>
         {checked && (
           <div className='form__btn-container'>
-            <FsButton variant='outlined' label='cancel' className={FsButtonType.SMALL} />
+            <FsButton
+              variant='outlined'
+              label='cancel'
+              className={FsButtonType.SMALL}
+              onClick={handleCancelUpdateData}
+            />
             <FsButton label='save' type='submit' className={FsButtonType.SMALL} />
           </div>
         )}
