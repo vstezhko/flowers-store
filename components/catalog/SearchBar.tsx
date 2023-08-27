@@ -3,7 +3,7 @@ import { Divider, IconButton, InputBase, InputBaseProps, Paper } from '@mui/mate
 import { useState } from 'react';
 
 type SearchbarProps = {
-  onSubmit(searchTerm: string): void;
+  onSubmit(searchItem: string): void;
   inputProps: InputBaseProps;
   className?: string;
 };
@@ -20,7 +20,6 @@ const Searchbar = (props: SearchbarProps) => {
         props.onSubmit((searchItem as string) ?? '');
       }}>
       <InputBase
-        sx={{ ml: 1, flex: 1 }}
         placeholder='Search...'
         value={searchItem}
         onChange={e => {
