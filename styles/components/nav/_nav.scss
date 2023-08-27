@@ -277,7 +277,11 @@
   flex-direction: column;
 }
 
-.MuiListItem-root{
+.MuiMenuItem-root{
   padding: 8px;
-  justify-content: center !important;
+  justify-content: center;
+
+  &:hover{
+    background-color: transparent;
+  }
 }
