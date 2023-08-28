@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { Button, List, ListItem, Popover, useMediaQuery } from '@mui/material';
+import { Button, useMediaQuery } from '@mui/material';
 import { MenuParamsWithoutPathName } from '@/components/header/Header';
 import NavLink from '@/components/nav/NavLink';
 import MobileMenu from '@/components/nav/MobileMenu';
@@ -14,22 +14,11 @@ import { FsButtonType, TokenType } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const ProfileContent = () => {
   const router = useRouter();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const ID = open ? 'simple-popover' : undefined;
-
   const { access_token } = useSelector(state => state.auth);
   const [tokenType, setTokenType] = useState(null);
 
@@ -49,42 +38,50 @@ const ProfileContent = () => {
     router.push('/');
   };
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div className='nav__profile'>
-      <Button aria-describedby={ID} onClick={handleClick}>
+      <Button
+        id='basic-button'
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup='true'
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}>
         <UserIcon />
         <h5>Profile</h5>
       </Button>
-      <Popover
-        id={ID}
-        open={open}
+      <Menu
+        id='basic-menu'
         anchorEl={anchorEl}
+        open={open}
         onClose={handleClose}
         disableScrollLock={true}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
         }}>
-        {tokenType === TokenType.CUSTOMER ? (
-          <List>
-            <ListItem>
-              <NavLink path='/profile' title='My Profile' pathName='' icon={null} className='' />
-            </ListItem>
-            <ListItem>
-              <FsButton className={FsButtonType.SMALL} variant='outlined' label='Log Out' onClick={handleLogout} />
-            </ListItem>
-          </List>
-        ) : (
-          <List>
-            <ListItem>
-              <NavLink path='/login' title='Sign In' pathName='' icon={null} className='' />
-            </ListItem>
-            <ListItem>
-              <NavLink path='/signup' title='Sign Up' pathName='' icon={null} className='' />
-            </ListItem>
-          </List>
-        )}
-      </Popover>
+        <MenuItem onClick={handleClose}>
+          {tokenType === TokenType.CUSTOMER ? (
+            <NavLink path='/profile' title='My Profile' pathName='' icon={null} className='' />
+          ) : (
+            <NavLink path='/login' title='Sign In' pathName='' icon={null} className='' />
+          )}
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          {tokenType === TokenType.CUSTOMER ? (
+            <FsButton className={FsButtonType.SMALL} variant='outlined' label='Log Out' onClick={handleLogout} />
+          ) : (
+            <NavLink path='/signup' title='Sign Up' pathName='' icon={null} className='' />
+          )}
+        </MenuItem>
+      </Menu>
     </div>
   );
 };

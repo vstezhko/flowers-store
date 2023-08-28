@@ -22,11 +22,22 @@ const PersonalInfoForm = (data: FormItemFieldsParams[], checked: boolean, formik
               id={inputData.name}
               key={inputData.id}
               name={compoundName}
+              onBlur={formik.handleBlur}
               value={(formik.values[compoundName] as string) || ''}
               onChange={onChangeHandler}
               label={inputData.label || ''}
               formGroup={formGroup}
               disabled={!checked}
+              error={
+                ((formik.touched[compoundName] || formik.values[compoundName]) &&
+                  Boolean(formik.errors[compoundName])) ||
+                false
+              }
+              errorText={
+                (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
+                  ? formik.errors[compoundName]
+                  : ' '
+              }
             />
           );
         }
