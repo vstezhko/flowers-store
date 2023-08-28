@@ -2,7 +2,14 @@
   display: flex;
   flex-wrap: nowrap;
   padding: 30px 0;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 20px;
+
+  @include medium {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
 }
 
 .settings {
@@ -10,15 +17,25 @@
   flex-direction: column;
   min-width: 245px;
   padding: 15px;
+
+  @include small {
+    padding: 10px;
+  }
+
 }
 
 .catalog__container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(263px, max-content));
-  width: 100%;
+  max-width: calc(100% - 265px);
   gap: 20px;
   justify-content: center;
   align-content: center;
+
+  @include medium {
+    max-width: none;
+    width: 100%;
+  }
 
   @include small {
     grid-template-columns: repeat(auto-fill, minmax(250px, max-content));
