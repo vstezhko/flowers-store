@@ -35,7 +35,7 @@ const FsInput: React.FC<FsInputParams> = props => {
     onChange,
     onBlur,
     type,
-    disabled,
+    // disabled,
     ...rest
   } = props;
 
@@ -52,7 +52,7 @@ const FsInput: React.FC<FsInputParams> = props => {
       onBlur={onBlur}
       value={value || ''}
       onChange={onChange}
-      disabled={disabled}
+      // disabled={disabled}
       fullWidth
       className={`fsInput ${className}`}
       helperText={errorText}

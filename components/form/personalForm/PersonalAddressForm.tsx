@@ -50,7 +50,7 @@ const PersonalAddressForm = (data: FormItemFieldsParams[], checked: boolean, for
               }}
               // onBlur={formik.handleBlur}
               formGroup={inputData.formGroup}
-              disabled={!checked}
+              // disabled={!checked}
             />
           );
         }
