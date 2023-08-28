@@ -137,10 +137,9 @@ const Catalog = () => {
       });
       setProductsPage(products);
     } catch (error) {
-      debugger;
       dispatch(
         snackbarActions.setMessage({
-          message: 'An error occurred while fetching products. Try again later!',
+          message: error,
           variant: 'error',
         })
       );
@@ -151,6 +150,14 @@ const Catalog = () => {
     async (queryParams: QueryParams) => {
       try {
         const response = await ProductService.getSearchProducts(TokenService.getAccessTokenFromLS().token, queryParams);
+        if (response.total === 0) {
+          dispatch(
+            snackbarActions.setMessage({
+              message: 'No products were found, try another search',
+              variant: 'error',
+            })
+          );
+        }
         const products = response.results.map((item: ResponseSearchProduct) => {
           return {
             id: item.id,
@@ -165,7 +172,7 @@ const Catalog = () => {
       } catch (error) {
         dispatch(
           snackbarActions.setMessage({
-            message: 'An error occurred while searching products. Try again later!',
+            message: error,
             variant: 'error',
           })
         );
@@ -191,7 +198,6 @@ const Catalog = () => {
             className='settings__search'
             onSubmit={(newSearchItem: string) => {
               dispatch(searchActions.setSearch(newSearchItem));
-              fetchSearchProducts({ 'text.en': `${newSearchItem}`, fuzzy: true });
             }}
             value={searchItem}
             onChange={value => dispatch(searchActions.setSearch(value))}
