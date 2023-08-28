@@ -12,6 +12,7 @@ const variantsDefinition: Record<string, string> = {
   '1': 'small',
   '2': 'medium',
   '3': 'big',
+  '0': '',
 };
 
 const ProductVariantCard: React.FC<ProductVariantCardProps> = ({ id, price, isActive = false, onClick }) => {
