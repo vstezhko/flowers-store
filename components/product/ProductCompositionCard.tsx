@@ -14,7 +14,9 @@ const ProductCompositionCard: React.FC<ProductCompositionCardProps> = ({ items }
       )}
       {items !== undefined && !items.length && (
         <ul className='product-composition-card__list'>
-          <li>There is no information about this bouquet</li>
+          <li>
+            <p>There is no information about this bouquet</p>
+          </li>
         </ul>
       )}
       {!items && (

@@ -74,11 +74,7 @@ const Product = () => {
     <div className='product page'>
       <section className='product-block'>
         <div className='product-block__images'>
-          {product.status === 'pending' ? (
-            <p>loading</p>
-          ) : (
-            <ProductImageGallery images={activeVariant?.variant.images || []} />
-          )}
+          {product.id && <ProductImageGallery images={activeVariant?.variant.images || []} />}
         </div>
         <div className='product-block__info'>
           {product.name.en ? <h3>{product.name.en}</h3> : <Skeleton variant='rectangular' width={200} height={30} />}

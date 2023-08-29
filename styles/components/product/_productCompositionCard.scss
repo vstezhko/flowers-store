@@ -8,6 +8,14 @@
   gap: 20px;
   justify-content: flex-start;
 
+  @include medium() {
+    gap: 10px;
+  }
+
+  h5 {
+    font-size: 14px;
+  }
+
   @include small() {
     height: 140px;
   }
