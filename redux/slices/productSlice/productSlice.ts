@@ -41,7 +41,7 @@ export interface ProductPayloadAction extends Action {
 }
 
 export interface ProductState extends Product {
-  status: 'idle' | 'pending' | 'succeeded' | 'failed';
+  status: 'idle' | 'pending' | 'succeeded' | 'failed' | undefined;
 }
 
 export interface ProductCategory {
@@ -122,7 +122,11 @@ export const initialState: ProductState = {
 export const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    clearState: state => {
+      Object.assign(state, initialState);
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getProductByIdAsync.pending, state => {
       state.status = 'pending';

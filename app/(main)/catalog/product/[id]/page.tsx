@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from '@/redux/store';
 import { getProductByIdAsync } from '@/redux/slices/productSlice/thunks';
 import { TokenService } from '@/api/services/Token.service';
-import { ProductVariant } from '@/redux/slices/productSlice/productSlice';
+import { productSlice, ProductVariant } from '@/redux/slices/productSlice/productSlice';
 import ProductVariantCard from '@/components/product/ProductVariantCard';
 import ProductCompositionCard from '@/components/product/ProductCompositionCard';
 import FsButton from '@/components/UI/FsButton';
@@ -50,7 +50,11 @@ const Product = () => {
 
   useEffect(() => {
     const token: string = TokenService.getAccessTokenFromLS()?.token;
+    console.log('get');
     dispatch(getProductByIdAsync({ token, id }));
+    return () => {
+      dispatch(productSlice.actions.clearState());
+    };
   }, [dispatch, id]);
 
   const handleChangeActiveVariant = (variantId: number) => {
@@ -66,13 +70,15 @@ const Product = () => {
 
   const handleAddToCard = () => {};
 
-  console.log(activeVariant?.variant.images);
-
   return (
     <div className='product page'>
       <section className='product-block'>
         <div className='product-block__images'>
-          <ProductImageGallery images={activeVariant?.variant.images || []} />
+          {product.status === 'pending' ? (
+            <p>loading</p>
+          ) : (
+            <ProductImageGallery images={activeVariant?.variant.images || []} />
+          )}
         </div>
         <div className='product-block__info'>
           {product.name.en ? <h3>{product.name.en}</h3> : <Skeleton variant='rectangular' width={200} height={30} />}
