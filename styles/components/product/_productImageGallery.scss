@@ -89,4 +89,8 @@
   .image-gallery-icon:hover {
     color: $color-brand-1;
   }
+
+  .image-gallery-icon:focus {
+    $color-brand-1
+  }
 }
