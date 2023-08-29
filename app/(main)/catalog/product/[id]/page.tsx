@@ -96,9 +96,9 @@ const Product = () => {
               })
             ) : (
               <>
-                <Skeleton style={{ margin: '10px 0' }} variant='rounded' width={210} height={63} />
-                <Skeleton style={{ margin: '10px 0' }} variant='rounded' width={210} height={63} />
-                <Skeleton style={{ margin: '10px 0' }} variant='rounded' width={210} height={63} />
+                <Skeleton style={{ margin: '10px 0' }} variant='rounded' width={155} height={63} />
+                <Skeleton style={{ margin: '10px 0' }} variant='rounded' width={155} height={63} />
+                <Skeleton style={{ margin: '10px 0' }} variant='rounded' width={155} height={63} />
               </>
             )}
           </div>

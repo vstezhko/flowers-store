@@ -5,17 +5,32 @@
   .image-gallery-content {
     height: 100%;
 
+    .image-gallery-slide-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-height: 100%;
+      max-width: 100%;
+    }
+
     .image-gallery-slide-wrapper:not(:last-child) {
       height: calc(100% - 100px);
+    }
+
+    .image-gallery-swipe {
+    }
+
+    .image-gallery-slides {
+      height: 100%;
+      .image-gallery-slide {
+        vertical-align: middle;
+        height: 100%;
+      }
     }
 
     .image-gallery-thumbnails {
       height: 100px;
       overflow: hidden;
-
-      .image-gallery-thumbnails-container {
-
-      }
 
       * {
         height: 100%;
@@ -26,7 +41,6 @@
         overflow: hidden;
 
         .image-gallery-thumbnail-image {
-          height: auto;
           max-height: 100%;
           object-fit: cover;
         }
