@@ -4,12 +4,12 @@ import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 import { FormikProps } from 'formik';
 import { ChangeEvent } from 'react';
 
-const PersonalInfoForm = (data: FormItemFieldsParams[], checked: boolean, formik: FormikProps<formikValuesType>) => {
-  const onChangeHandler = (e: ChangeEvent<any>) => {
-    formik.setFieldTouched('type');
-    formik.handleChange(e);
-  };
-
+const PersonalInfoForm = (
+  data: FormItemFieldsParams[],
+  checked: boolean,
+  formik: FormikProps<formikValuesType>,
+  onChangeHandler: (e: ChangeEvent<any>) => void
+) => {
   return (
     <>
       {data?.map(inputData => {

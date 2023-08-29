@@ -26,7 +26,7 @@ const ProfileContainer = () => {
         name: 'phone',
         type: 'phone',
         label: 'phone',
-        value: shipping?.phone,
+        value: shipping?.phone || '',
       },
       {
         id: 2,
@@ -35,7 +35,7 @@ const ProfileContainer = () => {
         name: 'country',
         type: 'select',
         label: 'country',
-        value: shipping?.country,
+        value: shipping?.country || '',
         options: [
           { code: 'PL', name: 'Poland' },
           { code: 'DE', name: 'Germany' },
@@ -49,7 +49,7 @@ const ProfileContainer = () => {
         name: 'city',
         type: 'text',
         label: 'city',
-        value: shipping?.city,
+        value: shipping?.city || '',
       },
       {
         id: 4,
@@ -58,7 +58,7 @@ const ProfileContainer = () => {
         validationRuleGroup: ValidationRuleGroup.COMMON,
         type: 'text',
         label: 'street',
-        value: shipping?.streetName,
+        value: shipping?.streetName || '',
       },
       {
         id: 5,
@@ -70,7 +70,7 @@ const ProfileContainer = () => {
             name: 'building',
             type: 'text',
             label: 'building',
-            value: shipping?.building,
+            value: shipping?.building || '',
           },
           {
             id: 14,
@@ -79,7 +79,7 @@ const ProfileContainer = () => {
             name: 'apartment',
             type: 'text',
             label: 'apt.',
-            value: shipping?.apartment,
+            value: shipping?.apartment || '',
           },
           {
             id: 15,
@@ -88,7 +88,7 @@ const ProfileContainer = () => {
             name: 'postalCode',
             type: 'text',
             label: 'zip code',
-            value: shipping?.postalCode,
+            value: shipping?.postalCode || '',
           },
         ],
       },
@@ -99,7 +99,7 @@ const ProfileContainer = () => {
         validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
         type: 'checkbox',
         label: 'default shipping address',
-        value: customer?.defaultShippingAddressId,
+        value: customer?.defaultShippingAddressId || '',
       },
     ];
   }, [customer]);
@@ -113,7 +113,7 @@ const ProfileContainer = () => {
         name: 'phone',
         type: 'phone',
         label: 'phone',
-        value: billing?.phone,
+        value: billing?.phone || '',
       },
       {
         id: 8,
@@ -122,7 +122,7 @@ const ProfileContainer = () => {
         name: 'country',
         type: 'select',
         label: 'country',
-        value: billing?.country,
+        value: billing?.country || '',
         options: [
           { code: 'PL', name: 'Poland' },
           { code: 'DE', name: 'Germany' },
@@ -136,7 +136,7 @@ const ProfileContainer = () => {
         name: 'city',
         type: 'text',
         label: 'city',
-        value: billing?.city,
+        value: billing?.city || '',
       },
       {
         id: 10,
@@ -145,7 +145,7 @@ const ProfileContainer = () => {
         validationRuleGroup: ValidationRuleGroup.COMMON,
         type: 'text',
         label: 'street',
-        value: billing?.streetName,
+        value: billing?.streetName || '',
       },
       {
         id: 11,
@@ -157,7 +157,7 @@ const ProfileContainer = () => {
             name: 'building',
             type: 'text',
             label: 'building',
-            value: billing?.building,
+            value: billing?.building || '',
           },
           {
             id: 17,
@@ -166,7 +166,7 @@ const ProfileContainer = () => {
             name: 'apartment',
             type: 'text',
             label: 'apt.',
-            value: billing?.apartment,
+            value: billing?.apartment || '',
           },
           {
             id: 18,
@@ -175,7 +175,7 @@ const ProfileContainer = () => {
             name: 'postalCode',
             type: 'text',
             label: 'zip code',
-            value: billing?.postalCode,
+            value: billing?.postalCode || '',
           },
         ],
       },
@@ -186,7 +186,7 @@ const ProfileContainer = () => {
         validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
         type: 'checkbox',
         label: 'default shipping address',
-        value: customer?.defaultBillingAddressId,
+        value: customer?.defaultBillingAddressId || '',
       },
     ];
   }, [customer]);
@@ -200,7 +200,7 @@ const ProfileContainer = () => {
         name: 'firstName',
         type: 'text',
         label: 'firstName',
-        value: customer.firstName,
+        value: customer.firstName || '',
       },
       {
         id: 20,
@@ -209,7 +209,7 @@ const ProfileContainer = () => {
         name: 'lastName',
         type: 'text',
         label: 'lastName',
-        value: customer.lastName,
+        value: customer.lastName || '',
       },
       {
         id: 21,
@@ -218,7 +218,7 @@ const ProfileContainer = () => {
         name: 'email',
         type: 'text',
         label: 'email',
-        value: customer.email,
+        value: customer.email || '',
       },
       {
         id: 22,
@@ -227,7 +227,7 @@ const ProfileContainer = () => {
         name: 'dateOfBirth',
         type: 'date',
         label: 'birthday',
-        value: customer.dateOfBirth,
+        value: customer.dateOfBirth || '',
       },
     ];
   }, [customer]);

@@ -7,8 +7,12 @@ import FsPhoneInput from '@/components/UI/FsPhoneInput';
 import FsCheckbox from '@/components/UI/FsCheckbox';
 import { FormikProps } from 'formik';
 
-const PersonalAddressForm = (data: FormItemFieldsParams[], checked: boolean, formik: FormikProps<formikValuesType>) => {
-  console.log(formik);
+const PersonalAddressForm = (
+  data: FormItemFieldsParams[],
+  checked: boolean,
+  formik: FormikProps<formikValuesType>,
+  onChangeHandler: (e: ChangeEvent<any>) => void
+) => {
   return (
     <>
       {data?.map((inputData: FormItemFieldsParams) => {
@@ -22,16 +26,27 @@ const PersonalAddressForm = (data: FormItemFieldsParams[], checked: boolean, for
             <FsSelect
               key={inputData.id}
               options={inputData.options}
-              // onBlur={formik.handleBlur}
+              onBlur={formik.handleBlur}
               onChange={(e: ChangeEvent) => {
-                console.log(e);
+                formik.setFieldTouched('type');
+                formik.handleChange(e);
               }}
               name={compoundName}
-              id={inputData.id.toString()}
+              id={inputData.name}
               label={inputData.label || ''}
-              value={inputData.value || null || undefined}
+              value={(formik.values[compoundName] as string) || ''}
               formgroup={inputData.formGroup}
               disabled={!checked}
+              error={
+                ((formik.touched[compoundName] || formik.values[compoundName]) &&
+                  Boolean(formik.errors[compoundName])) ||
+                false
+              }
+              errorText={
+                (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
+                  ? formik.errors[compoundName]
+                  : ' '
+              }
             />
           );
         }
@@ -39,35 +54,52 @@ const PersonalAddressForm = (data: FormItemFieldsParams[], checked: boolean, for
         if ('type' in inputData && inputData.type && compoundName && inputData.type === 'phone') {
           return (
             <FsPhoneInput
-              id={inputData.id.toString()}
+              id={inputData.name}
               key={inputData.id}
-              value={inputData.value || null || undefined}
+              value={(formik.values[compoundName] as string) || '+48 ___ ___ ___'}
               label={inputData.label || ''}
               type={inputData.type}
-              name={inputData.name}
-              onChange={(e: ChangeEvent) => {
-                console.log(e);
-              }}
-              // onBlur={formik.handleBlur}
+              name={compoundName}
+              onChange={onChangeHandler}
+              onBlur={formik.handleBlur}
               formGroup={inputData.formGroup}
               disabled={!checked}
+              errorText={
+                (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
+                  ? formik.errors[compoundName]
+                  : ' '
+              }
+              error={
+                ((formik.touched[compoundName] || formik.values[compoundName]) &&
+                  Boolean(formik.errors[compoundName])) ||
+                false
+              }
             />
           );
         }
         if ('type' in inputData && inputData.type && compoundName && inputData.type === 'text') {
           return (
             <FsInput
-              id={inputData.id.toString()}
+              id={inputData.name}
               key={inputData.id}
               label={inputData.label || ''}
               type={inputData.type}
               name={compoundName}
-              onChange={(e: ChangeEvent) => {
-                console.log(e);
-              }}
-              value={inputData.value || null || undefined}
+              onChange={onChangeHandler}
+              onBlur={formik.handleBlur}
+              value={(formik.values[compoundName] as string) || ''}
               formGroup={inputData.formGroup}
               disabled={!checked}
+              errorText={
+                (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
+                  ? formik.errors[compoundName]
+                  : ' '
+              }
+              error={
+                ((formik.touched[compoundName] || formik.values[compoundName]) &&
+                  Boolean(formik.errors[compoundName])) ||
+                false
+              }
             />
           );
         }
@@ -86,17 +118,26 @@ const PersonalAddressForm = (data: FormItemFieldsParams[], checked: boolean, for
                   if ('value' in subInput && subCompoundName) {
                     return (
                       <FsInput
-                        id={subInput.id.toString()}
+                        id={subInput.name}
                         key={subInput.id}
-                        value={subInput.value || null || undefined}
+                        value={(formik.values[subCompoundName] as string) || ''}
                         label={subInput.label || ''}
                         type={subInput.type}
                         name={subCompoundName}
-                        onChange={(e: ChangeEvent) => {
-                          console.log(e);
-                        }}
+                        onChange={onChangeHandler}
                         formGroup={subInput.formGroup}
                         disabled={!checked}
+                        errorText={
+                          (formik.touched[subCompoundName] || formik.values[subCompoundName]) &&
+                          formik.errors[subCompoundName]
+                            ? formik.errors[subCompoundName]
+                            : ' '
+                        }
+                        error={
+                          ((formik.touched[subCompoundName] || formik.values[subCompoundName]) &&
+                            Boolean(formik.errors[subCompoundName])) ||
+                          false
+                        }
                       />
                     );
                   }

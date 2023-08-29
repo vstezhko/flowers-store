@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
 import Image from 'next/image';
@@ -22,7 +22,8 @@ const ProfileFormContainer = ({
   childComponent: (
     data1: FormItemFieldsParams[],
     checked: boolean,
-    formik1: FormikProps<formikValuesType>
+    formik1: FormikProps<formikValuesType>,
+    onChangeHandler: (e: React.ChangeEvent<any>) => void
   ) => React.JSX.Element;
   data: FormItemFieldsParams[];
   src: string;
@@ -77,6 +78,11 @@ const ProfileFormContainer = ({
     setChecked(false);
   };
 
+  const onChangeHandler = (e: ChangeEvent<any>) => {
+    formik.setFieldTouched('type');
+    formik.handleChange(e);
+  };
+
   return (
     <>
       <form className='form-customer' onSubmit={formik.handleSubmit}>
@@ -86,7 +92,7 @@ const ProfileFormContainer = ({
             control={<Switch checked={checked} onChange={handleChange} size='small' />}
             label='EDIT'
           />
-          {childComponent(data, checked, formik)}
+          {childComponent(data, checked, formik, onChangeHandler)}
         </div>
         {checked && (
           <div className='form__btn-container'>

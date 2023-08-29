@@ -4,7 +4,7 @@ import { FormItemFieldsParams } from '@/types/types';
 
 const getZipValidation = (mainField: string): StringSchema => {
   return string()
-    .required('required')
+    .required('req.')
     .when(mainField, {
       is: 'DE',
       then: schema => schema.matches(/^\d{5}$/, 'invalid'),
@@ -21,7 +21,7 @@ const getZipValidation = (mainField: string): StringSchema => {
 
 const RulesForFields = {
   [ValidationRuleGroup.BIRTHDAY]: string()
-    .required('required')
+    .required('req.')
     .test('at-least-13-years', 'at least 13 years old', value => {
       if (!value) return false;
       const today = new Date();
@@ -33,9 +33,9 @@ const RulesForFields = {
       }
       return ageDiff >= 13;
     }),
-  [ValidationRuleGroup.COMMON]: string().required('required').max(25, 'too long'),
+  [ValidationRuleGroup.COMMON]: string().required('req.').max(25, 'too long'),
   [ValidationRuleGroup.EMAIL]: string()
-    .required('required')
+    .required('req.')
     .max(25, 'too long')
     .test('no-leading-trailing-space', 'no leading/trailing spaces', value => {
       if (!value) return true;
@@ -52,7 +52,7 @@ const RulesForFields = {
     })
     .email('enter a valid email'),
   [ValidationRuleGroup.PASSWORD]: string()
-    .required('required')
+    .required('req.')
     .max(25, 'too long')
     .test('no-leading-trailing-space', 'no leading/trailing spaces', value => {
       if (!value) return true;
@@ -67,11 +67,11 @@ const RulesForFields = {
     .required('retype your password.')
     .oneOf([ref(`${FormGroups.CUSTOMER}-${ValidationRuleGroup.PASSWORD}`)], 'passwords mismatch'),
   [ValidationRuleGroup.PHONE]: string()
-    .required('required')
+    .required('req.')
     .max(25, 'too long')
     .matches(/^[^_]*$/, 'invalid phone number'),
   [ValidationRuleGroup.NAME]: string()
-    .required('required')
+    .required('req.')
     .max(25, 'too long')
     .matches(/^[^!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/, 'no special characters')
     .matches(/^[^0-9]*$/, 'no numbers'),
