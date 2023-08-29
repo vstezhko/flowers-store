@@ -27,6 +27,8 @@ export interface Customer {
   dateOfBirth: string | null;
   defaultShippingAddressId: string | null;
   defaultBillingAddressId: string | null;
+  billingAddressIds: string[];
+  shippingAddressIds: string[];
 }
 
 export interface ICustomerAddress {
@@ -64,6 +66,8 @@ export const initialState: LoginState = {
     dateOfBirth: null,
     defaultShippingAddressId: null,
     defaultBillingAddressId: null,
+    billingAddressIds: [],
+    shippingAddressIds: [],
   },
   anonymousCart: {
     id: null,
@@ -97,6 +101,8 @@ export const loginSlice = createSlice({
         dateOfBirth: null,
         defaultShippingAddressId: null,
         defaultBillingAddressId: null,
+        billingAddressIds: [],
+        shippingAddressIds: [],
       };
     },
     updateCustomer: (state, action: PayloadAction<Partial<Customer>>) => {

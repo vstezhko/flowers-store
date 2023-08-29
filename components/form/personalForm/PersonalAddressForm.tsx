@@ -13,6 +13,13 @@ const PersonalAddressForm = (
   formik: FormikProps<formikValuesType>,
   onChangeHandler: (e: ChangeEvent<any>) => void
 ) => {
+  // const setDefaultAddresse = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const isChecked = event.target.checked;
+  //   const formFields = formik.values[`${FormGroups.BILLING_ADDRESS}-default`] as string;
+  // };
+  //
+  // console.log(formik.values);
+
   return (
     <>
       {data?.map((inputData: FormItemFieldsParams) => {
@@ -152,8 +159,9 @@ const PersonalAddressForm = (
               name={compoundName}
               key={inputData.id}
               label={inputData.label}
-              checked={!!inputData.value}
               disabled={!checked}
+              onToggle={onChangeHandler}
+              value={formik.values[compoundName]}
             />
           );
         }

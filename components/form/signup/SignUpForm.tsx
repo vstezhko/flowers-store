@@ -56,7 +56,7 @@ const SignUpForm = (
         setIsValid={setShippingAddressValid}
       />
       {shippingAddressValid && (
-        <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
+        <FsCheckbox label='use the same data for billing address' value={disabled} onToggle={setBillingAddress} />
       )}
     </div>
   );

@@ -99,7 +99,7 @@ const ProfileContainer = () => {
         validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
         type: 'checkbox',
         label: 'default shipping address',
-        value: customer?.defaultShippingAddressId || '',
+        value: !!customer?.defaultShippingAddressId,
       },
     ];
   }, [customer]);
@@ -186,7 +186,7 @@ const ProfileContainer = () => {
         validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
         type: 'checkbox',
         label: 'default shipping address',
-        value: customer?.defaultBillingAddressId || '',
+        value: !!customer?.defaultBillingAddressId,
       },
     ];
   }, [customer]);
@@ -249,6 +249,7 @@ const ProfileContainer = () => {
           childComponent={PersonalInfoForm}
           data={customerData[FormGroups.CUSTOMER]}
           src={profileImage.src}
+          type={FormGroups.CUSTOMER}
         />
       ),
     },
@@ -258,6 +259,7 @@ const ProfileContainer = () => {
           childComponent={PersonalAddressForm}
           data={customerData[FormGroups.SHIPPING_ADDRESS]}
           src={addressShippingImage.src}
+          type={FormGroups.SHIPPING_ADDRESS}
         />
       ),
     },
@@ -267,6 +269,7 @@ const ProfileContainer = () => {
           childComponent={PersonalAddressForm}
           data={customerData[FormGroups.BILLING_ADDRESS]}
           src={addressBillingImage.src}
+          type={FormGroups.BILLING_ADDRESS}
         />
       ),
     },

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import FsButton from '@/components/UI/FsButton';
-import { FsButtonType } from '@/types/enums';
+import { FormGroups, FsButtonType } from '@/types/enums';
 import Image from 'next/image';
 import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 import Switch from '@mui/material/Switch';
@@ -18,6 +18,7 @@ const ProfileFormContainer = ({
   childComponent,
   data,
   src,
+  type,
 }: {
   childComponent: (
     data1: FormItemFieldsParams[],
@@ -27,6 +28,7 @@ const ProfileFormContainer = ({
   ) => React.JSX.Element;
   data: FormItemFieldsParams[];
   src: string;
+  type: string;
 }) => {
   const dispatch = useDispatch();
   const validationSchema = object().shape(generateFormikFieldsRules(data));
@@ -38,31 +40,76 @@ const ProfileFormContainer = ({
 
   const { customer } = useSelector(state => state.login);
 
+  const changePersonalData = async (
+    structuredValues: Record<FormGroups, Record<string, string | boolean>>,
+    token: string
+  ) => {
+    const actions = [
+      {
+        action: 'changeEmail',
+        email: structuredValues.customer.email as string,
+      },
+      {
+        action: 'setFirstName',
+        firstName: structuredValues.customer.firstName as string,
+      },
+      {
+        action: 'setLastName',
+        lastName: structuredValues.customer.lastName as string,
+      },
+      {
+        action: 'setDateOfBirth',
+        dateOfBirth: structuredValues.customer.dateOfBirth as string,
+      },
+    ];
+    await dispatch(updateCustomerAsync({ actions, token, version: customer.version }));
+  };
+
+  const changeAddressesData = async (
+    structuredValues: Record<string, string | boolean>,
+    token: string,
+    address: string
+  ) => {
+    const shippingId = customer?.shippingAddressIds[0] || [];
+    const billingId = customer?.billingAddressIds[0] || [];
+    const actions = [
+      {
+        action: 'changeAddress',
+        addressId: address === FormGroups.SHIPPING_ADDRESS ? shippingId : billingId,
+        address: {
+          streetName: structuredValues.streetName as string,
+          building: structuredValues.building as string,
+          postalCode: structuredValues.postalCode as string,
+          apartment: structuredValues.apartment as string,
+          city: structuredValues.city as string,
+          country: structuredValues.country as string,
+          phone: structuredValues.phone as string,
+        },
+      },
+      {
+        action: address === FormGroups.SHIPPING_ADDRESS ? 'setDefaultShippingAddress' : 'setDefaultBillingAddress',
+        addressId: structuredValues.default ? (address === FormGroups.SHIPPING_ADDRESS ? shippingId : billingId) : '',
+      },
+    ];
+
+    console.log(actions);
+  };
+
   const formikConfig: FormikConfig<formikValuesType> = {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: async values => {
       const token = TokenService.getAccessToken();
       const structuredValues = structureInputValues(values);
-      const actions = [
-        {
-          action: 'changeEmail',
-          email: structuredValues.customer.email as string,
-        },
-        {
-          action: 'setFirstName',
-          firstName: structuredValues.customer.firstName as string,
-        },
-        {
-          action: 'setLastName',
-          lastName: structuredValues.customer.lastName as string,
-        },
-        {
-          action: 'setDateOfBirth',
-          dateOfBirth: structuredValues.customer.dateOfBirth as string,
-        },
-      ];
-      await dispatch(updateCustomerAsync({ actions, token, version: customer.version }));
+      console.log(structuredValues);
+      if (type === FormGroups.CUSTOMER) {
+        await changePersonalData(structuredValues, token);
+      } else if (type === FormGroups.SHIPPING_ADDRESS) {
+        await changeAddressesData(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
+      } else {
+        await changeAddressesData(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
+      }
+
       setChecked(false);
     },
   };
