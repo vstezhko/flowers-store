@@ -19,6 +19,7 @@ export interface FsInputParams extends Omit<StandardTextFieldProps, 'ref'> {
   validationRuleGroup?: ValidationRuleGroup;
   onChange: FormikProps<formikValuesType>['handleChange'];
   onBlur?: FormikProps<formikValuesType>['handleBlur'];
+  inputComponent?: any;
 }
 
 const FsInput: React.FC<FsInputParams> = props => {
@@ -36,6 +37,7 @@ const FsInput: React.FC<FsInputParams> = props => {
     onBlur,
     type,
     disabled,
+    inputComponent,
     ...rest
   } = props;
 
@@ -67,7 +69,8 @@ const FsInput: React.FC<FsInputParams> = props => {
       InputProps={{
         'aria-describedby': id,
         id: id,
-        inputRef: forwardedRef,
+        // inputRef: forwardedRef,
+        inputComponent: inputComponent,
         endAdornment:
           type === 'password' ? (
             <InputAdornment position='end'>
