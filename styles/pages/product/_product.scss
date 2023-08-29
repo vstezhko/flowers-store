@@ -17,8 +17,9 @@
   }
 
   .product-block__variants {
-    display: flex;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: (minmax(175px, 1fr)) (minmax(175px, 1fr)) (minmax(175px, 1fr));
+    grid-gap: 10px;
   }
 
   .product-block__details {

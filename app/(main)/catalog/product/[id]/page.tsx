@@ -20,19 +20,31 @@ const Product = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const product = useSelector(state => state.product);
-  const [productVariants, setProductVariants] = useState<ProductVariant[]>([]);
+  const [productVariants, setProductVariants] = useState<{ size: string; variant: ProductVariant }[]>([]);
 
-  const [activeVariant, setActiveVariant] = useState<ProductVariant | null>(null);
+  const [activeVariant, setActiveVariant] = useState<{ size: string; variant: ProductVariant } | null>(null);
   const [productAmount, setProductAmount] = useState(1);
-  const composition = activeVariant?.attributes.find(attr => attr.name === 'composition')?.value.split(',');
+  const composition = activeVariant?.variant.attributes.find(attr => attr.name === 'composition')?.value.split(',');
 
   useEffect(() => {
     if (product.status === 'failed') {
       router.replace('/404');
     }
-    let variants: ProductVariant[] = [];
-    if (product.masterVariant) variants.push(product.masterVariant);
-    if (product.variants.length) variants.push(...product.variants);
+    let variants: { size: string; variant: ProductVariant }[] = [];
+    if (product.masterVariant && product.masterVariant.attributes.length) {
+      variants.push({
+        size: product.masterVariant.attributes.find(attr => attr.name === 'size')?.value || '0',
+        variant: product.masterVariant,
+      });
+    }
+    if (product.variants.length)
+      product.variants.forEach((variant: ProductVariant) =>
+        variants.push({
+          size: variant.attributes.find(attr => attr.name === 'size')?.value || '0',
+          variant: variant,
+        })
+      );
+    variants.sort((a, b) => +a.size - +b.size);
     setProductVariants(variants);
     if (product?.id) setActiveVariant(variants[0]);
   }, [product, router]);
@@ -43,7 +55,7 @@ const Product = () => {
   }, [dispatch, id]);
 
   const handleChangeActiveVariant = (variantId: number) => {
-    const item = productVariants.find(variant => variant.id === variantId);
+    const item = productVariants.find(variant => variant.variant.id === variantId);
     if (item) setActiveVariant(item);
   };
 
@@ -60,7 +72,7 @@ const Product = () => {
       <section className='product-block'>
         <div className='product-block__images'>
           <div className='product-block__main-image'>
-            <Image src={activeVariant?.images[0].url || NoImage} alt='product image' width={450} height={450} />
+            <Image src={activeVariant?.variant.images[0].url || NoImage} alt='product image' width={450} height={450} />
           </div>
         </div>
         <div className='product-block__info'>
@@ -70,11 +82,11 @@ const Product = () => {
               productVariants.map(variant => {
                 return (
                   <ProductVariantCard
-                    key={variant?.id}
-                    id={variant?.id.toString()}
-                    price={variant?.prices[0].value.centAmount / 100}
-                    isActive={variant?.id === activeVariant?.id}
-                    onClick={() => handleChangeActiveVariant(variant?.id)}
+                    key={variant?.variant.id}
+                    id={variant?.variant.id.toString()}
+                    price={variant?.variant.prices[0].value.centAmount / 100}
+                    isActive={variant?.variant.id === activeVariant?.variant.id}
+                    onClick={() => handleChangeActiveVariant(variant?.variant.id)}
                   />
                 );
               })
@@ -107,7 +119,7 @@ const Product = () => {
               <div className='product-block__sum-info'>
                 <p>Sum</p>
                 {activeVariant ? (
-                  <p>{(activeVariant?.prices[0]?.value?.centAmount / 100) * productAmount} EUR</p>
+                  <p>{(activeVariant?.variant.prices[0]?.value?.centAmount / 100) * productAmount} EUR</p>
                 ) : (
                   <Skeleton variant='rectangular' width={70} height={20} />
                 )}
