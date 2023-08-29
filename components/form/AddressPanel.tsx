@@ -16,7 +16,7 @@ const AddressPanel = ({
   setIsValid,
 }: {
   data: FormItemFieldsParams[];
-  title: string;
+  title?: string;
   formik: FormikProps<formikValuesType>;
   disabled?: boolean;
   setIsValid?: (isValid: boolean) => void;

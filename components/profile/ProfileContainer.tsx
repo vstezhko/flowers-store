@@ -3,8 +3,6 @@ import FsTabs from '@/components/UI/FsTabs';
 import { useSelector } from '@/redux/store';
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 import { FormItemFieldsParams } from '@/types/types';
-import PersonalInfoForm from '@/components/form/personalForm/PersonalInfoForm';
-import PersonalAddressForm from '@/components/form/personalForm/PersonalAddressForm';
 import ProfileFormContainer from '@/components/form/ProfileFormContainer';
 import profileImage from '@/public/img/jpeg/profile.webp';
 import addressBillingImage from '@/public/img/jpeg/address2.jpeg';
@@ -246,7 +244,7 @@ const ProfileContainer = () => {
     {
       component: (
         <ProfileFormContainer
-          childComponent={PersonalInfoForm}
+          // childComponent={PersonalInfoForm}
           data={customerData[FormGroups.CUSTOMER]}
           src={profileImage.src}
           type={FormGroups.CUSTOMER}
@@ -256,7 +254,7 @@ const ProfileContainer = () => {
     {
       component: (
         <ProfileFormContainer
-          childComponent={PersonalAddressForm}
+          // childComponent={ProfileAddressCard}
           data={customerData[FormGroups.SHIPPING_ADDRESS]}
           src={addressShippingImage.src}
           type={FormGroups.SHIPPING_ADDRESS}
@@ -266,7 +264,7 @@ const ProfileContainer = () => {
     {
       component: (
         <ProfileFormContainer
-          childComponent={PersonalAddressForm}
+          // childComponent={ProfileAddressCard}
           data={customerData[FormGroups.BILLING_ADDRESS]}
           src={addressBillingImage.src}
           type={FormGroups.BILLING_ADDRESS}

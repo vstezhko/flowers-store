@@ -2,6 +2,7 @@ import { createAppAsyncThunk } from '@/redux/createAppAsyncThunk';
 import { AuthService } from '@/api/services/Auth.services';
 import { CustomerService } from '@/api/services/Customer.service';
 import { customerDraft } from '@/types/interface';
+import { CustomerAction, CustomerAddressAction } from '@/types/types';
 
 export const loginAsync = createAppAsyncThunk(
   'login/login',
@@ -27,7 +28,7 @@ export const updateCustomerAsync = createAppAsyncThunk(
     token,
     version,
   }: {
-    actions: Record<string, string | undefined>[];
+    actions: CustomerAction[] | CustomerAddressAction[];
     token: string;
     version: number | null;
   }) => {

@@ -10,6 +10,7 @@ const PersonalInfoForm = (
   formik: FormikProps<formikValuesType>,
   onChangeHandler: (e: ChangeEvent<any>) => void
 ) => {
+  console.log(data);
   return (
     <>
       {data?.map(inputData => {
