@@ -3,6 +3,7 @@
 @import "abstract/_placeholders";
 @import "abstract/_typography";
 @import "globals.scss";
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
 
 //layout
 @import "layout/_columns";
@@ -22,6 +23,7 @@
 @import "components/catalog/_smallCard";
 @import "components/product/_productVariantCard";
 @import "components/product/_productCompositionCard";
+@import "components/product/_productImageGallery";
 
 //pages
 @import "pages/offer/_offer";

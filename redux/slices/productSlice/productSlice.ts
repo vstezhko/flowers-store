@@ -59,7 +59,7 @@ interface ProductPrice {
   };
 }
 
-interface ProductImage {
+export interface ProductImage {
   url: string;
   dimensions: {
     w: number;

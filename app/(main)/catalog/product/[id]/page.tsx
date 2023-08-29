@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from '@/redux/store';
 import { getProductByIdAsync } from '@/redux/slices/productSlice/thunks';
 import { TokenService } from '@/api/services/Token.service';
 import { ProductVariant } from '@/redux/slices/productSlice/productSlice';
-import NoImage from '@/public/img/jpeg/no-image.jpg';
-import Image from 'next/image';
 import ProductVariantCard from '@/components/product/ProductVariantCard';
 import ProductCompositionCard from '@/components/product/ProductCompositionCard';
 import FsButton from '@/components/UI/FsButton';
@@ -14,6 +12,7 @@ import { FsButtonType } from '@/types/enums';
 import PlusIcon from '@/components/Icons/PlusIcon';
 import MinusIcon from '@/components/Icons/MinusIcon';
 import { Skeleton } from '@mui/material';
+import ProductImageGallery from '@/components/product/ProductImageGallery';
 
 const Product = () => {
   const { id } = useParams() as { id: string };
@@ -67,16 +66,21 @@ const Product = () => {
 
   const handleAddToCard = () => {};
 
+  console.log(activeVariant?.variant.images);
+
   return (
     <div className='product page'>
       <section className='product-block'>
         <div className='product-block__images'>
-          <div className='product-block__main-image'>
-            <Image src={activeVariant?.variant.images[0].url || NoImage} alt='product image' width={450} height={450} />
-          </div>
+          <ProductImageGallery images={activeVariant?.variant.images || []} />
         </div>
         <div className='product-block__info'>
           {product.name.en ? <h3>{product.name.en}</h3> : <Skeleton variant='rectangular' width={200} height={30} />}
+          {product.description.en ? (
+            <p>{product.description.en}</p>
+          ) : (
+            <Skeleton variant='rectangular' width={300} height={30} />
+          )}
           <div className='product-block__variants'>
             {productVariants.length ? (
               productVariants.map(variant => {
