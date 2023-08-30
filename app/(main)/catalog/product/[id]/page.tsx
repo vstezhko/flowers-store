@@ -49,7 +49,6 @@ const Product = () => {
 
   useEffect(() => {
     const token: string = TokenService.getAccessTokenFromLS()?.token;
-    console.log('get');
     dispatch(getProductByIdAsync({ token, id }));
     return () => {
       dispatch(productSlice.actions.clearState());
