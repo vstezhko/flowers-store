@@ -12,6 +12,8 @@ import ProductImageGallery from '@/components/product/ProductImageGallery';
 import ProductVariants from '@/components/product/ProductVariants';
 import ProductAmountSetter from '@/components/product/ProductAmountSetter';
 import ProductSum from '@/components/product/ProductSum';
+import { createProductVariantsArray } from '@/utils/createProductVariantsArray';
+import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
 
 const Product = () => {
   const { id } = useParams() as { id: string };
@@ -28,21 +30,7 @@ const Product = () => {
     if (product.status === 'failed') {
       router.replace('/404');
     }
-    let variants: { size: string; variant: ProductVariant }[] = [];
-    if (product.masterVariant && product.masterVariant.attributes.length) {
-      variants.push({
-        size: product.masterVariant.attributes.find(attr => attr.name === 'size')?.value || '0',
-        variant: product.masterVariant,
-      });
-    }
-    if (product.variants.length)
-      product.variants.forEach((variant: ProductVariant) =>
-        variants.push({
-          size: variant.attributes.find(attr => attr.name === 'size')?.value || '0',
-          variant: variant,
-        })
-      );
-    variants.sort((a, b) => +a.size - +b.size);
+    const variants = createProductVariantsArray(product);
     setProductVariants(variants);
     if (product?.id) setActiveVariant(variants[0]);
   }, [product, router]);
@@ -70,6 +58,7 @@ const Product = () => {
 
   return (
     <div className='product page'>
+      <CategoryBreadcrumbs categoryId={product.categories[0]?.id} productName={product.name.en} />
       <section className='product-block'>
         <div className='product-block__images'>
           {product.id && <ProductImageGallery images={activeVariant?.variant.images || []} />}
