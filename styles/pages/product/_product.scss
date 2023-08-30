@@ -42,28 +42,10 @@
     gap: 10px;
   }
 
-  .product-block__variants {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
-    grid-gap: 10px;
-  }
-
   .product-block__details {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-  }
-
-  .product-block__amount {
-    border-radius: 10px;
-    background: $color-shade-0;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 20px;
-    width: 160px;
-    align-items: center;
-    flex-grow: 1;
   }
 
   .product-block__sum {
@@ -81,10 +63,4 @@
       flex-grow: 2;
     }
   }
-
-  .product-block__sum-info {
-    min-width: max-content;
-    flex-grow: 1;
-  }
-
 }
