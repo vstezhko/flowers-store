@@ -1,16 +1,23 @@
 .product-variant-card {
   cursor: pointer;
-  min-width: 155px;
+  min-width: 180px;
   width: 100%;
   border-radius: 10px;
   background: $color-shade-0;
-  padding: 10px 20px;
+  padding: 10px 15px;
   display: flex;
   flex-direction: column;
   gap: 5px;
   position: relative;
   @extend %transition;
   border: 1px solid $color-shade-0;
+
+
+  .price-before-discount {
+    color: $color-shade-4;
+    text-decoration: line-through;
+    font-size: 0.8em;
+  }
 
 
   &:hover {
@@ -25,7 +32,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 20px;
+    right: 15px;
     width: 20px;
     height: 20px;
     border-radius: 50%;

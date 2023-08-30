@@ -51,6 +51,13 @@ export interface ProductCategory {
 
 interface ProductPrice {
   id: string;
+  discounted: {
+    discount: {
+      id: string;
+      type: string;
+    };
+    value: ProductPrice['value'];
+  };
   value: {
     type: string;
     currencyCode: 'EUR';
