@@ -22,7 +22,6 @@ const ProductImageGallery = ({ images }: { images: ProductImage[] }) => {
       items={galleryImages}
       additionalClass='fs-product-gallery'
       showPlayButton={false}
-      showNav={false}
       showThumbnails={galleryImages.length > 2}
       onErrorImageURL={'/img/jpeg/no-image.jpg'}
     />
