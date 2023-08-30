@@ -55,6 +55,7 @@
   }
 
   .image-gallery-content.fullscreen {
+    z-index: 100;
 
     .image-gallery-slide-wrapper {
       background: black;
