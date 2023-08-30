@@ -37,7 +37,7 @@ export const get = (url: string, token: string) =>
     .get(url)
     .then(res => res.data)
     .catch(error => {
-      return Promise.reject(error.response.data.message);
+      return Promise.reject(error.response ? error.response.data.message : error.message);
     });
 
 export const post = (url: string, token: string, body: string) =>
@@ -45,5 +45,5 @@ export const post = (url: string, token: string, body: string) =>
     .post(url, body)
     .then(res => res.data)
     .catch(error => {
-      return Promise.reject(error.response.data.message);
+      return Promise.reject(error.response ? error.response.data.message : error.message);
     });
