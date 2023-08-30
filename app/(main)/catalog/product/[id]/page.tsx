@@ -93,7 +93,9 @@ const Product = () => {
               <ProductSum
                 sum={
                   activeVariant
-                    ? (activeVariant?.variant.prices[0]?.value?.centAmount / 100) * productAmount
+                    ? activeVariant?.variant.prices[0]?.discounted
+                      ? (activeVariant?.variant.prices[0]?.discounted?.value.centAmount / 100) * productAmount
+                      : (activeVariant?.variant.prices[0]?.value?.centAmount / 100) * productAmount
                     : undefined
                 }
               />
