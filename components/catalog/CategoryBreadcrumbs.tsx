@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { TokenService } from '@/api/services/Token.service';
 import { getCategoriesAsync } from '@/redux/slices/categorySlice/thunks';
 import { useDispatch, useSelector } from '@/redux/store';
@@ -43,20 +43,25 @@ const CategoryBreadcrumbs: FC<CategoryBreadcrumbsParams> = ({ categoryId, produc
     if (categories && categoryId) setCategoryChain(createCategoryChain(categoryId, categories));
   }, [categories, categoryId]);
 
+  const categoryChainNodes = useMemo(() => {
+    const categoriesNodes = categoryChain?.map(item => <span key={item.id}>{item.name.en}</span>);
+    if (productName) categoriesNodes.push(<span key={productName}>{productName}</span>);
+    return categoriesNodes;
+  }, [categoryChain, productName]);
+
   return (
-    <>
-      {categoryChain.length ? (
-        categoryChain.map((item, index) => (
-          <span key={item.id}>
-            {item.name.en}
-            {index < categoryChain.length - 1 ? ` > ` : ''}
-            {index === categoryChain.length - 1 && productName ? ` > ${productName}` : ''}
-          </span>
+    <div className='category-breadcrumbs'>
+      {categoryChainNodes && categoryChainNodes.length ? (
+        categoryChainNodes.map((node, index) => (
+          <React.Fragment key={node.key}>
+            {index > 0 && ' > '}
+            {node}
+          </React.Fragment>
         ))
       ) : (
         <Skeleton variant='rectangular' width={200} height={30} />
       )}
-    </>
+    </div>
   );
 };
 
