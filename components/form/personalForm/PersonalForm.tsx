@@ -18,7 +18,9 @@ const PersonalForm = ({
   data,
   type,
   childComponent,
+  modeEdit,
 }: {
+  modeEdit: boolean;
   data: FormItemFieldsParams[];
   type: string;
   childComponent: (
@@ -128,17 +130,20 @@ const PersonalForm = ({
     formik.setFieldTouched('type');
     formik.handleChange(e);
   };
+
   return (
     <form className='form-customer' onSubmit={formik.handleSubmit}>
       <div className='form__content'>
-        <FormControlLabel
-          className='switch'
-          control={<Switch checked={checked} onChange={handleChange} size='small' />}
-          label='EDIT'
-        />
+        {modeEdit && (
+          <FormControlLabel
+            className='switch'
+            control={<Switch checked={checked} onChange={handleChange} size='small' />}
+            label='EDIT'
+          />
+        )}
         {childComponent(data, checked, formik, onChangeHandler)}
       </div>
-      {checked && (
+      {(checked || !modeEdit) && (
         <div className='form__btn-container'>
           <FsButton variant='outlined' label='cancel' className={FsButtonType.SMALL} onClick={handleCancelUpdateData} />
           <FsButton label='save' type='submit' className={FsButtonType.SMALL} />

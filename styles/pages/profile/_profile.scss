@@ -84,7 +84,7 @@
 
 }
 
-.personal__form-container{
+.personal__form-container {
   display: flex;
   gap: 4%;
   padding: 30px;
@@ -122,6 +122,8 @@
       gap: 10px;
       padding-top: 50px;
       position: relative;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
 
     .switch {
@@ -173,13 +175,12 @@
 
 
 .card-address {
-  width: 100%;
+  width: 48%;
   height: 120px;
   position: relative;
 }
 
 .MuiCardContent-root {
-  flex-grow: 1;
   padding: 8px;
 
   & > p {
@@ -210,4 +211,25 @@
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+.modal{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+  width: 100%;
+
+  .form-customer{
+    width: 100%;
+    height: 470px;
+    background-color: #fdf9fc;
+    padding: 40px;
+    border-radius: 8px;
+
+    .form__content{
+      height: 350px;
+    }
+  }
 }
