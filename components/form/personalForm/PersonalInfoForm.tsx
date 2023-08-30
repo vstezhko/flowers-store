@@ -8,8 +8,10 @@ const PersonalInfoForm = (
   data: FormItemFieldsParams[],
   checked: boolean,
   formik: FormikProps<formikValuesType>,
-  onChangeHandler: (e: ChangeEvent<any>) => void
+  onChangeHandler: (e: ChangeEvent<any>) => void,
+  editMode: boolean
 ) => {
+  console.log(editMode);
   return (
     <>
       {data?.map(inputData => {

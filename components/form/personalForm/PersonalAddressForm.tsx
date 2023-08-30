@@ -11,7 +11,8 @@ const PersonalAddressForm = (
   data: FormItemFieldsParams[],
   checked: boolean,
   formik: FormikProps<formikValuesType>,
-  onChangeHandler: (e: ChangeEvent<any>) => void
+  onChangeHandler: (e: ChangeEvent<any>) => void,
+  modeEdit: boolean
 ) => {
   return (
     <>
@@ -36,7 +37,7 @@ const PersonalAddressForm = (
               label={inputData.label || ''}
               value={(formik.values[compoundName] as string) || ''}
               formgroup={inputData.formGroup}
-              disabled={!checked}
+              disabled={modeEdit && !checked}
               error={
                 ((formik.touched[compoundName] || formik.values[compoundName]) &&
                   Boolean(formik.errors[compoundName])) ||
@@ -63,7 +64,7 @@ const PersonalAddressForm = (
               onChange={onChangeHandler}
               onBlur={formik.handleBlur}
               formGroup={inputData.formGroup}
-              disabled={!checked}
+              disabled={modeEdit && !checked}
               errorText={
                 (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
                   ? formik.errors[compoundName]
@@ -89,7 +90,7 @@ const PersonalAddressForm = (
               onBlur={formik.handleBlur}
               value={(formik.values[compoundName] as string) || ''}
               formGroup={inputData.formGroup}
-              disabled={!checked}
+              disabled={modeEdit && !checked}
               errorText={
                 (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
                   ? formik.errors[compoundName]
@@ -126,7 +127,7 @@ const PersonalAddressForm = (
                         name={subCompoundName}
                         onChange={onChangeHandler}
                         formGroup={subInput.formGroup}
-                        disabled={!checked}
+                        disabled={modeEdit && !checked}
                         errorText={
                           (formik.touched[subCompoundName] || formik.values[subCompoundName]) &&
                           formik.errors[subCompoundName]
@@ -152,7 +153,7 @@ const PersonalAddressForm = (
               name={compoundName}
               key={inputData.id}
               label={inputData.label}
-              disabled={!checked}
+              disabled={modeEdit && !checked}
               onToggle={onChangeHandler}
               value={formik.values[compoundName]}
             />

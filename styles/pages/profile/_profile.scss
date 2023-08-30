@@ -67,20 +67,9 @@
   background-color: $color-shade-0;
   border-radius: 8px;
 
-  //.tab__panel-container {
-  //  display: flex;
-  //  gap: 4%;
-  //  padding: 30px;
-  //  height: 100%;
-  //
-  //  @include small() {
-  //    flex-direction: column-reverse;
-  //  }
-  //
-  //  @include medium-mobile() {
-  //    padding: 10px;
-  //  }
-  //}
+  .tab__panel-container {
+    height: 100%;
+  }
 
 }
 
@@ -107,6 +96,10 @@
   gap: 20px;
   width: 48%;
 
+  &_address{
+    width: 100%;
+  }
+
   @include small() {
     width: 100%;
   }
@@ -124,6 +117,7 @@
       position: relative;
       flex-direction: row;
       flex-wrap: wrap;
+      height: 100%;
     }
 
     .switch {
@@ -178,6 +172,10 @@
   width: 48%;
   height: 120px;
   position: relative;
+
+  @include small() {
+    width: 100%;
+  }
 }
 
 .MuiCardContent-root {
@@ -194,15 +192,11 @@
   right: 0;
   display: flex;
   justify-content: flex-end;
-  gap: 5px;
 
-  .MuiButtonBase-root {
-    padding: 6px;
-  }
-
-  .MuiSvgIcon-root {
-    width: 15px;
-    height: 15px;
+  .card-btn{
+    min-width: 30px;
+    font-size: 10px;
+    margin-left: 0;
   }
 
 }
@@ -228,8 +222,14 @@
     padding: 40px;
     border-radius: 8px;
 
+    @include small(){
+      padding: 20px;
+    }
+
     .form__content{
       height: 350px;
     }
   }
 }
+
+

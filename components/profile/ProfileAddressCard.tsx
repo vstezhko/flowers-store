@@ -1,10 +1,8 @@
 import React from 'react';
 import { Customer, ICustomerAddress } from '@/redux/slices/loginSlice/loginSlice';
-import { Card, CardContent } from '@mui/material';
+import { Button, Card, CardContent } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FsModal from '@/components/UI/FsModal';
 import AddIcon from '@/components/Icons/AddIcon';
 import PersonalForm from '@/components/form/personalForm/PersonalForm';
@@ -116,7 +114,7 @@ const ProfileAddressCard = ({
         validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
         type: 'checkbox',
         label: 'default shipping address',
-        value: !!customer?.defaultShippingAddressId,
+        value: currentAddress ? !!customer?.defaultShippingAddressId : false,
       },
     ];
   };
@@ -132,21 +130,20 @@ const ProfileAddressCard = ({
         {addressData.map(i => (
           <Card key={i.id} className='card-address'>
             <CardContent>
-              <p>{i.country}</p>
-              <p>{i.city}</p>
-              <p>{i.phone}</p>
-              <p>{i.postalCode}</p>
-              <p>{i.streetName}</p>
-              <p>{i.building}</p>
-              <p>{i.apartment}</p>
+              <div>
+                {i.country}, {i.city}
+              </div>
+              <div>
+                {i.streetName}, {i.building}/{i.apartment}
+              </div>
+              <div>{i.postalCode}</div>
+              <div>{i.phone}</div>
             </CardContent>
             <CardActions>
-              <IconButton aria-label='edit' onClick={() => handleOpen('edit', i)}>
-                <EditIcon sx={{ color: '#5B4A58' }} />
-              </IconButton>
-              <IconButton aria-label='delete'>
-                <DeleteOutlineIcon sx={{ color: '#EB5757' }} />
-              </IconButton>
+              <Button className='card-btn' onClick={() => handleOpen('edit', i)}>
+                Edit
+              </Button>
+              <Button className='card-btn'>Delete</Button>
             </CardActions>
           </Card>
         ))}

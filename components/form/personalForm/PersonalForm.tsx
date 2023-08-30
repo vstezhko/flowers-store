@@ -27,7 +27,8 @@ const PersonalForm = ({
     data1: FormItemFieldsParams[],
     checked: boolean,
     formik1: FormikProps<formikValuesType>,
-    onChangeHandler: (e: React.ChangeEvent<any>) => void
+    onChangeHandler: (e: React.ChangeEvent<any>) => void,
+    modeEdit: boolean
   ) => React.JSX.Element;
 }) => {
   const dispatch = useDispatch();
@@ -141,12 +142,19 @@ const PersonalForm = ({
             label='EDIT'
           />
         )}
-        {childComponent(data, checked, formik, onChangeHandler)}
+        {childComponent(data, checked, formik, onChangeHandler, modeEdit)}
       </div>
       {(checked || !modeEdit) && (
         <div className='form__btn-container'>
-          <FsButton variant='outlined' label='cancel' className={FsButtonType.SMALL} onClick={handleCancelUpdateData} />
-          <FsButton label='save' type='submit' className={FsButtonType.SMALL} />
+          {modeEdit && (
+            <FsButton
+              variant='outlined'
+              label='cancel'
+              className={FsButtonType.SMALL}
+              onClick={handleCancelUpdateData}
+            />
+          )}
+          <FsButton label={modeEdit ? 'save' : 'add'} type='submit' className={FsButtonType.SMALL} />
         </div>
       )}
     </form>

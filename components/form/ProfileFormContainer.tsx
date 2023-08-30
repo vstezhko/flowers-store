@@ -64,16 +64,16 @@ const ProfileFormContainer = ({ src, type }: { src: string; type: string }) => {
     </div>
   ) : (
     <div className='personal__form-container'>
-      <div className='form-customer'>
+      <div className='form-customer form-customer_address'>
         {type === FormGroups.SHIPPING_ADDRESS ? (
           <ProfileAddressCard addressData={shipping} type={type} customer={customer} />
         ) : (
           <ProfileAddressCard addressData={billing} type={type} customer={customer} />
         )}
       </div>
-      <div className='profile__container-img'>
-        <Image className='profile__img' src={src} alt='ProfileContainer photo' layout='fill' />
-      </div>
+      {/*<div className='profile__container-img'>*/}
+      {/*  <Image className='profile__img' src={src} alt='ProfileContainer photo' layout='fill' />*/}
+      {/*</div>*/}
     </div>
   );
 };
