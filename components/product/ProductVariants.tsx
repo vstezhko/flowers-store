@@ -19,6 +19,11 @@ const ProductVariants: FC<ProductVariantsParams> = ({ productVariants, activeVar
               key={variant?.variant.id}
               id={variant?.variant.id.toString()}
               price={variant?.variant.prices[0].value.centAmount / 100}
+              discounted={
+                variant?.variant.prices[0].discounted
+                  ? variant?.variant.prices[0].discounted.value.centAmount / 100
+                  : null
+              }
               isActive={variant?.variant.id === activeVariant?.variant.id}
               onClick={() => onChange(variant?.variant.id)}
             />
