@@ -49,8 +49,8 @@ const CategoryBreadcrumbs: FC<CategoryBreadcrumbsParams> = ({ categoryId, produc
         categoryChain.map((item, index) => (
           <span key={item.id}>
             {item.name.en}
-            {' > '}
-            {index === categoryChain.length - 1 && productName ? productName : ''}
+            {index === categoryChain.length - 1 && !productName ? ` > ` : ''}
+            {index === categoryChain.length - 1 && productName ? ` > ${productName}` : ''}
           </span>
         ))
       ) : (
