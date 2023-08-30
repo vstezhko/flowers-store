@@ -71,9 +71,6 @@ const ProfileFormContainer = ({ src, type }: { src: string; type: string }) => {
           <ProfileAddressCard addressData={billing} type={type} customer={customer} />
         )}
       </div>
-      {/*<div className='profile__container-img'>*/}
-      {/*  <Image className='profile__img' src={src} alt='ProfileContainer photo' layout='fill' />*/}
-      {/*</div>*/}
     </div>
   );
 };

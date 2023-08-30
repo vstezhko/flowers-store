@@ -19,10 +19,12 @@ const PersonalForm = ({
   type,
   childComponent,
   modeEdit,
+  typeForm,
 }: {
   modeEdit: boolean;
   data: FormItemFieldsParams[];
   type: string;
+  typeForm?: string;
   childComponent: (
     data1: FormItemFieldsParams[],
     checked: boolean,
@@ -40,6 +42,8 @@ const PersonalForm = ({
   };
 
   const { customer } = useSelector(state => state.login);
+
+  console.log(customer);
 
   const changePersonalData = async (
     structuredValues: Record<FormGroups, Record<string, string | boolean>>,
@@ -74,6 +78,9 @@ const PersonalForm = ({
     const shippingId = customer?.shippingAddressIds[0] || '';
     const billingId = customer?.billingAddressIds[0] || '';
 
+    console.log(shippingId);
+    console.log(billingId);
+
     const changeAddressAction: ChangeAddressAction = {
       action: 'changeAddress',
       addressId: address === FormGroups.SHIPPING_ADDRESS ? shippingId : billingId,
@@ -90,7 +97,7 @@ const PersonalForm = ({
 
     const setDefaultAddressAction: SetDefaultAddressAction = {
       action: address === FormGroups.SHIPPING_ADDRESS ? 'setDefaultShippingAddress' : 'setDefaultBillingAddress',
-      addressId: structuredValues.default ? (address === FormGroups.SHIPPING_ADDRESS ? shippingId : billingId) : '',
+      addressId: address === FormGroups.SHIPPING_ADDRESS ? shippingId : billingId,
     };
 
     const actions: CustomerAddressAction[] = [changeAddressAction, setDefaultAddressAction];
@@ -106,12 +113,11 @@ const PersonalForm = ({
       const structuredValues = structureInputValues(values);
       if (type === FormGroups.CUSTOMER) {
         await changePersonalData(structuredValues, token);
-      } else if (type === FormGroups.SHIPPING_ADDRESS) {
+      } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm === 'edit') {
         await changeAddressesData(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
-      } else {
+      } else if (type === FormGroups.BILLING_ADDRESS && typeForm === 'edit') {
         await changeAddressesData(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
       }
-
       setChecked(false);
     },
   };

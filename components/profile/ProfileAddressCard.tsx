@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Customer, ICustomerAddress } from '@/redux/slices/loginSlice/loginSlice';
 import { Button, Card, CardContent } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
@@ -8,6 +8,7 @@ import AddIcon from '@/components/Icons/AddIcon';
 import PersonalForm from '@/components/form/personalForm/PersonalForm';
 import PersonalAddressForm from '@/components/form/personalForm/PersonalAddressForm';
 import { ValidationRuleGroup } from '@/types/enums';
+import { FormItemFieldsParams } from '@/types/types';
 
 const ProfileAddressCard = ({
   addressData,
@@ -18,9 +19,10 @@ const ProfileAddressCard = ({
   type: string;
   customer: Customer;
 }) => {
-  const [open, setOpen] = React.useState(false);
-  const [typeForm, setTypeForm] = React.useState('');
-  const [editingAddress, setEditingAddress] = React.useState<ICustomerAddress | null>(null);
+  const [open, setOpen] = useState(false);
+  const [typeForm, setTypeForm] = useState('');
+  const [editingAddress, setEditingAddress] = useState<ICustomerAddress | null>(null);
+  const [currentAddress, setCurrentAddress] = useState<FormItemFieldsParams[]>([]);
   const handleOpen = (nameForm: string, address: ICustomerAddress | null) => {
     setOpen(true);
     setTypeForm(nameForm);
@@ -32,7 +34,7 @@ const ProfileAddressCard = ({
     setTypeForm('');
   };
 
-  const generateAddresses = (group: string, currentAddress: ICustomerAddress | null) => {
+  const generateAddresses = (group: string, address: ICustomerAddress | null) => {
     return [
       {
         id: 1,
@@ -41,7 +43,7 @@ const ProfileAddressCard = ({
         name: 'phone',
         type: 'phone',
         label: 'phone',
-        value: currentAddress?.phone || '',
+        value: address?.phone || '',
       },
       {
         id: 2,
@@ -50,7 +52,7 @@ const ProfileAddressCard = ({
         name: 'country',
         type: 'select',
         label: 'country',
-        value: currentAddress?.country || '',
+        value: address?.country || '',
         options: [
           { code: 'PL', name: 'Poland' },
           { code: 'DE', name: 'Germany' },
@@ -64,7 +66,7 @@ const ProfileAddressCard = ({
         name: 'city',
         type: 'text',
         label: 'city',
-        value: currentAddress?.city || '',
+        value: address?.city || '',
       },
       {
         id: 4,
@@ -73,7 +75,7 @@ const ProfileAddressCard = ({
         validationRuleGroup: ValidationRuleGroup.COMMON,
         type: 'text',
         label: 'street',
-        value: currentAddress?.streetName || '',
+        value: address?.streetName || '',
       },
       {
         id: 5,
@@ -85,7 +87,7 @@ const ProfileAddressCard = ({
             name: 'building',
             type: 'text',
             label: 'building',
-            value: currentAddress?.building || '',
+            value: address?.building || '',
           },
           {
             id: 14,
@@ -94,7 +96,7 @@ const ProfileAddressCard = ({
             name: 'apartment',
             type: 'text',
             label: 'apt.',
-            value: currentAddress?.apartment || '',
+            value: address?.apartment || '',
           },
           {
             id: 15,
@@ -103,7 +105,7 @@ const ProfileAddressCard = ({
             name: 'postalCode',
             type: 'text',
             label: 'zip code',
-            value: currentAddress?.postalCode || '',
+            value: address?.postalCode || '',
           },
         ],
       },
@@ -114,12 +116,16 @@ const ProfileAddressCard = ({
         validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
         type: 'checkbox',
         label: 'default shipping address',
-        value: currentAddress ? !!customer?.defaultShippingAddressId : false,
+        value: address ? !!customer?.defaultShippingAddressId : false,
       },
     ];
   };
 
-  const currentAddress = generateAddresses(type, editingAddress);
+  useEffect(() => {
+    if (editingAddress) {
+      setCurrentAddress(generateAddresses(type, editingAddress));
+    }
+  }, [type, editingAddress]);
 
   return (
     <>
@@ -150,16 +156,24 @@ const ProfileAddressCard = ({
       </div>
       {typeForm === 'add' && (
         <FsModal open={open} handleClose={handleClose}>
-          <div className='modal'>
-            <PersonalForm data={currentAddress} type={type} modeEdit={false} childComponent={PersonalAddressForm} />
-          </div>
+          <PersonalForm
+            data={currentAddress}
+            type={type}
+            modeEdit={false}
+            childComponent={PersonalAddressForm}
+            typeForm={typeForm}
+          />
         </FsModal>
       )}
       {typeForm === 'edit' && (
         <FsModal open={open} handleClose={handleClose}>
-          <div className='modal'>
-            <PersonalForm data={currentAddress} type={type} modeEdit={true} childComponent={PersonalAddressForm} />
-          </div>
+          <PersonalForm
+            data={currentAddress}
+            type={type}
+            modeEdit={true}
+            childComponent={PersonalAddressForm}
+            typeForm={typeForm}
+          />
         </FsModal>
       )}
     </>

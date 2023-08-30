@@ -16,7 +16,7 @@ export default function FsModal({
       onClose={handleClose}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'>
-      {children}
+      <div className='modal'>{children}</div>
     </Modal>
   );
 }
