@@ -9,6 +9,10 @@ import PersonalForm from '@/components/form/personalForm/PersonalForm';
 import PersonalAddressForm from '@/components/form/personalForm/PersonalAddressForm';
 import { ValidationRuleGroup } from '@/types/enums';
 import { FormItemFieldsParams } from '@/types/types';
+import { RemoveAddressAction } from '@/types/interface';
+import { updateCustomerAsync } from '@/redux/slices/loginSlice/thunks';
+import { useDispatch } from '@/redux/store';
+import { TokenService } from '@/api/services/Token.service';
 
 const ProfileAddressCard = ({
   addressData,
@@ -23,6 +27,7 @@ const ProfileAddressCard = ({
   const [typeForm, setTypeForm] = useState('');
   const [editingAddress, setEditingAddress] = useState<ICustomerAddress | null>(null);
   const [currentAddress, setCurrentAddress] = useState<FormItemFieldsParams[]>([]);
+  const dispatch = useDispatch();
   const handleOpen = (nameForm: string, address: ICustomerAddress | null) => {
     setOpen(true);
     setTypeForm(nameForm);
@@ -122,10 +127,20 @@ const ProfileAddressCard = ({
   };
 
   useEffect(() => {
-    if (editingAddress) {
-      setCurrentAddress(generateAddresses(type, editingAddress));
-    }
+    setCurrentAddress(generateAddresses(type, editingAddress));
   }, [type, editingAddress]);
+
+  const deleteAddress = async (id: string) => {
+    const token = TokenService.getAccessToken();
+    const removeAddressAction: RemoveAddressAction = {
+      action: 'removeAddress',
+      addressId: id,
+    };
+
+    const actions = [removeAddressAction];
+
+    await dispatch(updateCustomerAsync({ actions, token, version: customer.version }));
+  };
 
   return (
     <>
@@ -149,7 +164,9 @@ const ProfileAddressCard = ({
               <Button className='card-btn' onClick={() => handleOpen('edit', i)}>
                 Edit
               </Button>
-              <Button className='card-btn'>Delete</Button>
+              <Button className='card-btn' onClick={() => deleteAddress(i.id)}>
+                Delete
+              </Button>
             </CardActions>
           </Card>
         ))}

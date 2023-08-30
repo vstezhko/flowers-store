@@ -12,7 +12,7 @@ const PersonalAddressForm = (
   checked: boolean,
   formik: FormikProps<formikValuesType>,
   onChangeHandler: (e: ChangeEvent<any>) => void,
-  modeEdit: boolean
+  modeEdit?: boolean
 ) => {
   return (
     <>

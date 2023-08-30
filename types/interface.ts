@@ -60,9 +60,24 @@ export interface ChangeAddressAction {
   address: IAddress;
 }
 
+export interface AddAddressAction {
+  action: 'addAddress';
+  address: IAddress;
+}
+
+export interface RemoveAddressAction {
+  action: 'removeAddress';
+  addressId: string;
+}
+
+export interface AddAddressIdAction {
+  action: 'addShippingAddressId' | 'addBillingAddressId';
+  addressId: string;
+}
+
 export interface SetDefaultAddressAction {
   action: 'setDefaultShippingAddress' | 'setDefaultBillingAddress';
-  addressId: string;
+  addressId: string | undefined;
 }
 
 export interface ChangeEmailAction {

@@ -1,4 +1,5 @@
 import {
+  AddAddressAction,
   ChangeAddressAction,
   ChangeEmailAction,
   FormItemFieldParams,
@@ -14,5 +15,7 @@ export type FormItemFieldsParams = FormItemUnionFieldsParams | FormItemFieldPara
 export type formikValuesType = Record<string, string | boolean>;
 
 export type CustomerAddressAction = ChangeAddressAction | SetDefaultAddressAction;
+
+export type CustomerAddAddressAction = AddAddressAction | SetDefaultAddressAction;
 
 export type CustomerAction = ChangeEmailAction | SetFirstNameAction | SetLastNameAction | SetDateOfBirthAction;

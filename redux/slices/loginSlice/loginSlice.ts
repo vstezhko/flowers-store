@@ -138,9 +138,20 @@ export const loginSlice = createSlice({
         setCustomers(state, action);
       })
       .addCase(updateCustomerAsync.fulfilled, (state: LoginState, action: PayloadAction<Partial<Customer>>) => {
+        const updatedCustomer: Partial<Customer> = {
+          ...action.payload,
+        };
+        if (!('defaultShippingAddressId' in updatedCustomer)) {
+          updatedCustomer.defaultShippingAddressId = null;
+        }
+
+        if (!('defaultBillingAddressId' in updatedCustomer)) {
+          updatedCustomer.defaultBillingAddressId = null;
+        }
+
         state.customer = {
           ...state.customer,
-          ...action.payload,
+          ...updatedCustomer,
         };
       });
   },

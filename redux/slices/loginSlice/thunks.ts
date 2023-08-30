@@ -1,8 +1,8 @@
 import { createAppAsyncThunk } from '@/redux/createAppAsyncThunk';
 import { AuthService } from '@/api/services/Auth.services';
 import { CustomerService } from '@/api/services/Customer.service';
-import { customerDraft } from '@/types/interface';
-import { CustomerAction, CustomerAddressAction } from '@/types/types';
+import { AddAddressIdAction, customerDraft, RemoveAddressAction } from '@/types/interface';
+import { CustomerAction, CustomerAddAddressAction, CustomerAddressAction } from '@/types/types';
 
 export const loginAsync = createAppAsyncThunk(
   'login/login',
@@ -28,7 +28,12 @@ export const updateCustomerAsync = createAppAsyncThunk(
     token,
     version,
   }: {
-    actions: CustomerAction[] | CustomerAddressAction[];
+    actions:
+      | CustomerAction[]
+      | CustomerAddressAction[]
+      | RemoveAddressAction[]
+      | CustomerAddAddressAction[]
+      | AddAddressIdAction[];
     token: string;
     version: number | null;
   }) => {

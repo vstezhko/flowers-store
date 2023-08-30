@@ -8,16 +8,20 @@ const PersonalInfoForm = (
   data: FormItemFieldsParams[],
   checked: boolean,
   formik: FormikProps<formikValuesType>,
-  onChangeHandler: (e: ChangeEvent<any>) => void,
-  editMode: boolean
+  onChangeHandler: (e: ChangeEvent) => void
 ) => {
-  console.log(editMode);
   return (
     <>
       {data?.map(inputData => {
         if ('value' in inputData) {
           const { id, value, name, formGroup, ...rest } = inputData;
           const compoundName = `${formGroup}-${name}`;
+          const error =
+            (formik.touched[compoundName] || formik.values[compoundName]) && Boolean(formik.errors[compoundName]);
+          const errorText =
+            (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
+              ? formik.errors[compoundName]
+              : ' ';
           return (
             <FsInput
               {...rest}
@@ -30,16 +34,8 @@ const PersonalInfoForm = (
               label={inputData.label || ''}
               formGroup={formGroup}
               disabled={!checked}
-              error={
-                ((formik.touched[compoundName] || formik.values[compoundName]) &&
-                  Boolean(formik.errors[compoundName])) ||
-                false
-              }
-              errorText={
-                (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
-                  ? formik.errors[compoundName]
-                  : ' '
-              }
+              error={error || false}
+              errorText={errorText}
             />
           );
         }

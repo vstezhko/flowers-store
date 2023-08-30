@@ -1,5 +1,6 @@
 import { get, post, PROJECT_KEY } from '@/api/api';
-import { CustomerAction, CustomerAddressAction } from '@/types/types';
+import { CustomerAction, CustomerAddAddressAction, CustomerAddressAction } from '@/types/types';
+import { AddAddressIdAction, RemoveAddressAction } from '@/types/interface';
 
 const getCustomer = async (token: string) => {
   return get(`/${PROJECT_KEY}/me`, token);
@@ -8,7 +9,12 @@ const getCustomer = async (token: string) => {
 const updateCustomer = async (
   token: string,
   version: number | null,
-  actions: CustomerAction[] | CustomerAddressAction[]
+  actions:
+    | CustomerAction[]
+    | CustomerAddressAction[]
+    | RemoveAddressAction[]
+    | CustomerAddAddressAction[]
+    | AddAddressIdAction[]
 ) => {
   const body = JSON.stringify({
     grant_type: 'manage_my_profile',
