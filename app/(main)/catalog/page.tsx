@@ -119,8 +119,11 @@ const Catalog = () => {
   const dispatch = useDispatch();
   const searchItem = useSelector(state => state.search);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
+  const [totalResults, setTotalResults] = useState(0);
+  const [isSearchActive, setIsSearchActive] = useState(false);
 
   const fetchProducts = useCallback(async () => {
+    setIsSearchActive(false);
     try {
       const response = await ProductService.getProducts(TokenService.getAccessTokenFromLS().token);
       const products = response.results.map((item: ResponseProduct) => {
@@ -148,16 +151,10 @@ const Catalog = () => {
 
   const fetchSearchProducts = useCallback(
     async (queryParams: QueryParams) => {
+      setIsSearchActive(true);
       try {
         const response = await ProductService.getSearchProducts(TokenService.getAccessTokenFromLS().token, queryParams);
-        if (response.total === 0) {
-          dispatch(
-            snackbarActions.setMessage({
-              message: 'No products were found, try another search',
-              variant: 'error',
-            })
-          );
-        }
+        setTotalResults(response.total);
         const products = response.results.map((item: ResponseSearchProduct) => {
           return {
             id: item.id,
@@ -204,19 +201,25 @@ const Catalog = () => {
             inputProps={{}}
           />
         </Paper>
-
-        <div className='catalog__container'>
-          {productsPage.map(product => (
-            <SmallProductCard
-              key={product.id}
-              id={product.id}
-              productName={product.name || 'No product name'}
-              price={product.price ? `From ${product.price / 100} ${product.currency}` : 'Upon request'}
-              description={product.description || 'No description available'}
-              image={product.image}
-            />
-          ))}
-        </div>
+        {isSearchActive && totalResults === 0 ? (
+          <h4 className='catalog__message'>
+            Unfortunately, no results were found for your search{searchItem ? ` "${searchItem}"` : ''}. Try other
+            options!
+          </h4>
+        ) : (
+          <div className='catalog__container'>
+            {productsPage.map(product => (
+              <SmallProductCard
+                key={product.id}
+                id={product.id}
+                productName={product.name || 'No product name'}
+                price={product.price ? `From ${product.price / 100} ${product.currency}` : 'Upon request'}
+                description={product.description || 'No description available'}
+                image={product.image}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

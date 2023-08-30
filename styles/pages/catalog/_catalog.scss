@@ -43,3 +43,19 @@
   }
 
 }
+
+.catalog__message {
+  width: 100%;
+  max-width: calc(100% - 265px);
+  overflow-wrap: break-word;
+  padding: 15px;
+
+  @include medium {
+    max-width: none;
+  }
+
+  @include small {
+    padding: 10px;
+  }
+
+}
