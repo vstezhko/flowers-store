@@ -22,6 +22,7 @@
 
     .image-gallery-slides {
       height: 100%;
+
       .image-gallery-slide {
         vertical-align: middle;
         height: 100%;
@@ -54,8 +55,21 @@
   }
 
   .image-gallery-content.fullscreen {
+
     .image-gallery-slide-wrapper {
-      max-height: calc(100vh - 150px);
+      background: black;
+    }
+
+    .image-gallery-slide-wrapper:not(:last-child) {
+      height: calc(100% - 150px);
+    }
+
+    .image-gallery-slide-wrapper:last-child {
+      height: 100%;
+
+      .image-gallery-image {
+        max-height: 100%;
+      }
     }
 
     .image-gallery-thumbnails-wrapper {
