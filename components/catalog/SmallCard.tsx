@@ -24,7 +24,6 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
   image,
 }) => {
   const [src, setSrc] = useState(image);
-  console.log(discounted);
 
   return (
     <Link href={`/catalog/product/${id}`}>
@@ -35,7 +34,9 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
             src={src}
             onError={() => setSrc(noImage.src)}
             alt='Product photo'
-            layout='fill'></Image>
+            fill
+            sizes='(max-width: 768px) 250px, 263px'
+          />
         </div>
         <div className='small-card__text-content'>
           <div className='small-card__name'>{productName}</div>
