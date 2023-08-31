@@ -6,7 +6,7 @@
   gap: 15px;
   width: 263px;
   border-radius: 5px;
-  //font-family: var(--josefin-sans);
+  height: 420px;
   cursor: pointer;
   opacity: 0.95;
   @extend %transition;
@@ -36,6 +36,7 @@
     text-transform: uppercase;
     width: 100%;
     @extend %font-secondary;
+    font-size: 0.95rem;
   }
 
   &__description {
@@ -57,6 +58,18 @@
   }
 
   &__price {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__initial-price {
+    color: $color-shade-4;
+    text-decoration: line-through;
+    font-size: 0.85rem;
+    text-align: right;
+  }
+
+  &__final-price {
     width: 100%;
     @extend %font-secondary;
   }
@@ -86,6 +99,10 @@
     }
 
     &__text-content {
+      text-align: center;
+    }
+
+    &__initial-price {
       text-align: center;
     }
 
