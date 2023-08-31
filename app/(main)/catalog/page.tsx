@@ -10,6 +10,7 @@ import { QueryParams } from '@/types/types';
 import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
 import { actions as snackbarActions } from '@/redux/slices/snackbarSlice/snackbarSlice';
 import { useDispatch, useSelector } from '@/redux/store';
+import CategorySelector from '@/components/catalog/CategorySelector';
 
 export interface ProductCategory {
   typeId: string;
@@ -200,6 +201,7 @@ const Catalog = () => {
             onChange={value => dispatch(searchActions.setSearch(value))}
             inputProps={{}}
           />
+          <CategorySelector />
         </Paper>
         {isSearchActive && totalResults === 0 ? (
           <h4 className='catalog__message'>
