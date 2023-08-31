@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import Image from 'next/image';
 import { Box, Button, Paper } from '@mui/material';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 import Link from 'next/link';
 
-const SmallProductCard = ({
+interface SmallProductCardParams {
+  id: string;
+  productName: string;
+  description: string;
+  price: number;
+  discounted?: number | undefined;
+  currency: string;
+  image: string;
+}
+
+const SmallProductCard: FC<SmallProductCardParams> = ({
   id,
   productName,
   description,
   price,
+  discounted,
+  currency,
   image,
-}: {
-  id: string;
-  productName: string;
-  description: string;
-  price: string;
-  image: string;
 }) => {
   const [src, setSrc] = useState(image);
+  console.log(discounted);
 
   return (
     <Link href={`/catalog/product/${id}`}>
@@ -36,7 +43,16 @@ const SmallProductCard = ({
             {description}
           </Box>
           <div className='small-card__details'>
-            <div className='small-card__price'>{price.replace('EUR', '€')}</div>
+            <div className='small-card__price'>
+              <div className='small-card__final-price'>
+                {`From ${((discounted ?? price) / 100).toFixed(2)} ${currency}`.replace('EUR', '€') || 'Upon request'}
+              </div>
+              {discounted !== undefined && (
+                <div className='small-card__initial-price'>
+                  {`${(price / 100).toFixed(2)} ${currency}`.replace('EUR', '€')}
+                </div>
+              )}
+            </div>
             <Button className='small-card__button' variant='outlined'>
               More
             </Button>
