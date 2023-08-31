@@ -30,7 +30,7 @@ const PersonalForm = ({
   modeEdit: boolean;
   data: FormItemFieldsParams[];
   type: string;
-  typeForm?: string;
+  typeForm?: Record<string, string> | null;
   childComponent: (
     data1: FormItemFieldsParams[],
     checked: boolean,
@@ -79,12 +79,11 @@ const PersonalForm = ({
     token: string,
     address: string
   ) => {
-    const shippingId = customer?.shippingAddressIds[0] || '';
-    const billingId = customer?.billingAddressIds[0] || '';
+    const addressId = typeForm?.id;
 
     const changeAddressAction: ChangeAddressAction = {
       action: 'changeAddress',
-      addressId: address === FormGroups.SHIPPING_ADDRESS ? shippingId : billingId,
+      addressId: addressId as string,
       address: {
         streetName: structuredValues.streetName as string,
         building: structuredValues.building as string,
@@ -98,11 +97,7 @@ const PersonalForm = ({
 
     const setDefaultAddressAction: SetDefaultAddressAction = {
       action: address === FormGroups.SHIPPING_ADDRESS ? 'setDefaultShippingAddress' : 'setDefaultBillingAddress',
-      addressId: structuredValues.default
-        ? address === FormGroups.SHIPPING_ADDRESS
-          ? shippingId
-          : billingId
-        : undefined,
+      addressId: structuredValues.default ? addressId : undefined,
     };
 
     const actions: CustomerAddressAction[] = [changeAddressAction, setDefaultAddressAction];
@@ -163,13 +158,13 @@ const PersonalForm = ({
       const structuredValues = structureInputValues(values);
       if (type === FormGroups.CUSTOMER) {
         await changePersonalData(structuredValues, token);
-      } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm === 'edit') {
+      } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm?.name === 'edit') {
         await changeAddressesData(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
-      } else if (type === FormGroups.BILLING_ADDRESS && typeForm === 'edit') {
+      } else if (type === FormGroups.BILLING_ADDRESS && typeForm?.name === 'edit') {
         await changeAddressesData(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
-      } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm === 'add') {
+      } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm?.name === 'add') {
         await addNewAddresses(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
-      } else if (type === FormGroups.BILLING_ADDRESS && typeForm === 'add') {
+      } else if (type === FormGroups.BILLING_ADDRESS && typeForm?.name === 'add') {
         await addNewAddresses(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
       }
       setChecked(false);

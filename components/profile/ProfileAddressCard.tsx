@@ -24,19 +24,19 @@ const ProfileAddressCard = ({
   customer: Customer;
 }) => {
   const [open, setOpen] = useState(false);
-  const [typeForm, setTypeForm] = useState('');
+  const [typeForm, setTypeForm] = useState<Record<string, string> | null>(null);
   const [editingAddress, setEditingAddress] = useState<ICustomerAddress | null>(null);
   const [currentAddress, setCurrentAddress] = useState<FormItemFieldsParams[]>([]);
   const dispatch = useDispatch();
-  const handleOpen = (nameForm: string, address: ICustomerAddress | null) => {
+  const handleOpen = (id: string, name: string, address: ICustomerAddress | null) => {
     setOpen(true);
-    setTypeForm(nameForm);
+    setTypeForm({ id, name });
     setEditingAddress(address);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setTypeForm('');
+    setTypeForm(null);
   };
 
   const generateAddresses = (group: string, address: ICustomerAddress | null) => {
@@ -145,7 +145,7 @@ const ProfileAddressCard = ({
   return (
     <>
       <div className='form__content form__content_address'>
-        <IconButton aria-label='edit' onClick={() => handleOpen('add', null)} className='add-icon'>
+        <IconButton aria-label='edit' onClick={() => handleOpen('', 'add', null)} className='add-icon'>
           <AddIcon />
         </IconButton>
         {addressData.map(i => (
@@ -161,7 +161,7 @@ const ProfileAddressCard = ({
               <div>{i.phone}</div>
             </CardContent>
             <CardActions>
-              <Button className='card-btn' onClick={() => handleOpen('edit', i)}>
+              <Button className='card-btn' onClick={() => handleOpen(i.id, 'edit', i)}>
                 Edit
               </Button>
               <Button className='card-btn' onClick={() => deleteAddress(i.id)}>
@@ -171,7 +171,7 @@ const ProfileAddressCard = ({
           </Card>
         ))}
       </div>
-      {typeForm === 'add' && (
+      {typeForm?.name === 'add' && (
         <FsModal open={open} handleClose={handleClose}>
           <PersonalForm
             data={currentAddress}
@@ -182,7 +182,7 @@ const ProfileAddressCard = ({
           />
         </FsModal>
       )}
-      {typeForm === 'edit' && (
+      {typeForm?.name === 'edit' && (
         <FsModal open={open} handleClose={handleClose}>
           <PersonalForm
             data={currentAddress}

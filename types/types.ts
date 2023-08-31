@@ -1,9 +1,11 @@
 import {
   AddAddressAction,
+  AddAddressIdAction,
   ChangeAddressAction,
   ChangeEmailAction,
   FormItemFieldParams,
   FormItemUnionFieldsParams,
+  RemoveAddressAction,
   SetDateOfBirthAction,
   SetDefaultAddressAction,
   SetFirstNameAction,
@@ -19,3 +21,10 @@ export type CustomerAddressAction = ChangeAddressAction | SetDefaultAddressActio
 export type CustomerAddAddressAction = AddAddressAction | SetDefaultAddressAction;
 
 export type CustomerAction = ChangeEmailAction | SetFirstNameAction | SetLastNameAction | SetDateOfBirthAction;
+
+export type UpdateCustomerData =
+  | CustomerAction[]
+  | CustomerAddressAction[]
+  | RemoveAddressAction[]
+  | CustomerAddAddressAction[]
+  | AddAddressIdAction[];
