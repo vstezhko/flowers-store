@@ -78,7 +78,6 @@
   display: flex;
   gap: 4%;
   padding: 30px;
-  height: 100%;
 
   @include small() {
     flex-direction: column-reverse;
@@ -99,6 +98,7 @@
 
   &_address {
     width: 100%;
+    height: 100%;
   }
 
   @include small() {
@@ -111,16 +111,6 @@
     display: flex;
     flex-direction: column;
 
-    &_address {
-      overflow-y: auto;
-      gap: 10px;
-      padding-top: 50px;
-      position: relative;
-      flex-direction: row;
-      flex-wrap: wrap;
-      height: 300px;
-    }
-
     .switch {
       align-self: flex-end;
     }
@@ -131,6 +121,33 @@
   }
 
 
+}
+
+
+.form-address {
+  width: 100%;
+  height: 360px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: flex-start;
+  overflow-y: auto;
+  gap: 10px;
+  padding: 50px 10px 20px;
+  position: relative;
+  background-size: cover;
+
+  @include medium-mobile() {
+    grid-template-columns: 1fr;
+  }
+
+  &_shippingAddress {
+    background-image: url("../../../public/img/jpeg/profile.webp");
+  }
+
+  &_billingAddress {
+    background-image: url("../../../public/img/jpeg/address.jpeg");
+    background-position: center;
+  }
 }
 
 
@@ -170,7 +187,7 @@
 
 
 .card-address {
-  width: 48%;
+  width: 100%;
   height: 100px;
   position: relative;
 
@@ -241,7 +258,7 @@
   height: 20px;
   @include font(8px, 400, normal);
 
-  & > span{
+  & > span {
     padding: 0 8px;
   }
 }

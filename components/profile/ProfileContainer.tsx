@@ -2,9 +2,9 @@ import React from 'react';
 import FsTabs from '@/components/UI/FsTabs';
 import { FormGroups } from '@/types/enums';
 import ProfileFormContainer from '@/components/form/ProfileFormContainer';
-import profileImage from '@/public/img/jpeg/profile.webp';
-import addressBillingImage from '@/public/img/jpeg/address2.jpeg';
-import addressShippingImage from '@/public/img/jpeg/address.jpeg';
+import profileImage from '@/public/img/jpeg/address2.jpeg';
+import addressBillingImage from '@/public/img/jpeg/address.jpeg';
+import addressShippingImage from '@/public/img/jpeg/profile.webp';
 
 const tabsName: string[] = ['Personal Info', 'Shipping Address', 'Billing Address'];
 
