@@ -123,25 +123,24 @@ const PersonalForm = ({
       },
     };
 
-    const setDefaultAddressAction: SetDefaultAddressAction = {
-      action: address === FormGroups.SHIPPING_ADDRESS ? 'setDefaultShippingAddress' : 'setDefaultBillingAddress',
-      addressId: undefined,
-    };
-
-    const actions: CustomerAddAddressAction[] = [addAddressAction, setDefaultAddressAction];
+    const actions: AddAddressAction[] = [addAddressAction];
 
     await dispatch(updateCustomerAsync({ actions, token, version: customer.version }))
       .then(result => {
         if (updateCustomerAsync.fulfilled.match(result)) {
-          const newAddresseId = result.payload.addresses[result.payload.addresses.length - 1].id;
+          const newAddressId = result.payload.addresses[result.payload.addresses.length - 1].id;
 
           const addAddressIdAction: AddAddressIdAction = {
             action: address === FormGroups.SHIPPING_ADDRESS ? 'addShippingAddressId' : 'addBillingAddressId',
-            addressId: newAddresseId,
+            addressId: newAddressId,
           };
 
-          const action: AddAddressIdAction[] = [addAddressIdAction];
+          const setDefaultAddressAction: SetDefaultAddressAction = {
+            action: address === FormGroups.SHIPPING_ADDRESS ? 'setDefaultShippingAddress' : 'setDefaultBillingAddress',
+            addressId: newAddressId,
+          };
 
+          const action: CustomerAddAddressAction[] = [addAddressIdAction, setDefaultAddressAction];
           dispatch(updateCustomerAsync({ actions: action, token, version: result.payload.version }));
         }
       })
@@ -182,7 +181,7 @@ const PersonalForm = ({
     setChecked(false);
   };
 
-  const onChangeHandler = (e: ChangeEvent<any>) => {
+  const onChangeHandler = (e: ChangeEvent) => {
     formik.setFieldTouched('type');
     formik.handleChange(e);
   };

@@ -11,7 +11,7 @@ const PersonalAddressForm = (
   data: FormItemFieldsParams[],
   checked: boolean,
   formik: FormikProps<formikValuesType>,
-  onChangeHandler: (e: ChangeEvent<any>) => void,
+  onChangeHandler: (e: ChangeEvent) => void,
   modeEdit?: boolean
 ) => {
   return (

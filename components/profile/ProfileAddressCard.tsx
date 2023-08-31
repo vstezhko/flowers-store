@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Customer, ICustomerAddress } from '@/redux/slices/loginSlice/loginSlice';
-import { Button, Card, CardContent } from '@mui/material';
+import { Button, Card, CardContent, Chip } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import FsModal from '@/components/UI/FsModal';
 import AddIcon from '@/components/Icons/AddIcon';
 import PersonalForm from '@/components/form/personalForm/PersonalForm';
 import PersonalAddressForm from '@/components/form/personalForm/PersonalAddressForm';
-import { ValidationRuleGroup } from '@/types/enums';
+import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 import { FormItemFieldsParams } from '@/types/types';
 import { RemoveAddressAction } from '@/types/interface';
 import { updateCustomerAsync } from '@/redux/slices/loginSlice/thunks';
@@ -24,6 +24,7 @@ const ProfileAddressCard = ({
   customer: Customer;
 }) => {
   const [open, setOpen] = useState(false);
+  const [isDefaultAddress, setIsDefaultAddress] = useState(false);
   const [typeForm, setTypeForm] = useState<Record<string, string> | null>(null);
   const [editingAddress, setEditingAddress] = useState<ICustomerAddress | null>(null);
   const [currentAddress, setCurrentAddress] = useState<FormItemFieldsParams[]>([]);
@@ -39,7 +40,7 @@ const ProfileAddressCard = ({
     setTypeForm(null);
   };
 
-  const generateAddresses = (group: string, address: ICustomerAddress | null) => {
+  const generateAddresses = (group: string, address: ICustomerAddress | null, defaultAddress: boolean) => {
     return [
       {
         id: 1,
@@ -121,14 +122,14 @@ const ProfileAddressCard = ({
         validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
         type: 'checkbox',
         label: 'default shipping address',
-        value: address ? !!customer?.defaultShippingAddressId : false,
+        value: defaultAddress,
       },
     ];
   };
 
   useEffect(() => {
-    setCurrentAddress(generateAddresses(type, editingAddress));
-  }, [type, editingAddress]);
+    setCurrentAddress(generateAddresses(type, editingAddress, isDefaultAddress));
+  }, [type, editingAddress, isDefaultAddress]);
 
   const deleteAddress = async (id: string) => {
     const token = TokenService.getAccessToken();
@@ -142,6 +143,14 @@ const ProfileAddressCard = ({
     await dispatch(updateCustomerAsync({ actions, token, version: customer.version }));
   };
 
+  useEffect(() => {
+    if (type === FormGroups.SHIPPING_ADDRESS) {
+      setIsDefaultAddress(typeForm?.id === customer.defaultShippingAddressId);
+    } else {
+      setIsDefaultAddress(typeForm?.id === customer.defaultBillingAddressId);
+    }
+  }, [customer, typeForm]);
+
   return (
     <>
       <div className='form__content form__content_address'>
@@ -150,6 +159,9 @@ const ProfileAddressCard = ({
         </IconButton>
         {addressData.map(i => (
           <Card key={i.id} className='card-address'>
+            {(i.id === customer.defaultShippingAddressId || i.id === customer.defaultBillingAddressId) && (
+              <Chip className='chip' label='default' color='success' />
+            )}
             <CardContent>
               <div>
                 {i.country}, {i.city}

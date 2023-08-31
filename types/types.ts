@@ -18,7 +18,7 @@ export type formikValuesType = Record<string, string | boolean>;
 
 export type CustomerAddressAction = ChangeAddressAction | SetDefaultAddressAction;
 
-export type CustomerAddAddressAction = AddAddressAction | SetDefaultAddressAction;
+export type CustomerAddAddressAction = AddAddressIdAction | SetDefaultAddressAction;
 
 export type CustomerAction = ChangeEmailAction | SetFirstNameAction | SetLastNameAction | SetDateOfBirthAction;
 
@@ -27,4 +27,4 @@ export type UpdateCustomerData =
   | CustomerAddressAction[]
   | RemoveAddressAction[]
   | CustomerAddAddressAction[]
-  | AddAddressIdAction[];
+  | AddAddressAction[];
