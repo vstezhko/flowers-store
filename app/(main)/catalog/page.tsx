@@ -1,5 +1,4 @@
 'use client';
-import { ProductService } from '@/api/services/Products.services';
 import SmallProductCard from '@/components/catalog/SmallCard';
 import { useCallback, useEffect, useState } from 'react';
 import { TokenService } from '@/api/services/Token.service';
@@ -8,8 +7,9 @@ import { Paper } from '@mui/material';
 import Searchbar from '@/components/catalog/SearchBar';
 import { QueryParams } from '@/types/types';
 import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
-import { actions as snackbarActions } from '@/redux/slices/snackbarSlice/snackbarSlice';
 import { useDispatch, useSelector } from '@/redux/store';
+import { getSearchProductsAsync } from '@/redux/slices/searchSlice/thunks';
+import { getProductsAsync } from '@/redux/slices/catalogSlice/thunks';
 
 export interface ProductCategory {
   typeId: string;
@@ -131,7 +131,7 @@ interface PageProduct {
 
 const Catalog = () => {
   const dispatch = useDispatch();
-  const searchItem = useSelector(state => state.search);
+  const searchItem = useSelector(state => state.search.search);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -153,62 +153,49 @@ const Catalog = () => {
 
   const fetchProducts = useCallback(async () => {
     setIsSearchActive(false);
-    try {
-      const response = await ProductService.getProducts(TokenService.getAccessTokenFromLS().token);
-      const products = response.results.map((item: ResponseProduct) => {
-        const { masterVariant, variants } = item.masterData.current;
-        const prices = getLowestPrice(masterVariant, variants);
-        return {
-          id: item.id,
-          name: item.masterData.current.name.en,
-          price: prices.price,
-          discounted: prices.discounted,
-          currency: prices.currencyCode,
-          image: item.masterData.current.masterVariant.images[0].url
-            ? item.masterData.current.masterVariant.images[0].url
-            : noImage.src,
-          description: item.masterData.current.description.en,
-        };
-      });
-      setProductsPage(products);
-    } catch (error) {
-      dispatch(
-        snackbarActions.setMessage({
-          message: error,
-          variant: 'error',
-        })
-      );
-    }
+    const response = await dispatch(getProductsAsync(TokenService.getAccessTokenFromLS().token)).unwrap();
+    const products = response.results.map((item: ResponseProduct) => {
+      const { masterVariant, variants } = item.masterData.current;
+      const prices = getLowestPrice(masterVariant, variants);
+      return {
+        id: item.id,
+        name: item.masterData.current.name.en,
+        price: prices.price,
+        discounted: prices.discounted,
+        currency: prices.currencyCode,
+        image: item.masterData.current.masterVariant.images[0].url
+          ? item.masterData.current.masterVariant.images[0].url
+          : noImage.src,
+        description: item.masterData.current.description.en,
+      };
+    });
+    setProductsPage(products);
   }, [dispatch]);
 
   const fetchSearchProducts = useCallback(
     async (queryParams: QueryParams) => {
       setIsSearchActive(true);
-      try {
-        const response = await ProductService.getSearchProducts(TokenService.getAccessTokenFromLS().token, queryParams);
-        setTotalResults(response.total);
-        const products = response.results.map((item: ResponseSearchProduct) => {
-          const { masterVariant, variants } = item;
-          const prices = getLowestPrice(masterVariant, variants);
-          return {
-            id: item.id,
-            name: item.name.en,
-            price: prices.price,
-            discounted: prices.discounted,
-            currency: prices.currencyCode,
-            image: item.masterVariant.images[0].url ? item.masterVariant.images[0].url : noImage.src,
-            description: item.description.en,
-          };
-        });
-        setProductsPage(products);
-      } catch (error) {
-        dispatch(
-          snackbarActions.setMessage({
-            message: error,
-            variant: 'error',
-          })
-        );
-      }
+      const response = await dispatch(
+        getSearchProductsAsync({
+          token: TokenService.getAccessTokenFromLS().token,
+          queryParams,
+        })
+      ).unwrap();
+      setTotalResults(response.total);
+      const products = response.results.map((item: ResponseSearchProduct) => {
+        const { masterVariant, variants } = item;
+        const prices = getLowestPrice(masterVariant, variants);
+        return {
+          id: item.id,
+          name: item.name.en,
+          price: prices.price,
+          discounted: prices.discounted,
+          currency: prices.currencyCode,
+          image: item.masterVariant.images[0].url ? item.masterVariant.images[0].url : noImage.src,
+          description: item.description.en,
+        };
+      });
+      setProductsPage(products);
     },
     [dispatch]
   );
@@ -248,7 +235,9 @@ const Catalog = () => {
                 key={product.id}
                 id={product.id}
                 productName={product.name || 'No product name'}
-                price={product.price ? `From ${product.price / 100} ${product.currency}` : 'Upon request'}
+                price={product.price}
+                discounted={product.discounted}
+                currency={product.currency}
                 description={product.description || 'No description available'}
                 image={product.image}
               />
