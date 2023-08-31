@@ -32,7 +32,7 @@ const PersonalForm = ({
   data: FormItemFieldsParams[];
   type: string;
   typeForm?: Record<string, string> | null;
-  onSuccess: () => void;
+  onSuccess?: () => void | undefined;
   childComponent: (
     data1: FormItemFieldsParams[],
     checked: boolean,
@@ -169,7 +169,9 @@ const PersonalForm = ({
         await addNewAddresses(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
       }
       setChecked(false);
-      onSuccess();
+      if (onSuccess) {
+        onSuccess();
+      }
     },
   };
 
@@ -182,7 +184,9 @@ const PersonalForm = ({
   const handleCancelUpdateData = () => {
     formik.setValues(initialValues);
     setChecked(false);
-    onSuccess();
+    if (onSuccess) {
+      onSuccess();
+    }
   };
 
   const onChangeHandler = (e: ChangeEvent) => {
