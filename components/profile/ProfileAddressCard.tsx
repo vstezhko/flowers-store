@@ -151,6 +151,10 @@ const ProfileAddressCard = ({
     }
   }, [customer, typeForm]);
 
+  const handlePersonalFormSuccess = () => {
+    handleClose();
+  };
+
   return (
     <>
       <div className='form__content form__content_address'>
@@ -191,6 +195,7 @@ const ProfileAddressCard = ({
             modeEdit={false}
             childComponent={PersonalAddressForm}
             typeForm={typeForm}
+            onSuccess={handlePersonalFormSuccess}
           />
         </FsModal>
       )}
@@ -202,6 +207,7 @@ const ProfileAddressCard = ({
             modeEdit={true}
             childComponent={PersonalAddressForm}
             typeForm={typeForm}
+            onSuccess={handlePersonalFormSuccess}
           />
         </FsModal>
       )}
