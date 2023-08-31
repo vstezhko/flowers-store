@@ -8,6 +8,7 @@ import Searchbar from '@/components/catalog/SearchBar';
 import { QueryParams } from '@/types/types';
 import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
 import { useDispatch, useSelector } from '@/redux/store';
+import CategorySelector from '@/components/catalog/CategorySelector';
 import { getSearchProductsAsync } from '@/redux/slices/searchSlice/thunks';
 import { getProductsAsync } from '@/redux/slices/catalogSlice/thunks';
 
@@ -222,6 +223,7 @@ const Catalog = () => {
             onChange={value => dispatch(searchActions.setSearch(value))}
             inputProps={{}}
           />
+          <CategorySelector />
         </Paper>
         {isSearchActive && totalResults === 0 ? (
           <h4 className='catalog__message'>

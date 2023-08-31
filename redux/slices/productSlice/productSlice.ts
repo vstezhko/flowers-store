@@ -99,7 +99,7 @@ interface ProductAttribute {
   value: string;
 }
 
-interface Product {
+export interface Product {
   id: string | null;
   name: {
     en: string | null;
