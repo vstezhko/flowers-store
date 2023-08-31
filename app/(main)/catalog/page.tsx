@@ -1,5 +1,4 @@
 'use client';
-import { ProductService } from '@/api/services/Products.services';
 import SmallProductCard from '@/components/catalog/SmallCard';
 import { useCallback, useEffect, useState } from 'react';
 import { TokenService } from '@/api/services/Token.service';
@@ -8,8 +7,9 @@ import { Paper } from '@mui/material';
 import Searchbar from '@/components/catalog/SearchBar';
 import { QueryParams } from '@/types/types';
 import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
-import { actions as snackbarActions } from '@/redux/slices/snackbarSlice/snackbarSlice';
 import { useDispatch, useSelector } from '@/redux/store';
+import { getSearchProductsAsync } from '@/redux/slices/searchSlice/thunks';
+import { getProductsAsync } from '@/redux/slices/catalogSlice/thunks';
 
 export interface ProductCategory {
   typeId: string;
@@ -18,6 +18,18 @@ export interface ProductCategory {
 
 interface ProductPrice {
   id: string;
+  discounted: {
+    discount: {
+      typeId: string;
+      id: string;
+    };
+    value: {
+      type: string;
+      currencyCode: 'EUR';
+      centAmount: number;
+      fractionDigits: number;
+    };
+  };
   value: {
     type: string;
     currencyCode: 'EUR';
@@ -99,6 +111,7 @@ interface ResponseSearchProduct {
     en: string | null;
   };
   masterVariant: ProductVariant;
+  variants: ProductVariant[];
 }
 
 interface ResponseProduct {
@@ -110,6 +123,7 @@ interface PageProduct {
   id: string;
   name: string;
   price: number;
+  discounted: number | undefined;
   currency: string;
   image: string;
   description: string;
@@ -117,63 +131,71 @@ interface PageProduct {
 
 const Catalog = () => {
   const dispatch = useDispatch();
-  const searchItem = useSelector(state => state.search);
+  const searchItem = useSelector(state => state.search.search);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
 
+  function getLowestPrice(masterVariant: ProductVariant, variants: ProductVariant[] = []) {
+    const allVariants = [masterVariant, ...variants];
+    const lowestPriceVariant = allVariants.sort((a, b) => {
+      const priceA = a.prices[0].discounted?.value.centAmount ?? a.prices[0].value.centAmount;
+      const priceB = b.prices[0].discounted?.value.centAmount ?? b.prices[0].value.centAmount;
+      return priceA - priceB;
+    })[0];
+    const { discounted, value } = lowestPriceVariant.prices[0];
+    return {
+      price: value.centAmount,
+      discounted: discounted?.value.centAmount,
+      currencyCode: discounted?.value.currencyCode ?? value.currencyCode,
+    };
+  }
+
   const fetchProducts = useCallback(async () => {
     setIsSearchActive(false);
-    try {
-      const response = await ProductService.getProducts(TokenService.getAccessTokenFromLS().token);
-      const products = response.results.map((item: ResponseProduct) => {
-        return {
-          id: item.id,
-          name: item.masterData.current.name.en,
-          price: item.masterData.current.masterVariant.prices[0].value.centAmount,
-          currency: item.masterData.current.masterVariant.prices[0].value.currencyCode,
-          image: item.masterData.current.masterVariant.images[0].url
-            ? item.masterData.current.masterVariant.images[0].url
-            : noImage.src,
-          description: item.masterData.current.description.en,
-        };
-      });
-      setProductsPage(products);
-    } catch (error) {
-      dispatch(
-        snackbarActions.setMessage({
-          message: error,
-          variant: 'error',
-        })
-      );
-    }
+    const response = await dispatch(getProductsAsync(TokenService.getAccessTokenFromLS().token)).unwrap();
+    const products = response.results.map((item: ResponseProduct) => {
+      const { masterVariant, variants } = item.masterData.current;
+      const prices = getLowestPrice(masterVariant, variants);
+      return {
+        id: item.id,
+        name: item.masterData.current.name.en,
+        price: prices.price,
+        discounted: prices.discounted,
+        currency: prices.currencyCode,
+        image: item.masterData.current.masterVariant.images[0].url
+          ? item.masterData.current.masterVariant.images[0].url
+          : noImage.src,
+        description: item.masterData.current.description.en,
+      };
+    });
+    setProductsPage(products);
   }, [dispatch]);
 
   const fetchSearchProducts = useCallback(
     async (queryParams: QueryParams) => {
       setIsSearchActive(true);
-      try {
-        const response = await ProductService.getSearchProducts(TokenService.getAccessTokenFromLS().token, queryParams);
-        setTotalResults(response.total);
-        const products = response.results.map((item: ResponseSearchProduct) => {
-          return {
-            id: item.id,
-            name: item.name.en,
-            price: item.masterVariant.prices[0].value.centAmount,
-            currency: item.masterVariant.prices[0].value.currencyCode,
-            image: item.masterVariant.images[0].url ? item.masterVariant.images[0].url : noImage.src,
-            description: item.description.en,
-          };
-        });
-        setProductsPage(products);
-      } catch (error) {
-        dispatch(
-          snackbarActions.setMessage({
-            message: error,
-            variant: 'error',
-          })
-        );
-      }
+      const response = await dispatch(
+        getSearchProductsAsync({
+          token: TokenService.getAccessTokenFromLS().token,
+          queryParams,
+        })
+      ).unwrap();
+      setTotalResults(response.total);
+      const products = response.results.map((item: ResponseSearchProduct) => {
+        const { masterVariant, variants } = item;
+        const prices = getLowestPrice(masterVariant, variants);
+        return {
+          id: item.id,
+          name: item.name.en,
+          price: prices.price,
+          discounted: prices.discounted,
+          currency: prices.currencyCode,
+          image: item.masterVariant.images[0].url ? item.masterVariant.images[0].url : noImage.src,
+          description: item.description.en,
+        };
+      });
+      setProductsPage(products);
     },
     [dispatch]
   );
@@ -213,7 +235,9 @@ const Catalog = () => {
                 key={product.id}
                 id={product.id}
                 productName={product.name || 'No product name'}
-                price={product.price ? `From ${product.price / 100} ${product.currency}` : 'Upon request'}
+                price={product.price}
+                discounted={product.discounted}
+                currency={product.currency}
                 description={product.description || 'No description available'}
                 image={product.image}
               />

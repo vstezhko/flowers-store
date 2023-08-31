@@ -16,7 +16,7 @@ const getSearchProducts = async (token: string, queryParams: QueryParams) => {
   return response;
 };
 
-export const ProductService = {
+export const ProductsService = {
   getProducts,
   getSearchProducts,
 };
