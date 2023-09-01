@@ -208,15 +208,8 @@ const PersonalForm = ({
       </div>
       {(checked || !modeEdit) && (
         <div className='form__btn-container'>
-          {modeEdit && (
-            <FsButton
-              variant='outlined'
-              label='cancel'
-              className={FsButtonType.SMALL}
-              onClick={handleCancelUpdateData}
-            />
-          )}
-          <FsButton label={modeEdit ? 'save' : 'add'} type='submit' className={FsButtonType.SMALL} />
+          <FsButton variant='outlined' label='cancel' className={FsButtonType.SMALL} onClick={handleCancelUpdateData} />
+          <FsButton label={typeForm?.name === 'add' ? 'add' : 'save'} type='submit' className={FsButtonType.SMALL} />
         </div>
       )}
     </form>

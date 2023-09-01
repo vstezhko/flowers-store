@@ -121,7 +121,7 @@ const ProfileAddressCard = ({
         formGroup: group,
         validationRuleGroup: ValidationRuleGroup.NOVALIDATE,
         type: 'checkbox',
-        label: 'default shipping address',
+        label: group === FormGroups.SHIPPING_ADDRESS ? 'default shipping address' : 'default billing address',
         value: defaultAddress,
       },
     ];
@@ -204,7 +204,7 @@ const ProfileAddressCard = ({
           <PersonalForm
             data={currentAddress}
             type={type}
-            modeEdit={true}
+            modeEdit={false}
             childComponent={PersonalAddressForm}
             typeForm={typeForm}
             onSuccess={handlePersonalFormSuccess}
