@@ -5,6 +5,8 @@ import TreeItem from '@mui/lab/TreeItem';
 import FsCheckbox from '@/components/UI/FsCheckbox';
 import RangeSlider from '@/components/catalog/RangeSlider';
 import { FormGroup } from '@mui/material';
+import { useDispatch, useSelector } from '@/redux/store';
+import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
 
 interface filtersData {
   id: string;
@@ -23,26 +25,28 @@ const filters: filtersData[] = [
     options: {
       white: 'white',
       yellow: 'yellow',
-      rose: 'rose',
+      pink: 'pink',
+      red: 'red',
+      blue: 'blue',
     },
   },
   {
     id: 'size',
     name: 'Size',
     options: {
-      small: 'small',
-      medium: 'medium',
-      big: 'big',
+      1: 'small',
+      2: 'medium',
+      3: 'big',
     },
   },
 ];
 
 const FilterBlock = () => {
-  const [checked, setChecked] = React.useState(false);
+  const dispatch = useDispatch();
+  const checkboxState = useSelector(state => state.search.checkboxState);
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>, filterId: string, optionKey: string) => {
-    setChecked(!checked);
-    console.log(`Checkbox changed, status: ${checked}, filterId: ${filterId}, optionKey: ${optionKey}`);
+    dispatch(searchActions.toggleCheckbox({ filterId, optionKey }));
   };
 
   const renderTree = (filter: filtersData) => {
@@ -51,22 +55,18 @@ const FilterBlock = () => {
         {filter.id === 'price' ? (
           <RangeSlider />
         ) : (
-          // <div >
           <FormGroup className='filters__options'>
             {filter.options &&
               Object.entries(filter.options).map(option => (
                 <FsCheckbox
-                  checked={checked}
+                  checked={!!checkboxState[filter.id] && !!checkboxState[filter.id][option[0]]}
                   key={option[0]}
                   name={option[0]}
                   label={option[1]}
-                  data-filter-id={filter.id}
-                  data-option-key={option[0]}
                   onToggle={e => handleCheckboxChange(e, filter.id, option[0])}
                 />
               ))}
           </FormGroup>
-          // </div>
         )}
       </TreeItem>
     );

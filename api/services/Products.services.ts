@@ -1,18 +1,30 @@
 import { get, PROJECT_KEY } from '@/api/api';
-import { QueryParams } from '@/types/types';
+import { SearchParams, FilterParams } from '@/types/types';
 
 const getProducts = async (token: string) => {
   const response = await get(`/${PROJECT_KEY}/products`, token);
   return response;
 };
 
-const getSearchProducts = async (token: string, queryParams: QueryParams) => {
-  const response = await get(
-    `/${PROJECT_KEY}/product-projections/search?${new URLSearchParams(
-      Object.entries(queryParams).map(([key, value]) => [key, String(value)])
-    )}`,
-    token
-  );
+const getSearchProducts = async (token: string, searchParams?: SearchParams, filterParams?: FilterParams) => {
+  const filterParamsArr = [];
+
+  if (filterParams !== undefined) {
+    for (const filterKey in filterParams) {
+      const filterValues = filterParams[filterKey];
+
+      if (filterValues.length > 0) {
+        filterParamsArr.push(`filter=variants.attributes.${filterKey}:"${filterValues.join(`","`)}"`);
+      }
+    }
+  }
+
+  const query = [
+    ...Object.entries(searchParams || {}).map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`),
+    ...filterParamsArr,
+  ].join('&');
+
+  const response = await get(`/${PROJECT_KEY}/product-projections/search?${query}`, token);
   return response;
 };
 

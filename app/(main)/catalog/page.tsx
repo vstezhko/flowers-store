@@ -5,7 +5,7 @@ import { TokenService } from '@/api/services/Token.service';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 import { Paper } from '@mui/material';
 import Searchbar from '@/components/catalog/SearchBar';
-import { QueryParams } from '@/types/types';
+import { SearchParams, FilterParams } from '@/types/types';
 import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
 import { useDispatch, useSelector } from '@/redux/store';
 import CategorySelector from '@/components/catalog/CategorySelector';
@@ -134,6 +134,7 @@ interface PageProduct {
 const Catalog = () => {
   const dispatch = useDispatch();
   const searchItem = useSelector(state => state.search.search);
+  const checkboxState = useSelector(state => state.search.checkboxState);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -175,12 +176,13 @@ const Catalog = () => {
   }, [dispatch]);
 
   const fetchSearchProducts = useCallback(
-    async (queryParams: QueryParams) => {
+    async (searchParams?: SearchParams, filterParams?: FilterParams) => {
       setIsSearchActive(true);
       const response = await dispatch(
         getSearchProductsAsync({
           token: TokenService.getAccessTokenFromLS().token,
-          queryParams,
+          searchParams,
+          filterParams,
         })
       ).unwrap();
       setTotalResults(response.total);
@@ -203,12 +205,29 @@ const Catalog = () => {
   );
 
   useEffect(() => {
-    if (searchItem) {
-      fetchSearchProducts({ 'text.en': `${searchItem}`, fuzzy: true });
+    let filterExist = false;
+    let filterOptions: FilterParams = {};
+
+    for (const filterIdState in checkboxState) {
+      const options = checkboxState[filterIdState];
+      for (const optionKeyState in options) {
+        if (options[optionKeyState]) {
+          if (filterOptions[filterIdState]) {
+            filterOptions[filterIdState].push(optionKeyState);
+          } else {
+            filterOptions[filterIdState] = [optionKeyState];
+          }
+          filterExist = true;
+        }
+      }
+    }
+
+    if (searchItem || filterExist) {
+      fetchSearchProducts({ 'text.en': searchItem, fuzzy: true }, filterOptions);
     } else {
       fetchProducts();
     }
-  }, [searchItem, dispatch, fetchSearchProducts, fetchProducts]);
+  }, [searchItem, checkboxState, dispatch, fetchSearchProducts, fetchProducts]);
 
   return (
     <section className='catalog page'>
