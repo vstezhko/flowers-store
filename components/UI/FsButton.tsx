@@ -14,6 +14,7 @@ interface FSButtonParams {
   children?: ReactNode;
   type?: 'button' | 'submit' | 'reset' | undefined;
   variant?: 'outlined' | 'contained';
+  sx?: Record<string, string>;
 }
 
 const FsButton: React.FC<FSButtonParams> = props => {

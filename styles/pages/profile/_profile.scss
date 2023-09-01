@@ -219,10 +219,15 @@
 
 }
 
-.add-icon {
-  position: absolute;
-  top: 5px;
-  right: 5px;
+.MuiButtonBase-root.add-icon {
+  position: absolute !important;
+  top: 5px !important;
+  right: 5px !important;
+
+  & > .MuiSvgIcon-root{
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .modal {
@@ -250,7 +255,7 @@
   }
 }
 
-.chip {
+.MuiChip-root.chip {
   color: $color-shade-0;
   position: absolute;
   top: 5px;

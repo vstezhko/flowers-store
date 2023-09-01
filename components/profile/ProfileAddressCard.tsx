@@ -158,7 +158,7 @@ const ProfileAddressCard = ({
   return (
     <>
       <div className={`form-address form-address_${type}`}>
-        <IconButton aria-label='edit' onClick={() => handleOpen('', 'add', null)} className='add-icon'>
+        <IconButton aria-label='add' onClick={() => handleOpen('', 'add', null)} className='add-icon'>
           <AddIcon />
         </IconButton>
         {addressData.map(i => (
