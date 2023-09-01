@@ -14,7 +14,7 @@ const FsCheckbox: React.FC<FsCheckboxParams> = props => {
   const [isChecked, setIsChecked] = useState(checked || false);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.target.checked); // Update the state when the checkbox is clicked
+    setIsChecked(event.target.checked);
     if (typeof onToggle === 'function') {
       onToggle(event);
     }

@@ -18,8 +18,25 @@
   min-width: 245px;
   padding: 15px;
 
+  .css-d59h4-MuiTreeItem-content .MuiTreeItem-label {
+    font-size: inherit;
+  }
+
+  .css-15mcrbu-MuiTypography-root {
+    font-size: inherit;
+  }
+
+  h4 {
+    padding: 15px 0 ;
+  }
+
   @include small {
     padding: 10px;
+
+    h4 {
+      padding: 10px 0 ;
+    }
+
   }
 
 }

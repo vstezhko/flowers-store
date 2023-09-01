@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from '@/redux/store';
 import CategorySelector from '@/components/catalog/CategorySelector';
 import { getSearchProductsAsync } from '@/redux/slices/searchSlice/thunks';
 import { getProductsAsync } from '@/redux/slices/catalogSlice/thunks';
+import FilterBlock from '@/components/catalog/Filter';
 
 export interface ProductCategory {
   typeId: string;
@@ -224,6 +225,7 @@ const Catalog = () => {
             inputProps={{}}
           />
           <CategorySelector />
+          <FilterBlock />
         </Paper>
         {isSearchActive && totalResults === 0 ? (
           <h4 className='catalog__message'>
