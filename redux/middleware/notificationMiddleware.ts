@@ -33,13 +33,13 @@ const notificationMiddleware: Middleware = store => next => action => {
   }
 
   if (action.type === updateCustomerAsync.fulfilled.type) {
+    const { isNewAddress } = store.getState().login;
     store.dispatch(
       snackbarSlice.actions.setMessage({
-        message: "You've successfully updated data",
+        message: isNewAddress && "You've successfully updated data",
         variant: 'success',
       })
     );
-
     return next(action);
   }
 

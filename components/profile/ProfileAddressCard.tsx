@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Customer, ICustomerAddress } from '@/redux/slices/loginSlice/loginSlice';
 import { Button, Card, CardContent, Chip } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
 import FsModal from '@/components/UI/FsModal';
-import AddIcon from '@/components/Icons/AddIcon';
 import PersonalForm from '@/components/form/personalForm/PersonalForm';
 import PersonalAddressForm from '@/components/form/personalForm/PersonalAddressForm';
-import { FormGroups, ValidationRuleGroup } from '@/types/enums';
+import { FormGroups, FsButtonType, ValidationRuleGroup } from '@/types/enums';
 import { FormItemFieldsParams } from '@/types/types';
 import { RemoveAddressAction } from '@/types/interface';
 import { updateCustomerAsync } from '@/redux/slices/loginSlice/thunks';
 import { useDispatch } from '@/redux/store';
 import { TokenService } from '@/api/services/Token.service';
+import FsButton from '@/components/UI/FsButton';
 
 const ProfileAddressCard = ({
   addressData,
@@ -156,11 +155,8 @@ const ProfileAddressCard = ({
   };
 
   return (
-    <>
-      <div className={`form-address form-address_${type}`}>
-        <IconButton aria-label='add' onClick={() => handleOpen('', 'add', null)} className='add-icon'>
-          <AddIcon />
-        </IconButton>
+    <div className='form-customer'>
+      <div className='form__content form__content_address'>
         {addressData.map(i => (
           <Card key={i.id} className='card-address'>
             {(i.id === customer.defaultShippingAddressId || i.id === customer.defaultBillingAddressId) && (
@@ -187,6 +183,9 @@ const ProfileAddressCard = ({
           </Card>
         ))}
       </div>
+      <div className='form__btn-container'>
+        <FsButton label='add new address' onClick={() => handleOpen('', 'add', null)} className={FsButtonType.SMALL} />
+      </div>
       {typeForm?.name === 'add' && (
         <FsModal open={open} handleClose={handleClose}>
           <PersonalForm
@@ -211,7 +210,7 @@ const ProfileAddressCard = ({
           />
         </FsModal>
       )}
-    </>
+    </div>
   );
 };
 

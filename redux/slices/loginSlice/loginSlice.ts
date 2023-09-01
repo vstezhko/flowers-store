@@ -5,6 +5,7 @@ export interface LoginState {
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
   isLogin: boolean;
   isSignUp: boolean;
+  isNewAddress: boolean;
   customer: Customer;
   anonymousCart?: {
     id: string | null;
@@ -51,6 +52,7 @@ export const initialState: LoginState = {
   status: 'idle',
   isLogin: false,
   isSignUp: false,
+  isNewAddress: false,
   customer: {
     addresses: [],
     email: null,
@@ -105,11 +107,8 @@ export const loginSlice = createSlice({
         shippingAddressIds: [],
       };
     },
-    updateCustomer: (state, action: PayloadAction<Partial<Customer>>) => {
-      state.customer = {
-        ...state.customer,
-        ...action.payload,
-      };
+    isNewAddress: (state, action: PayloadAction<boolean>) => {
+      state.isNewAddress = action.payload;
     },
   },
   extraReducers: builder => {

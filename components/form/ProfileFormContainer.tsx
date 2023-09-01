@@ -55,21 +55,17 @@ const ProfileFormContainer = ({ src, type }: { src: string; type: string }) => {
     ];
   }, [customer]);
 
-  return type === FormGroups.CUSTOMER ? (
+  return (
     <div className='personal__form-container'>
-      <PersonalForm childComponent={PersonalInfoForm} modeEdit={true} data={mainInputFields} type={type} />
+      {type === FormGroups.CUSTOMER ? (
+        <PersonalForm childComponent={PersonalInfoForm} modeEdit={true} data={mainInputFields} type={type} />
+      ) : type === FormGroups.SHIPPING_ADDRESS ? (
+        <ProfileAddressCard addressData={shipping} type={type} customer={customer} />
+      ) : (
+        <ProfileAddressCard addressData={billing} type={type} customer={customer} />
+      )}
       <div className='profile__container-img'>
         <Image className='profile__img' src={src} alt='ProfileContainer photo' layout='fill' />
-      </div>
-    </div>
-  ) : (
-    <div className='personal__form-container'>
-      <div className='form-customer form-customer_address'>
-        {type === FormGroups.SHIPPING_ADDRESS ? (
-          <ProfileAddressCard addressData={shipping} type={type} customer={customer} />
-        ) : (
-          <ProfileAddressCard addressData={billing} type={type} customer={customer} />
-        )}
       </div>
     </div>
   );

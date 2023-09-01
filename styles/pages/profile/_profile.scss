@@ -89,17 +89,13 @@
 }
 
 .form-customer {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 20px;
   width: 48%;
-
-  &_address {
-    width: 100%;
-    height: 100%;
-  }
 
   @include small() {
     width: 100%;
@@ -111,6 +107,14 @@
     display: flex;
     flex-direction: column;
 
+    &_address {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-content: flex-start;
+      gap: 10px;
+      overflow: scroll;
+    }
+
     .switch {
       align-self: flex-end;
     }
@@ -120,34 +124,6 @@
     }
   }
 
-
-}
-
-
-.form-address {
-  width: 100%;
-  height: 360px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-content: flex-start;
-  overflow-y: auto;
-  gap: 10px;
-  padding: 50px 10px 20px;
-  position: relative;
-  background-size: cover;
-
-  @include medium-mobile() {
-    grid-template-columns: 1fr;
-  }
-
-  &_shippingAddress {
-    background-image: url("../../../public/img/jpeg/profile.webp");
-  }
-
-  &_billingAddress {
-    background-image: url("../../../public/img/jpeg/address.jpeg");
-    background-position: center;
-  }
 }
 
 
@@ -219,16 +195,6 @@
 
 }
 
-.MuiButtonBase-root.add-icon {
-  position: absolute !important;
-  top: 5px !important;
-  right: 5px !important;
-
-  & > .MuiSvgIcon-root{
-    width: 30px;
-    height: 30px;
-  }
-}
 
 .modal {
   position: absolute;

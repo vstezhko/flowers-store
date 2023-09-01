@@ -19,6 +19,7 @@ import { updateCustomerAsync } from '@/redux/slices/loginSlice/thunks';
 import { AddAddressAction, AddAddressIdAction, ChangeAddressAction, SetDefaultAddressAction } from '@/types/interface';
 import { TokenService } from '@/api/services/Token.service';
 import { structureInputValues } from '@/utils/structureInputFormValues';
+import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 
 const PersonalForm = ({
   data,
@@ -126,7 +127,7 @@ const PersonalForm = ({
     };
 
     const actions: AddAddressAction[] = [addAddressAction];
-
+    await dispatch(loginSlice.actions.isNewAddress(false));
     await dispatch(updateCustomerAsync({ actions, token, version: customer.version }))
       .then(result => {
         if (updateCustomerAsync.fulfilled.match(result)) {
@@ -144,6 +145,7 @@ const PersonalForm = ({
 
           const action: CustomerAddAddressAction[] = [addAddressIdAction, setDefaultAddressAction];
           dispatch(updateCustomerAsync({ actions: action, token, version: result.payload.version }));
+          dispatch(loginSlice.actions.isNewAddress(true));
         }
       })
       .catch(error => {
