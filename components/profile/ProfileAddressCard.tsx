@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Customer, ICustomerAddress } from '@/redux/slices/loginSlice/loginSlice';
 import { Button, Card, CardContent, Chip } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
@@ -13,15 +13,13 @@ import { useDispatch } from '@/redux/store';
 import { TokenService } from '@/api/services/Token.service';
 import FsButton from '@/components/UI/FsButton';
 
-const ProfileAddressCard = ({
-  addressData,
-  type,
-  customer,
-}: {
+export interface ProfileAddressCardProps {
   addressData: ICustomerAddress[];
   type: string;
   customer: Customer;
-}) => {
+}
+
+const ProfileAddressCard: FC<ProfileAddressCardProps> = ({ addressData, type, customer }) => {
   const [open, setOpen] = useState(false);
   const [isDefaultAddress, setIsDefaultAddress] = useState(false);
   const [typeForm, setTypeForm] = useState<Record<string, string> | null>(null);
@@ -106,7 +104,10 @@ const ProfileAddressCard = ({
           {
             id: 15,
             formGroup: group,
-            validationRuleGroup: ValidationRuleGroup.POSTAL_CODE_SHIPPING,
+            validationRuleGroup:
+              group === FormGroups.SHIPPING_ADDRESS
+                ? ValidationRuleGroup.POSTAL_CODE_SHIPPING
+                : ValidationRuleGroup.POSTAL_CODE_BILLING,
             name: 'postalCode',
             type: 'text',
             label: 'zip code',
@@ -186,30 +187,16 @@ const ProfileAddressCard = ({
       <div className='form__btn-container'>
         <FsButton label='add new address' onClick={() => handleOpen('', 'add', null)} className={FsButtonType.SMALL} />
       </div>
-      {typeForm?.name === 'add' && (
-        <FsModal open={open} handleClose={handleClose}>
-          <PersonalForm
-            data={currentAddress}
-            type={type}
-            modeEdit={false}
-            childComponent={PersonalAddressForm}
-            typeForm={typeForm}
-            onSuccess={handlePersonalFormSuccess}
-          />
-        </FsModal>
-      )}
-      {typeForm?.name === 'edit' && (
-        <FsModal open={open} handleClose={handleClose}>
-          <PersonalForm
-            data={currentAddress}
-            type={type}
-            modeEdit={false}
-            childComponent={PersonalAddressForm}
-            typeForm={typeForm}
-            onSuccess={handlePersonalFormSuccess}
-          />
-        </FsModal>
-      )}
+      <FsModal open={open} handleClose={handleClose}>
+        <PersonalForm
+          data={currentAddress}
+          type={type}
+          modeEdit={false}
+          childComponent={PersonalAddressForm}
+          typeForm={typeForm}
+          onSuccess={handlePersonalFormSuccess}
+        />
+      </FsModal>
     </div>
   );
 };
