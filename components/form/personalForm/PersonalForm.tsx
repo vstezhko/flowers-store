@@ -46,9 +46,6 @@ const PersonalForm = ({
   const validationSchema = object().shape(generateFormikFieldsRules(data));
   const initialValues: Record<string, string | boolean> = generateInitialFormikValue(data);
   const [checked, setChecked] = useState(false);
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-  };
 
   const { customer } = useSelector(state => state.login);
 
@@ -189,6 +186,13 @@ const PersonalForm = ({
     if (onSuccess) {
       onSuccess();
     }
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (checked) {
+      formik.setValues(initialValues);
+    }
+    setChecked(event.target.checked);
   };
 
   const onChangeHandler = (e: ChangeEvent) => {
