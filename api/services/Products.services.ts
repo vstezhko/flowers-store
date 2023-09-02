@@ -6,7 +6,12 @@ const getProducts = async (token: string) => {
   return response;
 };
 
-const getSearchProducts = async (token: string, searchParams?: SearchParams, filterParams?: FilterParams) => {
+const getSearchProducts = async (
+  token: string,
+  searchParams?: SearchParams,
+  filterParams?: FilterParams,
+  priceParams?: number[]
+) => {
   const filterParamsArr = [];
 
   if (filterParams !== undefined) {
@@ -17,6 +22,12 @@ const getSearchProducts = async (token: string, searchParams?: SearchParams, fil
         filterParamsArr.push(`filter=variants.attributes.${filterKey}:"${filterValues.join(`","`)}"`);
       }
     }
+  }
+
+  if (priceParams !== undefined) {
+    filterParamsArr.push(
+      `filter=variants.scopedPrice.currentValue.centAmount:range(${priceParams[0] * 100} to ${priceParams[1] * 100})`
+    );
   }
 
   const query = [

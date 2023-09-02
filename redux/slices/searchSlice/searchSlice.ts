@@ -10,7 +10,7 @@ type CheckboxState = {
 interface SearchProducts {
   search: string;
   checkboxState: CheckboxState;
-  filterState: {};
+  priceRange: Array<number>;
 }
 
 export interface SearchProductsState extends SearchProducts {
@@ -20,7 +20,7 @@ export interface SearchProductsState extends SearchProducts {
 export const initialState: SearchProductsState = {
   search: '',
   checkboxState: {},
-  filterState: {},
+  priceRange: [0, 1500],
   status: 'idle',
 };
 
@@ -37,6 +37,9 @@ export const searchSlice = createSlice({
         state.checkboxState[filterId] = {};
       }
       state.checkboxState[filterId][optionKey] = !state.checkboxState[filterId][optionKey];
+    },
+    setPriceRange: (state, action) => {
+      state.priceRange = action.payload;
     },
   },
   extraReducers: builder => {

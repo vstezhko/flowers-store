@@ -8,11 +8,13 @@ export const getSearchProductsAsync = createAppAsyncThunk(
     token,
     searchParams,
     filterParams,
+    priceParams,
   }: {
     token: string;
     searchParams?: SearchParams;
     filterParams?: FilterParams;
+    priceParams?: number[];
   }) => {
-    return ProductsService.getSearchProducts(token, searchParams, filterParams);
+    return ProductsService.getSearchProducts(token, searchParams, filterParams, priceParams);
   }
 );

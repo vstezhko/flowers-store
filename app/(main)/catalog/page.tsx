@@ -135,6 +135,7 @@ const Catalog = () => {
   const dispatch = useDispatch();
   const searchItem = useSelector(state => state.search.search);
   const checkboxState = useSelector(state => state.search.checkboxState);
+  const priceRange = useSelector(state => state.search.priceRange);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -176,13 +177,14 @@ const Catalog = () => {
   }, [dispatch]);
 
   const fetchSearchProducts = useCallback(
-    async (searchParams?: SearchParams, filterParams?: FilterParams) => {
+    async (searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
       setIsSearchActive(true);
       const response = await dispatch(
         getSearchProductsAsync({
           token: TokenService.getAccessTokenFromLS().token,
           searchParams,
           filterParams,
+          priceParams,
         })
       ).unwrap();
       setTotalResults(response.total);
@@ -195,7 +197,7 @@ const Catalog = () => {
           price: prices.price,
           discounted: prices.discounted,
           currency: prices.currencyCode,
-          image: item.masterVariant.images[0].url ? item.masterVariant.images[0].url : noImage.src,
+          image: item.masterVariant.images[0]?.url ? item.masterVariant.images[0].url : noImage.src,
           description: item.description.en,
         };
       });
@@ -222,12 +224,12 @@ const Catalog = () => {
       }
     }
 
-    if (searchItem || filterExist) {
-      fetchSearchProducts({ 'text.en': searchItem, fuzzy: true }, filterOptions);
+    if (searchItem || filterExist || priceRange) {
+      fetchSearchProducts({ 'text.en': searchItem, fuzzy: true, priceCurrency: 'EUR' }, filterOptions, priceRange);
     } else {
       fetchProducts();
     }
-  }, [searchItem, checkboxState, dispatch, fetchSearchProducts, fetchProducts]);
+  }, [searchItem, checkboxState, priceRange, dispatch, fetchSearchProducts, fetchProducts]);
 
   return (
     <section className='catalog page'>
