@@ -4,6 +4,7 @@
   padding: 30px 0;
   justify-content: center;
   gap: 20px;
+  min-height: 100vh;
 
   @include medium {
     flex-direction: column;
@@ -17,6 +18,7 @@
   flex-direction: column;
   min-width: 245px;
   padding: 15px;
+  height: fit-content;
 
   .css-d59h4-MuiTreeItem-content .MuiTreeItem-label {
     font-size: inherit;
@@ -42,12 +44,12 @@
 }
 
 .catalog__container {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(263px, max-content));
   max-width: calc(100% - 265px);
   gap: 20px;
   justify-content: center;
-  align-content: center;
 
   @include medium {
     max-width: none;
@@ -62,8 +64,9 @@
 }
 
 .catalog__message {
+  position: absolute; 
   width: 100%;
-  max-width: calc(100% - 265px);
+  // max-width: calc(100% - 265px);
   overflow-wrap: break-word;
   padding: 15px;
 

@@ -248,14 +248,14 @@ const Catalog = () => {
           <CategorySelector />
           <FilterBlock />
         </Paper>
-        {isSearchActive && totalResults === 0 ? (
-          <h4 className='catalog__message'>
-            Unfortunately, no results were found for your search{searchItem ? ` "${searchItem}"` : ''}. Try other
-            options!
-          </h4>
-        ) : (
-          <div className='catalog__container'>
-            {productsPage.map(product => (
+        <div className='catalog__container'>
+          {isSearchActive && totalResults === 0 ? (
+            <h4 className='catalog__message'>
+              Unfortunately, no results were found for your search{searchItem ? ` "${searchItem}"` : ''}. Try other
+              options!
+            </h4>
+          ) : (
+            productsPage.map(product => (
               <SmallProductCard
                 key={product.id}
                 id={product.id}
@@ -266,9 +266,9 @@ const Catalog = () => {
                 description={product.description || 'No description available'}
                 image={product.image}
               />
-            ))}
-          </div>
-        )}
+            ))
+          )}
+        </div>
       </div>
     </section>
   );
