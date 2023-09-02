@@ -44,7 +44,6 @@ const PersonalForm = ({
 }) => {
   const dispatch = useDispatch();
   const validationSchema = object().shape(generateFormikFieldsRules(data));
-  console.log(validationSchema);
   const initialValues: Record<string, string | boolean> = generateInitialFormikValue(data);
   const [checked, setChecked] = useState(false);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,7 +140,7 @@ const PersonalForm = ({
 
           const setDefaultAddressAction: SetDefaultAddressAction = {
             action: address === FormGroups.SHIPPING_ADDRESS ? 'setDefaultShippingAddress' : 'setDefaultBillingAddress',
-            addressId: newAddressId,
+            addressId: structuredValues.default ? newAddressId : undefined,
           };
 
           const action: CustomerAddAddressAction[] = [addAddressIdAction, setDefaultAddressAction];
