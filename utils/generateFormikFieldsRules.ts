@@ -68,8 +68,9 @@ const RulesForFields = {
     .oneOf([ref(`${FormGroups.CUSTOMER}-${ValidationRuleGroup.PASSWORD}`)], 'passwords mismatch'),
   [ValidationRuleGroup.PHONE]: string()
     .required('req.')
-    .max(25, 'too long')
-    .matches(/^[^_]*$/, 'invalid phone number'),
+    .max(15, 'too long')
+    .min(15, 'too short')
+    .matches(/^[\d+ ]*$/, 'invalid phone number'),
   [ValidationRuleGroup.NAME]: string()
     .required('req.')
     .max(25, 'too long')
