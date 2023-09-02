@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { FormControlLabelProps } from '@mui/material/FormControlLabel/FormControlLabel';
@@ -12,6 +12,10 @@ const FsCheckbox: React.FC<FsCheckboxParams> = props => {
   let { className, checked, onToggle, ...rest } = props;
 
   const [isChecked, setIsChecked] = useState(checked || false);
+
+  useEffect(() => {
+    setIsChecked(checked || false);
+  }, [checked]);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);

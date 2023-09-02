@@ -7,6 +7,7 @@ import RangeSlider from '@/components/catalog/RangeSlider';
 import { FormGroup } from '@mui/material';
 import { useDispatch, useSelector } from '@/redux/store';
 import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 
 interface filtersData {
   id: string;
@@ -44,6 +45,7 @@ const filters: filtersData[] = [
 const FilterBlock = () => {
   const dispatch = useDispatch();
   const checkboxState = useSelector(state => state.search.checkboxState);
+  const areFiltersSet = useSelector(state => state.search.areFiltersSet);
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>, filterId: string, optionKey: string) => {
     dispatch(searchActions.toggleCheckbox({ filterId, optionKey }));
@@ -74,7 +76,15 @@ const FilterBlock = () => {
 
   return (
     <div className='filters'>
-      <h4>Filters</h4>
+      <div className='filters__header'>
+        <h4>Filters</h4>
+        {areFiltersSet && (
+          <FilterAltOffIcon
+            className='filters__remove-filters'
+            onClick={() => dispatch(searchActions.clearFilters())}
+          />
+        )}
+      </div>
       <TreeView className='filters__tree' id={'filters'} aria-label='filters'>
         {filters && filters.map(item => renderTree(item))}
       </TreeView>

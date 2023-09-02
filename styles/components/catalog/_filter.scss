@@ -1,5 +1,15 @@
 .filters {
 
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__remove-filters {
+    cursor: pointer;
+  }
+
   &__tree {
     flex-grow: 1;
     overflow-y: auto;
