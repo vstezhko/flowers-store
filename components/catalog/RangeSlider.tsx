@@ -14,8 +14,8 @@ const marks = [
     label: '0 €',
   },
   {
-    value: 1000,
-    label: '1k €',
+    value: 250,
+    label: '250 €',
   },
 ];
 
@@ -37,8 +37,8 @@ const RangeSlider = () => {
         getAriaValueText={valueText}
         valueLabelFormat={valueText}
         size='small'
-        step={50}
-        max={1000}
+        step={10}
+        max={250}
         marks={marks}
       />
     </Box>

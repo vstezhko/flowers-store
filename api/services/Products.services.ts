@@ -10,7 +10,8 @@ const getSearchProducts = async (
   token: string,
   searchParams?: SearchParams,
   filterParams?: FilterParams,
-  priceParams?: number[]
+  priceParams?: number[],
+  categoryId?: string
 ) => {
   const filterParamsArr = [];
 
@@ -28,6 +29,10 @@ const getSearchProducts = async (
     filterParamsArr.push(
       `filter=variants.scopedPrice.currentValue.centAmount:range(${priceParams[0] * 100} to ${priceParams[1] * 100})`
     );
+  }
+
+  if (categoryId !== undefined) {
+    filterParamsArr.push(`filter=categories.id: subtree("${categoryId}")`);
   }
 
   const query = [
