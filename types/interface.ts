@@ -99,3 +99,8 @@ export interface SetDateOfBirthAction {
   action: 'setDateOfBirth';
   dateOfBirth: string;
 }
+
+export interface IChangePassword {
+  currentPassword: string;
+  newPassword: string;
+}

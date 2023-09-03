@@ -15,11 +15,12 @@ import { useDispatch, useSelector } from '@/redux/store';
 import { object } from 'yup';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { generateInitialFormikValue } from '@/utils/generateInitialFormikValue';
-import { updateCustomerAsync } from '@/redux/slices/loginSlice/thunks';
+import { changePasswordAsync, getCustomerAsync, updateCustomerAsync } from '@/redux/slices/loginSlice/thunks';
 import { AddAddressAction, AddAddressIdAction, ChangeAddressAction, SetDefaultAddressAction } from '@/types/interface';
 import { TokenService } from '@/api/services/Token.service';
 import { structureInputValues } from '@/utils/structureInputFormValues';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 
 const PersonalForm = ({
   data,
@@ -39,7 +40,7 @@ const PersonalForm = ({
     checked: boolean,
     formik1: FormikProps<formikValuesType>,
     onChangeHandler: (e: React.ChangeEvent) => void,
-    modeEdit?: boolean
+    modeEdit?: boolean | undefined
   ) => React.JSX.Element;
 }) => {
   const dispatch = useDispatch();
@@ -150,6 +151,28 @@ const PersonalForm = ({
       });
   };
 
+  const changePassword = async (
+    structuredValues: Record<FormGroups, Record<string, string | boolean>>,
+    token: string
+  ) => {
+    const passwords = {
+      currentPassword: structuredValues.customer.password as string,
+      newPassword: structuredValues.customer.newPassword as string,
+    };
+
+    const result = await dispatch(changePasswordAsync({ passwords, token, version: customer.version }));
+    if (result.payload) {
+      const loginCredentials = {
+        username: result.payload.email as string,
+        password: passwords.newPassword as string,
+      };
+      const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
+      if (customerToken.payload.access_token) {
+        dispatch(getCustomerAsync(customerToken.payload.access_token));
+      }
+    }
+  };
+
   const formikConfig: FormikConfig<formikValuesType> = {
     initialValues: initialValues,
     validationSchema: validationSchema,
@@ -158,6 +181,8 @@ const PersonalForm = ({
       const structuredValues = structureInputValues(values);
       if (type === FormGroups.CUSTOMER) {
         await changePersonalData(structuredValues, token);
+      } else if (type === 'password') {
+        await changePassword(structuredValues, token);
       } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm?.name === 'edit') {
         await changeAddressesData(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
       } else if (type === FormGroups.BILLING_ADDRESS && typeForm?.name === 'edit') {
@@ -176,8 +201,15 @@ const PersonalForm = ({
 
   const formik: FormikProps<formikValuesType> = useFormik(formikConfig);
 
+  const resetForm = () => {
+    formik.resetForm();
+  };
+
   useEffect(() => {
     formik.setValues(initialValues);
+    if (type === 'password') {
+      formik.resetForm();
+    }
   }, [data]);
 
   const handleCancelUpdateData = () => {
@@ -214,7 +246,12 @@ const PersonalForm = ({
       </div>
       {(checked || !modeEdit) && (
         <div className='form__btn-container'>
-          <FsButton variant='outlined' label='cancel' className={FsButtonType.SMALL} onClick={handleCancelUpdateData} />
+          <FsButton
+            variant='outlined'
+            label='cancel'
+            className={FsButtonType.SMALL}
+            onClick={type === 'password' ? resetForm : handleCancelUpdateData}
+          />
           <FsButton label={typeForm?.name === 'add' ? 'add' : 'save'} type='submit' className={FsButtonType.SMALL} />
         </div>
       )}

@@ -8,7 +8,8 @@ const PersonalInfoForm = (
   data: FormItemFieldsParams[],
   checked: boolean,
   formik: FormikProps<formikValuesType>,
-  onChangeHandler: (e: ChangeEvent) => void
+  onChangeHandler: (e: ChangeEvent) => void,
+  modeEdit: boolean | undefined
 ) => {
   return (
     <>
@@ -33,7 +34,7 @@ const PersonalInfoForm = (
               onChange={onChangeHandler}
               label={inputData.label || ''}
               formGroup={formGroup}
-              disabled={!checked}
+              disabled={modeEdit ? !checked : false}
               error={error || false}
               errorText={errorText}
             />

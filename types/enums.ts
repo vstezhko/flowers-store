@@ -22,6 +22,8 @@ export enum ValidationRuleGroup {
   EMAIL = 'email',
   PASSWORD = 'password',
   CONFIRM_PASSWORD = 'confirmPassword',
+  NEW_PASSWORD = 'newPassword',
+  CONFIRM_NEW_PASSWORD = 'confirmNewPassword',
   COMMON = 'common',
   PHONE = 'phone',
   NAME = 'name',

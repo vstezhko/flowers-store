@@ -66,6 +66,22 @@ const RulesForFields = {
   [ValidationRuleGroup.CONFIRM_PASSWORD]: string()
     .required('retype your password.')
     .oneOf([ref(`${FormGroups.CUSTOMER}-${ValidationRuleGroup.PASSWORD}`)], 'passwords mismatch'),
+  [ValidationRuleGroup.NEW_PASSWORD]: string()
+    .required('req.')
+    .notOneOf([ref(`${FormGroups.CUSTOMER}-${ValidationRuleGroup.PASSWORD}`)], 'must not match the current one')
+    .max(25, 'too long')
+    .test('no-leading-trailing-space', 'no leading/trailing spaces', value => {
+      if (!value) return true;
+      return !/^\s|\s$/.test(value);
+    })
+    .min(8, 'min 8 characters')
+    .matches(/^(?=.*\d)/, 'need 1 digit')
+    .matches(/(?=.*[A-Z])/, 'need 1 uppercase (A-Z)')
+    .matches(/(?=.*[a-z])/, 'need 1 lowercase (a-z)')
+    .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, 'need 1 special symbol'),
+  [ValidationRuleGroup.CONFIRM_NEW_PASSWORD]: string()
+    .required('retype your password.')
+    .oneOf([ref(`${FormGroups.CUSTOMER}-${ValidationRuleGroup.NEW_PASSWORD}`)], 'passwords mismatch'),
   [ValidationRuleGroup.PHONE]: string()
     .required('req.')
     .max(15, 'too long')
