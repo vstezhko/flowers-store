@@ -16,6 +16,10 @@ export type FormItemFieldsParams = FormItemUnionFieldsParams | FormItemFieldPara
 
 export type formikValuesType = Record<string, string | boolean>;
 
+export type SearchParams = Record<string, string | boolean>;
+
+export type FilterParams = Record<string, string[]>;
+
 export type CustomerAddressAction = ChangeAddressAction | SetDefaultAddressAction;
 
 export type CustomerAddAddressAction = AddAddressIdAction | SetDefaultAddressAction;

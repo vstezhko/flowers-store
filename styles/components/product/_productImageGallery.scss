@@ -1,0 +1,115 @@
+.image-gallery.fs-product-gallery {
+
+  height: 100%;
+
+  .image-gallery-content {
+    height: 100%;
+
+    .image-gallery-slide-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-height: 100%;
+      max-width: 100%;
+    }
+
+    .image-gallery-slide-wrapper:not(:last-child) {
+      height: calc(100% - 100px);
+    }
+
+    .image-gallery-swipe {
+    }
+
+    .image-gallery-slides {
+      height: 100%;
+
+      .image-gallery-slide {
+        vertical-align: middle;
+        height: 100%;
+      }
+    }
+
+    .image-gallery-thumbnails {
+      height: 100px;
+      overflow: hidden;
+
+      * {
+        height: 100%;
+      }
+
+      .image-gallery-thumbnail {
+        border-radius: 10px;
+        overflow: hidden;
+
+        .image-gallery-thumbnail-image {
+          max-height: 100%;
+          object-fit: cover;
+        }
+      }
+
+    }
+
+    .image-gallery-slide .image-gallery-image {
+      height: 100%;
+    }
+  }
+
+  .image-gallery-content.fullscreen {
+    z-index: 101;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+
+    .image-gallery-slide-wrapper {
+      background: black;
+    }
+
+    .image-gallery-slide-wrapper:not(:last-child) {
+      height: calc(100% - 150px);
+    }
+
+    .image-gallery-slide-wrapper:last-child {
+      height: 100%;
+
+      .image-gallery-image {
+        max-height: 100%;
+      }
+    }
+
+    .image-gallery-thumbnails-wrapper {
+      height: 150px;
+    }
+  }
+
+  .image-gallery-slide-wrapper {
+    overflow: hidden;
+    border-radius: 10px;
+    background: $color-shade-0;
+
+    .image-gallery-content {
+      .image-gallery-slide .image-gallery-image {
+        max-height: calc(100vh - 120px);
+      }
+
+      .image-gallery-image {
+        width: 450px;
+        height: 450px;
+        max-height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .image-gallery-thumbnail.active {
+    border-color: $color-brand-1;
+  }
+
+  .image-gallery-icon:hover {
+    color: $color-brand-1;
+  }
+
+  .image-gallery-icon:focus {
+    color: $color-brand-1;
+    outline-color: $color-brand-1;
+  }
+}

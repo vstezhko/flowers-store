@@ -3,6 +3,7 @@
 @import "abstract/_placeholders";
 @import "abstract/_typography";
 @import "globals.scss";
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
 
 //layout
 @import "layout/_columns";
@@ -20,8 +21,15 @@
 @import "components/form/_form";
 @import "components/form/_signUpForm";
 @import "components/catalog/_smallCard";
+@import "components/catalog/_searchBar";
+@import "components/catalog/_filter";
+@import "components/catalog/_categoryBreadcrumbs";
 @import "components/product/_productVariantCard";
 @import "components/product/_productCompositionCard";
+@import "components/product/_productImageGallery";
+@import "components/product/_productAmountSetter";
+@import "components/product/_productSum";
+@import "components/product/_productVariants";
 
 //pages
 @import "pages/offer/_offer";

@@ -41,7 +41,7 @@ export interface ProductPayloadAction extends Action {
 }
 
 export interface ProductState extends Product {
-  status: 'idle' | 'pending' | 'succeeded' | 'failed';
+  status: 'idle' | 'pending' | 'succeeded' | 'failed' | undefined;
 }
 
 export interface ProductCategory {
@@ -51,6 +51,13 @@ export interface ProductCategory {
 
 interface ProductPrice {
   id: string;
+  discounted: {
+    discount: {
+      id: string;
+      type: string;
+    };
+    value: ProductPrice['value'];
+  };
   value: {
     type: string;
     currencyCode: 'EUR';
@@ -59,7 +66,7 @@ interface ProductPrice {
   };
 }
 
-interface ProductImage {
+export interface ProductImage {
   url: string;
   dimensions: {
     w: number;
@@ -92,7 +99,7 @@ interface ProductAttribute {
   value: string;
 }
 
-interface Product {
+export interface Product {
   id: string | null;
   name: {
     en: string | null;
@@ -122,7 +129,11 @@ export const initialState: ProductState = {
 export const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    clearState: state => {
+      Object.assign(state, initialState);
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getProductByIdAsync.pending, state => {
       state.status = 'pending';
