@@ -1,0 +1,27 @@
+.sort-menu {
+  width: 180px;
+
+  &__list {
+    width: 100%;
+  }
+
+  &__list-item {
+    padding: 0;
+  }
+
+  &__menu-item {
+    font-size: inherit;
+    @extend %transition;
+
+    @include hover {
+    
+      &:hover {
+        color: $color-primary-hover;
+      }
+  
+    } 
+  }
+
+
+
+}
