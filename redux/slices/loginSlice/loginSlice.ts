@@ -5,6 +5,7 @@ export interface LoginState {
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
   isLogin: boolean;
   isSignUp: boolean;
+  isNewAddress: boolean;
   customer: Customer;
   anonymousCart?: {
     id: string | null;
@@ -27,6 +28,8 @@ export interface Customer {
   dateOfBirth: string | null;
   defaultShippingAddressId: string | null;
   defaultBillingAddressId: string | null;
+  billingAddressIds: string[];
+  shippingAddressIds: string[];
 }
 
 export interface ICustomerAddress {
@@ -49,6 +52,7 @@ export const initialState: LoginState = {
   status: 'idle',
   isLogin: false,
   isSignUp: false,
+  isNewAddress: false,
   customer: {
     addresses: [],
     email: null,
@@ -64,6 +68,8 @@ export const initialState: LoginState = {
     dateOfBirth: null,
     defaultShippingAddressId: null,
     defaultBillingAddressId: null,
+    billingAddressIds: [],
+    shippingAddressIds: [],
   },
   anonymousCart: {
     id: null,
@@ -97,13 +103,12 @@ export const loginSlice = createSlice({
         dateOfBirth: null,
         defaultShippingAddressId: null,
         defaultBillingAddressId: null,
+        billingAddressIds: [],
+        shippingAddressIds: [],
       };
     },
-    updateCustomer: (state, action: PayloadAction<Partial<Customer>>) => {
-      state.customer = {
-        ...state.customer,
-        ...action.payload,
-      };
+    isNewAddress: (state, action: PayloadAction<boolean>) => {
+      state.isNewAddress = action.payload;
     },
   },
   extraReducers: builder => {
@@ -132,9 +137,20 @@ export const loginSlice = createSlice({
         setCustomers(state, action);
       })
       .addCase(updateCustomerAsync.fulfilled, (state: LoginState, action: PayloadAction<Partial<Customer>>) => {
+        const updatedCustomer: Partial<Customer> = {
+          ...action.payload,
+        };
+        if (!('defaultShippingAddressId' in updatedCustomer)) {
+          updatedCustomer.defaultShippingAddressId = null;
+        }
+
+        if (!('defaultBillingAddressId' in updatedCustomer)) {
+          updatedCustomer.defaultBillingAddressId = null;
+        }
+
         state.customer = {
           ...state.customer,
-          ...action.payload,
+          ...updatedCustomer,
         };
       });
   },

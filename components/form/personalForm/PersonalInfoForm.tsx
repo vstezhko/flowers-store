@@ -4,18 +4,24 @@ import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 import { FormikProps } from 'formik';
 import { ChangeEvent } from 'react';
 
-const PersonalInfoForm = (data: FormItemFieldsParams[], checked: boolean, formik: FormikProps<formikValuesType>) => {
-  const onChangeHandler = (e: ChangeEvent<any>) => {
-    formik.setFieldTouched('type');
-    formik.handleChange(e);
-  };
-
+const PersonalInfoForm = (
+  data: FormItemFieldsParams[],
+  checked: boolean,
+  formik: FormikProps<formikValuesType>,
+  onChangeHandler: (e: ChangeEvent) => void
+) => {
   return (
     <>
       {data?.map(inputData => {
         if ('value' in inputData) {
           const { id, value, name, formGroup, ...rest } = inputData;
           const compoundName = `${formGroup}-${name}`;
+          const error =
+            (formik.touched[compoundName] || formik.values[compoundName]) && Boolean(formik.errors[compoundName]);
+          const errorText =
+            (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
+              ? formik.errors[compoundName]
+              : ' ';
           return (
             <FsInput
               {...rest}
@@ -28,16 +34,8 @@ const PersonalInfoForm = (data: FormItemFieldsParams[], checked: boolean, formik
               label={inputData.label || ''}
               formGroup={formGroup}
               disabled={!checked}
-              error={
-                ((formik.touched[compoundName] || formik.values[compoundName]) &&
-                  Boolean(formik.errors[compoundName])) ||
-                false
-              }
-              errorText={
-                (formik.touched[compoundName] || formik.values[compoundName]) && formik.errors[compoundName]
-                  ? formik.errors[compoundName]
-                  : ' '
-              }
+              error={error || false}
+              errorText={errorText}
             />
           );
         }

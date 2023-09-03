@@ -9,7 +9,7 @@ export const generateInitialFormikValue = (
   return inputsArray.reduce((acc, item) => {
     if ('name' in item && item.name) {
       if (item.type === 'checkbox') {
-        acc[`${item.formGroup}-${item.name}`] = false;
+        acc[`${item.formGroup}-${item.name}`] = item.value || false;
       } else {
         acc[`${item.formGroup}-${item.name}`] = item.value || '';
       }

@@ -278,8 +278,8 @@
 }
 
 .MuiMenuItem-root{
-  padding: 8px;
-  justify-content: center;
+  padding: 8px !important;
+  justify-content: center !important;
 
   &:hover{
     background-color: transparent;
