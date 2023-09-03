@@ -156,8 +156,8 @@ const PersonalForm = ({
     token: string
   ) => {
     const passwords = {
-      currentPassword: structuredValues.customer.password as string,
-      newPassword: structuredValues.customer.newPassword as string,
+      currentPassword: structuredValues.customer.currentPassword as string,
+      newPassword: structuredValues.customer.password as string,
     };
 
     const result = await dispatch(changePasswordAsync({ passwords, token, version: customer.version }));

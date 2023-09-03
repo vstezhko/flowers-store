@@ -60,8 +60,8 @@ const ProfileFormContainer = ({ src, type }: { src: string; type: string }) => {
       {
         id: 23,
         formGroup: FormGroups.CUSTOMER,
-        validationRuleGroup: ValidationRuleGroup.PASSWORD,
-        name: 'password',
+        validationRuleGroup: ValidationRuleGroup.CURRENT_PASSWORD,
+        name: 'currentPassword',
         type: 'password',
         label: 'current password',
         value: '',
@@ -69,8 +69,8 @@ const ProfileFormContainer = ({ src, type }: { src: string; type: string }) => {
       {
         id: 24,
         formGroup: FormGroups.CUSTOMER,
-        validationRuleGroup: ValidationRuleGroup.NEW_PASSWORD,
-        name: 'newPassword',
+        validationRuleGroup: ValidationRuleGroup.PASSWORD,
+        name: 'password',
         type: 'password',
         label: 'new password',
         value: '',
@@ -78,8 +78,8 @@ const ProfileFormContainer = ({ src, type }: { src: string; type: string }) => {
       {
         id: 25,
         formGroup: FormGroups.CUSTOMER,
-        validationRuleGroup: ValidationRuleGroup.CONFIRM_NEW_PASSWORD,
-        name: 'confirmNewPassword',
+        validationRuleGroup: ValidationRuleGroup.CONFIRM_PASSWORD,
+        name: 'confirmPassword',
         type: 'password',
         label: 'confirm new password',
         value: '',
