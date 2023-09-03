@@ -7,12 +7,13 @@ type CheckboxState = {
   };
 };
 
-interface SearchProducts {
+export interface SearchProducts {
   search: string;
   checkboxState: CheckboxState;
   priceRange: Array<number>;
   areFiltersSet: boolean;
   categoryId?: string | undefined;
+  sortIndex: number;
 }
 
 export interface SearchProductsState extends SearchProducts {
@@ -26,6 +27,7 @@ export const initialState: SearchProductsState = {
   areFiltersSet: false,
   status: 'idle',
   categoryId: undefined,
+  sortIndex: 0,
 };
 
 export const searchSlice = createSlice({
@@ -47,7 +49,6 @@ export const searchSlice = createSlice({
       state.areFiltersSet = true;
       state.priceRange = action.payload;
     },
-
     clearFilters: state => {
       state.areFiltersSet = false;
       state.checkboxState = initialState.checkboxState;
@@ -56,6 +57,9 @@ export const searchSlice = createSlice({
     },
     setCategoryId: (state, action) => {
       state.categoryId = action.payload;
+    },
+    setSortIndex: (state, action) => {
+      state.sortIndex = action.payload;
     },
   },
   extraReducers: builder => {

@@ -138,6 +138,7 @@ const Catalog = () => {
   const checkboxState = useSelector(state => state.search.checkboxState);
   const priceRange = useSelector(state => state.search.priceRange);
   const categoryId = useSelector(state => state.search.categoryId);
+  const sortIndex = useSelector(state => state.search.sortIndex);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -188,6 +189,7 @@ const Catalog = () => {
           filterParams,
           priceParams,
           categoryId,
+          sortIndex,
         })
       ).unwrap();
       setTotalResults(response.total);
@@ -206,7 +208,7 @@ const Catalog = () => {
       });
       setProductsPage(products);
     },
-    [dispatch, categoryId]
+    [dispatch, categoryId, sortIndex]
   );
 
   useEffect(() => {

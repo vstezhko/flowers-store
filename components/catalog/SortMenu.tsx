@@ -4,19 +4,22 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-
-const options = ['No sort', 'Name (A-Z)', 'Name (Z-A)', 'Price (low to high)', 'Price (high to low)'];
+import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
+import { useDispatch, useSelector } from '@/redux/store';
+import { SortNames } from '@/types/enums';
 
 const SortMenu = () => {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const sortIndex = useSelector(state => state.search.sortIndex);
   const open = Boolean(anchorEl);
+  const sortNames = Object.values(SortNames);
   const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleMenuItemClick = (event: React.MouseEvent<HTMLElement>, index: number) => {
-    setSelectedIndex(index);
+    dispatch(searchActions.setSortIndex(index));
     setAnchorEl(null);
   };
 
@@ -35,7 +38,7 @@ const SortMenu = () => {
           aria-label='sort by'
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClickListItem}>
-          <ListItemText primary='Sort by' secondary={options[selectedIndex]} />
+          <ListItemText primary='Sort by' secondary={sortNames[sortIndex]} />
         </ListItem>
       </List>
       <Menu
@@ -49,11 +52,11 @@ const SortMenu = () => {
           role: 'listbox',
         }}
         disableScrollLock={true}>
-        {options.map((option, index) => (
+        {sortNames.map((option, index) => (
           <MenuItem
             className='sort-menu__menu-item'
             key={option}
-            selected={index === selectedIndex}
+            selected={index === sortIndex}
             onClick={event => handleMenuItemClick(event, index)}>
             {option}
           </MenuItem>
