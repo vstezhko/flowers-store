@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getSearchProductsAsync } from './thunks';
+import { PriceRange } from '@/types/enums';
 
 type CheckboxState = {
   [filterId: string]: {
@@ -23,7 +24,7 @@ export interface SearchProductsState extends SearchProducts {
 export const initialState: SearchProductsState = {
   search: '',
   checkboxState: {},
-  priceRange: [0, 1500],
+  priceRange: [PriceRange.MIN, PriceRange.MAX],
   areFiltersSet: false,
   status: 'idle',
   categoryId: undefined,

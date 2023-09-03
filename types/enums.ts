@@ -51,3 +51,9 @@ export enum SortParams {
   ASC = 'asc',
   DESC = 'desc',
 }
+
+export enum PriceRange {
+  MIN = 0,
+  MAX = 250,
+  STEP = 10,
+}
