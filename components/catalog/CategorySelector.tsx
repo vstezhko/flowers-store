@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from '@/redux/store';
 import { TokenService } from '@/api/services/Token.service';
 import { getCategoriesAsync } from '@/redux/slices/categorySlice/thunks';
 import { CategoryFullData } from '@/redux/slices/categorySlice/categorySlice';
+import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
 import TreeView from '@mui/lab/TreeView';
 import TreeItem from '@mui/lab/TreeItem';
 
@@ -44,7 +45,7 @@ const CategorySelector = () => {
   );
 
   const onChooseCategory = (event: React.SyntheticEvent, nodeId: string) => {
-    console.log(nodeId);
+    dispatch(searchActions.setCategoryId(nodeId));
   };
 
   const renderTree = (nodes: CategoryTreeData) => (
@@ -57,12 +58,11 @@ const CategorySelector = () => {
     <div className='category-selector'>
       <h4>Categories</h4>
       <TreeView
-        id={'root'}
-        aria-label='rich object'
+        className='category-selector__tree'
+        id={'categories'}
+        aria-label='Categories'
         disabledItemsFocusable={true}
-        expanded={mainCategories.map(item => item.id)}
-        onNodeSelect={onChooseCategory}
-        sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}>
+        onNodeSelect={onChooseCategory}>
         {mainCategories && mainCategories.map(item => renderTree(item))}
       </TreeView>
     </div>

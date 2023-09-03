@@ -5,12 +5,13 @@ import { TokenService } from '@/api/services/Token.service';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 import { Paper } from '@mui/material';
 import Searchbar from '@/components/catalog/SearchBar';
-import { QueryParams } from '@/types/types';
+import { SearchParams, FilterParams } from '@/types/types';
 import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
 import { useDispatch, useSelector } from '@/redux/store';
 import CategorySelector from '@/components/catalog/CategorySelector';
 import { getSearchProductsAsync } from '@/redux/slices/searchSlice/thunks';
 import { getProductsAsync } from '@/redux/slices/catalogSlice/thunks';
+import FilterBlock from '@/components/catalog/Filter';
 
 export interface ProductCategory {
   typeId: string;
@@ -133,6 +134,9 @@ interface PageProduct {
 const Catalog = () => {
   const dispatch = useDispatch();
   const searchItem = useSelector(state => state.search.search);
+  const checkboxState = useSelector(state => state.search.checkboxState);
+  const priceRange = useSelector(state => state.search.priceRange);
+  const categoryId = useSelector(state => state.search.categoryId);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -174,12 +178,15 @@ const Catalog = () => {
   }, [dispatch]);
 
   const fetchSearchProducts = useCallback(
-    async (queryParams: QueryParams) => {
+    async (searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
       setIsSearchActive(true);
       const response = await dispatch(
         getSearchProductsAsync({
           token: TokenService.getAccessTokenFromLS().token,
-          queryParams,
+          searchParams,
+          filterParams,
+          priceParams,
+          categoryId,
         })
       ).unwrap();
       setTotalResults(response.total);
@@ -192,22 +199,39 @@ const Catalog = () => {
           price: prices.price,
           discounted: prices.discounted,
           currency: prices.currencyCode,
-          image: item.masterVariant.images[0].url ? item.masterVariant.images[0].url : noImage.src,
+          image: item.masterVariant.images[0]?.url ? item.masterVariant.images[0].url : noImage.src,
           description: item.description.en,
         };
       });
       setProductsPage(products);
     },
-    [dispatch]
+    [dispatch, categoryId]
   );
 
   useEffect(() => {
-    if (searchItem) {
-      fetchSearchProducts({ 'text.en': `${searchItem}`, fuzzy: true });
+    let filterExist = false;
+    let filterOptions: FilterParams = {};
+
+    for (const filterIdState in checkboxState) {
+      const options = checkboxState[filterIdState];
+      for (const optionKeyState in options) {
+        if (options[optionKeyState]) {
+          if (filterOptions[filterIdState]) {
+            filterOptions[filterIdState].push(optionKeyState);
+          } else {
+            filterOptions[filterIdState] = [optionKeyState];
+          }
+          filterExist = true;
+        }
+      }
+    }
+
+    if (searchItem || filterExist || priceRange) {
+      fetchSearchProducts({ 'text.en': searchItem, fuzzy: true, priceCurrency: 'EUR' }, filterOptions, priceRange);
     } else {
       fetchProducts();
     }
-  }, [searchItem, dispatch, fetchSearchProducts, fetchProducts]);
+  }, [searchItem, checkboxState, priceRange, dispatch, fetchSearchProducts, fetchProducts]);
 
   return (
     <section className='catalog page'>
@@ -224,15 +248,16 @@ const Catalog = () => {
             inputProps={{}}
           />
           <CategorySelector />
+          <FilterBlock />
         </Paper>
-        {isSearchActive && totalResults === 0 ? (
-          <h4 className='catalog__message'>
-            Unfortunately, no results were found for your search{searchItem ? ` "${searchItem}"` : ''}. Try other
-            options!
-          </h4>
-        ) : (
-          <div className='catalog__container'>
-            {productsPage.map(product => (
+        <div className='catalog__container'>
+          {isSearchActive && totalResults === 0 ? (
+            <h4 className='catalog__message'>
+              Unfortunately, no results were found for your search{searchItem ? ` "${searchItem}"` : ''}. Try other
+              options!
+            </h4>
+          ) : (
+            productsPage.map(product => (
               <SmallProductCard
                 key={product.id}
                 id={product.id}
@@ -243,9 +268,9 @@ const Catalog = () => {
                 description={product.description || 'No description available'}
                 image={product.image}
               />
-            ))}
-          </div>
-        )}
+            ))
+          )}
+        </div>
       </div>
     </section>
   );
