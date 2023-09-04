@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getSearchProductsAsync } from './thunks';
+import { PriceRange } from '@/types/enums';
 
 type CheckboxState = {
   [filterId: string]: {
@@ -7,12 +8,13 @@ type CheckboxState = {
   };
 };
 
-interface SearchProducts {
+export interface SearchProducts {
   search: string;
   checkboxState: CheckboxState;
   priceRange: Array<number>;
   areFiltersSet: boolean;
   categoryId?: string | undefined;
+  sortIndex: number;
 }
 
 export interface SearchProductsState extends SearchProducts {
@@ -22,10 +24,11 @@ export interface SearchProductsState extends SearchProducts {
 export const initialState: SearchProductsState = {
   search: '',
   checkboxState: {},
-  priceRange: [0, 1500],
+  priceRange: [PriceRange.MIN, PriceRange.MAX],
   areFiltersSet: false,
   status: 'idle',
   categoryId: undefined,
+  sortIndex: 0,
 };
 
 export const searchSlice = createSlice({
@@ -47,7 +50,6 @@ export const searchSlice = createSlice({
       state.areFiltersSet = true;
       state.priceRange = action.payload;
     },
-
     clearFilters: state => {
       state.areFiltersSet = false;
       state.checkboxState = initialState.checkboxState;
@@ -56,6 +58,9 @@ export const searchSlice = createSlice({
     },
     setCategoryId: (state, action) => {
       state.categoryId = action.payload;
+    },
+    setSortIndex: (state, action) => {
+      state.sortIndex = action.payload;
     },
   },
   extraReducers: builder => {

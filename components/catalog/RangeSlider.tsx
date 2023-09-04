@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useDispatch, useSelector } from '@/redux/store';
 import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
+import { PriceRange } from '@/types/enums';
 
 function valueText(value: number) {
   return `${value} €`;
@@ -10,12 +11,12 @@ function valueText(value: number) {
 
 const marks = [
   {
-    value: 0,
-    label: '0 €',
+    value: PriceRange.MIN,
+    label: `${PriceRange.MIN} €`,
   },
   {
-    value: 250,
-    label: '250 €',
+    value: PriceRange.MAX,
+    label: `${PriceRange.MAX} €`,
   },
 ];
 
@@ -37,8 +38,8 @@ const RangeSlider = () => {
         getAriaValueText={valueText}
         valueLabelFormat={valueText}
         size='small'
-        step={10}
-        max={250}
+        step={PriceRange.STEP}
+        max={PriceRange.MAX}
         marks={marks}
       />
     </Box>

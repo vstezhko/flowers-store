@@ -8,9 +8,23 @@
 
   @include medium {
     flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+}
+
+.catalog-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  @include medium {
     gap: 10px;
   }
-  
+
 }
 
 .settings {
@@ -20,23 +34,27 @@
   padding: 15px;
   height: fit-content;
 
-  .css-d59h4-MuiTreeItem-content .MuiTreeItem-label {
-    font-size: inherit;
+  .MuiTreeItem-content {
+
+    .MuiTreeItem-label {
+      font-size: inherit;
+    }
+
   }
 
-  .css-15mcrbu-MuiTypography-root {
+  .MuiFormControlLabel-label {
     font-size: inherit;
   }
 
   h4 {
-    padding: 15px 0 ;
+    padding: 15px 0;
   }
 
   @include small {
     padding: 10px;
 
     h4 {
-      padding: 10px 0 ;
+      padding: 10px 0;
     }
 
   }
@@ -47,13 +65,10 @@
   position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(263px, max-content));
-  max-width: calc(100% - 265px);
   gap: 20px;
-  justify-content: center;
 
   @include medium {
-    max-width: none;
-    width: 100%;
+    justify-content: center;
   }
 
   @include small {
@@ -64,7 +79,7 @@
 }
 
 .catalog__message {
-  position: absolute; 
+  position: absolute;
   width: 100%;
   overflow-wrap: break-word;
   padding: 15px;
@@ -75,6 +90,32 @@
 
   @include small {
     padding: 10px;
+  }
+
+}
+
+.searchbar-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+  font-family: var(--avenir-reg);
+
+  div {
+    flex: inherit;
+    font-size: inherit;
+    color: var(--primary-color);
+
+    p {
+      font-size: inherit;
+      font-family: inherit;
+      color: inherit;
+    }
+  }
+
+  @include small-mobile {
+    flex-direction: column;
+    padding-top: 8px;
   }
 
 }

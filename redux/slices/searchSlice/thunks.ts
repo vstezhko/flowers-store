@@ -10,13 +10,15 @@ export const getSearchProductsAsync = createAppAsyncThunk(
     filterParams,
     priceParams,
     categoryId,
+    sortIndex,
   }: {
     token: string;
     searchParams?: SearchParams;
     filterParams?: FilterParams;
     priceParams?: number[];
     categoryId?: string;
+    sortIndex?: number;
   }) => {
-    return ProductsService.getSearchProducts(token, searchParams, filterParams, priceParams, categoryId);
+    return ProductsService.getSearchProducts(token, searchParams, filterParams, priceParams, categoryId, sortIndex);
   }
 );

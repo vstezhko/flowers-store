@@ -10,8 +10,8 @@ import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice
 import { useDispatch, useSelector } from '@/redux/store';
 import CategorySelector from '@/components/catalog/CategorySelector';
 import { getSearchProductsAsync } from '@/redux/slices/searchSlice/thunks';
-import { getProductsAsync } from '@/redux/slices/catalogSlice/thunks';
 import FilterBlock from '@/components/catalog/Filter';
+import SortMenu from '@/components/catalog/SortMenu';
 
 export interface ProductCategory {
   typeId: string;
@@ -73,37 +73,6 @@ interface ProductAttribute {
   value: string;
 }
 
-interface ProductMasterData {
-  current: CurrentProductData;
-}
-
-interface CurrentProductData {
-  name: {
-    en: string | null;
-  };
-  description: {
-    en: string | null;
-  };
-  categories: ProductCategory[];
-  categoryOrderHints: {};
-  images: ProductImage[];
-  slug: {
-    en: string | null;
-  };
-  metaTitle: {
-    en: string | null;
-  };
-  metaKeywords: {
-    en: string | null;
-  };
-  metaDescription: {
-    en: string | null;
-  };
-  masterVariant: ProductVariant;
-  variants: ProductVariant[];
-  searchKeywords: {};
-}
-
 interface ResponseSearchProduct {
   id: string;
   name: {
@@ -114,11 +83,6 @@ interface ResponseSearchProduct {
   };
   masterVariant: ProductVariant;
   variants: ProductVariant[];
-}
-
-interface ResponseProduct {
-  id: string;
-  masterData: ProductMasterData;
 }
 
 interface PageProduct {
@@ -137,6 +101,7 @@ const Catalog = () => {
   const checkboxState = useSelector(state => state.search.checkboxState);
   const priceRange = useSelector(state => state.search.priceRange);
   const categoryId = useSelector(state => state.search.categoryId);
+  const sortIndex = useSelector(state => state.search.sortIndex);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -156,27 +121,6 @@ const Catalog = () => {
     };
   }
 
-  const fetchProducts = useCallback(async () => {
-    setIsSearchActive(false);
-    const response = await dispatch(getProductsAsync(TokenService.getAccessTokenFromLS().token)).unwrap();
-    const products = response.results.map((item: ResponseProduct) => {
-      const { masterVariant, variants } = item.masterData.current;
-      const prices = getLowestPrice(masterVariant, variants);
-      return {
-        id: item.id,
-        name: item.masterData.current.name.en,
-        price: prices.price,
-        discounted: prices.discounted,
-        currency: prices.currencyCode,
-        image: item.masterData.current.masterVariant.images[0].url
-          ? item.masterData.current.masterVariant.images[0].url
-          : noImage.src,
-        description: item.masterData.current.description.en,
-      };
-    });
-    setProductsPage(products);
-  }, [dispatch]);
-
   const fetchSearchProducts = useCallback(
     async (searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
       setIsSearchActive(true);
@@ -187,6 +131,7 @@ const Catalog = () => {
           filterParams,
           priceParams,
           categoryId,
+          sortIndex,
         })
       ).unwrap();
       setTotalResults(response.total);
@@ -205,11 +150,10 @@ const Catalog = () => {
       });
       setProductsPage(products);
     },
-    [dispatch, categoryId]
+    [dispatch, categoryId, sortIndex]
   );
 
   useEffect(() => {
-    let filterExist = false;
     let filterOptions: FilterParams = {};
 
     for (const filterIdState in checkboxState) {
@@ -221,55 +165,55 @@ const Catalog = () => {
           } else {
             filterOptions[filterIdState] = [optionKeyState];
           }
-          filterExist = true;
         }
       }
     }
 
-    if (searchItem || filterExist || priceRange) {
-      fetchSearchProducts({ 'text.en': searchItem, fuzzy: true, priceCurrency: 'EUR' }, filterOptions, priceRange);
-    } else {
-      fetchProducts();
-    }
-  }, [searchItem, checkboxState, priceRange, dispatch, fetchSearchProducts, fetchProducts]);
+    fetchSearchProducts({ 'text.en': searchItem, fuzzy: true, priceCurrency: 'EUR' }, filterOptions, priceRange);
+  }, [searchItem, checkboxState, priceRange, dispatch, fetchSearchProducts]);
 
   return (
     <section className='catalog page'>
       <h1 className='page__title'>Catalog</h1>
       <div className='catalog-page-wrapper'>
         <Paper className='settings' elevation={0}>
-          <Searchbar
-            className='settings__search'
-            onSubmit={(newSearchItem: string) => {
-              dispatch(searchActions.setSearch(newSearchItem));
-            }}
-            value={searchItem}
-            onChange={value => dispatch(searchActions.setSearch(value))}
-            inputProps={{}}
-          />
           <CategorySelector />
           <FilterBlock />
         </Paper>
-        <div className='catalog__container'>
-          {isSearchActive && totalResults === 0 ? (
-            <h4 className='catalog__message'>
-              Unfortunately, no results were found for your search{searchItem ? ` "${searchItem}"` : ''}. Try other
-              options!
-            </h4>
-          ) : (
-            productsPage.map(product => (
-              <SmallProductCard
-                key={product.id}
-                id={product.id}
-                productName={product.name || 'No product name'}
-                price={product.price}
-                discounted={product.discounted}
-                currency={product.currency}
-                description={product.description || 'No description available'}
-                image={product.image}
-              />
-            ))
-          )}
+        <div className='catalog-wrapper'>
+          <Paper className='searchbar-block' elevation={0}>
+            <Searchbar
+              onSubmit={(newSearchItem: string) => {
+                dispatch(searchActions.setSearch(newSearchItem));
+              }}
+              onClear={() => dispatch(searchActions.setSearch(''))}
+              value={searchItem}
+              onChange={value => dispatch(searchActions.setSearch(value))}
+              inputProps={{}}
+            />
+            <SortMenu />
+          </Paper>
+          <div className='catalog__container'>
+            {isSearchActive && totalResults === 0 ? (
+              <h4 className='catalog__message'>
+                Unfortunately, no results were found for your search{searchItem ? ` "${searchItem}"` : ''}. Try other
+                options!
+              </h4>
+            ) : (
+              productsPage.map(product => (
+                <SmallProductCard
+                  key={product.id}
+                  id={product.id}
+                  productName={product.name || 'No product name'}
+                  price={product.price}
+                  discounted={product.discounted}
+                  currency={product.currency}
+                  description={product.description || 'No description available'}
+                  image={product.image}
+                />
+              ))
+            )}
+          </div>
         </div>
       </div>
     </section>
