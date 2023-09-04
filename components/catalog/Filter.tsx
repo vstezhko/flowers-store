@@ -61,7 +61,7 @@ const FilterBlock = () => {
             {filter.options &&
               Object.entries(filter.options).map(option => (
                 <FsCheckbox
-                  checked={!!checkboxState[filter.id] && !!checkboxState[filter.id][option[0]]}
+                  value={!!checkboxState[filter.id] && !!checkboxState[filter.id][option[0]]}
                   key={option[0]}
                   name={option[0]}
                   label={option[1]}
