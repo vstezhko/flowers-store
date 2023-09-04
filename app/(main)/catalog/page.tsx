@@ -186,6 +186,7 @@ const Catalog = () => {
               onSubmit={(newSearchItem: string) => {
                 dispatch(searchActions.setSearch(newSearchItem));
               }}
+              onClear={() => dispatch(searchActions.setSearch(''))}
               value={searchItem}
               onChange={value => dispatch(searchActions.setSearch(value))}
               inputProps={{}}
