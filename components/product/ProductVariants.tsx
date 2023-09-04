@@ -10,8 +10,6 @@ export interface ProductVariantsParams {
 }
 
 const ProductVariants: FC<ProductVariantsParams> = ({ productVariants, activeVariant, onChange }) => {
-  console.log(productVariants);
-
   return (
     <div className='product-block__variants'>
       {productVariants.length ? (
