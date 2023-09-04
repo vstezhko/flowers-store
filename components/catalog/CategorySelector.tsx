@@ -14,6 +14,7 @@ export interface CategoryTreeData extends CategoryFullData {
 
 const CategorySelector = () => {
   const { categories } = useSelector(state => state.category);
+  const { categoryId } = useSelector(state => state.search);
   const dispatch = useDispatch();
   const [mainCategories, setMainCategories] = useState<CategoryTreeData[]>([]);
 
@@ -62,6 +63,8 @@ const CategorySelector = () => {
         id={'categories'}
         aria-label='Categories'
         disabledItemsFocusable={true}
+        expanded={categories && categoryId ? [categoryId || '', categories[categoryId]?.parent?.id || ''] : ['']}
+        selected={categoryId || ''}
         onNodeSelect={onChooseCategory}>
         {mainCategories && mainCategories.map(item => renderTree(item))}
       </TreeView>

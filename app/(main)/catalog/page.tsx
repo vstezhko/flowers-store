@@ -12,6 +12,7 @@ import CategorySelector from '@/components/catalog/CategorySelector';
 import { getSearchProductsAsync } from '@/redux/slices/searchSlice/thunks';
 import FilterBlock from '@/components/catalog/Filter';
 import SortMenu from '@/components/catalog/SortMenu';
+import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
 
 export interface ProductCategory {
   typeId: string;
@@ -174,7 +175,7 @@ const Catalog = () => {
 
   return (
     <section className='catalog page'>
-      <h1 className='page__title'>Catalog</h1>
+      <CategoryBreadcrumbs categoryId={categoryId} />
       <div className='catalog-page-wrapper'>
         <Paper className='settings' elevation={0}>
           <CategorySelector />

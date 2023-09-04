@@ -3,6 +3,7 @@ import { TokenService } from '@/api/services/Token.service';
 import { AuthService } from '@/api/services/Auth.services';
 import { authSlice } from '@/redux/slices/authSlice';
 import { TokenType } from '@/types/enums';
+import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 
 const authMiddleware: Middleware = store => next => action => {
   if (action.error && action.error.message === 'invalid_token') {
@@ -25,7 +26,7 @@ const authMiddleware: Middleware = store => next => action => {
           return;
         });
     }
-    if (refreshToken.token) {
+    if (refreshToken?.token) {
       AuthService.refreshCustomerAccessToken(refreshToken.token)
         .then(response => {
           store.dispatch(
@@ -43,7 +44,15 @@ const authMiddleware: Middleware = store => next => action => {
     }
   }
 
+  if (action.type === 'auth/setAccessToken') {
+    store.dispatch(
+      snackbarSlice.actions.setMessage({
+        message: 'try one more time',
+        variant: 'success',
+      })
+    );
+  }
+
   return next(action);
 };
-
 export default authMiddleware;
