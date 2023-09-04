@@ -49,6 +49,17 @@
         @include font(10px, 700, normal);
       }
 
+
+      @include small-xs-mobile(){
+        &.MuiTab-root{
+          min-width: 50px;
+          max-width: 50px;
+          @include font(8px, 700, normal);
+        }
+      }
+
+
+
       &:last-child {
         border-bottom: none;
       }

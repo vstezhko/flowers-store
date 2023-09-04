@@ -55,14 +55,48 @@ const ProfileFormContainer = ({ src, type }: { src: string; type: string }) => {
     ];
   }, [customer]);
 
+  const passwordInputFields: FormItemFieldsParams[] = useMemo(() => {
+    return [
+      {
+        id: 23,
+        formGroup: FormGroups.CUSTOMER,
+        validationRuleGroup: ValidationRuleGroup.CURRENT_PASSWORD,
+        name: 'currentPassword',
+        type: 'password',
+        label: 'current password',
+        value: '',
+      },
+      {
+        id: 24,
+        formGroup: FormGroups.CUSTOMER,
+        validationRuleGroup: ValidationRuleGroup.PASSWORD,
+        name: 'password',
+        type: 'password',
+        label: 'new password',
+        value: '',
+      },
+      {
+        id: 25,
+        formGroup: FormGroups.CUSTOMER,
+        validationRuleGroup: ValidationRuleGroup.CONFIRM_PASSWORD,
+        name: 'confirmPassword',
+        type: 'password',
+        label: 'confirm new password',
+        value: '',
+      },
+    ];
+  }, [customer]);
+
   return (
     <div className='personal__form-container'>
       {type === FormGroups.CUSTOMER ? (
         <PersonalForm childComponent={PersonalInfoForm} modeEdit={true} data={mainInputFields} type={type} />
       ) : type === FormGroups.SHIPPING_ADDRESS ? (
         <ProfileAddressCard addressData={shipping} type={type} customer={customer} />
-      ) : (
+      ) : type === FormGroups.BILLING_ADDRESS ? (
         <ProfileAddressCard addressData={billing} type={type} customer={customer} />
+      ) : (
+        <PersonalForm childComponent={PersonalInfoForm} modeEdit={false} data={passwordInputFields} type={type} />
       )}
       <div className='profile__container-img'>
         <Image className='profile__img' src={src} alt='ProfileContainer photo' layout='fill' />

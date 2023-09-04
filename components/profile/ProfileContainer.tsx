@@ -5,8 +5,9 @@ import ProfileFormContainer from '@/components/form/ProfileFormContainer';
 import profileImage from '@/public/img/jpeg/address2.jpeg';
 import addressBillingImage from '@/public/img/jpeg/address.jpeg';
 import addressShippingImage from '@/public/img/jpeg/profile.webp';
+import password from '@/public/img/jpeg/password.jpg';
 
-const tabsName: string[] = ['Personal Info', 'Shipping Address', 'Billing Address'];
+const tabsName: string[] = ['Personal Info', 'Shipping Address', 'Billing Address', 'Password'];
 
 const ProfileContainer = () => {
   interface ChildComponent {
@@ -22,6 +23,9 @@ const ProfileContainer = () => {
     },
     {
       component: <ProfileFormContainer src={addressBillingImage.src} type={FormGroups.BILLING_ADDRESS} />,
+    },
+    {
+      component: <ProfileFormContainer src={password.src} type='password' />,
     },
   ];
 

@@ -40,3 +40,5 @@ next-env.d.ts
 .swc
 
 package-lock.json
+
+.gitkeep

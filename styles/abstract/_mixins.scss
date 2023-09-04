@@ -61,6 +61,12 @@ inputLabelFont {
   }
 }
 
+@mixin small-xs-mobile {
+  @media (max-width: $mq-xs-mobile) {
+    @content;
+  }
+}
+
 @mixin hover {
   @media (hover:hover) {
     @content;
