@@ -10,8 +10,11 @@
   }
 
   &__menu-item {
-    font-size: inherit;
     @extend %transition;
+
+    &.MuiMenuItem-root {
+      font-size: inherit;
+    }
 
     @include hover {
     

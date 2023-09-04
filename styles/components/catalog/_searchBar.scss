@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   padding: 4px 8px;
-  background-color: $color-shade-7;
+
   height: fit-content;
   flex: 1 1;
 
@@ -20,4 +20,8 @@
     width: 100%;
   }
 
+}
+
+form.searchbar {
+  background-color: $color-shade-7;
 }
