@@ -12,6 +12,7 @@ import CategorySelector from '@/components/catalog/CategorySelector';
 import { getSearchProductsAsync } from '@/redux/slices/searchSlice/thunks';
 import FilterBlock from '@/components/catalog/Filter';
 import SortMenu from '@/components/catalog/SortMenu';
+import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
 
 export interface ProductCategory {
   typeId: string;
@@ -173,50 +174,52 @@ const Catalog = () => {
   }, [searchItem, checkboxState, priceRange, dispatch, fetchSearchProducts]);
 
   return (
-    <section className='catalog page'>
-      <h1 className='page__title'>Catalog</h1>
-      <div className='catalog-page-wrapper'>
-        <Paper className='settings' elevation={0}>
-          <CategorySelector />
-          <FilterBlock />
-        </Paper>
-        <div className='catalog-wrapper'>
-          <Paper className='searchbar-block' elevation={0}>
-            <Searchbar
-              onSubmit={(newSearchItem: string) => {
-                dispatch(searchActions.setSearch(newSearchItem));
-              }}
-              onClear={() => dispatch(searchActions.setSearch(''))}
-              value={searchItem}
-              onChange={value => dispatch(searchActions.setSearch(value))}
-              inputProps={{}}
-            />
-            <SortMenu />
+    <>
+      <section className='catalog page'>
+        <CategoryBreadcrumbs categoryId={categoryId} />
+        <div className='catalog-page-wrapper'>
+          <Paper className='settings' elevation={0}>
+            <CategorySelector />
+            <FilterBlock />
           </Paper>
-          <div className='catalog__container'>
-            {isSearchActive && totalResults === 0 ? (
-              <h4 className='catalog__message'>
-                Unfortunately, no results were found for your search{searchItem ? ` "${searchItem}"` : ''}. Try other
-                options!
-              </h4>
-            ) : (
-              productsPage.map(product => (
-                <SmallProductCard
-                  key={product.id}
-                  id={product.id}
-                  productName={product.name || 'No product name'}
-                  price={product.price}
-                  discounted={product.discounted}
-                  currency={product.currency}
-                  description={product.description || 'No description available'}
-                  image={product.image}
-                />
-              ))
-            )}
+          <div className='catalog-wrapper'>
+            <Paper className='searchbar-block' elevation={0}>
+              <Searchbar
+                onSubmit={(newSearchItem: string) => {
+                  dispatch(searchActions.setSearch(newSearchItem));
+                }}
+                onClear={() => dispatch(searchActions.setSearch(''))}
+                value={searchItem}
+                onChange={value => dispatch(searchActions.setSearch(value))}
+                inputProps={{}}
+              />
+              <SortMenu />
+            </Paper>
+            <div className='catalog__container'>
+              {isSearchActive && totalResults === 0 ? (
+                <h4 className='catalog__message'>
+                  Unfortunately, no results were found for your search{searchItem ? ` "${searchItem}"` : ''}. Try other
+                  options!
+                </h4>
+              ) : (
+                productsPage.map(product => (
+                  <SmallProductCard
+                    key={product.id}
+                    id={product.id}
+                    productName={product.name || 'No product name'}
+                    price={product.price}
+                    discounted={product.discounted}
+                    currency={product.currency}
+                    description={product.description || 'No description available'}
+                    image={product.image}
+                  />
+                ))
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
