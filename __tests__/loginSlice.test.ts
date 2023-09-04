@@ -1,4 +1,4 @@
-import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
+import { AnyAction, configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import { loginSlice, initialState, LoginState } from '@/redux/slices/loginSlice/loginSlice';
 import { CustomerService } from '@/api/services/Customer.service';
 import { getCustomerAsync, loginAsync, signUpAsync } from '@/redux/slices/loginSlice/thunks';
@@ -23,12 +23,6 @@ describe('loginSlice', () => {
     expect(state.isSignUp).toBe(true);
   });
 
-  // it('should handle removeMessage', () => {
-  //   store.dispatch(snackbarSlice.actions.removeMessage());
-  //   const state = store.getState().snackbar;
-  //   expect(state.message).toBe('');
-  // });
-
   it('should handle removeCustomer', () => {
     const initialStateWithCustomer = {
       login: {
@@ -38,7 +32,10 @@ describe('loginSlice', () => {
         },
       },
     };
-    store = configureStore({ reducer: { login: loginSlice.reducer }, preloadedState: initialStateWithCustomer });
+    store = configureStore({
+      reducer: { login: loginSlice.reducer },
+      preloadedState: initialStateWithCustomer,
+    });
 
     store.dispatch(loginSlice.actions.removeCustomer());
     const state = store.getState().login;
@@ -46,15 +43,6 @@ describe('loginSlice', () => {
       ...initialState.customer,
     });
   });
-
-  // it('should handle setMessage', () => {
-  //   const message = 'Test message';
-  //   const variant = 'error';
-  //   store.dispatch(loginSlice.actions.setMessage({ message, variant }));
-  //   const state = store.getState().login;
-  //   expect(state.message).toBe(message);
-  //   expect(state.variant).toBe(variant);
-  // });
 
   it('should fetch customer data and update state', async () => {
     const mockToken = 'mockToken';
@@ -73,7 +61,7 @@ describe('loginSlice', () => {
     const mockToken = 'mockToken';
     const mockAuthService = jest.spyOn(AuthService, 'login').mockResolvedValue(mockToken);
 
-    await store.dispatch(loginAsync({ loginPayload: mockLoginPayload, token: mockToken }) as any);
+    await store.dispatch(loginAsync({ loginPayload: mockLoginPayload, token: mockToken }) as unknown as AnyAction);
 
     const state = store.getState().login;
     expect(mockAuthService).toHaveBeenCalledWith(mockLoginPayload, mockToken);
@@ -104,7 +92,7 @@ describe('loginSlice', () => {
     const mockToken = 'mockToken';
     const mockAuthService = jest.spyOn(AuthService, 'signUp').mockResolvedValue(mockToken);
 
-    await store.dispatch(signUpAsync({ signUpPayload: mockSignUpPayload, token: mockToken }) as any);
+    await store.dispatch(signUpAsync({ signUpPayload: mockSignUpPayload, token: mockToken }) as unknown as AnyAction);
 
     const state = store.getState().login;
     expect(mockAuthService).toHaveBeenCalledWith(mockSignUpPayload, mockToken);
