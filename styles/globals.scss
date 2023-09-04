@@ -94,4 +94,9 @@ body {
   &__content{
     padding-top: 50px;
   }
+
+  @include medium {
+    padding: 30px 0;
+  }
+
 }

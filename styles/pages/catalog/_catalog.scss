@@ -8,7 +8,9 @@
 
   @include medium {
     flex-direction: column;
+    justify-content: flex-start;
     gap: 10px;
+    padding: 10px 0;
   }
   
 }
@@ -60,11 +62,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(263px, max-content));
   gap: 20px;
-  justify-content: center;
 
   @include medium {
-    max-width: none;
-    width: 100%;
+    justify-content: center;
   }
 
   @include small {
@@ -107,6 +107,11 @@
       font-family: inherit;
       color: inherit;
     }
+  }
+
+  @include small-mobile {
+    flex-direction: column;
+    padding-top: 8px;
   }
 
 }

@@ -16,4 +16,8 @@
     flex: 1;
   }
 
+  @include small-mobile {
+    width: 100%;
+  }
+
 }

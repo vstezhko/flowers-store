@@ -1,5 +1,9 @@
-.category-selector__tree {
-  flex-grow: 1;
+.category-selector {
   max-width: 400px;
-  overflow-y: auto;
+
+  &__tree {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
 }
