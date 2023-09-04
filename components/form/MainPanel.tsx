@@ -14,7 +14,7 @@ const MainPanel = ({
   page: string;
   formik: FormikProps<formikValuesType>;
 }) => {
-  const onChangeHandler = (e: ChangeEvent<any>) => {
+  const onChangeHandler = (e: ChangeEvent) => {
     formik.setFieldTouched('type');
     formik.handleChange(e);
   };

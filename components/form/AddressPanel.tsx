@@ -68,7 +68,7 @@ const AddressPanel = ({
     }
   }, [checkAddressValidity, setIsValid]);
 
-  const onChangeHandler = (e: ChangeEvent<any>) => {
+  const onChangeHandler = (e: ChangeEvent) => {
     formik.setFieldTouched('type');
     formik.handleChange(e);
   };
