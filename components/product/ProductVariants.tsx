@@ -17,7 +17,7 @@ const ProductVariants: FC<ProductVariantsParams> = ({ productVariants, activeVar
           return (
             <ProductVariantCard
               key={variant?.variant.id}
-              id={variant?.variant.id.toString()}
+              id={variant?.size.toString()}
               price={variant?.variant.prices[0].value.centAmount / 100}
               discounted={
                 variant?.variant.prices[0].discounted
