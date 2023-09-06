@@ -58,3 +58,7 @@ export enum PriceRange {
   MAX = 250,
   STEP = 10,
 }
+
+export enum PaginationParams {
+  LIMIT = 12,
+}

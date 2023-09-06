@@ -6,6 +6,7 @@ export const getSearchProductsAsync = createAppAsyncThunk(
   'products/search?',
   async ({
     token,
+    paginatorPage,
     searchParams,
     filterParams,
     priceParams,
@@ -13,12 +14,21 @@ export const getSearchProductsAsync = createAppAsyncThunk(
     sortIndex,
   }: {
     token: string;
+    paginatorPage: number;
     searchParams?: SearchParams;
     filterParams?: FilterParams;
     priceParams?: number[];
     categoryId?: string;
     sortIndex?: number;
   }) => {
-    return ProductsService.getSearchProducts(token, searchParams, filterParams, priceParams, categoryId, sortIndex);
+    return ProductsService.getSearchProducts(
+      token,
+      paginatorPage,
+      searchParams,
+      filterParams,
+      priceParams,
+      categoryId,
+      sortIndex
+    );
   }
 );

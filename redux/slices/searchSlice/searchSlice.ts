@@ -15,6 +15,7 @@ export interface SearchProducts {
   areFiltersSet: boolean;
   categoryId?: string | undefined;
   sortIndex: number;
+  paginatorPage: number;
 }
 
 export interface SearchProductsState extends SearchProducts {
@@ -29,6 +30,7 @@ export const initialState: SearchProductsState = {
   status: 'idle',
   categoryId: undefined,
   sortIndex: 0,
+  paginatorPage: 1,
 };
 
 export const searchSlice = createSlice({
@@ -36,9 +38,11 @@ export const searchSlice = createSlice({
   initialState: initialState,
   reducers: {
     setSearch: (state, action) => {
+      state.paginatorPage = initialState.paginatorPage;
       state.search = action.payload;
     },
     toggleCheckbox: (state, action) => {
+      state.paginatorPage = initialState.paginatorPage;
       state.areFiltersSet = true;
       const { filterId, optionKey } = action.payload;
       if (!state.checkboxState[filterId]) {
@@ -47,20 +51,27 @@ export const searchSlice = createSlice({
       state.checkboxState[filterId][optionKey] = !state.checkboxState[filterId][optionKey];
     },
     setPriceRange: (state, action) => {
+      state.paginatorPage = initialState.paginatorPage;
       state.areFiltersSet = true;
       state.priceRange = action.payload;
     },
     clearFilters: state => {
+      state.paginatorPage = initialState.paginatorPage;
       state.areFiltersSet = false;
       state.checkboxState = initialState.checkboxState;
       state.priceRange = initialState.priceRange;
       state.status = initialState.status;
     },
     setCategoryId: (state, action) => {
+      state.paginatorPage = initialState.paginatorPage;
       state.categoryId = action.payload;
     },
     setSortIndex: (state, action) => {
+      state.paginatorPage = initialState.paginatorPage;
       state.sortIndex = action.payload;
+    },
+    setPaginatorPage: (state, action) => {
+      state.paginatorPage = action.payload;
     },
   },
   extraReducers: builder => {
