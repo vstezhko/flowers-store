@@ -1,5 +1,5 @@
 import { get, PROJECT_KEY } from '@/api/api';
-import { SortParams } from '@/types/enums';
+import { PaginationParams, SortParams } from '@/types/enums';
 import { SearchParams, FilterParams } from '@/types/types';
 
 const getProducts = async (token: string) => {
@@ -9,6 +9,7 @@ const getProducts = async (token: string) => {
 
 const getSearchProducts = async (
   token: string,
+  paginatorPage: number,
   searchParams?: SearchParams,
   filterParams?: FilterParams,
   priceParams?: number[],
@@ -34,6 +35,7 @@ const getSearchProducts = async (
       order: SortParams.DESC,
     },
   ];
+  const perPage = PaginationParams.LIMIT;
 
   if (filterParams !== undefined) {
     for (const filterKey in filterParams) {
@@ -62,6 +64,7 @@ const getSearchProducts = async (
   const query = [
     ...Object.entries(searchParams || {}).map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`),
     ...filterParamsArr,
+    `offset=${(paginatorPage - 1) * perPage}&limit=${perPage}`,
   ].join('&');
 
   const response = await get(`/${PROJECT_KEY}/product-projections/search?${query}`, token);

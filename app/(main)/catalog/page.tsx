@@ -13,6 +13,8 @@ import { getSearchProductsAsync } from '@/redux/slices/searchSlice/thunks';
 import FilterBlock from '@/components/catalog/Filter';
 import SortMenu from '@/components/catalog/SortMenu';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
+import Paginator from '@/components/catalog/Paginator';
+import { PaginationParams } from '@/types/enums';
 
 export interface ProductCategory {
   typeId: string;
@@ -103,6 +105,7 @@ const Catalog = () => {
   const priceRange = useSelector(state => state.search.priceRange);
   const categoryId = useSelector(state => state.search.categoryId);
   const sortIndex = useSelector(state => state.search.sortIndex);
+  const paginatorPage = useSelector(state => state.search.paginatorPage);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -128,6 +131,7 @@ const Catalog = () => {
       const response = await dispatch(
         getSearchProductsAsync({
           token: TokenService.getAccessTokenFromLS().token,
+          paginatorPage,
           searchParams,
           filterParams,
           priceParams,
@@ -151,7 +155,7 @@ const Catalog = () => {
       });
       setProductsPage(products);
     },
-    [dispatch, categoryId, sortIndex]
+    [dispatch, paginatorPage, categoryId, sortIndex]
   );
 
   useEffect(() => {
@@ -215,6 +219,7 @@ const Catalog = () => {
               ))
             )}
           </div>
+          <Paginator count={Math.ceil(totalResults / PaginationParams.LIMIT)} />
         </div>
       </div>
     </section>
