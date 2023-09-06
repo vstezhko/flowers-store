@@ -1,0 +1,44 @@
+.filters {
+  max-width: 400px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__remove-filters {
+    cursor: pointer;
+  }
+
+  &__tree {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__range-slider {
+    width: 75%;
+    padding: 5px;
+    margin-left: 29px;
+  }
+
+  .MuiSlider-valueLabel {
+    line-height: 0.5rem;
+    font-size: 0.7rem;
+    top: -6px,
+  }
+
+  .MuiSlider-valueLabel::before {
+    display: none;
+  }
+
+  .MuiFormControlLabel-root.fsCheckbox {
+    margin-left: 25px;
+  }
+
+}

@@ -2,8 +2,8 @@ import { FormHelperText, InputLabel, MenuItem, Select, SelectProps } from '@mui/
 import React from 'react';
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 import { FormikProps } from 'formik';
-import { formikValuesType } from '@/components/form/FormContainer';
 import { selectInputOptions } from '@/types/interface';
+import { formikValuesType } from '@/types/types';
 
 export interface FsSelectParams extends Omit<SelectProps, 'ref'> {
   id: string;
@@ -16,10 +16,10 @@ export interface FsSelectParams extends Omit<SelectProps, 'ref'> {
   focused?: boolean;
   validationRuleGroup?: ValidationRuleGroup;
   onChange: FormikProps<formikValuesType>['handleChange'];
-  onBlur: FormikProps<formikValuesType>['handleBlur'];
+  onBlur?: FormikProps<formikValuesType>['handleBlur'];
   options: selectInputOptions[];
   formgroup: FormGroups;
-  error: boolean;
+  error?: boolean;
 }
 
 const FsSelect: React.FC<FsSelectParams> = props => {

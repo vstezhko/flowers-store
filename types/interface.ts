@@ -1,3 +1,6 @@
+import { FormGroups, ValidationRuleGroup } from '@/types/enums';
+import { FormItemFieldsParams } from '@/types/types';
+
 export interface IconParams {
   disabled?: boolean;
 }
@@ -7,7 +10,7 @@ export interface LoginValues {
   password: string;
 }
 
-export interface address {
+export interface IAddress {
   phone: string;
   country: string;
   city: string;
@@ -22,7 +25,8 @@ export interface customerDraft {
   lastName: string;
   email: string;
   password: string;
-  addresses: address[];
+  dateOfBirth: string;
+  addresses: IAddress[];
   shippingAddresses: number[];
   defaultShippingAddress?: number | null;
   billingAddresses: number[];
@@ -32,4 +36,71 @@ export interface customerDraft {
 export interface selectInputOptions {
   code: string;
   name: string;
+}
+
+export interface FormItemFieldParams {
+  id: number;
+  formGroup: FormGroups;
+  validationRuleGroup: ValidationRuleGroup;
+  name: string;
+  type?: string;
+  label?: string;
+  value?: string | null;
+  options?: selectInputOptions[];
+}
+
+export interface FormItemUnionFieldsParams {
+  id: number | string;
+  data?: FormItemFieldsParams[];
+}
+
+export interface ChangeAddressAction {
+  action: 'changeAddress';
+  addressId: string;
+  address: IAddress;
+}
+
+export interface AddAddressAction {
+  action: 'addAddress';
+  address: IAddress;
+}
+
+export interface RemoveAddressAction {
+  action: 'removeAddress';
+  addressId: string;
+}
+
+export interface AddAddressIdAction {
+  action: 'addShippingAddressId' | 'addBillingAddressId';
+  addressId: string;
+}
+
+export interface SetDefaultAddressAction {
+  action: 'setDefaultShippingAddress' | 'setDefaultBillingAddress';
+  addressId: string | undefined;
+}
+
+export interface ChangeEmailAction {
+  action: 'changeEmail';
+  email: string;
+}
+
+export interface SetFirstNameAction {
+  action: 'setFirstName';
+  firstName: string;
+}
+
+export interface SetLastNameAction {
+  action: 'setLastName';
+  lastName: string;
+}
+
+export interface SetDateOfBirthAction {
+  action: 'setDateOfBirth';
+  dateOfBirth: string;
+}
+
+export interface IChangePassword {
+  currentPassword: string;
+  newPassword: string;
 }

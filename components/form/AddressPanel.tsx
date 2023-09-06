@@ -2,11 +2,11 @@ import React, { ChangeEvent } from 'react';
 import FsInput from '@/components/UI/FsInput';
 import FsPhoneInput from '@/components/UI/FsPhoneInput';
 import FsCheckbox from '@/components/UI/FsCheckbox';
-import { formikValuesType, FormItemFieldsParams } from '@/components/form/FormContainer';
 import { FormikProps } from 'formik';
 import FsSelect from '@/components/UI/FsSelect';
 import { useCallback, useEffect } from 'react';
 import { FormGroups } from '@/types/enums';
+import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 
 const AddressPanel = ({
   data,
@@ -16,7 +16,7 @@ const AddressPanel = ({
   setIsValid,
 }: {
   data: FormItemFieldsParams[];
-  title: string;
+  title?: string;
   formik: FormikProps<formikValuesType>;
   disabled?: boolean;
   setIsValid?: (isValid: boolean) => void;
@@ -68,7 +68,7 @@ const AddressPanel = ({
     }
   }, [checkAddressValidity, setIsValid]);
 
-  const onChangeHandler = (e: ChangeEvent<any>) => {
+  const onChangeHandler = (e: ChangeEvent) => {
     formik.setFieldTouched('type');
     formik.handleChange(e);
   };
@@ -82,11 +82,11 @@ const AddressPanel = ({
           compoundName = `${inputData.formGroup}-${inputData.name}`;
         }
 
-        if ('type' in inputData && compoundName && inputData.type === 'select' && inputData.value?.length) {
+        if ('type' in inputData && compoundName && inputData.type === 'select' && inputData.options?.length) {
           return (
             <FsSelect
               key={inputData.id}
-              options={inputData.value}
+              options={inputData.options}
               onBlur={formik.handleBlur}
               onChange={(e: ChangeEvent) => {
                 formik.setFieldTouched('type');
@@ -120,7 +120,7 @@ const AddressPanel = ({
               value={(formik.values[compoundName] as string) || '+48 ___ ___ ___'}
               label={inputData.label || ''}
               type={inputData.type}
-              name={inputData.name}
+              name={compoundName}
               onChange={onChangeHandler}
               onBlur={formik.handleBlur}
               errorText={

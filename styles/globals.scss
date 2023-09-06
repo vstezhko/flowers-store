@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  width: auto;
+  height: auto;
+}
+
 html {
   background: $color-background;
 
@@ -77,9 +87,16 @@ body {
 
   &__title{
     text-align: center;
+    margin-bottom: 20px;
+    @extend %font-title;
   }
 
   &__content{
     padding-top: 50px;
   }
+
+  @include medium {
+    padding: 30px 0;
+  }
+
 }

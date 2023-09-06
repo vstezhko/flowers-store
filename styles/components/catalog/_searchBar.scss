@@ -1,0 +1,27 @@
+.searchbar {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+
+  height: fit-content;
+  flex: 1 1;
+
+  &__divider {
+    height: 28px;
+    margin: 0 4px;
+  }
+
+  div {
+    margin-left: 8px;
+    flex: 1;
+  }
+
+  @include small-mobile {
+    width: 100%;
+  }
+
+}
+
+form.searchbar {
+  background-color: $color-shade-7;
+}

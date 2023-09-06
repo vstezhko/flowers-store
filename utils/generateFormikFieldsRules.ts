@@ -1,10 +1,10 @@
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
-import { FormItemFieldsParams } from '@/components/form/FormContainer';
 import { ref, string, StringSchema } from 'yup';
+import { FormItemFieldsParams } from '@/types/types';
 
 const getZipValidation = (mainField: string): StringSchema => {
   return string()
-    .required('required')
+    .required('req.')
     .when(mainField, {
       is: 'DE',
       then: schema => schema.matches(/^\d{5}$/, 'invalid'),
@@ -21,7 +21,7 @@ const getZipValidation = (mainField: string): StringSchema => {
 
 const RulesForFields = {
   [ValidationRuleGroup.BIRTHDAY]: string()
-    .required('required')
+    .required('req.')
     .test('at-least-13-years', 'at least 13 years old', value => {
       if (!value) return false;
       const today = new Date();
@@ -33,11 +33,11 @@ const RulesForFields = {
       }
       return ageDiff >= 13;
     }),
-  [ValidationRuleGroup.COMMON]: string().required('required').max(25, 'too long'),
+  [ValidationRuleGroup.COMMON]: string().required('req.').max(25, 'too long'),
   [ValidationRuleGroup.EMAIL]: string()
-    .required('required')
+    .required('req.')
     .max(25, 'too long')
-    .test('no-leading-trailing-space', 'no leading or trailing spaces', value => {
+    .test('no-leading-trailing-space', 'no leading/trailing spaces', value => {
       if (!value) return true;
       return !/^\s|\s$/.test(value);
     })
@@ -52,26 +52,40 @@ const RulesForFields = {
     })
     .email('enter a valid email'),
   [ValidationRuleGroup.PASSWORD]: string()
-    .required('required')
+    .required('req.')
+    .notOneOf([ref(`${FormGroups.CUSTOMER}-${ValidationRuleGroup.CURRENT_PASSWORD}`)], 'must not match the current one')
     .max(25, 'too long')
-    .test('no-leading-trailing-space', 'no leading or trailing spaces', value => {
+    .test('no-leading-trailing-space', 'no leading/trailing spaces', value => {
       if (!value) return true;
       return !/^\s|\s$/.test(value);
     })
     .min(8, 'min 8 characters')
-    .matches(/^(?=.*\d)/, 'need at least 1 digit')
+    .matches(/^(?=.*\d)/, 'need 1 digit')
     .matches(/(?=.*[A-Z])/, 'need 1 uppercase (A-Z)')
     .matches(/(?=.*[a-z])/, 'need 1 lowercase (a-z)')
-    .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, 'need at least 1 special symbol'),
+    .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, 'need 1 special symbol'),
   [ValidationRuleGroup.CONFIRM_PASSWORD]: string()
     .required('retype your password.')
     .oneOf([ref(`${FormGroups.CUSTOMER}-${ValidationRuleGroup.PASSWORD}`)], 'passwords mismatch'),
-  [ValidationRuleGroup.PHONE]: string()
-    .required('required')
+  [ValidationRuleGroup.CURRENT_PASSWORD]: string()
+    .required('req.')
     .max(25, 'too long')
-    .matches(/^[^_]*$/, 'invalid phone number'),
+    .test('no-leading-trailing-space', 'no leading/trailing spaces', value => {
+      if (!value) return true;
+      return !/^\s|\s$/.test(value);
+    })
+    .min(8, 'min 8 characters')
+    .matches(/^(?=.*\d)/, 'need 1 digit')
+    .matches(/(?=.*[A-Z])/, 'need 1 uppercase (A-Z)')
+    .matches(/(?=.*[a-z])/, 'need 1 lowercase (a-z)')
+    .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, 'need 1 special symbol'),
+  [ValidationRuleGroup.PHONE]: string()
+    .required('req.')
+    .max(15, 'too long')
+    .min(15, 'too short')
+    .matches(/^[\d+ ]*$/, 'invalid phone number'),
   [ValidationRuleGroup.NAME]: string()
-    .required('required')
+    .required('req.')
     .max(25, 'too long')
     .matches(/^[^!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/, 'no special characters')
     .matches(/^[^0-9]*$/, 'no numbers'),

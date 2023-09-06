@@ -7,6 +7,7 @@ export const createCustomerDraft = (inputValues: Record<string, Record<string, s
     firstName: inputValues[FormGroups.CUSTOMER].firstName as string,
     lastName: inputValues[FormGroups.CUSTOMER].lastName as string,
     password: inputValues[FormGroups.CUSTOMER].password as string,
+    dateOfBirth: inputValues[FormGroups.CUSTOMER].dateOfBirth as string,
     addresses: [
       {
         phone: inputValues[FormGroups.SHIPPING_ADDRESS].phone as string,

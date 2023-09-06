@@ -4,9 +4,9 @@ import MainPanel from '@/components/form/MainPanel';
 import AddressPanel from '@/components/form/AddressPanel';
 import FsCheckbox from '@/components/UI/FsCheckbox';
 import { FormGroups } from '@/types/enums';
-import { formikValuesType, FormItemFieldsParams } from '@/components/form/FormContainer';
 import { FormikProps } from 'formik';
 import { useMediaQuery } from '@mui/material';
+import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 
 const SignUpForm = (
   data: Record<FormGroups, FormItemFieldsParams[]>,
@@ -56,7 +56,7 @@ const SignUpForm = (
         setIsValid={setShippingAddressValid}
       />
       {shippingAddressValid && (
-        <FsCheckbox label='use the same data for billing address' onToggle={setBillingAddress} />
+        <FsCheckbox label='use the same data for billing address' value={disabled} onToggle={setBillingAddress} />
       )}
     </div>
   );

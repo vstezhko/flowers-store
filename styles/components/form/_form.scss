@@ -17,6 +17,10 @@
   padding: 0 10px 20px;
   width: 100%;
 
+  h2 {
+    @extend %font-title;
+  }
+
   @include small {
     gap: 15px;
   }

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { ForwardRefExoticComponent, InputHTMLAttributes, RefAttributes, useState } from 'react';
 import { IconButton, InputAdornment, StandardTextFieldProps, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 import { FormikProps } from 'formik';
-import { formikValuesType } from '@/components/form/FormContainer';
+import { formikValuesType } from '@/types/types';
+import { MaskProps } from '@react-input/mask';
 
 export interface FsInputParams extends Omit<StandardTextFieldProps, 'ref'> {
   id: string;
@@ -12,13 +13,15 @@ export interface FsInputParams extends Omit<StandardTextFieldProps, 'ref'> {
   label: string;
   className?: string;
   errorText?: string | undefined;
-  forwardedRef?: React.Ref<HTMLInputElement>;
   disabled?: boolean;
   focused?: boolean;
   formGroup?: FormGroups;
   validationRuleGroup?: ValidationRuleGroup;
   onChange: FormikProps<formikValuesType>['handleChange'];
-  onBlur: FormikProps<formikValuesType>['handleBlur'];
+  onBlur?: FormikProps<formikValuesType>['handleBlur'];
+  inputComponent?: ForwardRefExoticComponent<
+    MaskProps & { component?: undefined } & InputHTMLAttributes<HTMLInputElement> & RefAttributes<HTMLInputElement>
+  >;
 }
 
 const FsInput: React.FC<FsInputParams> = props => {
@@ -29,12 +32,13 @@ const FsInput: React.FC<FsInputParams> = props => {
     className = '',
     errorText,
     value,
-    forwardedRef,
     formGroup,
     validationRuleGroup,
     onChange,
     onBlur,
     type,
+    disabled,
+    inputComponent,
     ...rest
   } = props;
 
@@ -51,6 +55,7 @@ const FsInput: React.FC<FsInputParams> = props => {
       onBlur={onBlur}
       value={value || ''}
       onChange={onChange}
+      disabled={disabled}
       fullWidth
       className={`fsInput ${className}`}
       helperText={errorText}
@@ -65,12 +70,12 @@ const FsInput: React.FC<FsInputParams> = props => {
       InputProps={{
         'aria-describedby': id,
         id: id,
-        inputRef: forwardedRef,
+        inputComponent: inputComponent,
         endAdornment:
           type === 'password' ? (
             <InputAdornment position='end'>
               <IconButton onClick={handleTogglePassword} edge='end' style={{ color: '#5B4A58' }}>
-                {showPassword ? <VisibilityOff /> : <Visibility />}
+                {!showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
           ) : (

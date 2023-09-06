@@ -1,6 +1,7 @@
 .banner-section {
   width: 100%;
   background-color: $color-shade-0;
+  @extend %font-title;
 
 
   &__img-container{

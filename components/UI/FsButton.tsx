@@ -13,6 +13,8 @@ interface FSButtonParams {
   className?: FsButtonType;
   children?: ReactNode;
   type?: 'button' | 'submit' | 'reset' | undefined;
+  variant?: 'outlined' | 'contained';
+  sx?: Record<string, string>;
 }
 
 const FsButton: React.FC<FSButtonParams> = props => {
@@ -26,6 +28,7 @@ const FsButton: React.FC<FSButtonParams> = props => {
     className = FsButtonType.REGULAR,
     children,
     type,
+    variant,
     ...rest
   } = props;
   //
@@ -46,7 +49,7 @@ const FsButton: React.FC<FSButtonParams> = props => {
     <Button
       {...rest}
       color='primary'
-      variant='contained'
+      variant={variant ? variant : 'contained'}
       className={`fsButton ${className}`}
       disabled={disabled || false}
       startIcon={loading ? null : startIcon}
