@@ -109,6 +109,7 @@ const Catalog = () => {
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [isLoadingData, setIsLoadingData] = useState(false);
 
   function getLowestPrice(masterVariant: ProductVariant, variants: ProductVariant[] = []) {
     const allVariants = [masterVariant, ...variants];
@@ -127,33 +128,39 @@ const Catalog = () => {
 
   const fetchSearchProducts = useCallback(
     async (searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
+      setIsLoadingData(true);
       setIsSearchActive(true);
-      const response = await dispatch(
-        getSearchProductsAsync({
-          token: TokenService.getAccessTokenFromLS().token,
-          paginatorPage,
-          searchParams,
-          filterParams,
-          priceParams,
-          categoryId,
-          sortIndex,
-        })
-      ).unwrap();
-      setTotalResults(response.total);
-      const products = response.results.map((item: ResponseSearchProduct) => {
-        const { masterVariant, variants } = item;
-        const prices = getLowestPrice(masterVariant, variants);
-        return {
-          id: item.id,
-          name: item.name.en,
-          price: prices.price,
-          discounted: prices.discounted,
-          currency: prices.currencyCode,
-          image: item.masterVariant.images[0]?.url ? item.masterVariant.images[0].url : noImage.src,
-          description: item.description.en,
-        };
-      });
-      setProductsPage(products);
+
+      try {
+        const response = await dispatch(
+          getSearchProductsAsync({
+            token: TokenService.getAccessTokenFromLS().token,
+            paginatorPage,
+            searchParams,
+            filterParams,
+            priceParams,
+            categoryId,
+            sortIndex,
+          })
+        ).unwrap();
+        setTotalResults(response.total);
+        const products = response.results.map((item: ResponseSearchProduct) => {
+          const { masterVariant, variants } = item;
+          const prices = getLowestPrice(masterVariant, variants);
+          return {
+            id: item.id,
+            name: item.name.en,
+            price: prices.price,
+            discounted: prices.discounted,
+            currency: prices.currencyCode,
+            image: item.masterVariant.images[0]?.url ? item.masterVariant.images[0].url : noImage.src,
+            description: item.description.en,
+          };
+        });
+        setProductsPage(products);
+      } finally {
+        setIsLoadingData(false);
+      }
     },
     [dispatch, paginatorPage, categoryId, sortIndex]
   );
@@ -199,7 +206,9 @@ const Catalog = () => {
             <SortMenu />
           </Paper>
           <div className='catalog__container'>
-            {isSearchActive && totalResults === 0 ? (
+            {isLoadingData ? (
+              <h4 className='catalog__message'>Loading ...</h4>
+            ) : isSearchActive && totalResults === 0 ? (
               <h4 className='catalog__message'>
                 Unfortunately, no results were found for your search{searchItem ? ` "${searchItem}"` : ''}. Try other
                 options!
