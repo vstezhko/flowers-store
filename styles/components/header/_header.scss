@@ -19,6 +19,10 @@
   align-items: center;
   justify-content: space-between;
 
+  & > .nav__link{
+    justify-content: flex-end;
+  }
+
 
   & > * {
     flex-basis: 33%;
@@ -79,6 +83,7 @@
   justify-content: flex-end;
   gap: 10px;
   align-items: center;
+  position: relative;
 
   .cart__sum {
     color: #FFF;
@@ -90,4 +95,10 @@
 
 .header-nav {
   background-color: $color-shade-0;
+}
+
+
+.MuiBadge-badge{
+  right: 35px;
+  top: 5px;
 }
