@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import Image from 'next/image';
-import { Box, Button, Paper } from '@mui/material';
+import { Box, Button, Paper, Tooltip } from '@mui/material';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 import Link from 'next/link';
 
@@ -24,9 +25,21 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
   image,
 }) => {
   const [src, setSrc] = useState(image);
+  const [disabled, setDisabled] = useState(false);
+
+  const handleButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setDisabled(true);
+  };
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (disabled && (e.target as HTMLElement).closest('.small-card__button-container')) {
+      e.preventDefault();
+    }
+  };
 
   return (
-    <Link href={`/catalog/product/${id}`}>
+    <Link href={`/catalog/product/${id}`} onClick={handleCardClick}>
       <Paper className='small-card'>
         <div className='small-card__image-container'>
           <Image
@@ -46,7 +59,7 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
           <div className='small-card__details'>
             <div className='small-card__price'>
               <div className='small-card__final-price'>
-                {`From ${((discounted ?? price) / 100).toFixed(2)} ${currency}`.replace('EUR', '€') || 'Upon request'}
+                {`${((discounted ?? price) / 100).toFixed(2)} ${currency}`.replace('EUR', '€') || 'Upon request'}
               </div>
               {discounted !== undefined && (
                 <div className='small-card__initial-price'>
@@ -54,9 +67,18 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
                 </div>
               )}
             </div>
-            <Button className='small-card__button' variant='outlined'>
-              More
-            </Button>
+            <Tooltip title={disabled ? 'This item has been added to the cart' : ''}>
+              <span className='small-card__button-container'>
+                <Button
+                  disabled={disabled}
+                  style={disabled ? { pointerEvents: 'none' } : {}}
+                  className='small-card__button'
+                  variant='outlined'
+                  onClick={handleButtonClick}>
+                  <AddShoppingCartIcon className='small-card__icon' />
+                </Button>
+              </span>
+            </Tooltip>
           </div>
         </div>
       </Paper>

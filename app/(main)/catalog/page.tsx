@@ -111,21 +111,6 @@ const Catalog = () => {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
 
-  function getLowestPrice(masterVariant: ProductVariant, variants: ProductVariant[] = []) {
-    const allVariants = [masterVariant, ...variants];
-    const lowestPriceVariant = allVariants.sort((a, b) => {
-      const priceA = a.prices[0].discounted?.value.centAmount ?? a.prices[0].value.centAmount;
-      const priceB = b.prices[0].discounted?.value.centAmount ?? b.prices[0].value.centAmount;
-      return priceA - priceB;
-    })[0];
-    const { discounted, value } = lowestPriceVariant.prices[0];
-    return {
-      price: value.centAmount,
-      discounted: discounted?.value.centAmount,
-      currencyCode: discounted?.value.currencyCode ?? value.currencyCode,
-    };
-  }
-
   const fetchSearchProducts = useCallback(
     async (searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
       setIsLoadingData(true);
@@ -145,14 +130,14 @@ const Catalog = () => {
         ).unwrap();
         setTotalResults(response.total);
         const products = response.results.map((item: ResponseSearchProduct) => {
-          const { masterVariant, variants } = item;
-          const prices = getLowestPrice(masterVariant, variants);
           return {
             id: item.id,
             name: item.name.en,
-            price: prices.price,
-            discounted: prices.discounted,
-            currency: prices.currencyCode,
+            price: item.masterVariant.prices[0].value.centAmount,
+            discounted: item.masterVariant.prices[0].discounted?.value.centAmount,
+            currency:
+              item.masterVariant.prices[0].discounted?.value.currencyCode ??
+              item.masterVariant.prices[0].value.currencyCode,
             image: item.masterVariant.images[0]?.url ? item.masterVariant.images[0].url : noImage.src,
             description: item.description.en,
           };
