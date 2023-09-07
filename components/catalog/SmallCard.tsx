@@ -4,6 +4,12 @@ import { Box, Button, Paper, Tooltip } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 import Link from 'next/link';
+import { getAnonymousAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
+import { useDispatch } from '@/redux/store';
+import { createCartAsync } from '@/redux/slices/cartSlice/thunk';
+import { CartService } from '@/api/services/Cart.services';
+import { TokenService } from '@/api/services/Token.service';
+import { TokenType } from '@/types/enums';
 
 interface SmallProductCardParams {
   id: string;
@@ -26,10 +32,17 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
 }) => {
   const [src, setSrc] = useState(image);
   const [disabled, setDisabled] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleButtonClick = (e: React.MouseEvent) => {
+  const handleButtonClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     setDisabled(true);
+    if (TokenService.getAccessTokenFromLS().type !== TokenType.ANONYMOUS) {
+      const anonymousToken = await dispatch(getAnonymousAccessTokenAsync());
+      if (!CartService.getCartIdFromLS()) {
+        await dispatch(createCartAsync(anonymousToken.payload.access_token));
+      }
+    }
   };
 
   const handleCardClick = (e: React.MouseEvent) => {
