@@ -1,0 +1,12 @@
+.cart__container {
+  display: flex;
+}
+
+.cart__products {
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    flex-basis: 40%;
+  }
+}
