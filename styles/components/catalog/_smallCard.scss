@@ -75,6 +75,10 @@
     @extend %font-secondary;
   }
 
+  &__tooltip {
+    font-size: 1rem;
+  }
+
   @include small {
     width: 250px;
     height: 370px;
@@ -105,6 +109,10 @@
 
     &__initial-price {
       text-align: center;
+    }
+
+    &__button-container {
+      width: 100%;
     }
 
     &__button {
