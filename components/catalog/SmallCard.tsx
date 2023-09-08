@@ -1,9 +1,16 @@
 import React, { FC, useState } from 'react';
 import Image from 'next/image';
-import { Box, Button, Paper, Tooltip } from '@mui/material';
+import { Box, Paper, Tooltip } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 import Link from 'next/link';
+import { getAnonymousAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
+import { useDispatch } from '@/redux/store';
+import { addToCartAsync, createCartAsync } from '@/redux/slices/cartSlice/thunk';
+import { CartService, LineItem } from '@/api/services/Cart.services';
+import { TokenService } from '@/api/services/Token.service';
+import { CurrencyParams, TokenType } from '@/types/enums';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 interface SmallProductCardParams {
   id: string;
@@ -13,6 +20,7 @@ interface SmallProductCardParams {
   discounted?: number | undefined;
   currency: string;
   image: string;
+  disabled: boolean;
 }
 
 const SmallProductCard: FC<SmallProductCardParams> = ({
@@ -23,17 +31,53 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
   discounted,
   currency,
   image,
+  disabled,
 }) => {
   const [src, setSrc] = useState(image);
-  const [disabled, setDisabled] = useState(false);
+  const [innerDisabled, setInnerDisabled] = useState(disabled);
+  const [loading, setLoading] = React.useState(false);
+  const dispatch = useDispatch();
 
-  const handleButtonClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setDisabled(true);
+  const handleButtonClick = async (e: React.MouseEvent) => {
+    setLoading(true);
+    try {
+      e.preventDefault();
+      setInnerDisabled(true);
+      let token: string;
+
+      const tokenFromLS = TokenService.getAccessTokenFromLS();
+      if (tokenFromLS.type === TokenType.CLIENT) {
+        token = (await dispatch(getAnonymousAccessTokenAsync())).payload.access_token;
+      } else {
+        token = tokenFromLS.token;
+      }
+
+      let cartId, cartVersion;
+      const cartIdAndVersion = CartService.getCartFromLS();
+
+      cartId = cartIdAndVersion?.id;
+      cartVersion = cartIdAndVersion?.version;
+
+      if (!cartId) {
+        const createActionResult = await dispatch(createCartAsync(token));
+        if (typeof createActionResult.payload === 'object') {
+          cartId = createActionResult.payload.cartId;
+          cartVersion = createActionResult.payload.version;
+        }
+      }
+      const lineItem: LineItem = {
+        productId: id,
+        quantity: 1,
+      };
+
+      await dispatch(addToCartAsync({ token, cartId, cartVersion, lineItem }));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCardClick = (e: React.MouseEvent) => {
-    if (disabled && (e.target as HTMLElement).closest('.small-card__button-container')) {
+    if (innerDisabled && (e.target as HTMLElement).closest('.small-card__button-container')) {
       e.preventDefault();
     }
   };
@@ -59,24 +103,31 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
           <div className='small-card__details'>
             <div className='small-card__price'>
               <div className='small-card__final-price'>
-                {`${((discounted ?? price) / 100).toFixed(2)} ${currency}`.replace('EUR', '€') || 'Upon request'}
+                {`${((discounted ?? price) / 100).toFixed(2)} ${currency}`.replace(
+                  CurrencyParams.EUR_TEXT,
+                  CurrencyParams.EUR_SYMBOL
+                ) || 'Upon request'}
               </div>
               {discounted !== undefined && (
                 <div className='small-card__initial-price'>
-                  {`${(price / 100).toFixed(2)} ${currency}`.replace('EUR', '€')}
+                  {`${(price / 100).toFixed(2)} ${currency}`.replace(
+                    CurrencyParams.EUR_TEXT,
+                    CurrencyParams.EUR_SYMBOL
+                  )}
                 </div>
               )}
             </div>
-            <Tooltip title={disabled ? 'This item has been added to the cart' : ''}>
+            <Tooltip title={innerDisabled ? 'This item has been added to the cart' : ''}>
               <span className='small-card__button-container'>
-                <Button
-                  disabled={disabled}
-                  style={disabled ? { pointerEvents: 'none' } : {}}
+                <LoadingButton
+                  disabled={innerDisabled}
+                  style={innerDisabled ? { pointerEvents: 'none' } : {}}
                   className='small-card__button'
                   variant='outlined'
-                  onClick={handleButtonClick}>
+                  onClick={handleButtonClick}
+                  loading={loading}>
                   <AddShoppingCartIcon className='small-card__icon' />
-                </Button>
+                </LoadingButton>
               </span>
             </Tooltip>
           </div>

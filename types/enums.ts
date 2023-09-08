@@ -62,3 +62,8 @@ export enum PriceRange {
 export enum PaginationParams {
   LIMIT = 12,
 }
+
+export enum CurrencyParams {
+  EUR_TEXT = 'EUR',
+  EUR_SYMBOL = '€',
+}

@@ -14,7 +14,9 @@ import FilterBlock from '@/components/catalog/Filter';
 import SortMenu from '@/components/catalog/SortMenu';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
 import Paginator from '@/components/catalog/Paginator';
-import { PaginationParams } from '@/types/enums';
+import { CurrencyParams, PaginationParams } from '@/types/enums';
+import { getCartAsync } from '@/redux/slices/cartSlice/thunk';
+import { CartService } from '@/api/services/Cart.services';
 
 export interface ProductCategory {
   typeId: string;
@@ -30,14 +32,14 @@ interface ProductPrice {
     };
     value: {
       type: string;
-      currencyCode: 'EUR';
+      currencyCode: CurrencyParams.EUR_TEXT;
       centAmount: number;
       fractionDigits: number;
     };
   };
   value: {
     type: string;
-    currencyCode: 'EUR';
+    currencyCode: CurrencyParams.EUR_TEXT;
     centAmount: number;
     fractionDigits: number;
   };
@@ -106,10 +108,18 @@ const Catalog = () => {
   const categoryId = useSelector(state => state.search.categoryId);
   const sortIndex = useSelector(state => state.search.sortIndex);
   const paginatorPage = useSelector(state => state.search.paginatorPage);
+  const cartProductsIds = useSelector(state => state.cart.cartProductsIds);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
+
+  useEffect(() => {
+    const cartId = CartService.getCartFromLS()?.id;
+    if (cartId) {
+      dispatch(getCartAsync({ token: TokenService.getAccessTokenFromLS().token, cartId }));
+    }
+  }, [dispatch]);
 
   const fetchSearchProducts = useCallback(
     async (searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
@@ -166,7 +176,11 @@ const Catalog = () => {
       }
     }
 
-    fetchSearchProducts({ 'text.en': searchItem, fuzzy: true, priceCurrency: 'EUR' }, filterOptions, priceRange);
+    fetchSearchProducts(
+      { 'text.en': searchItem, fuzzy: true, priceCurrency: CurrencyParams.EUR_TEXT },
+      filterOptions,
+      priceRange
+    );
   }, [searchItem, checkboxState, priceRange, dispatch, fetchSearchProducts]);
 
   return (
@@ -209,6 +223,7 @@ const Catalog = () => {
                   currency={product.currency}
                   description={product.description || 'No description available'}
                   image={product.image}
+                  disabled={cartProductsIds.includes(product.id) ? true : false}
                 />
               ))
             )}
