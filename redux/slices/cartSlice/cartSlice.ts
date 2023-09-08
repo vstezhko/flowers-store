@@ -5,6 +5,7 @@ export interface Cart {
   cartId: string | null;
   version: number | null;
   cartProductsIds: string[];
+  totalPrice: number | null;
 }
 
 export interface CartState extends Cart {
@@ -15,6 +16,7 @@ export const initialState: CartState = {
   cartId: null,
   version: null,
   cartProductsIds: [],
+  totalPrice: null,
   status: 'idle',
 };
 
@@ -34,7 +36,8 @@ export const cartSlice = createSlice({
       })
       .addMatcher(isFulfilled(getCartAsync), (state, action) => {
         state.status = 'idle';
-        state.cartProductsIds = [...action.payload];
+        state.cartProductsIds = [...action.payload.lineItems];
+        state.totalPrice = action.payload.totalPrice;
       })
       .addMatcher(isAnyOf(createCartAsync.rejected, addToCartAsync.rejected, getCartAsync.rejected), state => {
         state.status = 'failed';

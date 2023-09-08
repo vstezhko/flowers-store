@@ -13,7 +13,7 @@ const HeaderCart = (props: HeaderCartParams) => {
       <Badge badgeContent={props.quantity} color='primary' invisible={props.invisible}>
         <CartIcon />
       </Badge>
-      <div className='cart__sum'>$ {props.sum}</div>
+      <div className='cart__sum'>{props.sum} EUR</div>
     </div>
   );
 };

@@ -33,11 +33,15 @@ export const menuItems: MenuParamsWithoutPathName[] = [
 const Header = () => {
   const [invisible, setInvisible] = useState(true);
   const [quantity, setQuantity] = useState(0);
-  const cartProductsIds = useSelector(state => state.cart.cartProductsIds);
+  const [sum, setSum] = useState('0');
+  const { cartProductsIds, totalPrice } = useSelector(state => state.cart);
 
   useEffect(() => {
     if (cartProductsIds.length > 0) setInvisible(false);
     setQuantity(cartProductsIds.length);
+    if (totalPrice) {
+      setSum((totalPrice / 100).toString());
+    }
   }, [cartProductsIds.length]);
 
   return (
@@ -59,7 +63,7 @@ const Header = () => {
           <NavLink
             path='/cart'
             title=''
-            icon={<HeaderCart sum='0' invisible={invisible} quantity={quantity} />}
+            icon={<HeaderCart sum={sum} invisible={invisible} quantity={quantity} />}
             pathName=''
             className=''
           />

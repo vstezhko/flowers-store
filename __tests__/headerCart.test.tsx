@@ -9,6 +9,6 @@ test('renders cart sum correctly', () => {
   const quantity = 3;
   const props: HeaderCartParams = { sum, invisible, quantity };
   render(<HeaderCart {...props} />);
-  const sumElement = screen.getByText(`$ ${sum}`);
+  const sumElement = screen.getByText(`${sum} EUR`);
   expect(sumElement).toBeInTheDocument();
 });

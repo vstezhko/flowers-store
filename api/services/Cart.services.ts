@@ -20,7 +20,10 @@ const createCart = async (token: string): Promise<{ cartId: string; version: num
 
 const getCart = async (token: string, cartId: string) => {
   const response = await get(`/${PROJECT_KEY}/me/carts/${cartId}`, token);
-  return response.lineItems.map((lineItem: LineItem) => lineItem.productId);
+  const lineItems = response.lineItems.map((lineItem: LineItem) => lineItem.productId);
+  const totalPrice = response.totalPrice?.centAmount;
+
+  return { lineItems, totalPrice };
 };
 
 const getCartFromLS = () => {
