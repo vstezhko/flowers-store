@@ -1,0 +1,130 @@
+.cart__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart__products {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid $color-form;
+
+  .cart__product-card {
+    min-height: 150px;
+    background-color: $color-inner-form;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    position: relative;
+    gap: 20px;
+    border-bottom: 1px solid $color-form;
+    border-radius: 8px 8px 0 0;
+
+    @include mobile() {
+      min-height: 180px;
+    }
+
+    .product-card__info {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+
+      & > .product-block__amount {
+        flex-grow: 0;
+        border: 1px solid $color-form;
+
+        @include mobile() {
+          width: 120px;
+          padding: 5px;
+        }
+      }
+
+      & > * {
+        flex-grow: 1;
+        text-align: center;
+      }
+
+      @include mobile() {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+
+    &:last-child {
+      border-bottom: none;
+      border-radius: 0 0 8px 8px;
+    }
+
+  }
+}
+
+.product-card__img {
+  width: 100%;
+  max-width: 180px;
+  max-height: 130px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  @include mobile() {
+    top: 0;
+    right: 0;
+  }
+}
+
+.cart__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 30px;
+
+  & > * {
+    flex-basis: 45%;
+  }
+
+  @include mobile() {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+}
+
+.info__coupon {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+
+  & > .MuiFormControl-root.fsInput {
+    margin-bottom: 0;
+    max-width: 250px;
+  }
+}
+
+.info__total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .total {
+    border-top: 1px solid $color-form;
+  }
+
+  & > div {
+    width: 70%;
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  button {
+    margin-top: 20px;
+  }
+}

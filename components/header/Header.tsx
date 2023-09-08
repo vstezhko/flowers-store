@@ -4,6 +4,7 @@ import HeaderCart from '@/components/header/HeaderCart';
 import NavMenu from '@/components/nav/NavMenu';
 import React from 'react';
 import LogoIcon from '@/components/Icons/LogoIcon';
+import NavLink from '@/components/nav/NavLink';
 
 export interface MenuParams {
   id: number;
@@ -28,6 +29,9 @@ export const menuItems: MenuParamsWithoutPathName[] = [
 ];
 
 const Header = () => {
+  const [invisible, setInvisible] = React.useState(false);
+  console.log(setInvisible);
+
   return (
     <header className='header'>
       <div className='header-menu'>
@@ -44,7 +48,13 @@ const Header = () => {
               <span>Warsaw,</span> Pola Karolinskie 2a
             </p>
           </div>
-          <HeaderCart sum='0' />
+          <NavLink
+            path='/cart'
+            title=''
+            icon={<HeaderCart sum='0' invisible={invisible} quantity={3} />}
+            pathName=''
+            className=''
+          />
         </div>
       </div>
       <div className='header-nav'>
