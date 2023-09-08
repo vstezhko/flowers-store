@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import Image from 'next/image';
-import { Box, Button, Paper, Tooltip } from '@mui/material';
+import { Box, Paper, Tooltip } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 import Link from 'next/link';
@@ -10,6 +10,7 @@ import { addToCartAsync, createCartAsync } from '@/redux/slices/cartSlice/thunk'
 import { CartService, LineItem } from '@/api/services/Cart.services';
 import { TokenService } from '@/api/services/Token.service';
 import { TokenType } from '@/types/enums';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 interface SmallProductCardParams {
   id: string;
@@ -34,40 +35,46 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
 }) => {
   const [src, setSrc] = useState(image);
   const [innerDisabled, setInnerDisabled] = useState(disabled);
+  const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
 
   const handleButtonClick = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    setInnerDisabled(true);
-    let token: string;
+    setLoading(true);
+    try {
+      e.preventDefault();
+      setInnerDisabled(true);
+      let token: string;
 
-    const tokenFromLS = TokenService.getAccessTokenFromLS();
-    if (tokenFromLS.type === TokenType.CLIENT) {
-      token = (await dispatch(getAnonymousAccessTokenAsync())).payload.access_token;
-    } else {
-      token = tokenFromLS.token;
-    }
-
-    let cartId, cartVersion;
-    const cartIdAndVersion = CartService.getCartFromLS();
-
-    cartId = cartIdAndVersion?.id;
-    cartVersion = cartIdAndVersion?.version;
-
-    if (!cartId) {
-      const createActionResult = await dispatch(createCartAsync(token));
-      if (typeof createActionResult.payload === 'object') {
-        cartId = createActionResult.payload.cartId;
-        cartVersion = createActionResult.payload.version;
+      const tokenFromLS = TokenService.getAccessTokenFromLS();
+      if (tokenFromLS.type === TokenType.CLIENT) {
+        token = (await dispatch(getAnonymousAccessTokenAsync())).payload.access_token;
+      } else {
+        token = tokenFromLS.token;
       }
-    }
-    const lineItem: LineItem = {
-      productId: id,
-      quantity: 1,
-      variantId: 1,
-    };
 
-    await dispatch(addToCartAsync({ token, cartId, cartVersion, lineItem }));
+      let cartId, cartVersion;
+      const cartIdAndVersion = CartService.getCartFromLS();
+
+      cartId = cartIdAndVersion?.id;
+      cartVersion = cartIdAndVersion?.version;
+
+      if (!cartId) {
+        const createActionResult = await dispatch(createCartAsync(token));
+        if (typeof createActionResult.payload === 'object') {
+          cartId = createActionResult.payload.cartId;
+          cartVersion = createActionResult.payload.version;
+        }
+      }
+      const lineItem: LineItem = {
+        productId: id,
+        quantity: 1,
+        variantId: 1,
+      };
+
+      await dispatch(addToCartAsync({ token, cartId, cartVersion, lineItem }));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCardClick = (e: React.MouseEvent) => {
@@ -107,14 +114,15 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
             </div>
             <Tooltip title={innerDisabled ? 'This item has been added to the cart' : ''}>
               <span className='small-card__button-container'>
-                <Button
+                <LoadingButton
                   disabled={innerDisabled}
                   style={innerDisabled ? { pointerEvents: 'none' } : {}}
                   className='small-card__button'
                   variant='outlined'
-                  onClick={handleButtonClick}>
+                  onClick={handleButtonClick}
+                  loading={loading}>
                   <AddShoppingCartIcon className='small-card__icon' />
-                </Button>
+                </LoadingButton>
               </span>
             </Tooltip>
           </div>
