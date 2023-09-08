@@ -26,8 +26,26 @@ const authMiddleware: Middleware = store => next => action => {
           return;
         });
     }
-    if (refreshToken?.token) {
+
+    if (accessToken.type === TokenType.CUSTOMER && refreshToken?.type === TokenType.CUSTOMER) {
       AuthService.refreshCustomerAccessToken(refreshToken.token)
+        .then(response => {
+          store.dispatch(
+            authSlice.actions.setAccessToken({
+              ...response,
+              tokenType: refreshToken.type,
+            })
+          );
+        })
+        .catch(newError => {
+          console.log(newError);
+          TokenService.removeTokensFromLS();
+          return;
+        });
+    }
+
+    if (accessToken.type === TokenType.ANONYMOUS && refreshToken?.type === TokenType.ANONYMOUS) {
+      AuthService.refreshAnonymousAccessToken(refreshToken.token)
         .then(response => {
           store.dispatch(
             authSlice.actions.setAccessToken({
