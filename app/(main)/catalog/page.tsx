@@ -15,6 +15,8 @@ import SortMenu from '@/components/catalog/SortMenu';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
 import Paginator from '@/components/catalog/Paginator';
 import { PaginationParams } from '@/types/enums';
+import { getCartAsync } from '@/redux/slices/cartSlice/thunk';
+import { CartService } from '@/api/services/Cart.services';
 
 export interface ProductCategory {
   typeId: string;
@@ -106,6 +108,7 @@ const Catalog = () => {
   const categoryId = useSelector(state => state.search.categoryId);
   const sortIndex = useSelector(state => state.search.sortIndex);
   const paginatorPage = useSelector(state => state.search.paginatorPage);
+  const cartProductsIds = useSelector(state => state.cart.cartProductsIds);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -169,6 +172,13 @@ const Catalog = () => {
     fetchSearchProducts({ 'text.en': searchItem, fuzzy: true, priceCurrency: 'EUR' }, filterOptions, priceRange);
   }, [searchItem, checkboxState, priceRange, dispatch, fetchSearchProducts]);
 
+  useEffect(() => {
+    const cartId = CartService.getCartFromLS()?.id;
+    if (cartId) {
+      dispatch(getCartAsync({ token: TokenService.getAccessTokenFromLS().token, cartId }));
+    }
+  }, [dispatch]);
+
   return (
     <section className='catalog page'>
       <CategoryBreadcrumbs categoryId={categoryId} />
@@ -209,6 +219,7 @@ const Catalog = () => {
                   currency={product.currency}
                   description={product.description || 'No description available'}
                   image={product.image}
+                  disabled={cartProductsIds.includes(product.id) ? true : false}
                 />
               ))
             )}

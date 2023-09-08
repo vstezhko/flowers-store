@@ -6,8 +6,8 @@ import noImage from '@/public/img/jpeg/no-image.jpg';
 import Link from 'next/link';
 import { getAnonymousAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 import { useDispatch } from '@/redux/store';
-import { createCartAsync } from '@/redux/slices/cartSlice/thunk';
-import { CartService } from '@/api/services/Cart.services';
+import { addToCartAsync, createCartAsync } from '@/redux/slices/cartSlice/thunk';
+import { CartService, LineItem } from '@/api/services/Cart.services';
 import { TokenService } from '@/api/services/Token.service';
 import { TokenType } from '@/types/enums';
 
@@ -19,6 +19,7 @@ interface SmallProductCardParams {
   discounted?: number | undefined;
   currency: string;
   image: string;
+  disabled: boolean;
 }
 
 const SmallProductCard: FC<SmallProductCardParams> = ({
@@ -29,24 +30,48 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
   discounted,
   currency,
   image,
+  disabled,
 }) => {
   const [src, setSrc] = useState(image);
-  const [disabled, setDisabled] = useState(false);
+  const [innerDisabled, setInnerDisabled] = useState(disabled);
   const dispatch = useDispatch();
 
   const handleButtonClick = async (e: React.MouseEvent) => {
     e.preventDefault();
-    setDisabled(true);
-    if (TokenService.getAccessTokenFromLS().type !== TokenType.ANONYMOUS) {
-      const anonymousToken = await dispatch(getAnonymousAccessTokenAsync());
-      if (!CartService.getCartIdFromLS()) {
-        await dispatch(createCartAsync(anonymousToken.payload.access_token));
+    setInnerDisabled(true);
+    let token: string;
+
+    const tokenFromLS = TokenService.getAccessTokenFromLS();
+    if (tokenFromLS.type === TokenType.CLIENT) {
+      token = (await dispatch(getAnonymousAccessTokenAsync())).payload.access_token;
+    } else {
+      token = tokenFromLS.token;
+    }
+
+    let cartId, cartVersion;
+    const cartIdAndVersion = CartService.getCartFromLS();
+
+    cartId = cartIdAndVersion?.id;
+    cartVersion = cartIdAndVersion?.version;
+
+    if (!cartId) {
+      const createActionResult = await dispatch(createCartAsync(token));
+      if (typeof createActionResult.payload === 'object') {
+        cartId = createActionResult.payload.cartId;
+        cartVersion = createActionResult.payload.version;
       }
     }
+    const lineItem: LineItem = {
+      productId: id,
+      quantity: 1,
+      variantId: 1,
+    };
+
+    await dispatch(addToCartAsync({ token, cartId, cartVersion, lineItem }));
   };
 
   const handleCardClick = (e: React.MouseEvent) => {
-    if (disabled && (e.target as HTMLElement).closest('.small-card__button-container')) {
+    if (innerDisabled && (e.target as HTMLElement).closest('.small-card__button-container')) {
       e.preventDefault();
     }
   };
@@ -80,11 +105,11 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
                 </div>
               )}
             </div>
-            <Tooltip title={disabled ? 'This item has been added to the cart' : ''}>
+            <Tooltip title={innerDisabled ? 'This item has been added to the cart' : ''}>
               <span className='small-card__button-container'>
                 <Button
-                  disabled={disabled}
-                  style={disabled ? { pointerEvents: 'none' } : {}}
+                  disabled={innerDisabled}
+                  style={innerDisabled ? { pointerEvents: 'none' } : {}}
                   className='small-card__button'
                   variant='outlined'
                   onClick={handleButtonClick}>
