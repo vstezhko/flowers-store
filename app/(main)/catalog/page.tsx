@@ -17,88 +17,7 @@ import Paginator from '@/components/catalog/Paginator';
 import { CurrencyParams, PaginationParams } from '@/types/enums';
 import { getCartAsync } from '@/redux/slices/cartSlice/thunk';
 import { CartService } from '@/api/services/Cart.services';
-
-export interface ProductCategory {
-  typeId: string;
-  id: string;
-}
-
-interface ProductPrice {
-  id: string;
-  discounted: {
-    discount: {
-      typeId: string;
-      id: string;
-    };
-    value: {
-      type: string;
-      currencyCode: CurrencyParams.EUR_TEXT;
-      centAmount: number;
-      fractionDigits: number;
-    };
-  };
-  value: {
-    type: string;
-    currencyCode: CurrencyParams.EUR_TEXT;
-    centAmount: number;
-    fractionDigits: number;
-  };
-}
-
-interface ProductImage {
-  url: string;
-  dimensions: {
-    w: number;
-    h: number;
-  };
-}
-
-interface Channel {
-  isOnStock: boolean;
-  availableQuantity: number;
-  version: number;
-  id: string;
-}
-
-interface ProductVariant {
-  id: number;
-  sku: string;
-  key: string;
-  prices: ProductPrice[];
-  images: ProductImage[];
-  attributes: ProductAttribute[];
-  assets: [];
-  availability: {
-    channels: Record<string, Channel>;
-  };
-}
-
-interface ProductAttribute {
-  name: string;
-  value: string;
-}
-
-interface ResponseSearchProduct {
-  id: string;
-  name: {
-    en: string | null;
-  };
-  description: {
-    en: string | null;
-  };
-  masterVariant: ProductVariant;
-  variants: ProductVariant[];
-}
-
-interface PageProduct {
-  id: string;
-  name: string;
-  price: number;
-  discounted: number | undefined;
-  currency: string;
-  image: string;
-  description: string;
-}
+import { PageProduct, ResponseSearchProduct } from '@/types/interface';
 
 const Catalog = () => {
   const dispatch = useDispatch();
@@ -108,7 +27,7 @@ const Catalog = () => {
   const categoryId = useSelector(state => state.search.categoryId);
   const sortIndex = useSelector(state => state.search.sortIndex);
   const paginatorPage = useSelector(state => state.search.paginatorPage);
-  const cartProductsIds = useSelector(state => state.cart.cartProductsIds);
+  const cartProductsIds = useSelector(state => state.cart?.cartProductsIds);
   const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);

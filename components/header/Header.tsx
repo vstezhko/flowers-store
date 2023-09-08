@@ -1,10 +1,12 @@
+'use client';
 import BulletIcon from '@/components/Icons/BulletIcon';
 import PhoneIcon from '@/components/Icons/PhoneIcon';
 import HeaderCart from '@/components/header/HeaderCart';
 import NavMenu from '@/components/nav/NavMenu';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LogoIcon from '@/components/Icons/LogoIcon';
 import NavLink from '@/components/nav/NavLink';
+import { useSelector } from '@/redux/store';
 
 export interface MenuParams {
   id: number;
@@ -29,8 +31,14 @@ export const menuItems: MenuParamsWithoutPathName[] = [
 ];
 
 const Header = () => {
-  const [invisible, setInvisible] = React.useState(false);
-  console.log(setInvisible);
+  const [invisible, setInvisible] = useState(true);
+  const [quantity, setQuantity] = useState(0);
+  const cartProductsIds = useSelector(state => state.cart.cartProductsIds);
+
+  useEffect(() => {
+    if (cartProductsIds.length > 0) setInvisible(false);
+    setQuantity(cartProductsIds.length);
+  }, [cartProductsIds.length]);
 
   return (
     <header className='header'>
@@ -51,7 +59,7 @@ const Header = () => {
           <NavLink
             path='/cart'
             title=''
-            icon={<HeaderCart sum='0' invisible={invisible} quantity={3} />}
+            icon={<HeaderCart sum='0' invisible={invisible} quantity={quantity} />}
             pathName=''
             className=''
           />

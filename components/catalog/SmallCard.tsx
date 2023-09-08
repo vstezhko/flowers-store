@@ -6,7 +6,7 @@ import noImage from '@/public/img/jpeg/no-image.jpg';
 import Link from 'next/link';
 import { getAnonymousAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 import { useDispatch } from '@/redux/store';
-import { addToCartAsync, createCartAsync } from '@/redux/slices/cartSlice/thunk';
+import { addToCartAsync, createCartAsync, getCartAsync } from '@/redux/slices/cartSlice/thunk';
 import { CartService, LineItem } from '@/api/services/Cart.services';
 import { TokenService } from '@/api/services/Token.service';
 import { CurrencyParams, TokenType } from '@/types/enums';
@@ -71,6 +71,7 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
       };
 
       await dispatch(addToCartAsync({ token, cartId, cartVersion, lineItem }));
+      await dispatch(getCartAsync({ token, cartId }));
     } finally {
       setLoading(false);
     }
