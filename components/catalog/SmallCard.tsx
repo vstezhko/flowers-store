@@ -9,7 +9,7 @@ import { useDispatch } from '@/redux/store';
 import { addToCartAsync, createCartAsync } from '@/redux/slices/cartSlice/thunk';
 import { CartService, LineItem } from '@/api/services/Cart.services';
 import { TokenService } from '@/api/services/Token.service';
-import { TokenType } from '@/types/enums';
+import { CurrencyParams, TokenType } from '@/types/enums';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 interface SmallProductCardParams {
@@ -68,7 +68,6 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
       const lineItem: LineItem = {
         productId: id,
         quantity: 1,
-        variantId: 1,
       };
 
       await dispatch(addToCartAsync({ token, cartId, cartVersion, lineItem }));
@@ -104,11 +103,17 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
           <div className='small-card__details'>
             <div className='small-card__price'>
               <div className='small-card__final-price'>
-                {`${((discounted ?? price) / 100).toFixed(2)} ${currency}`.replace('EUR', '€') || 'Upon request'}
+                {`${((discounted ?? price) / 100).toFixed(2)} ${currency}`.replace(
+                  CurrencyParams.EUR_TEXT,
+                  CurrencyParams.EUR_SYMBOL
+                ) || 'Upon request'}
               </div>
               {discounted !== undefined && (
                 <div className='small-card__initial-price'>
-                  {`${(price / 100).toFixed(2)} ${currency}`.replace('EUR', '€')}
+                  {`${(price / 100).toFixed(2)} ${currency}`.replace(
+                    CurrencyParams.EUR_TEXT,
+                    CurrencyParams.EUR_SYMBOL
+                  )}
                 </div>
               )}
             </div>

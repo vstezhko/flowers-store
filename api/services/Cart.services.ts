@@ -1,10 +1,15 @@
 import { PROJECT_KEY, get, post } from '@/api/api';
+import { CurrencyParams } from '@/types/enums';
 
-export type LineItem = Record<string, string | number>;
+export interface LineItem {
+  productId: string;
+  quantity: number;
+  variantId?: number;
+}
 
 const createCart = async (token: string): Promise<{ cartId: string; version: number }> => {
   const body = JSON.stringify({
-    currency: 'EUR',
+    currency: CurrencyParams.EUR_TEXT,
   });
   const response = await post(`/${PROJECT_KEY}/me/carts`, token, body);
   const cartId = response.id;

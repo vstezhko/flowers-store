@@ -14,7 +14,7 @@ import FilterBlock from '@/components/catalog/Filter';
 import SortMenu from '@/components/catalog/SortMenu';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
 import Paginator from '@/components/catalog/Paginator';
-import { PaginationParams } from '@/types/enums';
+import { CurrencyParams, PaginationParams } from '@/types/enums';
 import { getCartAsync } from '@/redux/slices/cartSlice/thunk';
 import { CartService } from '@/api/services/Cart.services';
 
@@ -32,14 +32,14 @@ interface ProductPrice {
     };
     value: {
       type: string;
-      currencyCode: 'EUR';
+      currencyCode: CurrencyParams.EUR_TEXT;
       centAmount: number;
       fractionDigits: number;
     };
   };
   value: {
     type: string;
-    currencyCode: 'EUR';
+    currencyCode: CurrencyParams.EUR_TEXT;
     centAmount: number;
     fractionDigits: number;
   };
@@ -169,7 +169,11 @@ const Catalog = () => {
       }
     }
 
-    fetchSearchProducts({ 'text.en': searchItem, fuzzy: true, priceCurrency: 'EUR' }, filterOptions, priceRange);
+    fetchSearchProducts(
+      { 'text.en': searchItem, fuzzy: true, priceCurrency: CurrencyParams.EUR_TEXT },
+      filterOptions,
+      priceRange
+    );
   }, [searchItem, checkboxState, priceRange, dispatch, fetchSearchProducts]);
 
   useEffect(() => {

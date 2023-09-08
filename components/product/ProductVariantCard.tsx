@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Skeleton } from '@mui/material';
+import { CurrencyParams } from '@/types/enums';
 
 interface ProductVariantCardParams {
   id: string;
@@ -24,7 +25,8 @@ const ProductVariantCard: FC<ProductVariantCardParams> = ({ id, price, discounte
       {price ? (
         <p>
           {discounted ? <span className='price-before-discount'>{price.toFixed(2)}</span> : ''}{' '}
-          {discounted ? <span>{discounted.toFixed(2)}</span> : <span>{price.toFixed(2)}</span>} EUR
+          {discounted ? <span>{discounted.toFixed(2)}</span> : <span>{price.toFixed(2)}</span>}{' '}
+          {CurrencyParams.EUR_TEXT}
         </p>
       ) : (
         <Skeleton variant='rectangular' width={120} height={20} />
