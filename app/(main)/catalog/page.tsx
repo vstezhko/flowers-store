@@ -114,6 +114,13 @@ const Catalog = () => {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
 
+  useEffect(() => {
+    const cartId = CartService.getCartFromLS()?.id;
+    if (cartId) {
+      dispatch(getCartAsync({ token: TokenService.getAccessTokenFromLS().token, cartId }));
+    }
+  }, [dispatch]);
+
   const fetchSearchProducts = useCallback(
     async (searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
       setIsLoadingData(true);
@@ -175,13 +182,6 @@ const Catalog = () => {
       priceRange
     );
   }, [searchItem, checkboxState, priceRange, dispatch, fetchSearchProducts]);
-
-  useEffect(() => {
-    const cartId = CartService.getCartFromLS()?.id;
-    if (cartId) {
-      dispatch(getCartAsync({ token: TokenService.getAccessTokenFromLS().token, cartId }));
-    }
-  }, [dispatch]);
 
   return (
     <section className='catalog page'>
