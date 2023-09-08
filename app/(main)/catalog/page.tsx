@@ -129,7 +129,7 @@ const Catalog = () => {
       try {
         const response = await dispatch(
           getSearchProductsAsync({
-            token: TokenService.getAccessTokenFromLS().token,
+            token: TokenService.getAccessTokenFromLS()?.token,
             paginatorPage,
             searchParams,
             filterParams,
@@ -223,7 +223,7 @@ const Catalog = () => {
                   currency={product.currency}
                   description={product.description || 'No description available'}
                   image={product.image}
-                  disabled={cartProductsIds.includes(product.id) ? true : false}
+                  disabled={cartProductsIds.includes(product.id)}
                 />
               ))
             )}
