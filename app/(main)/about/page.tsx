@@ -1,4 +1,4 @@
-import ThanksSection from '@/components/about/thanks';
+import ThanksSection from '@/components/about/Thanks';
 import React from 'react';
 
 const About = () => {

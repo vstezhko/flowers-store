@@ -7,8 +7,8 @@ const ThanksSection = () => {
   return (
     <div className='thanks'>
       <div className='thanks__image-block'>
-        <Image src={FloralFrame} alt='floral frame' />
-        <Link href='https://rs.school/'>
+        <Image className='thanks__image' src={FloralFrame} alt='floral frame' />
+        <Link className='thanks__link' href='https://rs.school/'>
           <SchoolLogo />
         </Link>
       </div>
