@@ -1,10 +1,66 @@
-import { createSlice, isAnyOf, isFulfilled } from '@reduxjs/toolkit';
+import { Action, createSlice, isAnyOf, isFulfilled } from '@reduxjs/toolkit';
 import { addToCartAsync, createCartAsync, getCartAsync } from './thunk';
+import { ProductPrice, ProductVariant } from '@/redux/slices/productSlice/productSlice';
+
+interface CartCustomer {
+  clientId: string;
+  customer: {
+    typeId: string;
+    id: string;
+  };
+  isPlatformClient: boolean;
+}
+
+export interface CartPayloadAction extends Action {
+  payload: {
+    cartState: string;
+    createdAt: string;
+    createdBy: CartCustomer;
+    customLineItems: CartItem[];
+    customerId: string;
+    deleteDaysAfterLastModification: number;
+    directDiscounts: [];
+    discountCodes: [];
+    id: string;
+    inventoryMode: string;
+    itemShippingAddresses: [];
+    lastMessageSequenceNumber: number;
+    lastModifiedAt: string;
+    lastModifiedBy: CartCustomer;
+    lineItems: CartItem[];
+    origin: string;
+    refusedGifts: [];
+    shipping: [];
+    shippingMode: string;
+    taxCalculationMode: string;
+    taxMode: string;
+    taxRoundingMode: string;
+    totalLineItemQuantity: number;
+    totalPrice: ProductPrice['value'];
+    type: string;
+    version: number;
+    versionModifiedAt: string;
+  };
+}
+
+export interface CartItem {
+  id: string;
+  name: {
+    en: string;
+  };
+  productId: string;
+  price: ProductPrice;
+  quantity: number;
+  totalPrice: ProductPrice['value'];
+  variant: ProductVariant;
+}
 
 export interface Cart {
   cartId: string | null;
   version: number | null;
   cartProductsIds: string[];
+  lineItems: CartItem[];
+  totalPrice: ProductPrice['value'] | null;
 }
 
 export interface CartState extends Cart {
@@ -14,8 +70,10 @@ export interface CartState extends Cart {
 export const initialState: CartState = {
   cartId: null,
   version: null,
-  cartProductsIds: [],
   status: 'idle',
+  cartProductsIds: [],
+  lineItems: [],
+  totalPrice: null,
 };
 
 export const cartSlice = createSlice({
@@ -32,9 +90,11 @@ export const cartSlice = createSlice({
         state.cartId = action.payload.cartId;
         state.version = action.payload.version;
       })
-      .addMatcher(isFulfilled(getCartAsync), (state, action) => {
+      .addMatcher(isFulfilled(getCartAsync), (state: CartState, action: CartPayloadAction) => {
         state.status = 'idle';
-        state.cartProductsIds = [...action.payload];
+        state.lineItems = action.payload.lineItems;
+        state.totalPrice = action.payload.totalPrice;
+        state.cartProductsIds = action.payload.lineItems.map((i: CartItem) => i.productId);
       })
       .addMatcher(isAnyOf(createCartAsync.rejected, addToCartAsync.rejected, getCartAsync.rejected), state => {
         state.status = 'failed';

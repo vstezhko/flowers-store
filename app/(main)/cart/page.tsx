@@ -1,47 +1,48 @@
 'use client';
-import React, { useState } from 'react';
-import ProductAmountSetter from '@/components/product/ProductAmountSetter';
-import { IconButton } from '@mui/material';
-import { CloseIcon } from 'next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon';
-import ProductSum from '@/components/product/ProductSum';
+import React, { useEffect } from 'react';
 import FsInput from '@/components/UI/FsInput';
 import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
+import { getCartAsync } from '@/redux/slices/cartSlice/thunk';
+import { useDispatch, useSelector } from '@/redux/store';
+import { TokenService } from '@/api/services/Token.service';
+import { CartService } from '@/api/services/Cart.services';
+import CartItem from '@/components/cart/CartItem';
 
 const Cart = () => {
-  const [productAmount, setProductAmount] = useState(1);
-  const handleChangeAmount = (number: number) => {
-    if (productAmount === 1 && number === -1) return;
-    if (productAmount === 20 && number === 1) return;
-    setProductAmount(prevState => prevState + number);
-  };
+  const dispatch = useDispatch();
+  const { lineItems, totalPrice } = useSelector(state => state.cart);
+
+  useEffect(() => {
+    const token = TokenService.getAccessTokenFromLS();
+    const cart = CartService.getCartFromLS();
+    if (token && cart)
+      dispatch(
+        getCartAsync({
+          token: token?.token,
+          cartId: cart?.id,
+        })
+      );
+  }, []);
+
+  console.log(lineItems, totalPrice);
+
   return (
     <section className='page'>
       <h1 className='page__title'>Cart</h1>
       <div className='cart__container'>
         <div className='cart__products'>
-          <div className='cart__product-card'>
-            <img className='product-card__img' src='https://tea-rose.com.ua/img/products/1657280780_19869.jpg' alt='' />
-            <div className='product-card__info'>
-              <div>Bouqet name</div>
-              <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} />
-              <ProductSum sum={200} />
-              <IconButton className='close-icon'>
-                <CloseIcon />
-              </IconButton>
-            </div>
-          </div>
-          <div className='cart__product-card'>
-            <img className='product-card__img' src='https://tea-rose.com.ua/img/products/1657280780_19869.jpg' alt='' />
-            <div className='product-card__info'>
-              <div>Bouqet name</div>
-              <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} />
-              <ProductSum sum={200} />
-              <IconButton className='close-icon'>
-                <CloseIcon />
-              </IconButton>
-            </div>
-          </div>
+          {lineItems.map(item => (
+            <CartItem
+              key={item.id}
+              name={item.name.en}
+              price={item.price}
+              productId={item.productId}
+              quantity={item.quantity}
+              totalPrice={item.totalPrice}
+              variant={item.variant}
+            />
+          ))}
         </div>
         <div className='cart__info'>
           <div className='info__coupon'>
