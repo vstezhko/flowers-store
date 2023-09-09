@@ -3,7 +3,12 @@
   flex-direction: column;
   gap: 40px;
 
+  @include small {
+    gap: 10px;
+  }
+
   &__item {
+
     & h3 {
       margin-bottom: 15px;
     }
