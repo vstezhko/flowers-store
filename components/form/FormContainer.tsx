@@ -100,7 +100,7 @@ const FormContainer = ({
   const currentPath = usePathname();
 
   useEffect(() => {
-    const isLogin = TokenService.getAccessTokenFromLS().type === TokenType.CUSTOMER;
+    const isLogin = TokenService.getAccessTokenFromLS()?.type === TokenType.CUSTOMER;
     if (isLogin && (currentPath === '/login' || currentPath === '/signup')) router.push('/');
   }, [currentPath, router]);
 
