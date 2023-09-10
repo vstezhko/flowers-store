@@ -1,4 +1,4 @@
-import { PROJECT_KEY, get, post } from '@/api/api';
+import { get, post, PROJECT_KEY } from '@/api/api';
 import { CurrencyParams } from '@/types/enums';
 
 export interface LineItem {
@@ -7,7 +7,7 @@ export interface LineItem {
   variantId?: number;
 }
 
-const createCart = async (token: string): Promise<{ cartId: string; version: number }> => {
+const createCart = async (token: string) => {
   const body = JSON.stringify({
     currency: CurrencyParams.EUR_TEXT,
   });
@@ -15,16 +15,15 @@ const createCart = async (token: string): Promise<{ cartId: string; version: num
   const cartId = response.id;
   const version = response.version;
   localStorage.setItem('cart', JSON.stringify({ id: cartId, version: version }));
-  return { cartId, version };
+  return response;
 };
 
 const getCart = async (token: string, cartId: string) => {
-  const response = await get(`/${PROJECT_KEY}/me/carts/${cartId}`, token);
-  return response.lineItems.map((lineItem: LineItem) => lineItem.productId);
+  return get(`/${PROJECT_KEY}/me/carts/${cartId}`, token);
 };
 
-const getCartFromLS = () => {
-  const cartId = localStorage.getItem('cart');
+const getCartFromLS = (): { id: string; version: number } | null => {
+  const cartId = localStorage?.getItem('cart');
   if (typeof cartId === 'string') {
     return JSON.parse(cartId);
   }
@@ -44,7 +43,7 @@ const addToCart = async (token: string, cartId: string, version: number, lineIte
   const response = await post(`/${PROJECT_KEY}/me/carts/${cartId}`, token, body);
   const newVersion = response.version;
   localStorage.setItem('cart', JSON.stringify({ id: cartId, version: newVersion }));
-  return newVersion;
+  return response;
 };
 
 const removeCart = () => {

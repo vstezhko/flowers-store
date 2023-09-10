@@ -21,6 +21,7 @@ import { TokenService } from '@/api/services/Token.service';
 import { structureInputValues } from '@/utils/structureInputFormValues';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
+import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 
 const PersonalForm = ({
   data,
@@ -179,22 +180,31 @@ const PersonalForm = ({
     onSubmit: async values => {
       const token = TokenService.getAccessToken();
       const structuredValues = structureInputValues(values);
-      if (type === FormGroups.CUSTOMER) {
-        await changePersonalData(structuredValues, token);
-      } else if (type === 'password') {
-        await changePassword(structuredValues, token);
-      } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm?.name === 'edit') {
-        await changeAddressesData(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
-      } else if (type === FormGroups.BILLING_ADDRESS && typeForm?.name === 'edit') {
-        await changeAddressesData(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
-      } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm?.name === 'add') {
-        await addNewAddresses(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
-      } else if (type === FormGroups.BILLING_ADDRESS && typeForm?.name === 'add') {
-        await addNewAddresses(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
-      }
-      setChecked(false);
-      if (onSuccess) {
-        onSuccess();
+      if (!token) {
+        dispatch(
+          snackbarSlice.actions.setMessage({
+            message: '...Ooops! Something went wrong. Try one more time',
+            type: 'error',
+          })
+        );
+      } else {
+        if (type === FormGroups.CUSTOMER) {
+          await changePersonalData(structuredValues, token);
+        } else if (type === 'password') {
+          await changePassword(structuredValues, token);
+        } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm?.name === 'edit') {
+          await changeAddressesData(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
+        } else if (type === FormGroups.BILLING_ADDRESS && typeForm?.name === 'edit') {
+          await changeAddressesData(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
+        } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm?.name === 'add') {
+          await addNewAddresses(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
+        } else if (type === FormGroups.BILLING_ADDRESS && typeForm?.name === 'add') {
+          await addNewAddresses(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
+        }
+        setChecked(false);
+        if (onSuccess) {
+          onSuccess();
+        }
       }
     },
   };

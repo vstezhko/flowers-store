@@ -22,6 +22,7 @@ import { structureInputValues } from '@/utils/structureInputFormValues';
 import { createCustomerDraft } from '@/utils/createCustomerDraft';
 import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 import Image from 'next/image';
+import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 
 const FormContainer = ({
   childComponent,
@@ -89,10 +90,19 @@ const FormContainer = ({
     validationSchema: validationSchema,
     onSubmit: async values => {
       const token = TokenService.getAccessToken();
-      if (page === Pages.LOGIN) {
-        await login(values, token);
+      if (!token) {
+        dispatch(
+          snackbarSlice.actions.setMessage({
+            message: '...OOoops! Something went wrong. Try one more time',
+            type: 'error',
+          })
+        );
       } else {
-        await signUp(values, token);
+        if (page === Pages.LOGIN) {
+          await login(values, token);
+        } else {
+          await signUp(values, token);
+        }
       }
     },
   };
