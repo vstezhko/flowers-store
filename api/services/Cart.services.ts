@@ -23,7 +23,7 @@ const getCart = async (token: string, cartId: string) => {
 };
 
 const getCartFromLS = (): { id: string; version: number } | null => {
-  const cartId = localStorage.getItem('cart');
+  const cartId = localStorage?.getItem('cart');
   if (typeof cartId === 'string') {
     return JSON.parse(cartId);
   }
