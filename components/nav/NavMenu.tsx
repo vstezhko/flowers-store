@@ -21,11 +21,11 @@ import { CartService } from '@/api/services/Cart.services';
 const ProfileContent = () => {
   const router = useRouter();
   const { access_token } = useSelector(state => state.auth);
-  const [tokenType, setTokenType] = useState(null);
+  const [tokenType, setTokenType] = useState<string | null>(null);
 
   useEffect(() => {
     const token = TokenService.getAccessTokenFromLS();
-    setTokenType(token?.type);
+    if (token) setTokenType(token.type);
   }, [access_token]);
 
   const dispatch = useDispatch();
