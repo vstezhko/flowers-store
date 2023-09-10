@@ -38,12 +38,14 @@ const Header = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    if (cartProductsIds.length > 0) setInvisible(false);
+    setLoading(false);
+    if (cartProductsIds.length > 0) {
+      setInvisible(false);
+    }
+
     setQuantity(cartProductsIds.length);
     if (totalPrice) {
       setSum((totalPrice / 100).toString());
-      setLoading(false);
     }
   }, [cartProductsIds.length, loading]);
 
