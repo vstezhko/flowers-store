@@ -21,6 +21,7 @@ import { TokenService } from '@/api/services/Token.service';
 import { structureInputValues } from '@/utils/structureInputFormValues';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
+import FsProgress from '@/components/UI/FsProgress';
 
 const PersonalForm = ({
   data,
@@ -29,12 +30,14 @@ const PersonalForm = ({
   modeEdit,
   typeForm,
   onSuccess,
+  loading,
 }: {
   modeEdit: boolean;
   data: FormItemFieldsParams[];
   type: string;
   typeForm?: Record<string, string> | null;
   onSuccess?: () => void | undefined;
+  loading?: boolean;
   childComponent: (
     data1: FormItemFieldsParams[],
     checked: boolean,
@@ -235,14 +238,14 @@ const PersonalForm = ({
   return (
     <form className='form-customer' onSubmit={formik.handleSubmit}>
       <div className='form__content'>
-        {modeEdit && (
+        {modeEdit && !loading && (
           <FormControlLabel
             className='switch'
             control={<Switch checked={checked} onChange={handleChange} size='small' />}
             label='EDIT'
           />
         )}
-        {childComponent(data, checked, formik, onChangeHandler, modeEdit)}
+        {!loading ? childComponent(data, checked, formik, onChangeHandler, modeEdit) : <FsProgress />}
       </div>
       {(checked || !modeEdit) && (
         <div className='form__btn-container'>

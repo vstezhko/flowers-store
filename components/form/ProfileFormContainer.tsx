@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { FormGroups, ValidationRuleGroup } from '@/types/enums';
 import Image from 'next/image';
 import { FormItemFieldsParams } from '@/types/types';
@@ -13,6 +13,16 @@ const ProfileFormContainer = ({ src, type }: { src: string; type: string }) => {
   const shippingIds = customer.shippingAddressIds;
   const billing = customer.addresses.filter(address => billingIds.includes(address.id));
   const shipping = customer.addresses.filter(address => shippingIds.includes(address.id));
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (customer.email || customer.addresses.length <= 0) {
+      setLoading(false);
+    } else setLoading(true);
+  }, [customer, loading]);
+
+  console.log(loading);
 
   const mainInputFields: FormItemFieldsParams[] = useMemo(() => {
     return [
@@ -90,11 +100,17 @@ const ProfileFormContainer = ({ src, type }: { src: string; type: string }) => {
   return (
     <div className='personal__form-container'>
       {type === FormGroups.CUSTOMER ? (
-        <PersonalForm childComponent={PersonalInfoForm} modeEdit={true} data={mainInputFields} type={type} />
+        <PersonalForm
+          childComponent={PersonalInfoForm}
+          modeEdit={true}
+          data={mainInputFields}
+          type={type}
+          loading={loading}
+        />
       ) : type === FormGroups.SHIPPING_ADDRESS ? (
-        <ProfileAddressCard addressData={shipping} type={type} customer={customer} />
+        <ProfileAddressCard addressData={shipping} type={type} customer={customer} loading={loading} />
       ) : type === FormGroups.BILLING_ADDRESS ? (
-        <ProfileAddressCard addressData={billing} type={type} customer={customer} />
+        <ProfileAddressCard addressData={billing} type={type} customer={customer} loading={loading} />
       ) : (
         <PersonalForm childComponent={PersonalInfoForm} modeEdit={false} data={passwordInputFields} type={type} />
       )}
