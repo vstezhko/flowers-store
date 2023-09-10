@@ -31,8 +31,8 @@ const CategoryBreadcrumbs: FC<CategoryBreadcrumbsParams> = ({ categoryId, produc
   useEffect(
     function () {
       const fetchCategories = () => {
-        const token: string = TokenService.getAccessTokenFromLS()?.token;
-        dispatch(getCategoriesAsync(token));
+        const token = TokenService.getAccessTokenFromLS()?.token;
+        if (token) dispatch(getCategoriesAsync(token));
       };
       if (!categories) fetchCategories();
     },
