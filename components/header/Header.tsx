@@ -35,14 +35,17 @@ const Header = () => {
   const [quantity, setQuantity] = useState(0);
   const [sum, setSum] = useState('0');
   const { cartProductsIds, totalPrice } = useSelector(state => state.cart);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     if (cartProductsIds.length > 0) setInvisible(false);
     setQuantity(cartProductsIds.length);
     if (totalPrice) {
       setSum((totalPrice / 100).toString());
+      setLoading(false);
     }
-  }, [cartProductsIds.length]);
+  }, [cartProductsIds.length, loading]);
 
   return (
     <header className='header'>
@@ -63,7 +66,7 @@ const Header = () => {
           <NavLink
             path='/cart'
             title=''
-            icon={<HeaderCart sum={sum} invisible={invisible} quantity={quantity} />}
+            icon={<HeaderCart sum={sum} invisible={invisible} quantity={quantity} loading={loading} />}
             pathName=''
             className=''
           />
