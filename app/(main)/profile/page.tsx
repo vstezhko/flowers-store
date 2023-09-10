@@ -10,7 +10,7 @@ const Profile = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const isLogin = TokenService.getAccessTokenFromLS().type === TokenType.CUSTOMER;
+    const isLogin = TokenService.getAccessTokenFromLS()?.type === TokenType.CUSTOMER;
     if (!isLogin && currentPath === '/profile') router.push('/login');
   }, [currentPath, router]);
 
