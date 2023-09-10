@@ -1,5 +1,5 @@
 import noImage from '@/public/img/jpeg/no-image.jpg';
-import { PageProduct, ResponseSearchProduct } from '@/app/(main)/catalog/page';
+import { PageProduct, ResponseSearchProduct } from '@/types/catalog/interface';
 
 export const createProductsForCatalog = (productsResponse: ResponseSearchProduct[]): PageProduct[] => {
   return productsResponse.map((item: ResponseSearchProduct) => {

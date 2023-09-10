@@ -14,6 +14,8 @@ import ProductAmountSetter from '@/components/product/ProductAmountSetter';
 import ProductSum from '@/components/product/ProductSum';
 import { createProductVariantsArray } from '@/utils/createProductVariantsArray';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
+import { LineItem } from '@/api/services/Cart.services';
+import { addToCart } from '@/utils/addToCart';
 
 const Product = () => {
   const { id } = useParams() as { id: string };
@@ -21,10 +23,11 @@ const Product = () => {
   const router = useRouter();
   const product = useSelector(state => state.product);
   const [productVariants, setProductVariants] = useState<{ size: string; variant: ProductVariant }[]>([]);
-
   const [activeVariant, setActiveVariant] = useState<{ size: string; variant: ProductVariant } | null>(null);
   const [productAmount, setProductAmount] = useState(1);
   const composition = activeVariant?.variant.attributes.find(attr => attr.name === 'composition')?.value.split(',');
+  // const { cartProductsIds } = useSelector(state => state.cart);
+  // const [disabled, setDisabled] = useState(cartProductsIds.includes(id));
 
   useEffect(() => {
     if (product.status === 'failed') {
@@ -54,7 +57,15 @@ const Product = () => {
     setProductAmount(prevState => prevState + number);
   };
 
-  const handleAddToCard = () => {};
+  const handleAddToCard = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    // setInnerDisabled(true);
+    const lineItem: LineItem = {
+      productId: id,
+      quantity: 1,
+    };
+    await addToCart(id, lineItem, dispatch);
+  };
 
   return (
     <div className='product page'>

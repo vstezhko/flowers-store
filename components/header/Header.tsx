@@ -2,9 +2,10 @@ import BulletIcon from '@/components/Icons/BulletIcon';
 import PhoneIcon from '@/components/Icons/PhoneIcon';
 import HeaderCart from '@/components/header/HeaderCart';
 import NavMenu from '@/components/nav/NavMenu';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LogoIcon from '@/components/Icons/LogoIcon';
 import NavLink from '@/components/nav/NavLink';
+import { useSelector } from '@/redux/store';
 
 export interface MenuParams {
   id: number;
@@ -29,7 +30,23 @@ export const menuItems: MenuParamsWithoutPathName[] = [
 ];
 
 const Header = () => {
-  const [invisible] = React.useState(false);
+  const [invisible, setInvisible] = useState(true);
+  const [quantity, setQuantity] = useState(0);
+  const [sum, setSum] = useState('0');
+  const { cartProductsIds, totalPrice, lineItems } = useSelector(state => state.cart);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+    if (cartProductsIds.length > 0) {
+      setInvisible(false);
+    }
+    const totalQuantity = lineItems.reduce((acc, init) => acc + init.quantity, 0);
+    setQuantity(totalQuantity);
+    if (totalPrice) {
+      setSum((totalPrice.centAmount / 100).toString());
+    }
+  }, [cartProductsIds.length, loading, totalPrice, lineItems]);
 
   return (
     <header className='header'>
@@ -50,7 +67,7 @@ const Header = () => {
           <NavLink
             path='/cart'
             title=''
-            icon={<HeaderCart sum='0' invisible={invisible} quantity={3} />}
+            icon={<HeaderCart sum={sum} invisible={invisible} quantity={quantity} loading={loading} />}
             pathName=''
             className=''
           />

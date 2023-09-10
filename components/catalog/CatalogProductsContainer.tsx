@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import SmallProductCard from '@/components/catalog/SmallCard';
-import { ResponseSearchProduct } from '@/app/(main)/catalog/page';
 import { useSelector } from '@/redux/store';
 import { createProductsForCatalog } from '@/utils/createProductsForCatalog';
+import { ResponseSearchProduct } from '@/types/catalog/interface';
 
 export interface CatalogProductsContainerParams {
   isLoadingData: boolean;
