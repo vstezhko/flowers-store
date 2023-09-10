@@ -89,7 +89,7 @@ export const cartSlice = createSlice({
       })
       .addMatcher(isAnyOf(createCartAsync.fulfilled, addToCartAsync.fulfilled), (state, action) => {
         state.status = 'idle';
-        state.cartId = action.payload.cartId;
+        state.cartId = action.payload.id;
         state.version = action.payload.version;
         state.lineItems = action.payload.lineItems;
         state.totalPrice = action.payload.totalPrice;
@@ -98,6 +98,8 @@ export const cartSlice = createSlice({
       })
       .addMatcher(isFulfilled(getCartAsync), (state: CartState, action: CartPayloadAction) => {
         state.status = 'idle';
+        state.cartId = action.payload.id;
+        state.version = action.payload.version;
         state.lineItems = action.payload.lineItems;
         state.totalPrice = action.payload.totalPrice;
         state.cartProductsIds = action.payload.lineItems.map((i: CartItem) => i.productId);

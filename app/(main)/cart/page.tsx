@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import FsInput from '@/components/UI/FsInput';
 import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
@@ -13,21 +13,23 @@ import EmptyCart from '@/components/cart/EmptyCart';
 const Cart = () => {
   const dispatch = useDispatch();
   const { totalLineItemQuantity, lineItems, totalPrice } = useSelector(state => state.cart);
+  const [cart, setCart] = useState<{ id: string; version: number } | null | undefined>(undefined);
 
   useEffect(() => {
-    const cart = CartService.getCartFromLS();
+    const cartLS = CartService.getCartFromLS();
+    setCart(cartLS);
     const token = TokenService.getAccessTokenFromLS();
 
-    if (token && cart)
+    if (token && cartLS)
       dispatch(
         getCartAsync({
           token: token?.token,
-          cartId: cart?.id,
+          cartId: cartLS?.id,
         })
       );
   }, []);
 
-  if ((totalLineItemQuantity !== null && totalLineItemQuantity < 1) || !CartService.getCartFromLS()) {
+  if ((totalLineItemQuantity !== null && totalLineItemQuantity < 1) || cart === null) {
     return <EmptyCart />;
   } else {
     return (
