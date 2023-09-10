@@ -114,8 +114,9 @@ const Catalog = () => {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
 
-  const token = TokenService.getAccessTokenFromLS()?.token;
+  let token: string | undefined;
   useEffect(() => {
+    token = TokenService.getAccessTokenFromLS()?.token;
     const cartId = CartService.getCartFromLS()?.id;
     if (cartId && token) {
       dispatch(getCartAsync({ token, cartId }));
