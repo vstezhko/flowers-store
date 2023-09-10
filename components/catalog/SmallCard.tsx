@@ -43,20 +43,18 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
     try {
       e.preventDefault();
       setInnerDisabled(true);
-      let token: string;
+      let token;
 
       const tokenFromLS = TokenService.getAccessTokenFromLS();
-      if (tokenFromLS.type === TokenType.CLIENT) {
+      if (tokenFromLS?.type === TokenType.CLIENT || !tokenFromLS) {
         token = (await dispatch(getAnonymousAccessTokenAsync())).payload.access_token;
-      } else {
-        token = tokenFromLS.token;
+      }
+      if (tokenFromLS?.token) {
+        token = tokenFromLS?.token;
       }
 
-      let cartId, cartVersion;
-      const cartIdAndVersion = CartService.getCartFromLS();
-
-      cartId = cartIdAndVersion?.id;
-      cartVersion = cartIdAndVersion?.version;
+      let cartId = CartService.getCartFromLS()?.id;
+      let cartVersion = CartService.getCartFromLS()?.version;
 
       if (!cartId) {
         const createActionResult = await dispatch(createCartAsync(token));
@@ -70,7 +68,7 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
         quantity: 1,
       };
 
-      await dispatch(addToCartAsync({ token, cartId, cartVersion, lineItem }));
+      if (cartId && cartVersion) await dispatch(addToCartAsync({ token, cartId, cartVersion, lineItem }));
     } finally {
       setLoading(false);
     }

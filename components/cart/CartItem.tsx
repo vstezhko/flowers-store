@@ -5,6 +5,7 @@ import { IconButton } from '@mui/material';
 import { CloseIcon } from 'next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon';
 import { ProductPrice, ProductVariant } from '@/redux/slices/productSlice/productSlice';
 import ProductVariantCard from '@/components/product/ProductVariantCard';
+import Image from 'next/image';
 
 export interface CartItemParams {
   name: string;
@@ -37,18 +38,25 @@ const CartItem: FC<CartItemParams> = ({ name, quantity, price, totalPrice, varia
 
   return (
     <div className='cart-item'>
-      <img
-        className='cart-item__img'
-        src='https://tea-rose.com.ua/img/products/1657280780_19869.jpg'
-        alt='product image'
-      />
+      <div className='cart-item__image-container'>
+        <Image
+          className='cart-item__img'
+          src={variant.images[0].url}
+          alt='Product photo'
+          fill
+          sizes='(max-width: 768px) 250px, 263px'
+        />
+      </div>
       <div className='cart-item__info'>
-        <div className='cart-item__name'>
+        <div className='cart-item__prop-info'>
           <p>{name}</p>
-          <div className='cart-item__variant'>{variantCard}</div>
+          <div className='cart-item__prop'>
+            <div className='cart-item__variant'>{variantCard}</div>
+            <ProductAmountSetter productAmount={quantity} onChange={handleChangeAmount} />
+            <ProductSum sum={totalPrice.centAmount / 100} />
+          </div>
         </div>
-        <ProductAmountSetter productAmount={quantity} onChange={handleChangeAmount} />
-        <ProductSum sum={totalPrice.centAmount / 100} />
+
         <IconButton className='close-icon'>
           <CloseIcon />
         </IconButton>

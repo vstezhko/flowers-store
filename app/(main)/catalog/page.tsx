@@ -114,10 +114,11 @@ const Catalog = () => {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
 
+  const token = TokenService.getAccessTokenFromLS()?.token;
   useEffect(() => {
     const cartId = CartService.getCartFromLS()?.id;
-    if (cartId) {
-      dispatch(getCartAsync({ token: TokenService.getAccessTokenFromLS().token, cartId }));
+    if (cartId && token) {
+      dispatch(getCartAsync({ token, cartId }));
     }
   }, [dispatch]);
 
@@ -126,10 +127,12 @@ const Catalog = () => {
       setIsLoadingData(true);
       setIsSearchActive(true);
 
+      if (!token) return;
+
       try {
         const response = await dispatch(
           getSearchProductsAsync({
-            token: TokenService.getAccessTokenFromLS()?.token,
+            token,
             paginatorPage,
             searchParams,
             filterParams,

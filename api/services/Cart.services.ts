@@ -22,7 +22,7 @@ const getCart = async (token: string, cartId: string) => {
   return get(`/${PROJECT_KEY}/me/carts/${cartId}`, token);
 };
 
-const getCartFromLS = (): { id: string; version: string } | null => {
+const getCartFromLS = (): { id: string; version: number } | null => {
   const cartId = localStorage.getItem('cart');
   if (typeof cartId === 'string') {
     return JSON.parse(cartId);

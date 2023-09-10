@@ -25,8 +25,6 @@ const Cart = () => {
       );
   }, []);
 
-  console.log(lineItems, totalPrice);
-
   return (
     <section className='page'>
       <h1 className='page__title'>Cart</h1>
@@ -65,7 +63,7 @@ const Cart = () => {
             </div>
             <div className='total'>
               <span>TOTAL</span>
-              <p>190 EUR</p>
+              <p>{totalPrice ? totalPrice?.centAmount / 100 : ''} EUR</p>
             </div>
             <FsButton label='Confirm' onClick={() => console.log('hhh')} className={FsButtonType.REGULAR} />
           </div>
