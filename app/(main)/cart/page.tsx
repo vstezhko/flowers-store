@@ -27,8 +27,7 @@ const Cart = () => {
       );
   }, []);
 
-  const cart = CartService.getCartFromLS();
-  if ((totalLineItemQuantity !== null && totalLineItemQuantity < 1) || !cart) {
+  if ((totalLineItemQuantity !== null && totalLineItemQuantity < 1) || !CartService.getCartFromLS()) {
     return <EmptyCart />;
   } else {
     return (
