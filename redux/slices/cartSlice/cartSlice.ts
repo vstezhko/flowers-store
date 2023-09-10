@@ -61,6 +61,7 @@ export interface Cart {
   cartProductsIds: string[];
   lineItems: CartItem[];
   totalPrice: ProductPrice['value'] | null;
+  totalLineItemQuantity: number | null;
 }
 
 export interface CartState extends Cart {
@@ -74,6 +75,7 @@ export const initialState: CartState = {
   cartProductsIds: [],
   lineItems: [],
   totalPrice: null,
+  totalLineItemQuantity: null,
 };
 
 export const cartSlice = createSlice({
@@ -95,6 +97,7 @@ export const cartSlice = createSlice({
         state.lineItems = action.payload.lineItems;
         state.totalPrice = action.payload.totalPrice;
         state.cartProductsIds = action.payload.lineItems.map((i: CartItem) => i.productId);
+        state.totalLineItemQuantity = action.payload.totalLineItemQuantity;
       })
       .addMatcher(isAnyOf(createCartAsync.rejected, addToCartAsync.rejected, getCartAsync.rejected), state => {
         state.status = 'failed';
