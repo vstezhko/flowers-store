@@ -7,7 +7,7 @@ export interface LineItem {
   variantId?: number;
 }
 
-const createCart = async (token: string): Promise<{ cartId: string; version: number }> => {
+const createCart = async (token: string) => {
   const body = JSON.stringify({
     currency: CurrencyParams.EUR_TEXT,
   });
@@ -15,7 +15,7 @@ const createCart = async (token: string): Promise<{ cartId: string; version: num
   const cartId = response.id;
   const version = response.version;
   localStorage.setItem('cart', JSON.stringify({ id: cartId, version: version }));
-  return { cartId, version };
+  return response;
 };
 
 const getCart = async (token: string, cartId: string) => {
@@ -43,7 +43,7 @@ const addToCart = async (token: string, cartId: string, version: number, lineIte
   const response = await post(`/${PROJECT_KEY}/me/carts/${cartId}`, token, body);
   const newVersion = response.version;
   localStorage.setItem('cart', JSON.stringify({ id: cartId, version: newVersion }));
-  return newVersion;
+  return response;
 };
 
 const removeCart = () => {
