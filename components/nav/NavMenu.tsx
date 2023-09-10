@@ -16,6 +16,7 @@ import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { CartService } from '@/api/services/Cart.services';
 
 const ProfileContent = () => {
   const router = useRouter();
@@ -31,6 +32,7 @@ const ProfileContent = () => {
 
   const handleLogout = () => {
     TokenService.removeTokensFromLS();
+    CartService.removeCart();
     dispatch(loginSlice.actions.setIsLogin(false));
     dispatch(loginSlice.actions.setIsSignUp(false));
     dispatch(loginSlice.actions.removeCustomer());

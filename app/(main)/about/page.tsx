@@ -1,3 +1,4 @@
+import ThanksSection from '@/components/about/Thanks';
 import React from 'react';
 
 const About = () => {
@@ -24,40 +25,48 @@ const About = () => {
           </p>
         </div>
         <div className='about__item'>
-          <h3>Key Features of our Flower Shop:</h3>
+          <h3>Key Features of our Flower Shop</h3>
           <p>
-            🌷 <span>Extensive Collection:</span> Browse through a delightful collection of fresh flowers, elegant
-            bouquets, and thoughtful gift sets carefully curated to suit all occasions, be it birthdays, anniversaries,
-            weddings, or just to brighten someone&apos;s day.
+            🌷 <span className='highlight indent'>Extensive Collection:</span> Browse through a delightful collection of
+            fresh flowers, elegant bouquets, and thoughtful gift sets carefully curated to suit all occasions, be it
+            birthdays, anniversaries, weddings, or just to brighten someone&apos;s day.
           </p>
           <p>
-            🏠 <span>Interactive Main Page:</span> Our main page welcomes you with stunning floral arrangements,
-            highlighting the season&apos;s best picks and special offers that captivate your senses.
+            🏠 <span className='highlight indent'>Interactive Main Page:</span> Our main page welcomes you with stunning
+            floral floral arrangements, highlighting the season&apos;s best picks and special offers that captivate your
+            senses.
           </p>
           <p>
-            📋 <span>Detailed Product Pages:</span> Click on any bouquet or arrangement to explore in-depth details,
-            including flower types, colors, and the option to add customizations to create a truly personalized gift.
+            📋 <span className='highlight indent'>Detailed Product Pages:</span> Click on any bouquet or arrangement to
+            explore in-depth details, including flower types, colors, and the option to add customizations to create a
+            personalized gift.
           </p>
           <p>
-            🌸 <span>Search and Sorting:</span> Easily find your favorite flowers or gifts using our search and sorting
-            features, allowing you to quickly navigate through our diverse selection.
+            🌸 <span className='highlight indent'>Search and Sorting:</span> Easily find your favorite flowers or gifts
+            using our search and sorting features, allowing you to quickly navigate through our diverse selection.
           </p>
           <p>
-            🛒 <span>User-Friendly Cart:</span> Add your chosen flowers and gifts to the shopping cart with a click,
-            review your selections, and seamlessly proceed to checkout for a hassle-free shopping experience.
+            🛒 <span className='highlight indent'>User-Friendly Cart:</span> Add your chosen flowers and gifts to the
+            shopping cart with a click, review your selections, and seamlessly proceed to checkout for a hassle-free
+            shopping experience.
           </p>
           <p>
-            💳 <span>Secure Checkout:</span> Our secure checkout process ensures your transactions are safe and your
-            purchases will be swiftly delivered to your doorstep or your loved ones&apos; address.
+            💳 <span className='highlight indent'>Secure Checkout:</span> Our secure checkout process ensures your
+            transactions are safe and your purchases will be swiftly delivered to your doorstep or your loved ones&apos;
+            address.
           </p>
           <p>
-            🔍 <span>About Us:</span> Learn more about our passion for flowers, our team of dedicated florists, and our
-            commitment to providing the freshest and most beautiful blooms.
+            🔍 <span className='highlight indent'>About Us:</span> Learn more about our passion for flowers, our team of
+            dedicated florists, and our commitment to providing the freshest and most beautiful blooms.
           </p>
           <p>
             👤<span>User Accounts:</span> Create your personal account to save your preferences, track your orders, and
             receive exclusive offers and discounts.
           </p>
+        </div>
+        <div className='about__item'>
+          <h3>Roots in RS School</h3>
+          <ThanksSection />
         </div>
       </div>
     </section>

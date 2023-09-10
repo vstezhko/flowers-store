@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-ul, ol {
+ul,
+ol {
   margin: 0;
   padding: 0;
 }
@@ -51,19 +52,19 @@ body {
   flex-direction: column;
   flex-grow: 1;
 
-  &__container{
+  &__container {
     padding-top: 179px;
     flex-grow: 1;
     background-image: url('../public/img/png/texture.png');
     background-repeat: no-repeat;
     background-size: cover;
 
-    @include small{
+    @include small {
       padding-top: 149px;
     }
 
 
-    @include mobile{
+    @include mobile {
       padding-top: 129px;
     }
   }
@@ -82,21 +83,28 @@ body {
 }
 
 
-.page{
+.page {
   padding: 50px 0;
 
-  &__title{
+  &__title {
     text-align: center;
-    margin-bottom: 20px;
     @extend %font-title;
   }
 
-  &__content{
+  &__content {
     padding-top: 50px;
   }
 
   @include medium {
     padding: 30px 0;
+
+    &__title {
+      margin-bottom: 0;
+    }
+
+    &__content {
+      padding-top: 20px;
+    }
   }
 
 }

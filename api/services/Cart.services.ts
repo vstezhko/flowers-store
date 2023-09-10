@@ -50,9 +50,14 @@ const addToCart = async (token: string, cartId: string, version: number, lineIte
   return newVersion;
 };
 
+const removeCart = () => {
+  localStorage.removeItem('cart');
+};
+
 export const CartService = {
   createCart,
   getCart,
   getCartFromLS,
   addToCart,
+  removeCart,
 };

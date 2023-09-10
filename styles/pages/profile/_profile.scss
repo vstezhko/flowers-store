@@ -18,6 +18,7 @@
   .tabs {
     display: flex;
     min-height: 420px;
+    padding-top: 20px;
 
     @include medium() {
       flex-direction: column;
