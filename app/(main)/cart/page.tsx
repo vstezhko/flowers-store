@@ -14,9 +14,8 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { totalLineItemQuantity, lineItems, totalPrice } = useSelector(state => state.cart);
 
-  const cart = CartService.getCartFromLS();
-
   useEffect(() => {
+    const cart = CartService.getCartFromLS();
     const token = TokenService.getAccessTokenFromLS();
 
     if (token && cart)
@@ -28,6 +27,7 @@ const Cart = () => {
       );
   }, []);
 
+  const cart = CartService.getCartFromLS();
   if ((totalLineItemQuantity !== null && totalLineItemQuantity < 1) || !cart) {
     return <EmptyCart />;
   } else {
