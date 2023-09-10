@@ -89,6 +89,10 @@
     color: #FFF;
     align-self: flex-end;
     @include font(16px, 700, 98%);
+
+    @include small-mobile(){
+      @include font(14px, 700, 98%);
+    }
   }
 
 }

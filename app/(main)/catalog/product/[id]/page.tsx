@@ -14,6 +14,7 @@ import ProductAmountSetter from '@/components/product/ProductAmountSetter';
 import ProductSum from '@/components/product/ProductSum';
 import { createProductVariantsArray } from '@/utils/createProductVariantsArray';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
+import { addToCart } from '@/utils/addToCart';
 
 const Product = () => {
   const { id } = useParams() as { id: string };
@@ -25,6 +26,8 @@ const Product = () => {
   const [activeVariant, setActiveVariant] = useState<{ size: string; variant: ProductVariant } | null>(null);
   const [productAmount, setProductAmount] = useState(1);
   const composition = activeVariant?.variant.attributes.find(attr => attr.name === 'composition')?.value.split(',');
+  const { cartProductsIds } = useSelector(state => state.cart);
+  const [disabled, setDisabled] = useState(cartProductsIds.includes(id));
 
   useEffect(() => {
     if (product.status === 'failed') {
@@ -43,6 +46,8 @@ const Product = () => {
     };
   }, [dispatch, id]);
 
+  useEffect(() => setDisabled(cartProductsIds.includes(id)), [cartProductsIds, id]);
+
   const handleChangeActiveVariant = (variantId: number) => {
     const item = productVariants.find(variant => variant.variant.id === variantId);
     if (item) setActiveVariant(item);
@@ -54,7 +59,11 @@ const Product = () => {
     setProductAmount(prevState => prevState + number);
   };
 
-  const handleAddToCard = () => {};
+  const handleAddToCard = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    setDisabled(true);
+    await addToCart(dispatch, id);
+  };
 
   return (
     <div className='product page'>
@@ -88,7 +97,7 @@ const Product = () => {
                     : undefined
                 }
               />
-              <FsButton label='Add to cart' onClick={handleAddToCard} />
+              <FsButton label='Add to cart' onClick={handleAddToCard} disabled={disabled} />
             </div>
           </div>
         </div>

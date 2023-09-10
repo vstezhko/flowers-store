@@ -4,13 +4,10 @@ import { Box, Paper, Tooltip } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 import Link from 'next/link';
-import { getAnonymousAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 import { useDispatch } from '@/redux/store';
-import { addToCartAsync, createCartAsync, getCartAsync } from '@/redux/slices/cartSlice/thunk';
-import { CartService, LineItem } from '@/api/services/Cart.services';
-import { TokenService } from '@/api/services/Token.service';
-import { CurrencyParams, TokenType } from '@/types/enums';
+import { CurrencyParams } from '@/types/enums';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { addToCart } from '@/utils/addToCart';
 
 interface SmallProductCardParams {
   id: string;
@@ -43,35 +40,7 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
     try {
       e.preventDefault();
       setInnerDisabled(true);
-      let token: string;
-
-      const tokenFromLS = TokenService.getAccessTokenFromLS();
-      if (tokenFromLS.type === TokenType.CLIENT) {
-        token = (await dispatch(getAnonymousAccessTokenAsync())).payload.access_token;
-      } else {
-        token = tokenFromLS.token;
-      }
-
-      let cartId, cartVersion;
-      const cartIdAndVersion = CartService.getCartFromLS();
-
-      cartId = cartIdAndVersion?.id;
-      cartVersion = cartIdAndVersion?.version;
-
-      if (!cartId) {
-        const createActionResult = await dispatch(createCartAsync(token));
-        if (typeof createActionResult.payload === 'object') {
-          cartId = createActionResult.payload.cartId;
-          cartVersion = createActionResult.payload.version;
-        }
-      }
-      const lineItem: LineItem = {
-        productId: id,
-        quantity: 1,
-      };
-
-      await dispatch(addToCartAsync({ token, cartId, cartVersion, lineItem }));
-      await dispatch(getCartAsync({ token, cartId }));
+      await addToCart(dispatch, id);
     } finally {
       setLoading(false);
     }

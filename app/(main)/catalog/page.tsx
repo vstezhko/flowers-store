@@ -15,8 +15,6 @@ import SortMenu from '@/components/catalog/SortMenu';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
 import Paginator from '@/components/catalog/Paginator';
 import { CurrencyParams, PaginationParams } from '@/types/enums';
-import { getCartAsync } from '@/redux/slices/cartSlice/thunk';
-import { CartService } from '@/api/services/Cart.services';
 import { PageProduct, ResponseSearchProduct } from '@/types/interface';
 
 const Catalog = () => {
@@ -32,13 +30,6 @@ const Catalog = () => {
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
-
-  useEffect(() => {
-    const cartId = CartService.getCartFromLS()?.id;
-    if (cartId) {
-      dispatch(getCartAsync({ token: TokenService.getAccessTokenFromLS().token, cartId }));
-    }
-  }, [dispatch]);
 
   const fetchSearchProducts = useCallback(
     async (searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
