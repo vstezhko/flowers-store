@@ -7,7 +7,7 @@ import { TokenService } from '@/api/services/Token.service';
 import { productSlice, ProductVariant } from '@/redux/slices/productSlice/productSlice';
 import ProductCompositionCard from '@/components/product/ProductCompositionCard';
 import FsButton from '@/components/UI/FsButton';
-import { Skeleton } from '@mui/material';
+import { Skeleton, Tooltip } from '@mui/material';
 import ProductImageGallery from '@/components/product/ProductImageGallery';
 import ProductVariants from '@/components/product/ProductVariants';
 import ProductAmountSetter from '@/components/product/ProductAmountSetter';
@@ -108,7 +108,11 @@ const Product = () => {
           />
           <ProductCompositionCard items={composition} />
           <div className='product-block__details'>
-            <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} />
+            {product.id ? (
+              <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} />
+            ) : (
+              <Skeleton variant='rectangular' width={175} height={52} />
+            )}
             <div className='product-block__sum'>
               <ProductSum
                 sum={
@@ -119,7 +123,15 @@ const Product = () => {
                     : undefined
                 }
               />
-              <FsButton label='Add to cart' onClick={handleAddToCard} disabled={disabled} />
+              <Tooltip title={disabled ? 'This item has been added to the cart' : ''}>
+                <span>
+                  {product.id ? (
+                    <FsButton label='Add to cart' onClick={handleAddToCard} disabled={disabled} />
+                  ) : (
+                    <Skeleton variant='rectangular' width={120} height={40} />
+                  )}
+                </span>
+              </Tooltip>
             </div>
           </div>
         </div>
