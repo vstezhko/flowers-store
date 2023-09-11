@@ -27,7 +27,6 @@ const Product = () => {
   const [productAmount, setProductAmount] = useState(1);
   const composition = activeVariant?.variant.attributes.find(attr => attr.name === 'composition')?.value.split(',');
   // const { cartProductsIds } = useSelector(state => state.cart);
-  // const [disabled, setDisabled] = useState(cartProductsIds.includes(id));
 
   useEffect(() => {
     if (product.status === 'failed') {
@@ -62,7 +61,8 @@ const Product = () => {
     // setInnerDisabled(true);
     const lineItem: LineItem = {
       productId: id,
-      quantity: 1,
+      variantId: activeVariant?.variant.id,
+      quantity: productAmount,
     };
     await addToCart(id, lineItem, dispatch);
   };
