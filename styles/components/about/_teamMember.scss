@@ -1,0 +1,99 @@
+.team-member {
+  display: flex;
+  gap: 30px;
+  flex-wrap: nowrap;
+  padding: 30px;
+  align-items: center;
+  background-color: #f1f5ed;
+
+  &__biography {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    line-height: 1.5rem;
+    flex: 1;
+
+  }
+
+  &__role {
+    font-weight: 700;
+  }
+
+  &__image-block {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+  }
+
+  &__social {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+
+    svg {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      @extend %transition;
+
+    }
+
+    .linkedin {
+      color: #007EBB;
+    }
+
+    @include hover {
+    
+      .github:hover {
+        color: $color-primary-hover;
+      }
+    
+      .linkedin:hover {
+        color: #3ca3d7;
+      }
+    
+    }
+
+  }
+
+  &__image {
+    width: 250px;
+    height: 250px;
+    border-radius: 5px;
+  }
+
+  &__contributions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 7px;
+  }
+
+  &__skill {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__contributions-range {
+    pointer-events: none;
+    width: 250px;
+
+    .css-h22bzp-MuiSlider-root {
+      height: 6px;
+    }
+
+  }
+
+  .css-nnid7-MuiSlider-valueLabel {
+    line-height: 0.8rem;
+  }
+
+  .css-nnid7-MuiSlider-valueLabel:before {
+    z-index: -1;
+  }
+
+}

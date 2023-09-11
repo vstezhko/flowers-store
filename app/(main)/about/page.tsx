@@ -1,3 +1,4 @@
+import TeamMemberCard from '@/components/about/TeamMemberCard';
 import ThanksSection from '@/components/about/Thanks';
 import React from 'react';
 
@@ -63,6 +64,10 @@ const About = () => {
             👤<span>User Accounts:</span> Create your personal account to save your preferences, track your orders, and
             receive exclusive offers and discounts.
           </p>
+        </div>
+        <div className='about__item'>
+          <h3>Meet our team</h3>
+          <TeamMemberCard />
         </div>
         <div className='about__item'>
           <h3>Roots in RS School</h3>
