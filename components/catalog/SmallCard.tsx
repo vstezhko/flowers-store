@@ -5,7 +5,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 import Link from 'next/link';
 import { getAnonymousAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
-import { useDispatch } from '@/redux/store';
+import { useDispatch, useSelector } from '@/redux/store';
 import { addToCartAsync, createCartAsync } from '@/redux/slices/cartSlice/thunk';
 import { CartService, LineItem } from '@/api/services/Cart.services';
 import { CurrencyParams, TokenType } from '@/types/enums';
@@ -37,6 +37,7 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
   const [innerDisabled, setInnerDisabled] = useState(disabled);
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
+  const cartProductsIds = useSelector(state => state.cart.cartProductsIds);
   const createCart = async (token: string) => {
     const createActionResult = await dispatch(createCartAsync(token));
     if (createActionResult?.payload?.id && createActionResult?.payload?.version) {
@@ -128,7 +129,7 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
             <Tooltip title={innerDisabled ? 'This item has been added to the cart' : ''}>
               <span className='small-card__button-container'>
                 <LoadingButton
-                  disabled={disabled || innerDisabled}
+                  disabled={disabled || innerDisabled || !!cartProductsIds[id]}
                   style={disabled || innerDisabled ? { pointerEvents: 'none' } : {}}
                   className='small-card__button'
                   variant='outlined'
