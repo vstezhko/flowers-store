@@ -26,7 +26,6 @@ import FsProgress from '@/components/UI/FsProgress';
 
 import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 
-
 const PersonalForm = ({
   data,
   type,
