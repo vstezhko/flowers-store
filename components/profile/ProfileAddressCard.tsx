@@ -142,7 +142,7 @@ const ProfileAddressCard: FC<ProfileAddressCardProps> = ({ addressData, type, cu
 
     const actions = [removeAddressAction];
 
-    await dispatch(updateCustomerAsync({ actions, token, version: customer.version }));
+    if (token) await dispatch(updateCustomerAsync({ actions, token, version: customer.version }));
   };
 
   useEffect(() => {

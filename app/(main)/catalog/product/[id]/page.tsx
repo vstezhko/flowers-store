@@ -36,8 +36,8 @@ const Product = () => {
   }, [product, router]);
 
   useEffect(() => {
-    const token: string = TokenService.getAccessTokenFromLS()?.token;
-    dispatch(getProductByIdAsync({ token, id }));
+    const token = TokenService.getAccessTokenFromLS();
+    if (token?.token) dispatch(getProductByIdAsync({ token: token.token, id }));
     return () => {
       dispatch(productSlice.actions.clearState());
     };

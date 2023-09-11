@@ -15,7 +15,7 @@ const setRefreshTokenToLS = (token: string, type: string) => {
   localStorage.setItem('refresh_token', tokenWithType);
 };
 
-const getAccessTokenFromLS = () =>
+const getAccessTokenFromLS = (): { token: string; type: string } | null =>
   localStorage.getItem('access_token') ? JSON.parse(<string>localStorage.getItem('access_token')) : null;
 const getRefreshTokenFromLS = () =>
   localStorage.getItem('refresh_token') ? JSON.parse(<string>localStorage.getItem('refresh_token')) : null;

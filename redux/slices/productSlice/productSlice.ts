@@ -49,7 +49,7 @@ export interface ProductCategory {
   id: string;
 }
 
-interface ProductPrice {
+export interface ProductPrice {
   id: string;
   discounted: {
     discount: {

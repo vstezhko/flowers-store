@@ -38,6 +38,7 @@ export const authSlice = createSlice({
       state.access_token = action.payload.access_token;
       state.expires_in = action.payload.expires_in;
       state.scope = action.payload.scope;
+      state.token_type = action.payload.tokenType;
       if (action.payload.access_token)
         TokenService.setAccessTokenToLS(action.payload.access_token, action.payload.tokenType);
     },
@@ -49,7 +50,6 @@ export const authSlice = createSlice({
       state.refresh_token = action.payload.refresh_token || null;
       state.expires_in = action.payload.expires_in;
       state.scope = action.payload.scope;
-      state.token_type = action.payload.token_type;
     };
 
     builder
@@ -65,10 +65,15 @@ export const authSlice = createSlice({
       )
       .addMatcher(isFulfilled(getClientAccessTokenAsync), (state: AuthState, action: PayloadAction<AuthState>) => {
         setAccessToken(state, action);
-        if (action.payload.access_token) TokenService.setAccessTokenToLS(action.payload.access_token, TokenType.CLIENT);
+        if (action.payload.access_token) {
+          TokenService.setAccessTokenToLS(action.payload.access_token, TokenType.CLIENT);
+          setAccessToken(state, action);
+          state.token_type = TokenType.CLIENT;
+        }
       })
       .addMatcher(isFulfilled(getAnonymousAccessTokenAsync), (state: AuthState, action: PayloadAction<AuthState>) => {
         setAccessToken(state, action);
+        state.token_type = TokenType.ANONYMOUS;
         if (action.payload.access_token)
           TokenService.setAccessTokenToLS(action.payload.access_token, TokenType.ANONYMOUS);
         if (action.payload.refresh_token)
@@ -76,6 +81,7 @@ export const authSlice = createSlice({
       })
       .addMatcher(isFulfilled(getCustomerAccessTokenAsync), (state: AuthState, action: PayloadAction<AuthState>) => {
         setAccessToken(state, action);
+        state.token_type = TokenType.CUSTOMER;
         if (action.payload.access_token)
           TokenService.setAccessTokenToLS(action.payload.access_token, TokenType.CUSTOMER);
         if (action.payload.refresh_token)

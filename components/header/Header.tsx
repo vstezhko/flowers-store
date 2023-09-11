@@ -29,8 +29,7 @@ export const menuItems: MenuParamsWithoutPathName[] = [
 ];
 
 const Header = () => {
-  const [invisible, setInvisible] = React.useState(false);
-  console.log(setInvisible);
+  const [invisible] = React.useState(false);
 
   return (
     <header className='header'>
