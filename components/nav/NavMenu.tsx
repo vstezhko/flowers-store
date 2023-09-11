@@ -1,25 +1,21 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { Button, useMediaQuery } from '@mui/material';
 import { MenuParamsWithoutPathName } from '@/components/header/Header';
 import NavLink from '@/components/nav/NavLink';
 import MobileMenu from '@/components/nav/MobileMenu';
 import BurgerIcon from '@/components/nav/BurderIcon';
 import UserIcon from '../Icons/UserIcon';
-import { useDispatch, useSelector } from '@/redux/store';
+import { useSelector } from '@/redux/store';
 import { TokenService } from '@/api/services/Token.service';
 import { FsButtonType, TokenType } from '@/types/enums';
 import FsButton from '@/components/UI/FsButton';
-import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
-import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { CartService } from '@/api/services/Cart.services';
 
-const ProfileContent = () => {
-  const router = useRouter();
+const ProfileContent = ({ handleLogout }: { handleLogout: () => void }) => {
   const { access_token } = useSelector(state => state.auth);
   const [tokenType, setTokenType] = useState<string | null>(null);
 
@@ -27,18 +23,6 @@ const ProfileContent = () => {
     const token = TokenService.getAccessTokenFromLS();
     if (token) setTokenType(token.type);
   }, [access_token]);
-
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    TokenService.removeTokensFromLS();
-    CartService.removeCart();
-    dispatch(loginSlice.actions.setIsLogin(false));
-    dispatch(loginSlice.actions.setIsSignUp(false));
-    dispatch(loginSlice.actions.removeCustomer());
-    dispatch(snackbarSlice.actions.setMessage({ message: 'Successful logout', variant: 'success' }));
-    router.push('/');
-  };
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -88,7 +72,7 @@ const ProfileContent = () => {
   );
 };
 
-const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
+const NavMenu = ({ menuItems, handleLogout }: { menuItems: MenuParamsWithoutPathName[]; handleLogout: () => void }) => {
   const pathname = usePathname();
   const matches = useMediaQuery('(max-width:768px)');
   const logo = menuItems.find(item => item.className === 'logo');
@@ -125,7 +109,7 @@ const NavMenu = ({ menuItems }: { menuItems: MenuParamsWithoutPathName[] }) => {
           <NavLink path={path} key={id} title={title} pathName={pathname} icon={icon} className={className} />
         ))
       )}
-      <ProfileContent />
+      <ProfileContent handleLogout={handleLogout} />
     </nav>
   );
 };

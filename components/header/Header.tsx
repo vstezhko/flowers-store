@@ -5,7 +5,12 @@ import NavMenu from '@/components/nav/NavMenu';
 import React, { useEffect, useState } from 'react';
 import LogoIcon from '@/components/Icons/LogoIcon';
 import NavLink from '@/components/nav/NavLink';
-import { useSelector } from '@/redux/store';
+import { useDispatch, useSelector } from '@/redux/store';
+import { TokenService } from '@/api/services/Token.service';
+import { CartService } from '@/api/services/Cart.services';
+import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
+import { useRouter } from 'next/navigation';
 
 export interface MenuParams {
   id: number;
@@ -35,6 +40,20 @@ const Header = () => {
   const [sum, setSum] = useState('0');
   const { totalLineItemQuantity, totalPrice, lineItems } = useSelector(state => state.cart);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const handleLogout = () => {
+    TokenService.removeTokensFromLS();
+    CartService.removeCart();
+    dispatch(loginSlice.actions.setIsLogin(false));
+    dispatch(loginSlice.actions.setIsSignUp(false));
+    dispatch(loginSlice.actions.removeCustomer());
+    dispatch(snackbarSlice.actions.setMessage({ message: 'Successful logout', variant: 'success' }));
+    router.push('/');
+    setSum('0');
+    setQuantity(0);
+    setInvisible(true);
+  };
 
   useEffect(() => {
     setLoading(false);
@@ -74,7 +93,7 @@ const Header = () => {
         </div>
       </div>
       <div className='header-nav'>
-        <NavMenu menuItems={menuItems} />
+        <NavMenu menuItems={menuItems} handleLogout={handleLogout} />
       </div>
     </header>
   );
