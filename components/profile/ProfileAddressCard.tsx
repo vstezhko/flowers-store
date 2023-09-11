@@ -12,14 +12,16 @@ import { updateCustomerAsync } from '@/redux/slices/loginSlice/thunks';
 import { useDispatch } from '@/redux/store';
 import { TokenService } from '@/api/services/Token.service';
 import FsButton from '@/components/UI/FsButton';
+import FsProgress from '@/components/UI/FsProgress';
 
 export interface ProfileAddressCardProps {
   addressData: ICustomerAddress[];
   type: string;
   customer: Customer;
+  loading: boolean;
 }
 
-const ProfileAddressCard: FC<ProfileAddressCardProps> = ({ addressData, type, customer }) => {
+const ProfileAddressCard: FC<ProfileAddressCardProps> = ({ addressData, type, customer, loading }) => {
   const [open, setOpen] = useState(false);
   const [isDefaultAddress, setIsDefaultAddress] = useState(false);
   const [typeForm, setTypeForm] = useState<Record<string, string> | null>(null);
@@ -158,31 +160,35 @@ const ProfileAddressCard: FC<ProfileAddressCardProps> = ({ addressData, type, cu
   return (
     <div className='form-customer'>
       <div className='form__content form__content_address'>
-        {addressData.map(i => (
-          <Card key={i.id} className='card-address'>
-            {(i.id === customer.defaultShippingAddressId || i.id === customer.defaultBillingAddressId) && (
-              <Chip className='chip' label='default' color='success' />
-            )}
-            <CardContent>
-              <div>
-                {i.country}, {i.city}
-              </div>
-              <div>
-                {i.streetName}, {i.building}/{i.apartment}
-              </div>
-              <div>{i.postalCode}</div>
-              <div>{i.phone}</div>
-            </CardContent>
-            <CardActions>
-              <Button className='card-btn' onClick={() => handleOpen(i.id, 'edit', i)}>
-                Edit
-              </Button>
-              <Button className='card-btn' onClick={() => deleteAddress(i.id)}>
-                Delete
-              </Button>
-            </CardActions>
-          </Card>
-        ))}
+        {!loading ? (
+          addressData.map(i => (
+            <Card key={i.id} className='card-address'>
+              {(i.id === customer.defaultShippingAddressId || i.id === customer.defaultBillingAddressId) && (
+                <Chip className='chip' label='default' color='success' />
+              )}
+              <CardContent>
+                <div>
+                  {i.country}, {i.city}
+                </div>
+                <div>
+                  {i.streetName}, {i.building}/{i.apartment}
+                </div>
+                <div>{i.postalCode}</div>
+                <div>{i.phone}</div>
+              </CardContent>
+              <CardActions>
+                <Button className='card-btn' onClick={() => handleOpen(i.id, 'edit', i)}>
+                  Edit
+                </Button>
+                <Button className='card-btn' onClick={() => deleteAddress(i.id)}>
+                  Delete
+                </Button>
+              </CardActions>
+            </Card>
+          ))
+        ) : (
+          <FsProgress />
+        )}
       </div>
       <div className='form__btn-container'>
         <FsButton label='add new address' onClick={() => handleOpen('', 'add', null)} className={FsButtonType.SMALL} />
