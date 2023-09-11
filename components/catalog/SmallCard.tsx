@@ -1,14 +1,14 @@
-import React, { FC, useState } from 'react';
-import Image from 'next/image';
-import { Box, Paper, Tooltip } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import noImage from '@/public/img/jpeg/no-image.jpg';
-import Link from 'next/link';
-import { useDispatch } from '@/redux/store';
-import { CurrencyParams } from '@/types/enums';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { addToCart } from '@/utils/addToCart';
-import { LineItem } from '@/api/services/Cart.services';
+import React, { FC, useState } from "react";
+import Image from "next/image";
+import { Box, Paper, Tooltip } from "@mui/material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import noImage from "@/public/img/jpeg/no-image.jpg";
+import Link from "next/link";
+import { useDispatch, useSelector } from "@/redux/store";
+import { CurrencyParams } from "@/types/enums";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { addToCart } from "@/utils/addToCart";
+import { LineItem } from "@/api/services/Cart.services";
 
 interface SmallProductCardParams {
   id: string;
@@ -22,20 +22,20 @@ interface SmallProductCardParams {
 }
 
 const SmallProductCard: FC<SmallProductCardParams> = ({
-  id,
-  productName,
-  description,
-  price,
-  discounted,
-  currency,
-  image,
-  disabled,
-}) => {
+                                                        id,
+                                                        productName,
+                                                        description,
+                                                        price,
+                                                        discounted,
+                                                        currency,
+                                                        image,
+                                                        disabled
+                                                      }) => {
   const [src, setSrc] = useState(image);
   const [innerDisabled, setInnerDisabled] = useState(disabled);
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
-
+  const cartProductsIds = useSelector(state => state.cart.cartProductsIds);
   const handleButtonClick = async (e: React.MouseEvent) => {
     setLoading(true);
     try {
@@ -43,7 +43,7 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
       setInnerDisabled(true);
       const lineItem: LineItem = {
         productId: id,
-        quantity: 1,
+        quantity: 1
       };
       await addToCart(id, lineItem, dispatch);
     } finally {
@@ -52,39 +52,39 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
   };
 
   const handleCardClick = (e: React.MouseEvent) => {
-    if (innerDisabled && (e.target as HTMLElement).closest('.small-card__button-container')) {
+    if (innerDisabled && (e.target as HTMLElement).closest(".small-card__button-container")) {
       e.preventDefault();
     }
   };
 
   return (
     <Link href={`/catalog/product/${id}`} onClick={handleCardClick}>
-      <Paper className='small-card'>
-        <div className='small-card__image-container'>
+      <Paper className="small-card">
+        <div className="small-card__image-container">
           <Image
-            className='small-card__image'
+            className="small-card__image"
             src={src}
             onError={() => setSrc(noImage.src)}
-            alt='Product photo'
+            alt="Product photo"
             fill
-            sizes='(max-width: 768px) 250px, 263px'
+            sizes="(max-width: 768px) 250px, 263px"
           />
         </div>
-        <div className='small-card__text-content'>
-          <div className='small-card__name'>{productName}</div>
-          <Box component='div' sx={{ textOverflow: 'ellipsis' }} className='small-card__description'>
+        <div className="small-card__text-content">
+          <div className="small-card__name">{productName}</div>
+          <Box component="div" sx={{ textOverflow: "ellipsis" }} className="small-card__description">
             {description}
           </Box>
-          <div className='small-card__details'>
-            <div className='small-card__price'>
-              <div className='small-card__final-price'>
+          <div className="small-card__details">
+            <div className="small-card__price">
+              <div className="small-card__final-price">
                 {`${((discounted ?? price) / 100).toFixed(2)} ${currency}`.replace(
                   CurrencyParams.EUR_TEXT,
                   CurrencyParams.EUR_SYMBOL
-                ) || 'Upon request'}
+                ) || "Upon request"}
               </div>
               {discounted !== undefined && (
-                <div className='small-card__initial-price'>
+                <div className="small-card__initial-price">
                   {`${(price / 100).toFixed(2)} ${currency}`.replace(
                     CurrencyParams.EUR_TEXT,
                     CurrencyParams.EUR_SYMBOL
@@ -92,16 +92,16 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
                 </div>
               )}
             </div>
-            <Tooltip title={innerDisabled ? 'This item has been added to the cart' : ''}>
-              <span className='small-card__button-container'>
+            <Tooltip title={innerDisabled ? "This item has been added to the cart" : ""}>
+              <span className="small-card__button-container">
                 <LoadingButton
-                  disabled={disabled || innerDisabled}
-                  style={disabled || innerDisabled ? { pointerEvents: 'none' } : {}}
-                  className='small-card__button'
-                  variant='outlined'
+                  disabled={disabled || innerDisabled || !!cartProductsIds[id]}
+                  style={disabled || innerDisabled ? { pointerEvents: "none" } : {}}
+                  className="small-card__button"
+                  variant="outlined"
                   onClick={handleButtonClick}
                   loading={loading}>
-                  <AddShoppingCartIcon className='small-card__icon' />
+                  <AddShoppingCartIcon className="small-card__icon" />
                 </LoadingButton>
               </span>
             </Tooltip>

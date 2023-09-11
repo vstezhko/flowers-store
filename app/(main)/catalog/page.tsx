@@ -21,11 +21,18 @@ const Catalog = () => {
   const { search, checkboxState, priceRange, categoryId, sortIndex, paginatorPage } = useSelector(
     state => state.search
   );
-  const { access_token } = useSelector(state => state.auth);
+  const { access_token, token_type } = useSelector(state => state.auth);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [catalogData, setCatalogData] = useState<{ total: number; results: ResponseSearchProduct[] } | null>(null);
+  const [isToken, setIsToken] = useState(access_token !== null);
+
+  useEffect(() => {
+    setIsToken(function (prev: boolean) {
+      return !prev && token_type !== null ? true : prev;
+    });
+  }, [token_type]);
 
   const fetchSearchProducts = useCallback(
     async (accessToken: string, searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
@@ -48,7 +55,7 @@ const Catalog = () => {
       setCatalogData(response);
       setIsLoadingData(false);
     },
-    [dispatch, paginatorPage, categoryId, sortIndex, access_token]
+    [dispatch, categoryId, sortIndex, isToken]
   );
 
   useEffect(() => {

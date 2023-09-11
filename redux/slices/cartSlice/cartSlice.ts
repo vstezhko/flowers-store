@@ -1,4 +1,4 @@
-import { Action, createSlice, isAnyOf, isFulfilled } from '@reduxjs/toolkit';
+import { Action, createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { addToCartAsync, createCartAsync, getCartAsync } from './thunk';
 import { ProductPrice, ProductVariant } from '@/redux/slices/productSlice/productSlice';
 
@@ -58,7 +58,7 @@ export interface CartItem {
 export interface Cart {
   cartId: string | null;
   version: number | null;
-  cartProductsIds: string[];
+  cartProductsIds: Record<string, CartItem>;
   lineItems: CartItem[];
   totalPrice: ProductPrice['value'] | null;
   totalLineItemQuantity: number | null;
@@ -72,7 +72,7 @@ export const initialState: CartState = {
   cartId: null,
   version: null,
   status: 'idle',
-  cartProductsIds: [],
+  cartProductsIds: {},
   lineItems: [],
   totalPrice: null,
   totalLineItemQuantity: null,
@@ -87,24 +87,24 @@ export const cartSlice = createSlice({
       .addMatcher(isAnyOf(createCartAsync.pending, addToCartAsync.pending, getCartAsync.pending), state => {
         state.status = 'pending';
       })
-      .addMatcher(isAnyOf(createCartAsync.fulfilled, addToCartAsync.fulfilled), (state, action) => {
-        state.status = 'idle';
-        state.cartId = action.payload.id;
-        state.version = action.payload.version;
-        state.lineItems = action.payload.lineItems;
-        state.totalPrice = action.payload.totalPrice;
-        state.cartProductsIds = action.payload.lineItems.map((i: CartItem) => i.productId);
-        state.totalLineItemQuantity = action.payload.totalLineItemQuantity;
-      })
-      .addMatcher(isFulfilled(getCartAsync), (state: CartState, action: CartPayloadAction) => {
-        state.status = 'idle';
-        state.cartId = action.payload.id;
-        state.version = action.payload.version;
-        state.lineItems = action.payload.lineItems;
-        state.totalPrice = action.payload.totalPrice;
-        state.cartProductsIds = action.payload.lineItems.map((i: CartItem) => i.productId);
-        state.totalLineItemQuantity = action.payload.totalLineItemQuantity;
-      })
+      .addMatcher(
+        isAnyOf(createCartAsync.fulfilled, addToCartAsync.fulfilled, getCartAsync.fulfilled),
+        (state, action: CartPayloadAction) => {
+          state.status = 'idle';
+          state.cartId = action.payload.id;
+          state.version = action.payload.version;
+          state.lineItems = action.payload.lineItems;
+          state.totalPrice = action.payload.totalPrice;
+          state.cartProductsIds = action.payload.lineItems.reduce(
+            (acc: Record<string, CartItem>, i) => {
+              acc[i.productId] = i;
+              return acc;
+            },
+            {} as Record<string, CartItem>
+          );
+          state.totalLineItemQuantity = action.payload.totalLineItemQuantity;
+        }
+      )
       .addMatcher(isAnyOf(createCartAsync.rejected, addToCartAsync.rejected, getCartAsync.rejected), state => {
         state.status = 'failed';
       });

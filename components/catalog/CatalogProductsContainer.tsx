@@ -24,7 +24,7 @@ const CatalogProductsContainer: FC<CatalogProductsContainerParams> = ({
   const checkCartPresence = (initialProducts: { total: number; results: ResponseSearchProduct[] }) => {
     const products = createProductsForCatalog(initialProducts.results);
     return products.map(i => {
-      return { ...i, disabled: cartProductsIds.includes(i.id) };
+      return { ...i, disabled: !!cartProductsIds[i.id] };
     });
   };
 
@@ -32,7 +32,7 @@ const CatalogProductsContainer: FC<CatalogProductsContainerParams> = ({
 
   useEffect(() => {
     if (productsPage) setDisplayProducts(checkCartPresence(productsPage));
-  }, [cartProductsIds, productsPage]);
+  }, [productsPage]);
 
   return (
     <div className='catalog__container'>
