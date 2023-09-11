@@ -58,7 +58,7 @@ export interface CartItem {
 export interface Cart {
   cartId: string | null;
   version: number | null;
-  cartProductsIds: Record<string, CartItem>;
+  cartProductsIds: Record<string, Record<string, CartItem>>;
   lineItems: CartItem[];
   totalPrice: ProductPrice['value'] | null;
   totalLineItemQuantity: number | null;
@@ -96,11 +96,15 @@ export const cartSlice = createSlice({
           state.lineItems = action.payload.lineItems;
           state.totalPrice = action.payload.totalPrice;
           state.cartProductsIds = action.payload.lineItems.reduce(
-            (acc: Record<string, CartItem>, i) => {
-              acc[i.productId] = i;
+            (acc: Record<string, Record<string, CartItem>>, i) => {
+              if (acc[i.productId]) {
+                acc[i.productId][i.variant.id] = i;
+              } else {
+                acc[i.productId] = { [i.variant.id]: i };
+              }
               return acc;
             },
-            {} as Record<string, CartItem>
+            {} as Record<string, Record<string, CartItem>>
           );
           state.totalLineItemQuantity = action.payload.totalLineItemQuantity;
         }

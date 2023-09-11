@@ -26,7 +26,24 @@ const Product = () => {
   const [activeVariant, setActiveVariant] = useState<{ size: string; variant: ProductVariant } | null>(null);
   const [productAmount, setProductAmount] = useState(1);
   const composition = activeVariant?.variant.attributes.find(attr => attr.name === 'composition')?.value.split(',');
-  // const { cartProductsIds } = useSelector(state => state.cart);
+  const { cartProductsIds } = useSelector(state => state.cart);
+
+  const isProductInCart = (currentVariantId: number) => {
+    if (currentVariantId && cartProductsIds) {
+      if (cartProductsIds[id]) {
+        return !!cartProductsIds[id][currentVariantId];
+      } else return false;
+    } else {
+      return false;
+    }
+  };
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (activeVariant?.variant.id) {
+      setDisabled(isProductInCart(activeVariant?.variant.id));
+    }
+  }, [activeVariant, isProductInCart]);
 
   useEffect(() => {
     if (product.status === 'failed') {
@@ -47,7 +64,10 @@ const Product = () => {
 
   const handleChangeActiveVariant = (variantId: number) => {
     const item = productVariants.find(variant => variant.variant.id === variantId);
-    if (item) setActiveVariant(item);
+    if (item) {
+      setActiveVariant(item);
+      setDisabled(isProductInCart(variantId));
+    }
   };
 
   const handleChangeAmount = (number: number) => {
@@ -58,7 +78,7 @@ const Product = () => {
 
   const handleAddToCard = async (e: React.MouseEvent) => {
     e.preventDefault();
-    // setInnerDisabled(true);
+    setDisabled(true);
     const lineItem: LineItem = {
       productId: id,
       variantId: activeVariant?.variant.id,
@@ -99,7 +119,7 @@ const Product = () => {
                     : undefined
                 }
               />
-              <FsButton label='Add to cart' onClick={handleAddToCard} />
+              <FsButton label='Add to cart' onClick={handleAddToCard} disabled={disabled} />
             </div>
           </div>
         </div>

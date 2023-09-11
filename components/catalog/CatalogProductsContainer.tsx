@@ -24,7 +24,10 @@ const CatalogProductsContainer: FC<CatalogProductsContainerParams> = ({
   const checkCartPresence = (initialProducts: { total: number; results: ResponseSearchProduct[] }) => {
     const products = createProductsForCatalog(initialProducts.results);
     return products.map(i => {
-      return { ...i, disabled: !!cartProductsIds[i.id] };
+      return {
+        ...i,
+        disabled: !!cartProductsIds[i.id],
+      };
     });
   };
 
@@ -48,6 +51,7 @@ const CatalogProductsContainer: FC<CatalogProductsContainerParams> = ({
             <SmallProductCard
               key={product.id}
               id={product.id}
+              masterVariantID={product.masterVariantID}
               productName={product.name || 'No product name'}
               price={product.price}
               discounted={product.discounted}

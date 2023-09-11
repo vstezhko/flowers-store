@@ -33,12 +33,12 @@ const Header = () => {
   const [invisible, setInvisible] = useState(true);
   const [quantity, setQuantity] = useState(0);
   const [sum, setSum] = useState('0');
-  const { cartProductsIds, totalPrice, lineItems } = useSelector(state => state.cart);
+  const { totalLineItemQuantity, totalPrice, lineItems } = useSelector(state => state.cart);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(false);
-    if (cartProductsIds.length > 0) {
+    if (totalLineItemQuantity && totalLineItemQuantity > 0) {
       setInvisible(false);
     }
     const totalQuantity = lineItems.reduce((acc, init) => acc + init.quantity, 0);
@@ -46,7 +46,7 @@ const Header = () => {
     if (totalPrice) {
       setSum((totalPrice.centAmount / 100).toString());
     }
-  }, [cartProductsIds.length, loading, totalPrice, lineItems]);
+  }, [totalLineItemQuantity, loading, totalPrice, lineItems]);
 
   return (
     <header className='header'>

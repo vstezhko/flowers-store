@@ -75,4 +75,5 @@ export interface PageProduct {
   currency: string;
   image: string;
   description: string;
+  masterVariantID: number;
 }
