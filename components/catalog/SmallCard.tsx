@@ -4,7 +4,7 @@ import { Box, Paper, Tooltip } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import noImage from '@/public/img/jpeg/no-image.jpg';
 import Link from 'next/link';
-import { useDispatch, useSelector } from '@/redux/store';
+import { useDispatch } from '@/redux/store';
 import { CurrencyParams } from '@/types/enums';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { addToCart } from '@/utils/addToCart';
@@ -37,7 +37,6 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
   const [innerDisabled, setInnerDisabled] = useState(disabled);
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
-  const cartProductsIds = useSelector(state => state.cart.cartProductsIds);
 
   const handleButtonClick = async (e: React.MouseEvent) => {
     setLoading(true);
@@ -99,7 +98,7 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
             <Tooltip title={innerDisabled ? 'This item has been added to the cart' : ''}>
               <span className='small-card__button-container'>
                 <LoadingButton
-                  disabled={disabled || innerDisabled || !!cartProductsIds[id]}
+                  disabled={innerDisabled}
                   style={disabled || innerDisabled ? { pointerEvents: 'none' } : {}}
                   className='small-card__button'
                   variant='outlined'

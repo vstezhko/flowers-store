@@ -3,6 +3,7 @@ import SmallProductCard from '@/components/catalog/SmallCard';
 import { useSelector } from '@/redux/store';
 import { createProductsForCatalog } from '@/utils/createProductsForCatalog';
 import { ResponseSearchProduct } from '@/types/catalog/interface';
+import { isProductInCart } from '@/utils/isProductInCart';
 
 export interface CatalogProductsContainerParams {
   isLoadingData: boolean;
@@ -26,7 +27,7 @@ const CatalogProductsContainer: FC<CatalogProductsContainerParams> = ({
     return products.map(i => {
       return {
         ...i,
-        disabled: !!cartProductsIds[i.id],
+        disabled: isProductInCart(i.masterVariantID, cartProductsIds, i.id),
       };
     });
   };

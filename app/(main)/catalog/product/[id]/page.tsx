@@ -16,6 +16,7 @@ import { createProductVariantsArray } from '@/utils/createProductVariantsArray';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
 import { LineItem } from '@/api/services/Cart.services';
 import { addToCart } from '@/utils/addToCart';
+import { isProductInCart } from '@/utils/isProductInCart';
 
 const Product = () => {
   const { id } = useParams() as { id: string };
@@ -28,20 +29,11 @@ const Product = () => {
   const composition = activeVariant?.variant.attributes.find(attr => attr.name === 'composition')?.value.split(',');
   const { cartProductsIds } = useSelector(state => state.cart);
 
-  const isProductInCart = (currentVariantId: number) => {
-    if (currentVariantId && cartProductsIds) {
-      if (cartProductsIds[id]) {
-        return !!cartProductsIds[id][currentVariantId];
-      } else return false;
-    } else {
-      return false;
-    }
-  };
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (activeVariant?.variant.id) {
-      setDisabled(isProductInCart(activeVariant?.variant.id));
+      setDisabled(isProductInCart(activeVariant?.variant.id, cartProductsIds, id));
     }
   }, [activeVariant, isProductInCart]);
 
@@ -66,7 +58,7 @@ const Product = () => {
     const item = productVariants.find(variant => variant.variant.id === variantId);
     if (item) {
       setActiveVariant(item);
-      setDisabled(isProductInCart(variantId));
+      setDisabled(isProductInCart(variantId, cartProductsIds, id));
     }
   };
 
