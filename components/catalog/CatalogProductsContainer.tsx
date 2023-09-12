@@ -27,7 +27,7 @@ const CatalogProductsContainer: FC<CatalogProductsContainerParams> = ({
     return products.map(i => {
       return {
         ...i,
-        disabled: isProductInCart(i.masterVariantID, cartProductsIds, i.id),
+        disabled: !!isProductInCart(i.masterVariantID, cartProductsIds, i.id),
       };
     });
   };

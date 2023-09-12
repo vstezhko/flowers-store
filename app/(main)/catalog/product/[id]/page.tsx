@@ -119,7 +119,7 @@ const Product = () => {
           <ProductCompositionCard items={composition} />
           <div className='product-block__details'>
             {product.id ? (
-              <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} disabled={disabled}/>
+              <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} disabled={disabled} />
             ) : (
               <Skeleton variant='rectangular' width={175} height={52} />
             )}
