@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import SmallProductCard from '@/components/catalog/SmallCard';
-import { ResponseSearchProduct } from '@/app/(main)/catalog/page';
 import { useSelector } from '@/redux/store';
 import { createProductsForCatalog } from '@/utils/createProductsForCatalog';
+import { ResponseSearchProduct } from '@/types/catalog/interface';
+import { isProductInCart } from '@/utils/isProductInCart';
 
 export interface CatalogProductsContainerParams {
   isLoadingData: boolean;
@@ -24,7 +25,10 @@ const CatalogProductsContainer: FC<CatalogProductsContainerParams> = ({
   const checkCartPresence = (initialProducts: { total: number; results: ResponseSearchProduct[] }) => {
     const products = createProductsForCatalog(initialProducts.results);
     return products.map(i => {
-      return { ...i, disabled: !!cartProductsIds[i.id] };
+      return {
+        ...i,
+        disabled: isProductInCart(i.masterVariantID, cartProductsIds, i.id),
+      };
     });
   };
 
@@ -48,6 +52,7 @@ const CatalogProductsContainer: FC<CatalogProductsContainerParams> = ({
             <SmallProductCard
               key={product.id}
               id={product.id}
+              masterVariantID={product.masterVariantID}
               productName={product.name || 'No product name'}
               price={product.price}
               discounted={product.discounted}

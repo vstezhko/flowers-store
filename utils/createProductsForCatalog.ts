@@ -1,5 +1,5 @@
 import noImage from '@/public/img/jpeg/no-image.jpg';
-import { PageProduct, ResponseSearchProduct } from '@/app/(main)/catalog/page';
+import { PageProduct, ResponseSearchProduct } from '@/types/catalog/interface';
 
 export const createProductsForCatalog = (productsResponse: ResponseSearchProduct[]): PageProduct[] => {
   return productsResponse.map((item: ResponseSearchProduct) => {
@@ -12,6 +12,7 @@ export const createProductsForCatalog = (productsResponse: ResponseSearchProduct
         item.masterVariant.prices[0].discounted?.value.currencyCode ?? item.masterVariant.prices[0].value.currencyCode,
       image: item.masterVariant.images[0]?.url ? item.masterVariant.images[0].url : noImage.src,
       description: item.description.en || '',
+      masterVariantID: item.masterVariant.id,
     };
   });
 };

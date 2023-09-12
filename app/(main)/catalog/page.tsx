@@ -13,91 +13,8 @@ import SortMenu from '@/components/catalog/SortMenu';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
 import Paginator from '@/components/catalog/Paginator';
 import { CurrencyParams, PaginationParams } from '@/types/enums';
-import { getCartAsync } from '@/redux/slices/cartSlice/thunk';
-import { CartService } from '@/api/services/Cart.services';
 import CatalogProductsContainer from '@/components/catalog/CatalogProductsContainer';
-
-export interface ProductCategory {
-  typeId: string;
-  id: string;
-}
-
-interface ProductPrice {
-  id: string;
-  discounted: {
-    discount: {
-      typeId: string;
-      id: string;
-    };
-    value: {
-      type: string;
-      currencyCode: CurrencyParams.EUR_TEXT;
-      centAmount: number;
-      fractionDigits: number;
-    };
-  };
-  value: {
-    type: string;
-    currencyCode: CurrencyParams.EUR_TEXT;
-    centAmount: number;
-    fractionDigits: number;
-  };
-}
-
-interface ProductImage {
-  url: string;
-  dimensions: {
-    w: number;
-    h: number;
-  };
-}
-
-interface Channel {
-  isOnStock: boolean;
-  availableQuantity: number;
-  version: number;
-  id: string;
-}
-
-interface ProductVariant {
-  id: number;
-  sku: string;
-  key: string;
-  prices: ProductPrice[];
-  images: ProductImage[];
-  attributes: ProductAttribute[];
-  assets: [];
-  availability: {
-    channels: Record<string, Channel>;
-  };
-}
-
-interface ProductAttribute {
-  name: string;
-  value: string;
-}
-
-export interface ResponseSearchProduct {
-  id: string;
-  name: {
-    en: string | null;
-  };
-  description: {
-    en: string | null;
-  };
-  masterVariant: ProductVariant;
-  variants: ProductVariant[];
-}
-
-export interface PageProduct {
-  id: string;
-  name: string;
-  price: number;
-  discounted: number | undefined;
-  currency: string;
-  image: string;
-  description: string;
-}
+import { ResponseSearchProduct } from '@/types/catalog/interface';
 
 const Catalog = () => {
   const dispatch = useDispatch();
@@ -116,17 +33,6 @@ const Catalog = () => {
       return !prev && token_type !== null ? true : prev;
     });
   }, [token_type]);
-
-  useEffect(() => {
-    const cartId = CartService.getCartFromLS()?.id;
-
-    const tokenLS = TokenService.getAccessTokenFromLS();
-    const tokenForCart = access_token ? access_token : tokenLS?.token;
-
-    if (cartId && tokenForCart) {
-      dispatch(getCartAsync({ token: tokenForCart, cartId }));
-    }
-  }, [dispatch, isToken]);
 
   const fetchSearchProducts = useCallback(
     async (accessToken: string, searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
@@ -149,7 +55,7 @@ const Catalog = () => {
       setCatalogData(response);
       setIsLoadingData(false);
     },
-    [dispatch, categoryId, sortIndex, isToken]
+    [dispatch, categoryId, sortIndex, isToken, paginatorPage]
   );
 
   useEffect(() => {

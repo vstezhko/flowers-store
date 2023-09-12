@@ -19,7 +19,7 @@
   align-items: center;
   justify-content: space-between;
 
-  & > .nav__link{
+  & > .nav__link {
     justify-content: flex-end;
   }
 
@@ -89,6 +89,9 @@
     color: #FFF;
     align-self: flex-end;
     @include font(16px, 700, 98%);
+    @include small-mobile() {
+      @include font(14px, 700, 98%);
+    }
   }
 
 }
@@ -99,6 +102,7 @@
 
 
 .MuiBadge-badge{
-  right: 35px;
-  top: 5px;
+  font-size: 0.5rem !important;
+  min-width: 15px !important;
+  height: 15px !important;
 }

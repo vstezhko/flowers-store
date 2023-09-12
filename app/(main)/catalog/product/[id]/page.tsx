@@ -7,13 +7,16 @@ import { TokenService } from '@/api/services/Token.service';
 import { productSlice, ProductVariant } from '@/redux/slices/productSlice/productSlice';
 import ProductCompositionCard from '@/components/product/ProductCompositionCard';
 import FsButton from '@/components/UI/FsButton';
-import { Skeleton } from '@mui/material';
+import { Skeleton, Tooltip } from '@mui/material';
 import ProductImageGallery from '@/components/product/ProductImageGallery';
 import ProductVariants from '@/components/product/ProductVariants';
 import ProductAmountSetter from '@/components/product/ProductAmountSetter';
 import ProductSum from '@/components/product/ProductSum';
 import { createProductVariantsArray } from '@/utils/createProductVariantsArray';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
+import { LineItem } from '@/api/services/Cart.services';
+import { addToCart } from '@/utils/addToCart';
+import { isProductInCart } from '@/utils/isProductInCart';
 
 const Product = () => {
   const { id } = useParams() as { id: string };
@@ -21,10 +24,18 @@ const Product = () => {
   const router = useRouter();
   const product = useSelector(state => state.product);
   const [productVariants, setProductVariants] = useState<{ size: string; variant: ProductVariant }[]>([]);
-
   const [activeVariant, setActiveVariant] = useState<{ size: string; variant: ProductVariant } | null>(null);
   const [productAmount, setProductAmount] = useState(1);
   const composition = activeVariant?.variant.attributes.find(attr => attr.name === 'composition')?.value.split(',');
+  const { cartProductsIds } = useSelector(state => state.cart);
+
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (activeVariant?.variant.id) {
+      setDisabled(isProductInCart(activeVariant?.variant.id, cartProductsIds, id));
+    }
+  }, [activeVariant, isProductInCart]);
 
   useEffect(() => {
     if (product.status === 'failed') {
@@ -45,7 +56,10 @@ const Product = () => {
 
   const handleChangeActiveVariant = (variantId: number) => {
     const item = productVariants.find(variant => variant.variant.id === variantId);
-    if (item) setActiveVariant(item);
+    if (item) {
+      setActiveVariant(item);
+      setDisabled(isProductInCart(variantId, cartProductsIds, id));
+    }
   };
 
   const handleChangeAmount = (number: number) => {
@@ -54,7 +68,16 @@ const Product = () => {
     setProductAmount(prevState => prevState + number);
   };
 
-  const handleAddToCard = () => {};
+  const handleAddToCard = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    setDisabled(true);
+    const lineItem: LineItem = {
+      productId: id,
+      variantId: activeVariant?.variant.id,
+      quantity: productAmount,
+    };
+    await addToCart(id, lineItem, dispatch);
+  };
 
   return (
     <div className='product page'>
@@ -77,7 +100,11 @@ const Product = () => {
           />
           <ProductCompositionCard items={composition} />
           <div className='product-block__details'>
-            <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} />
+            {product.id ? (
+              <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} />
+            ) : (
+              <Skeleton variant='rectangular' width={175} height={52} />
+            )}
             <div className='product-block__sum'>
               <ProductSum
                 sum={
@@ -88,7 +115,15 @@ const Product = () => {
                     : undefined
                 }
               />
-              <FsButton label='Add to cart' onClick={handleAddToCard} />
+              <Tooltip title={disabled ? 'This item has been added to the cart' : ''}>
+                <span>
+                  {product.id ? (
+                    <FsButton label='Add to cart' onClick={handleAddToCard} disabled={disabled} />
+                  ) : (
+                    <Skeleton variant='rectangular' width={120} height={40} />
+                  )}
+                </span>
+              </Tooltip>
             </div>
           </div>
         </div>

@@ -22,8 +22,6 @@ const ProfileFormContainer = ({ src, type }: { src: string; type: string }) => {
     } else setLoading(true);
   }, [customer, loading]);
 
-  console.log(loading);
-
   const mainInputFields: FormItemFieldsParams[] = useMemo(() => {
     return [
       {

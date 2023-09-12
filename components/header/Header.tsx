@@ -2,9 +2,15 @@ import BulletIcon from '@/components/Icons/BulletIcon';
 import PhoneIcon from '@/components/Icons/PhoneIcon';
 import HeaderCart from '@/components/header/HeaderCart';
 import NavMenu from '@/components/nav/NavMenu';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LogoIcon from '@/components/Icons/LogoIcon';
 import NavLink from '@/components/nav/NavLink';
+import { useDispatch, useSelector } from '@/redux/store';
+import { TokenService } from '@/api/services/Token.service';
+import { CartService } from '@/api/services/Cart.services';
+import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
+import { useRouter } from 'next/navigation';
 
 export interface MenuParams {
   id: number;
@@ -29,7 +35,37 @@ export const menuItems: MenuParamsWithoutPathName[] = [
 ];
 
 const Header = () => {
-  const [invisible] = React.useState(false);
+  const [invisible, setInvisible] = useState(true);
+  const [quantity, setQuantity] = useState(0);
+  const [sum, setSum] = useState('0');
+  const { totalLineItemQuantity, totalPrice, lineItems } = useSelector(state => state.cart);
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const handleLogout = () => {
+    TokenService.removeTokensFromLS();
+    CartService.removeCart();
+    dispatch(loginSlice.actions.setIsLogin(false));
+    dispatch(loginSlice.actions.setIsSignUp(false));
+    dispatch(loginSlice.actions.removeCustomer());
+    dispatch(snackbarSlice.actions.setMessage({ message: 'Successful logout', variant: 'success' }));
+    router.push('/');
+    setSum('0');
+    setQuantity(0);
+    setInvisible(true);
+  };
+
+  useEffect(() => {
+    setLoading(false);
+    if (totalLineItemQuantity && totalLineItemQuantity > 0) {
+      setInvisible(false);
+    }
+    const totalQuantity = lineItems.reduce((acc, init) => acc + init.quantity, 0);
+    setQuantity(totalQuantity);
+    if (totalPrice) {
+      setSum((totalPrice.centAmount / 100).toString());
+    }
+  }, [totalLineItemQuantity, loading, totalPrice, lineItems]);
 
   return (
     <header className='header'>
@@ -50,14 +86,14 @@ const Header = () => {
           <NavLink
             path='/cart'
             title=''
-            icon={<HeaderCart sum='0' invisible={invisible} quantity={3} />}
+            icon={<HeaderCart sum={sum} invisible={invisible} quantity={quantity} loading={loading} />}
             pathName=''
             className=''
           />
         </div>
       </div>
       <div className='header-nav'>
-        <NavMenu menuItems={menuItems} />
+        <NavMenu menuItems={menuItems} handleLogout={handleLogout} />
       </div>
     </header>
   );
