@@ -24,4 +24,20 @@
     }
 
   }
+
+  &__team-members {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px 0;
+  }
+
+  @include medium-mobile {
+
+    &__team-members {
+      padding: 10px 0;
+    }
+
+  }
+
 }
