@@ -16,6 +16,8 @@
   }
 
   &__image {
+    width: 458px;
+    height: 458px;
     
     @include medium {
       max-width: 390px;
@@ -34,10 +36,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    @extend %transition;
     cursor: pointer;
 
     svg {
+      @extend %transition;
       
       * {
         fill: currentColor;  

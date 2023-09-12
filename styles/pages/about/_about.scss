@@ -31,4 +31,13 @@
     gap: 30px;
     padding: 20px 0;
   }
+
+  @include medium-mobile {
+
+    &__team-members {
+      padding: 10px 0;
+    }
+
+  }
+
 }
