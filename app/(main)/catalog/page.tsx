@@ -55,7 +55,7 @@ const Catalog = () => {
       setCatalogData(response);
       setIsLoadingData(false);
     },
-    [dispatch, categoryId, sortIndex, isToken]
+    [dispatch, categoryId, sortIndex, isToken, paginatorPage]
   );
 
   useEffect(() => {
