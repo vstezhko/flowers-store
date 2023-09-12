@@ -15,8 +15,9 @@ import ProductSum from '@/components/product/ProductSum';
 import { createProductVariantsArray } from '@/utils/createProductVariantsArray';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
 import { LineItem } from '@/api/services/Cart.services';
-import { addToCart } from '@/utils/addToCart';
+import { cartInteraction } from '@/utils/cartInteraction';
 import { isProductInCart } from '@/utils/isProductInCart';
+import { cartSlice } from '@/redux/slices/cartSlice/cartSlice';
 
 const Product = () => {
   const { id } = useParams() as { id: string };
@@ -76,7 +77,21 @@ const Product = () => {
       variantId: activeVariant?.variant.id,
       quantity: productAmount,
     };
-    await addToCart(id, lineItem, dispatch);
+    await cartInteraction(lineItem, dispatch, 'addLineItem');
+  };
+
+  const handleRemoveFromCart = async (e: React.MouseEvent) => {
+    dispatch(cartSlice.actions.isRemoveItem(true));
+    e.preventDefault();
+    setDisabled(false);
+    console.log(disabled);
+    const lineItem: LineItem = {
+      lineItemId: activeVariant?.variant.id && cartProductsIds[id][activeVariant?.variant.id].id,
+      quantity: productAmount,
+    };
+
+    await cartInteraction(lineItem, dispatch, 'removeLineItem');
+    dispatch(cartSlice.actions.isRemoveItem(false));
   };
 
   return (
@@ -115,15 +130,18 @@ const Product = () => {
                     : undefined
                 }
               />
-              <Tooltip title={disabled ? 'This item has been added to the cart' : ''}>
-                <span>
-                  {product.id ? (
-                    <FsButton label='Add to cart' onClick={handleAddToCard} disabled={disabled} />
-                  ) : (
-                    <Skeleton variant='rectangular' width={120} height={40} />
-                  )}
-                </span>
-              </Tooltip>
+              <div className='product-btn__container'>
+                <Tooltip title={disabled ? 'This item has been added to the cart' : ''}>
+                  <span>
+                    {product.id ? (
+                      <FsButton label='Add to cart' onClick={handleAddToCard} disabled={disabled} />
+                    ) : (
+                      <Skeleton variant='rectangular' width={120} height={40} />
+                    )}
+                  </span>
+                </Tooltip>
+                <FsButton label='Remove' variant='outlined' onClick={handleRemoveFromCart} disabled={!disabled} />
+              </div>
             </div>
           </div>
         </div>

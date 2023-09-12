@@ -1,4 +1,4 @@
-import { addToCartAsync, createCartAsync, getCartAsync } from '@/redux/slices/cartSlice/thunk';
+import { cartInteractionAsync, createCartAsync, getCartAsync } from '@/redux/slices/cartSlice/thunk';
 import { TokenService } from '@/api/services/Token.service';
 import { TokenType } from '@/types/enums';
 import { getAnonymousAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
@@ -6,7 +6,7 @@ import { CartService, LineItem } from '@/api/services/Cart.services';
 
 import { ReduxDispatch } from '@/redux/store';
 
-const createCart = async (token: string, dispatch: ReduxDispatch) => {
+export const createCart = async (token: string, dispatch: ReduxDispatch) => {
   const createActionResult = await dispatch(createCartAsync(token));
   if (createActionResult?.payload?.id && createActionResult?.payload?.version) {
     return {
@@ -16,7 +16,7 @@ const createCart = async (token: string, dispatch: ReduxDispatch) => {
   }
 };
 
-const getTokenForCart = async (dispatch: ReduxDispatch) => {
+export const getTokenForCart = async (dispatch: ReduxDispatch) => {
   const accessToken = TokenService.getAccessTokenFromLS();
 
   if (accessToken?.type === TokenType.CLIENT) {
@@ -26,7 +26,7 @@ const getTokenForCart = async (dispatch: ReduxDispatch) => {
   }
 };
 
-export const addToCart = async (id: string, lineItem: LineItem, dispatch: ReduxDispatch) => {
+export const cartInteraction = async (lineItem: LineItem, dispatch: ReduxDispatch, action: string) => {
   const token = await getTokenForCart(dispatch);
 
   let cartId = CartService.getCartFromLS()?.id;
@@ -39,7 +39,7 @@ export const addToCart = async (id: string, lineItem: LineItem, dispatch: ReduxD
   }
 
   if (cartId && cartVersion) {
-    await dispatch(addToCartAsync({ token, cartId, cartVersion, lineItem }));
+    await dispatch(cartInteractionAsync({ token, cartId, cartVersion, lineItem, action }));
     await dispatch(getCartAsync({ token, cartId }));
   }
 };

@@ -58,9 +58,19 @@
     align-items: center;
     flex-grow: 5;
 
+    @include small-xs-mobile(){
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
     .fsButton.regular {
       width: 120px;
       flex-grow: 2;
     }
   }
+}
+
+.product-btn__container{
+  display: flex;
+  gap: 10px;
 }

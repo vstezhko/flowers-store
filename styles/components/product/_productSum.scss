@@ -1,4 +1,9 @@
 .product-block__sum-info {
   min-width: max-content;
   flex-grow: 1;
+
+  @include small-xs-mobile(){
+    display: flex;
+    gap: 20px;
+  }
 }
