@@ -18,7 +18,7 @@
   &__image {
     width: 458px;
     height: 458px;
-    
+
     @include medium {
       max-width: 390px;
       max-height: 390px;
@@ -40,61 +40,61 @@
 
     svg {
       @extend %transition;
-      
+
       * {
-        fill: currentColor;  
+        fill: currentColor;
       }
-      
+
       .st0 {
-          fill: #fff
+        fill: #fff
       }
-      
+
       .st1 {
-          fill: currentColor;
-          clip-path: url(#SVGID_2_)
+        fill: currentColor;
+        clip-path: url(#SVGID_2_)
       }
-      
+
       .st2 {
-          clip-path: url(#SVGID_4_)
+        clip-path: url(#SVGID_4_)
       }
-      
+
       .st3 {
-          clip-path: url(#SVGID_6_)
+        clip-path: url(#SVGID_6_)
       }
-      
+
       .st4 {
-          clip-path: url(#SVGID_8_)
+        clip-path: url(#SVGID_8_)
       }
-      
+
       .st5 {
-          fill: #fff;
-          stroke: currentColor;
-          stroke-width: 4;
-          stroke-miterlimit: 10
+        fill: #fff;
+        stroke: currentColor;
+        stroke-width: 4;
+        stroke-miterlimit: 10
       }
-      
+
       .st6 {
-          clip-path: url(#SVGID_8_)
+        clip-path: url(#SVGID_8_)
       }
-      
+
       .st6,
       .st7 {
-          fill: none;
-          stroke: currentColor;
-          stroke-width: 4;
-          stroke-miterlimit: 10
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 4;
+        stroke-miterlimit: 10
       }
-      
+
       .st8,
       .st9 {
-          clip-path: url(#SVGID_10_)
+        clip-path: url(#SVGID_10_)
       }
-      
+
       .st9 {
-          fill: none;
-          stroke: currentColor;
-          stroke-width: 4;
-          stroke-miterlimit: 10
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 4;
+        stroke-miterlimit: 10
       }
 
       @include medium {
@@ -106,15 +106,15 @@
         max-width: 150px;
         max-height: 150px;
       }
-  
+
       @include hover {
-    
+
         &:hover {
           color: $color-primary-hover;
         }
-    
+
       }
-  
+
     }
 
   }
