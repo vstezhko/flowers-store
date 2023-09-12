@@ -4,7 +4,7 @@
   flex-wrap: nowrap;
   padding: 30px;
   align-items: center;
-  background-color: #f1f5ed;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 
   &__biography {
     display: flex;
@@ -24,7 +24,6 @@
     flex-direction: column;
     gap: 15px;
     padding: 15px;
-    background-color: white;
     border-radius: 5px;
   }
 
@@ -62,6 +61,7 @@
   &__image {
     width: 250px;
     height: 250px;
+    object-fit: cover;
     border-radius: 5px;
   }
 
@@ -76,6 +76,11 @@
   &__skill {
     display: flex;
     flex-direction: column;
+
+    label {
+      text-transform: capitalize;
+    }
+
   }
 
   &__contributions-range {
@@ -94,6 +99,33 @@
 
   .css-nnid7-MuiSlider-valueLabel:before {
     z-index: -1;
+  }
+
+}
+
+.even {
+  background-color: white;
+
+  .team-member__image-block {
+    background-color: #F2F2F2;
+  }
+
+}
+
+.odd {
+  background-color: #EBF0E4;
+
+  .team-member__biography {
+    order: 3;
+  }
+
+  .team-member__image-block {
+    background-color: white;
+    order: 2;
+  }
+
+  .team-member__contributions {
+    order: 1;
   }
 
 }
