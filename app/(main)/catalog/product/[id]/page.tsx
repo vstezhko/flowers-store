@@ -34,9 +34,11 @@ const Product = () => {
 
   useEffect(() => {
     if (activeVariant?.variant.id) {
-      setDisabled(isProductInCart(activeVariant?.variant.id, cartProductsIds, id));
+      const quantity = isProductInCart(activeVariant?.variant.id, cartProductsIds, id);
+      setProductAmount(quantity || 1);
+      setDisabled(!!quantity);
     }
-  }, [activeVariant, isProductInCart]);
+  }, [activeVariant, isProductInCart, cartProductsIds]);
 
   useEffect(() => {
     if (product.status === 'failed') {
@@ -59,7 +61,8 @@ const Product = () => {
     const item = productVariants.find(variant => variant.variant.id === variantId);
     if (item) {
       setActiveVariant(item);
-      setDisabled(isProductInCart(variantId, cartProductsIds, id));
+      const quantity = isProductInCart(variantId, cartProductsIds, id);
+      setDisabled(!!quantity);
     }
   };
 
@@ -116,7 +119,7 @@ const Product = () => {
           <ProductCompositionCard items={composition} />
           <div className='product-block__details'>
             {product.id ? (
-              <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} />
+              <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} disabled={disabled}/>
             ) : (
               <Skeleton variant='rectangular' width={175} height={52} />
             )}
