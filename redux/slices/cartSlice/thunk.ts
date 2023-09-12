@@ -30,20 +30,3 @@ export const cartInteractionAsync = createAppAsyncThunk(
     return CartService.cartInteraction(token, cartId, cartVersion, lineItem, action);
   }
 );
-
-// export const removeFromCartAsync = createAppAsyncThunk(
-//   'me/cart/removeItem',
-//   async ({
-//     token,
-//     cartId,
-//     cartVersion,
-//     lineItem,
-//   }: {
-//     token: string;
-//     cartId: string;
-//     cartVersion: number;
-//     lineItem: LineItem;
-//   }) => {
-//     return CartService.removeFromCart(token, cartId, cartVersion, lineItem);
-//   }
-// );
