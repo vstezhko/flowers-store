@@ -87,7 +87,6 @@ const Product = () => {
     dispatch(cartSlice.actions.isRemoveItem(true));
     e.preventDefault();
     setDisabled(false);
-    console.log(disabled);
     const lineItem: LineItem = {
       lineItemId: activeVariant?.variant.id && cartProductsIds[id][activeVariant?.variant.id].id,
       quantity: productAmount,

@@ -40,6 +40,7 @@ const Cart = () => {
             {lineItems.map(item => (
               <CartItem
                 key={item.id}
+                lineItemId={item.id}
                 name={item.name.en}
                 price={item.price}
                 productId={item.productId}

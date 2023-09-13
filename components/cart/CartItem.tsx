@@ -6,6 +6,9 @@ import { CloseIcon } from 'next/dist/client/components/react-dev-overlay/interna
 import { ProductPrice, ProductVariant } from '@/redux/slices/productSlice/productSlice';
 import ProductVariantCard from '@/components/product/ProductVariantCard';
 import Image from 'next/image';
+import { useDispatch } from '@/redux/store';
+import { LineItem } from '@/api/services/Cart.services';
+import { cartInteraction } from '@/utils/cartInteraction';
 
 export interface CartItemParams {
   name: string;
@@ -14,24 +17,34 @@ export interface CartItemParams {
   price: ProductPrice;
   totalPrice: ProductPrice['value'];
   variant: ProductVariant;
+  lineItemId: string;
 }
 
-const CartItem: FC<CartItemParams> = ({ name, quantity, price, totalPrice, variant }) => {
-  const [productAmount, setProductAmount] = useState(1);
-  const handleChangeAmount = (number: number) => {
+const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, totalPrice, variant }) => {
+  const [productAmount, setProductAmount] = useState(quantity || 1);
+  const [sum, setSum] = useState(totalPrice.centAmount / 100);
+  const [discount] = useState(price.discounted ? price.discounted.value.centAmount / 100 : null);
+  const dispatch = useDispatch();
+
+  const handleChangeAmount = async (number: number) => {
     if (productAmount === 1 && number === -1) return;
     if (productAmount === 20 && number === 1) return;
     setProductAmount(prevState => prevState + number);
+    setSum(
+      (discount ? discount : price.value.centAmount / 100) * productAmount +
+        (discount ? discount : price.value.centAmount / 100) * number
+    );
+
+    const lineItem: LineItem = {
+      lineItemId,
+      quantity: productAmount,
+    };
+    await cartInteraction(lineItem, dispatch, 'changeLineItemQuantity');
   };
 
   const size = variant.attributes.find(attr => attr.name === 'size')?.value;
   const variantCard = size ? (
-    <ProductVariantCard
-      id={size}
-      price={+price.value.centAmount / 100}
-      discounted={price.discounted ? price.discounted.value.centAmount / 100 : null}
-      isActive={true}
-    />
+    <ProductVariantCard id={size} price={+price.value.centAmount / 100} discounted={discount} isActive={true} />
   ) : (
     <></>
   );
@@ -52,8 +65,8 @@ const CartItem: FC<CartItemParams> = ({ name, quantity, price, totalPrice, varia
           <p>{name}</p>
           <div className='cart-item__prop'>
             <div className='cart-item__variant'>{variantCard}</div>
-            <ProductAmountSetter productAmount={quantity} onChange={handleChangeAmount} />
-            <ProductSum sum={totalPrice.centAmount / 100} />
+            <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} />
+            <ProductSum sum={sum} />
           </div>
         </div>
 
