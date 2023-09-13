@@ -47,6 +47,22 @@ const cartInteraction = async (token: string, cartId: string, version: number, l
   return response;
 };
 
+const addDiscountCode = async (token: string, cartId: string, version: number, action: string, code: string) => {
+  const body = JSON.stringify({
+    version,
+    actions: [
+      {
+        action,
+        code,
+      },
+    ],
+  });
+  const response = await post(`/${PROJECT_KEY}/me/carts/${cartId}`, token, body);
+  const newVersion = response.version;
+  localStorage.setItem('cart', JSON.stringify({ id: cartId, version: newVersion }));
+  return response;
+};
+
 const removeCart = () => {
   localStorage.removeItem('cart');
 };
@@ -57,4 +73,5 @@ export const CartService = {
   getCartFromLS,
   removeCart,
   cartInteraction,
+  addDiscountCode,
 };
