@@ -19,6 +19,7 @@
     "@mui/icons-material": "^5.14.3",
     "@mui/lab": "^5.0.0-alpha.142",
     "@mui/material": "^5.14.3",
+    "@mui/x-tree-view": "^6.0.0-alpha.2",
     "@react-input/mask": "^1.0.14",
     "@types/node": "20.4.5",
     "@types/react": "18.2.18",

@@ -1,4 +1,4 @@
-import { cartInteractionAsync, createCartAsync, getCartAsync } from '@/redux/slices/cartSlice/thunk';
+import { cartInteractionAsync, createCartAsync } from '@/redux/slices/cartSlice/thunk';
 import { TokenService } from '@/api/services/Token.service';
 import { TokenType } from '@/types/enums';
 import { getAnonymousAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
@@ -40,6 +40,5 @@ export const cartInteraction = async (lineItem: LineItem, dispatch: ReduxDispatc
 
   if (cartId && cartVersion) {
     await dispatch(cartInteractionAsync({ token, cartId, cartVersion, lineItem, action }));
-    await dispatch(getCartAsync({ token, cartId }));
   }
 };

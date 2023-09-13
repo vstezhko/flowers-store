@@ -1,7 +1,7 @@
 'use client';
 import React, { ChangeEvent } from 'react';
-import TreeView from '@mui/lab/TreeView';
-import TreeItem from '@mui/lab/TreeItem';
+import { TreeView } from '@mui/x-tree-view/TreeView';
+import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import FsCheckbox from '@/components/UI/FsCheckbox';
 import RangeSlider from '@/components/catalog/RangeSlider';
 import { FormGroup } from '@mui/material';
