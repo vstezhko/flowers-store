@@ -5,8 +5,8 @@ import { TokenService } from '@/api/services/Token.service';
 import { getCategoriesAsync } from '@/redux/slices/categorySlice/thunks';
 import { CategoryFullData } from '@/redux/slices/categorySlice/categorySlice';
 import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
-import TreeView from '@mui/lab/TreeView';
-import TreeItem from '@mui/lab/TreeItem';
+import { TreeView } from '@mui/x-tree-view/TreeView';
+import { TreeItem } from '@mui/x-tree-view/TreeItem';
 
 export interface CategoryTreeData extends CategoryFullData {
   children?: CategoryTreeData[];
