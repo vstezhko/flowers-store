@@ -15,15 +15,16 @@ export interface CartItemParams {
   productId: string;
   quantity: number;
   price: ProductPrice;
-  totalPrice: ProductPrice['value'];
+  discountCoupon: number | null;
   variant: ProductVariant;
   lineItemId: string;
 }
 
-const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, totalPrice, variant }) => {
+const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, discountCoupon, variant }) => {
   const [productAmount, setProductAmount] = useState(quantity || 1);
-  const [sum, setSum] = useState(totalPrice.centAmount / 100);
+  const [sum, setSum] = useState(0);
   const [discount] = useState(price.discounted ? price.discounted.value.centAmount / 100 : null);
+  const [coupon] = useState(discountCoupon ? discountCoupon / 100 : null);
   const dispatch = useDispatch();
 
   const handleChangeAmount = async (number: number) => {
@@ -39,7 +40,7 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, total
   };
 
   useEffect(() => {
-    setSum((discount ? discount : price.value.centAmount / 100) * productAmount);
+    setSum((discount ? discount : coupon ? coupon : price.value.centAmount / 100) * productAmount);
   }, [productAmount]);
 
   const size = variant.attributes.find(attr => attr.name === 'size')?.value;
