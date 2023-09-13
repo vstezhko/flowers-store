@@ -7,9 +7,9 @@ export const isProductInCart = (
 ) => {
   if (currentVariantId && productsIds) {
     if (productsIds[currentProductId]) {
-      return !!productsIds[currentProductId][currentVariantId];
-    } else return false;
+      return productsIds[currentProductId][currentVariantId]?.quantity;
+    } else return null;
   } else {
-    return false;
+    return null;
   }
 };

@@ -12,19 +12,21 @@ export const getCartAsync = createAppAsyncThunk(
   }
 );
 
-export const addToCartAsync = createAppAsyncThunk(
+export const cartInteractionAsync = createAppAsyncThunk(
   'me/cart/addItem',
   async ({
     token,
     cartId,
     cartVersion,
     lineItem,
+    action,
   }: {
     token: string;
     cartId: string;
     cartVersion: number;
     lineItem: LineItem;
+    action: string;
   }) => {
-    return CartService.addToCart(token, cartId, cartVersion, lineItem);
+    return CartService.cartInteraction(token, cartId, cartVersion, lineItem, action);
   }
 );

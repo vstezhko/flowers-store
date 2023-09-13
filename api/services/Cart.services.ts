@@ -2,8 +2,9 @@ import { get, post, PROJECT_KEY } from '@/api/api';
 import { CurrencyParams } from '@/types/enums';
 
 export interface LineItem {
-  productId: string;
-  quantity: number;
+  productId?: string;
+  lineItemId?: number | string | undefined;
+  quantity?: number;
   variantId?: number;
 }
 
@@ -30,12 +31,12 @@ const getCartFromLS = (): { id: string; version: number } | null => {
   return null;
 };
 
-const addToCart = async (token: string, cartId: string, version: number, lineItem: LineItem) => {
+const cartInteraction = async (token: string, cartId: string, version: number, lineItem: LineItem, action: string) => {
   const body = JSON.stringify({
     version,
     actions: [
       {
-        action: 'addLineItem',
+        action,
         ...lineItem,
       },
     ],
@@ -54,6 +55,6 @@ export const CartService = {
   createCart,
   getCart,
   getCartFromLS,
-  addToCart,
   removeCart,
+  cartInteraction,
 };

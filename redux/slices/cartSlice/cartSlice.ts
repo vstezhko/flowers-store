@@ -1,5 +1,5 @@
-import { Action, createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { addToCartAsync, createCartAsync, getCartAsync } from './thunk';
+import { Action, createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
+import { cartInteractionAsync, createCartAsync, getCartAsync } from './thunk';
 import { ProductPrice, ProductVariant } from '@/redux/slices/productSlice/productSlice';
 
 interface CartCustomer {
@@ -62,6 +62,7 @@ export interface Cart {
   lineItems: CartItem[];
   totalPrice: ProductPrice['value'] | null;
   totalLineItemQuantity: number | null;
+  isRemoveItem: boolean;
 }
 
 export interface CartState extends Cart {
@@ -76,19 +77,24 @@ export const initialState: CartState = {
   lineItems: [],
   totalPrice: null,
   totalLineItemQuantity: null,
+  isRemoveItem: false,
 };
 
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    isRemoveItem: (state, action: PayloadAction<boolean>) => {
+      state.isRemoveItem = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
-      .addMatcher(isAnyOf(createCartAsync.pending, addToCartAsync.pending, getCartAsync.pending), state => {
+      .addMatcher(isAnyOf(createCartAsync.pending, cartInteractionAsync.pending, getCartAsync.pending), state => {
         state.status = 'pending';
       })
       .addMatcher(
-        isAnyOf(createCartAsync.fulfilled, addToCartAsync.fulfilled, getCartAsync.fulfilled),
+        isAnyOf(createCartAsync.fulfilled, cartInteractionAsync.fulfilled, getCartAsync.fulfilled),
         (state, action: CartPayloadAction) => {
           state.status = 'idle';
           state.cartId = action.payload.id;
@@ -109,7 +115,7 @@ export const cartSlice = createSlice({
           state.totalLineItemQuantity = action.payload.totalLineItemQuantity;
         }
       )
-      .addMatcher(isAnyOf(createCartAsync.rejected, addToCartAsync.rejected, getCartAsync.rejected), state => {
+      .addMatcher(isAnyOf(createCartAsync.rejected, cartInteractionAsync.rejected, getCartAsync.rejected), state => {
         state.status = 'failed';
       });
   },

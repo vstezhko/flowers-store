@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useDispatch } from '@/redux/store';
 import { CurrencyParams } from '@/types/enums';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { addToCart } from '@/utils/addToCart';
+import { cartInteraction } from '@/utils/cartInteraction';
 import { LineItem } from '@/api/services/Cart.services';
 
 interface SmallProductCardParams {
@@ -48,7 +48,7 @@ const SmallProductCard: FC<SmallProductCardParams> = ({
         variantId: masterVariantID,
         quantity: 1,
       };
-      await addToCart(id, lineItem, dispatch);
+      await cartInteraction(lineItem, dispatch, 'addLineItem');
     } finally {
       setLoading(false);
     }

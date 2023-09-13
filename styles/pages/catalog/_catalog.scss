@@ -6,7 +6,7 @@
   gap: 20px;
   min-height: 100vh;
 
-  @include medium {
+  @media (max-width: 1123px) {
     flex-direction: column;
     justify-content: flex-start;
     gap: 10px;
@@ -66,9 +66,19 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(263px, max-content));
   gap: 20px;
+  min-height: 1300px;
 
-  @include medium {
+  @media (max-width: 1123px) {
     justify-content: center;
+  }
+
+
+  @media(max-width: 858px) {
+    min-height: 1540px;
+  }
+
+  @media(max-width: 539px) {
+    min-height: 3030px;
   }
 
   @include small {
