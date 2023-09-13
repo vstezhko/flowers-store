@@ -1,5 +1,5 @@
 import { Action, createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
-import { cartInteractionAsync, createCartAsync, getCartAsync } from './thunk';
+import { addDiscountCodeAsync, cartInteractionAsync, createCartAsync, getCartAsync } from './thunk';
 import { ProductPrice, ProductVariant } from '@/redux/slices/productSlice/productSlice';
 
 interface CartCustomer {
@@ -90,11 +90,24 @@ export const cartSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addMatcher(isAnyOf(createCartAsync.pending, cartInteractionAsync.pending, getCartAsync.pending), state => {
-        state.status = 'pending';
-      })
       .addMatcher(
-        isAnyOf(createCartAsync.fulfilled, cartInteractionAsync.fulfilled, getCartAsync.fulfilled),
+        isAnyOf(
+          createCartAsync.pending,
+          cartInteractionAsync.pending,
+          getCartAsync.pending,
+          addDiscountCodeAsync.pending
+        ),
+        state => {
+          state.status = 'pending';
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          createCartAsync.fulfilled,
+          cartInteractionAsync.fulfilled,
+          getCartAsync.fulfilled,
+          addDiscountCodeAsync.fulfilled
+        ),
         (state, action: CartPayloadAction) => {
           state.status = 'idle';
           state.cartId = action.payload.id;
@@ -115,9 +128,17 @@ export const cartSlice = createSlice({
           state.totalLineItemQuantity = action.payload.totalLineItemQuantity;
         }
       )
-      .addMatcher(isAnyOf(createCartAsync.rejected, cartInteractionAsync.rejected, getCartAsync.rejected), state => {
-        state.status = 'failed';
-      });
+      .addMatcher(
+        isAnyOf(
+          createCartAsync.rejected,
+          cartInteractionAsync.rejected,
+          getCartAsync.rejected,
+          addDiscountCodeAsync.rejected
+        ),
+        state => {
+          state.status = 'failed';
+        }
+      );
   },
 });
 

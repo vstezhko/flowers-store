@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import FsInput from '@/components/UI/FsInput';
 import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
 import { getCartAsync } from '@/redux/slices/cartSlice/thunk';
@@ -9,6 +8,7 @@ import { TokenService } from '@/api/services/Token.service';
 import { CartService } from '@/api/services/Cart.services';
 import CartItem from '@/components/cart/CartItem';
 import EmptyCart from '@/components/cart/EmptyCart';
+import CartDiscountCode from '@/components/cart/CartDiscountCode';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -69,15 +69,7 @@ const Cart = () => {
             ))}
           </div>
           <div className='cart__info'>
-            <div className='info__coupon'>
-              <FsInput id='jfhjgj' name='hjfhgh' type='text' label='coupon' onChange={() => console.log('hhh')} />
-              <FsButton
-                label='apply'
-                onClick={() => console.log('hhh')}
-                className={FsButtonType.SMALL}
-                variant='outlined'
-              />
-            </div>
+            <CartDiscountCode />
             <div className='info__total'>
               <div>
                 <span>COST</span>

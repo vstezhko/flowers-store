@@ -30,3 +30,22 @@ export const cartInteractionAsync = createAppAsyncThunk(
     return CartService.cartInteraction(token, cartId, cartVersion, lineItem, action);
   }
 );
+
+export const addDiscountCodeAsync = createAppAsyncThunk(
+  'me/cart/addItem',
+  async ({
+    token,
+    cartId,
+    cartVersion,
+    action,
+    code,
+  }: {
+    token: string;
+    cartId: string;
+    cartVersion: number;
+    action: string;
+    code: string;
+  }) => {
+    return CartService.addDiscountCode(token, cartId, cartVersion, action, code);
+  }
+);
