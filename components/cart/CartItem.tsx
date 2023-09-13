@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import ProductAmountSetter from '@/components/product/ProductAmountSetter';
 import ProductSum from '@/components/product/ProductSum';
 import { IconButton } from '@mui/material';
@@ -29,18 +29,18 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, total
   const handleChangeAmount = async (number: number) => {
     if (productAmount === 1 && number === -1) return;
     if (productAmount === 20 && number === 1) return;
-    setProductAmount(prevState => prevState + number);
-    setSum(
-      (discount ? discount : price.value.centAmount / 100) * productAmount +
-        (discount ? discount : price.value.centAmount / 100) * number
-    );
 
     const lineItem: LineItem = {
       lineItemId,
-      quantity: productAmount,
+      quantity: productAmount + number,
     };
     await cartInteraction(lineItem, dispatch, 'changeLineItemQuantity');
+    setProductAmount(prevState => prevState + number);
   };
+
+  useEffect(() => {
+    setSum((discount ? discount : price.value.centAmount / 100) * productAmount);
+  }, [productAmount]);
 
   const size = variant.attributes.find(attr => attr.name === 'size')?.value;
   const variantCard = size ? (

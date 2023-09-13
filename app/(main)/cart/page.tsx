@@ -14,6 +14,24 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { totalLineItemQuantity, lineItems, totalPrice } = useSelector(state => state.cart);
   const [cart, setCart] = useState<{ id: string; version: number } | null | undefined>(undefined);
+  const [discount, setDiscount] = useState(0);
+  const [price, setPrice] = useState(0);
+
+  useEffect(() => {
+    const totalCartSummary = lineItems.reduce(
+      (acc, item) => {
+        const priceValue = item.price.value.centAmount * item.quantity || 0;
+        const discountValue = priceValue - item.price.discounted?.value.centAmount * item.quantity || 0;
+
+        acc.priceTotal += priceValue / 100;
+        acc.discountTotal += discountValue / 100;
+        return acc;
+      },
+      { priceTotal: 0, discountTotal: 0 }
+    );
+    setPrice(totalCartSummary.priceTotal);
+    setDiscount(totalCartSummary.discountTotal);
+  }, [lineItems, discount, price]);
 
   useEffect(() => {
     const cartLS = CartService.getCartFromLS();
@@ -63,17 +81,17 @@ const Cart = () => {
             <div className='info__total'>
               <div>
                 <span>COST</span>
-                <p>200 EUR</p>
+                <p>{price} EUR</p>
               </div>
               <div>
                 <span>DISCOUNT</span>
-                <p>10 EUR</p>
+                <p>{discount} EUR</p>
               </div>
               <div className='total'>
                 <span>TOTAL</span>
                 <p>{totalPrice ? totalPrice?.centAmount / 100 : ''} EUR</p>
               </div>
-              <FsButton label='Confirm' onClick={() => console.log('hhh')} className={FsButtonType.REGULAR} />
+              <FsButton label='Confirm' onClick={() => console.log('confirm')} className={FsButtonType.REGULAR} />
             </div>
           </div>
         </div>
