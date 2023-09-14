@@ -13,7 +13,7 @@ export const getCartAsync = createAppAsyncThunk(
 );
 
 export const cartInteractionAsync = createAppAsyncThunk(
-  'me/cart/addItem',
+  'me/cart/interactionWithCart',
   async ({
     token,
     cartId,
@@ -32,7 +32,7 @@ export const cartInteractionAsync = createAppAsyncThunk(
 );
 
 export const addDiscountCodeAsync = createAppAsyncThunk(
-  'me/cart/addItem',
+  'me/cart/addDiscount',
   async ({
     token,
     cartId,

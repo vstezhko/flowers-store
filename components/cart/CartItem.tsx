@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useDispatch } from '@/redux/store';
 import { LineItem } from '@/api/services/Cart.services';
 import { cartInteraction } from '@/utils/cartInteraction';
+import { cartSlice } from '@/redux/slices/cartSlice/cartSlice';
 
 export interface CartItemParams {
   name: string;
@@ -42,6 +43,18 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, total
     setSum((discount ? discount : price.value.centAmount / 100) * productAmount);
   }, [productAmount]);
 
+  const handleRemoveFromCart = async (e: React.MouseEvent) => {
+    dispatch(cartSlice.actions.isRemoveItem(true));
+    e.preventDefault();
+    const lineItem: LineItem = {
+      lineItemId: lineItemId,
+      quantity: productAmount,
+    };
+
+    await cartInteraction(lineItem, dispatch, 'removeLineItem');
+    dispatch(cartSlice.actions.isRemoveItem(false));
+  };
+
   const size = variant.attributes.find(attr => attr.name === 'size')?.value;
   const variantCard = size ? (
     <ProductVariantCard id={size} price={+price.value.centAmount / 100} discounted={discount} isActive={true} />
@@ -70,7 +83,7 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, total
           </div>
         </div>
 
-        <IconButton className='close-icon'>
+        <IconButton className='close-icon' onClick={handleRemoveFromCart}>
           <CloseIcon />
         </IconButton>
       </div>
