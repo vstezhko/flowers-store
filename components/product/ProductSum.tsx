@@ -11,7 +11,7 @@ export interface ProductSumParams {
 const ProductSum: FC<ProductSumParams> = ({ sum, coupon, price }) => {
   return (
     <div className='product-block__sum-info'>
-      <p>SUM</p>
+      <p className='sum'>SUM</p>
       {sum ? (
         <p className='sum-info__container'>
           {coupon ? (
