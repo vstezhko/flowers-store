@@ -14,24 +14,22 @@ const AuthComponent = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const token = TokenService.getAccessTokenFromLS();
-    if (!token) dispatch(getClientAccessTokenAsync());
-  });
-
-  useEffect(() => {
-    const token = TokenService.getAccessTokenFromLS();
-    if (token?.type === TokenType.CUSTOMER && !customer?.id) dispatch(getCustomerAsync(token.token));
-  }, [access_token, customer?.id, dispatch]);
-
-  useEffect(() => {
+    if (!token) {
+      dispatch(getClientAccessTokenAsync());
+      console.log('getClientAccessTokenAsync');
+    }
+    if (token?.type === TokenType.CUSTOMER && !customer?.id) {
+      dispatch(getCustomerAsync(token.token));
+      console.log('getCustomerAsync');
+    }
     const cartId = CartService.getCartFromLS()?.id;
-
-    const tokenLS = TokenService.getAccessTokenFromLS();
-    const tokenForCart = access_token ? access_token : tokenLS?.token;
+    const tokenForCart = access_token ? access_token : token?.token;
 
     if (cartId && tokenForCart) {
       dispatch(getCartAsync({ token: tokenForCart, cartId }));
+      console.log('getCartAsync');
     }
-  }, [dispatch, access_token]);
+  }, [access_token, customer?.id, dispatch]);
 
   return <>{children}</>;
 };
