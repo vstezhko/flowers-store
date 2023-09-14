@@ -1,13 +1,22 @@
 .sort-menu {
-  width: 180px;
   cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
 
-  &__list {
-    width: 100%;
+  .MuiList-root {
+    padding: 0 !important;
+    width: 100px;
   }
 
   &__list-item {
     padding: 0;
+
+    & > div {
+      & > span {
+        text-align: center;
+      }
+    }
+
   }
 
   &__menu-item {
@@ -26,12 +35,5 @@
     }
   }
 
-  @include small {
-    width: 150px;
-  }
-
-  @include small-mobile {
-    width: 100%;
-  }
 
 }

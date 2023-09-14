@@ -8,20 +8,21 @@
   flex-wrap: wrap;
 
   @include mobile() {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 
   .discounts__container-img {
     width: 48%;
-    height: 300px;
+    min-height: 300px;
     position: relative;
     border-radius: 6px;
     overflow: hidden;
     flex-grow: 1;
 
     @include mobile() {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      min-height: 200px;
       height: 200px;
       display: flex;
       align-items: center;
@@ -52,8 +53,8 @@
     }
 
     @include mobile() {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
       width: 100%;
     }
   }
