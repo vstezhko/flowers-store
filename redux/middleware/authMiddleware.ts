@@ -62,7 +62,7 @@ const authMiddleware: Middleware = store => next => action => {
       }
     } else {
       TokenService.removeTokensFromLS();
-      CartService.removeCart();
+      CartService.removeCartFromLS();
       store.dispatch(loginSlice.actions.setIsLogin(false));
       store.dispatch(loginSlice.actions.setIsSignUp(false));
       store.dispatch(loginSlice.actions.removeCustomer());

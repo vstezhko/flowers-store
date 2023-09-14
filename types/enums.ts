@@ -60,7 +60,7 @@ export enum PriceRange {
 }
 
 export enum PaginationParams {
-  LIMIT = 8,
+  LIMIT = 6,
 }
 
 export enum CurrencyParams {

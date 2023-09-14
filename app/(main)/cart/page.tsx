@@ -9,6 +9,7 @@ import { CartService } from '@/api/services/Cart.services';
 import CartItem from '@/components/cart/CartItem';
 import EmptyCart from '@/components/cart/EmptyCart';
 import CartDiscountCode from '@/components/cart/CartDiscountCode';
+import ConfirmationPrompt from '@/components/cart/ConfirmationPrompt';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const Cart = () => {
   const [discount, setDiscount] = useState(0);
   const [price, setPrice] = useState(0);
   const [coupon, setCoupon] = useState(0);
+  const [openModal, setOpenModal] = React.useState(false);
 
   useEffect(() => {
     const totalCartSummary = lineItems.reduce(
@@ -50,6 +52,14 @@ const Cart = () => {
         })
       );
   }, []);
+
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
+  };
 
   return (
     <section className='page'>
@@ -95,9 +105,19 @@ const Cart = () => {
                 <span>TOTAL</span>
                 <p>{totalPrice ? (totalPrice?.centAmount / 100).toFixed(2) : ''} EUR</p>
               </div>
-              <FsButton label='Confirm' onClick={() => console.log('confirm')} className={FsButtonType.REGULAR} />
+              <div className='cart__buttons'>
+                <FsButton label='Confirm' onClick={() => console.log('confirm')} className={FsButtonType.REGULAR} />
+                <FsButton
+                  label='Clear Cart'
+                  onClick={() => {
+                    handleClickOpen();
+                  }}
+                  className={FsButtonType.REGULAR}
+                />
+              </div>
             </div>
           </div>
+          <ConfirmationPrompt open={openModal} handleClose={handleClose} />
         </div>
       )}
     </section>
