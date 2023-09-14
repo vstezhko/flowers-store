@@ -16,18 +16,15 @@ const AuthComponent = ({ children }: { children: React.ReactNode }) => {
     const token = TokenService.getAccessTokenFromLS();
     if (!token) {
       dispatch(getClientAccessTokenAsync());
-      console.log('getClientAccessTokenAsync');
     }
     if (token?.type === TokenType.CUSTOMER && !customer?.id) {
       dispatch(getCustomerAsync(token.token));
-      console.log('getCustomerAsync');
     }
     const cartId = CartService.getCartFromLS()?.id;
     const tokenForCart = access_token ? access_token : token?.token;
 
     if (cartId && tokenForCart) {
       dispatch(getCartAsync({ token: tokenForCart, cartId }));
-      console.log('getCartAsync');
     }
   }, [access_token, customer?.id, dispatch]);
 
