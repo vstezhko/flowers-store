@@ -4,14 +4,23 @@ import { CurrencyParams } from '@/types/enums';
 
 export interface ProductSumParams {
   sum: number | undefined;
+  coupon?: number | null;
+  price?: number | undefined;
 }
 
-const ProductSum: FC<ProductSumParams> = ({ sum }) => {
+const ProductSum: FC<ProductSumParams> = ({ sum, coupon, price }) => {
   return (
     <div className='product-block__sum-info'>
-      <p>Sum</p>
+      <p>SUM</p>
       {sum ? (
-        <p>
+        <p className='sum-info__container'>
+          {coupon ? (
+            <span className='price-before-discount'>
+              {price && price.toFixed(2)} {CurrencyParams.EUR_TEXT}
+            </span>
+          ) : (
+            ''
+          )}{' '}
           {sum.toFixed(2)} {CurrencyParams.EUR_TEXT}
         </p>
       ) : (

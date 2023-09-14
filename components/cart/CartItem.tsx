@@ -84,19 +84,15 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, disco
         />
       </div>
       <div className='cart-item__info'>
-        <div className='cart-item__prop-info'>
-          <p>{name}</p>
-          <div className='cart-item__prop'>
-            <div className='cart-item__variant'>{variantCard}</div>
-            <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} disabled={isUpdating} />
-            <ProductSum sum={sum} />
-          </div>
-        </div>
-
-        <IconButton className='close-icon' onClick={handleRemoveFromCart}>
-          <CloseIcon />
-        </IconButton>
+        <p className='info-name'>{name}</p>
+        <div className='cart-item__variant'>{variantCard}</div>
+        <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} disabled={isUpdating} />
+        <p className='info-coupon'>{coupon && 'COUPON - RS'}</p>
+        <ProductSum sum={sum} coupon={coupon} price={price.value.centAmount / 100} />
       </div>
+      <IconButton className='close-icon' onClick={handleRemoveFromCart}>
+        <CloseIcon />
+      </IconButton>
     </div>
   );
 };
