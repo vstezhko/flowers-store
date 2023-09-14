@@ -144,7 +144,6 @@ export const cartSlice = createSlice({
         }
       )
       .addMatcher(isAnyOf(removeCartAsync.fulfilled), () => {
-        debugger;
         return initialState;
       })
       .addMatcher(

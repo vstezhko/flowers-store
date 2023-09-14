@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
-import { getCartAsync, removeCartAsync } from '@/redux/slices/cartSlice/thunk';
+import { getCartAsync } from '@/redux/slices/cartSlice/thunk';
 import { useDispatch, useSelector } from '@/redux/store';
 import { TokenService } from '@/api/services/Token.service';
 import { CartService } from '@/api/services/Cart.services';
 import CartItem from '@/components/cart/CartItem';
 import EmptyCart from '@/components/cart/EmptyCart';
 import CartDiscountCode from '@/components/cart/CartDiscountCode';
+import ConfirmationPrompt from '@/components/cart/ConfirmationPrompt';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const Cart = () => {
   const [discount, setDiscount] = useState(0);
   const [price, setPrice] = useState(0);
   const [coupon, setCoupon] = useState(0);
+  const [openModal, setOpenModal] = React.useState(false);
 
   useEffect(() => {
     const totalCartSummary = lineItems.reduce(
@@ -51,22 +53,12 @@ const Cart = () => {
       );
   }, []);
 
-  const handleClearCart = async () => {
-    const token = TokenService.getAccessTokenFromLS()?.token;
-    const cartFromLS = CartService.getCartFromLS();
-    if (token && cartFromLS?.id && cartFromLS?.version) {
-      try {
-        await dispatch(
-          removeCartAsync({
-            token,
-            cartId: cartFromLS?.id,
-            version: cartFromLS?.version,
-          })
-        ).unwrap();
-      } catch (error) {
-        console.log(error);
-      }
-    }
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
   };
 
   return (
@@ -118,13 +110,14 @@ const Cart = () => {
                 <FsButton
                   label='Clear Cart'
                   onClick={() => {
-                    handleClearCart();
+                    handleClickOpen();
                   }}
                   className={FsButtonType.REGULAR}
                 />
               </div>
             </div>
           </div>
+          <ConfirmationPrompt open={openModal} handleClose={handleClose} />
         </div>
       )}
     </section>
