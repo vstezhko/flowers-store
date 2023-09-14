@@ -47,12 +47,13 @@ const ConfirmationPrompt = ({ open, handleClose }: ConfirmationPromptParams) => 
       <DialogTitle>Are you sure you want to clear cart?</DialogTitle>
       <DialogContent>
         <DialogContentText id='alert-dialog-description'>
-          This action will remove all items from your cart.
+          This action will remove all items from your cart. <br />
+          The entered promo codes will also be removed from the cart.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <FsButton label='Clear cart' onClick={handleClearCart} className={FsButtonType.SMALL} />
-        <FsButton label='Cancel' onClick={handleClose} className={FsButtonType.SMALL} />
+        <FsButton label='Cancel' onClick={handleClose} className={FsButtonType.SMALL} variant='outlined' />
       </DialogActions>
     </Dialog>
   );
