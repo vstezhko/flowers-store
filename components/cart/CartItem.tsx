@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useDispatch } from '@/redux/store';
 import { LineItem } from '@/api/services/Cart.services';
 import { cartInteraction } from '@/utils/cartInteraction';
+import { cartSlice } from '@/redux/slices/cartSlice/cartSlice';
 
 export interface CartItemParams {
   name: string;
@@ -26,22 +27,43 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, disco
   const [discount] = useState(price.discounted ? price.discounted.value.centAmount / 100 : null);
   const [coupon] = useState(discountCoupon ? discountCoupon / 100 : null);
   const dispatch = useDispatch();
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const handleChangeAmount = async (number: number) => {
     if (productAmount === 1 && number === -1) return;
     if (productAmount === 20 && number === 1) return;
 
+    setIsUpdating(true);
+
     const lineItem: LineItem = {
       lineItemId,
       quantity: productAmount + number,
     };
-    await cartInteraction(lineItem, dispatch, 'changeLineItemQuantity');
-    setProductAmount(prevState => prevState + number);
+    try {
+      await cartInteraction(lineItem, dispatch, 'changeLineItemQuantity');
+      setProductAmount(prevState => prevState + number);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
   useEffect(() => {
     setSum((discount ? discount : coupon ? coupon : price.value.centAmount / 100) * productAmount);
   }, [productAmount]);
+
+  const handleRemoveFromCart = async (e: React.MouseEvent) => {
+    dispatch(cartSlice.actions.isRemoveItem(true));
+    e.preventDefault();
+    const lineItem: LineItem = {
+      lineItemId: lineItemId,
+      quantity: productAmount,
+    };
+
+    await cartInteraction(lineItem, dispatch, 'removeLineItem');
+    dispatch(cartSlice.actions.isRemoveItem(false));
+  };
 
   const size = variant.attributes.find(attr => attr.name === 'size')?.value;
   const variantCard = size ? (
@@ -66,12 +88,12 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, disco
           <p>{name}</p>
           <div className='cart-item__prop'>
             <div className='cart-item__variant'>{variantCard}</div>
-            <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} />
+            <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} disabled={isUpdating} />
             <ProductSum sum={sum} />
           </div>
         </div>
 
-        <IconButton className='close-icon'>
+        <IconButton className='close-icon' onClick={handleRemoveFromCart}>
           <CloseIcon />
         </IconButton>
       </div>

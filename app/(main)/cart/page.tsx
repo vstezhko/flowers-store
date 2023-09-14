@@ -51,12 +51,12 @@ const Cart = () => {
       );
   }, []);
 
-  if ((totalLineItemQuantity !== null && totalLineItemQuantity < 1) || cart === null) {
-    return <EmptyCart />;
-  } else {
-    return (
-      <section className='page'>
-        <h1 className='page__title'>Cart</h1>
+  return (
+    <section className='page'>
+      <h1 className='page__title'>Cart</h1>
+      {(totalLineItemQuantity !== null && totalLineItemQuantity < 1) || !totalLineItemQuantity || cart === null ? (
+        <EmptyCart />
+      ) : (
         <div className='cart__container'>
           <div className='cart__products'>
             {lineItems.map(item => (
@@ -99,9 +99,9 @@ const Cart = () => {
             </div>
           </div>
         </div>
-      </section>
-    );
-  }
+      )}
+    </section>
+  );
 };
 
 export default Cart;
