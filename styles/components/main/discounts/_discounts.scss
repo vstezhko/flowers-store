@@ -1,48 +1,61 @@
 .discounts {
-  height: 380px;
-  width: 100%;
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  //background: linear-gradient(to top, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.8) 70% , rgba(255, 255, 255, 0.9) 100%);
-  margin: 20px 0;
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 0 20px;
+  gap: 4%;
+  padding: 30px;
+  background-color: $color-shade-0;
+  border-radius: 8px;
+  margin: 20px 0;
+  flex-wrap: wrap;
 
-  .discounts__img {
-    position: absolute;
-    overflow: hidden;
-    object-fit: cover;
-    max-height: 100%;
-    min-width: 100%;
-    width: auto;
-    height: auto;
-    z-index: -1;
+  @include mobile() {
+    flex-direction: column;
   }
 
-  .discounts__info {
-    padding: 20px;
-    margin-top: 40px;
-    display: flex;
-    gap: 50px;
-    background-color: rgba(255, 255, 255, 0.75);
-    border-radius: 8px;
+  .discounts__container-img {
+    width: 48%;
+    height: 300px;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-grow: 1;
 
+    @include mobile() {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      order: 1;
+    }
+  }
+
+  .discounts__container-message {
+    flex-grow: 1;
+    border-radius: 6px;
+    position: relative;
+    background-color: #EBF0E3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 10px;
+    width: 48%;
+    padding: 20px;
 
     h3 {
-      line-height: 165%;
-      max-width: 60%;
-
+      line-height: 155%;
       span {
         color: $color-brand-1;
       }
     }
 
-    .MuiButton-root.fsButton.big {
-      margin: auto;
+    @include mobile() {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      width: 100%;
     }
   }
+
 }
