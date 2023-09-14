@@ -26,17 +26,26 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, total
   const [sum, setSum] = useState(totalPrice.centAmount / 100);
   const [discount] = useState(price.discounted ? price.discounted.value.centAmount / 100 : null);
   const dispatch = useDispatch();
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const handleChangeAmount = async (number: number) => {
     if (productAmount === 1 && number === -1) return;
     if (productAmount === 20 && number === 1) return;
 
+    setIsUpdating(true);
+
     const lineItem: LineItem = {
       lineItemId,
       quantity: productAmount + number,
     };
-    await cartInteraction(lineItem, dispatch, 'changeLineItemQuantity');
-    setProductAmount(prevState => prevState + number);
+    try {
+      await cartInteraction(lineItem, dispatch, 'changeLineItemQuantity');
+      setProductAmount(prevState => prevState + number);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
   useEffect(() => {
@@ -78,7 +87,7 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, total
           <p>{name}</p>
           <div className='cart-item__prop'>
             <div className='cart-item__variant'>{variantCard}</div>
-            <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} />
+            <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} disabled={isUpdating} />
             <ProductSum sum={sum} />
           </div>
         </div>
