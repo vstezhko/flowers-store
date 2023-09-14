@@ -19,7 +19,7 @@ const CartDiscountCode = () => {
     const cart = CartService.getCartFromLS();
     if (token && cart?.id && cart?.version) {
       try {
-        const response = await dispatch(
+        await dispatch(
           addDiscountCodeAsync({
             token,
             cartId: cart?.id,
@@ -28,7 +28,6 @@ const CartDiscountCode = () => {
             code: value,
           })
         ).unwrap();
-        console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -41,7 +40,6 @@ const CartDiscountCode = () => {
       coupon: string().required('req.'),
     }),
     onSubmit: values => {
-      console.log(values);
       const value = values.coupon;
       if (value && typeof value === 'string') addCode(value);
     },

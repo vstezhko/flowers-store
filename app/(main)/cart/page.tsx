@@ -12,26 +12,30 @@ import CartDiscountCode from '@/components/cart/CartDiscountCode';
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { totalLineItemQuantity, lineItems, totalPrice } = useSelector(state => state.cart);
+  const { totalLineItemQuantity, lineItems, totalPrice, cartCoupons } = useSelector(state => state.cart);
   const [cart, setCart] = useState<{ id: string; version: number } | null | undefined>(undefined);
   const [discount, setDiscount] = useState(0);
   const [price, setPrice] = useState(0);
+  const [coupon, setCoupon] = useState(0);
 
   useEffect(() => {
     const totalCartSummary = lineItems.reduce(
       (acc, item) => {
         const priceValue = item.price.value.centAmount * item.quantity || 0;
         const discountValue = priceValue - item.price.discounted?.value.centAmount * item.quantity || 0;
+        const discountCoupon = priceValue - +item.discountedPrice?.value.centAmount * item.quantity || 0;
 
         acc.priceTotal += priceValue / 100;
         acc.discountTotal += discountValue / 100;
+        acc.discountCouponTotal += discountCoupon / 100;
         return acc;
       },
-      { priceTotal: 0, discountTotal: 0 }
+      { priceTotal: 0, discountTotal: 0, discountCouponTotal: 0 }
     );
     setPrice(totalCartSummary.priceTotal);
     setDiscount(totalCartSummary.discountTotal);
-  }, [lineItems, discount, price]);
+    setCoupon(totalCartSummary.discountCouponTotal);
+  }, [lineItems, discount, price, coupon]);
 
   useEffect(() => {
     const cartLS = CartService.getCartFromLS();
@@ -63,7 +67,7 @@ const Cart = () => {
                 price={item.price}
                 productId={item.productId}
                 quantity={item.quantity}
-                totalPrice={item.totalPrice}
+                discountCoupon={item.discountedPrice ? +item.discountedPrice?.value.centAmount : null}
                 variant={item.variant}
               />
             ))}
@@ -73,15 +77,23 @@ const Cart = () => {
             <div className='info__total'>
               <div>
                 <span>COST</span>
-                <p>{price} EUR</p>
+                <p>{price.toFixed(2)} EUR</p>
               </div>
-              <div>
-                <span>DISCOUNT</span>
-                <p>{discount} EUR</p>
-              </div>
+              {discount ? (
+                <div>
+                  <span>DISCOUNT</span>
+                  <p className='discount'>- {discount.toFixed(2)} EUR</p>
+                </div>
+              ) : null}
+              {cartCoupons.length > 0 ? (
+                <div>
+                  <span>COUPONS</span>
+                  <p className='discount'>- {coupon.toFixed(2)} EUR</p>
+                </div>
+              ) : null}
               <div className='total'>
                 <span>TOTAL</span>
-                <p>{totalPrice ? totalPrice?.centAmount / 100 : ''} EUR</p>
+                <p>{totalPrice ? (totalPrice?.centAmount / 100).toFixed(2) : ''} EUR</p>
               </div>
               <FsButton label='Confirm' onClick={() => console.log('confirm')} className={FsButtonType.REGULAR} />
             </div>

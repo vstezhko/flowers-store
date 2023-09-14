@@ -20,7 +20,7 @@ export interface CartPayloadAction extends Action {
     customerId: string;
     deleteDaysAfterLastModification: number;
     directDiscounts: [];
-    discountCodes: [];
+    discountCodes: Discount[];
     id: string;
     inventoryMode: string;
     itemShippingAddresses: [];
@@ -43,6 +43,11 @@ export interface CartPayloadAction extends Action {
   };
 }
 
+interface Discount {
+  discountCode: Record<string, string>;
+  state: string;
+}
+
 export interface CartItem {
   id: string;
   name: {
@@ -53,6 +58,12 @@ export interface CartItem {
   quantity: number;
   totalPrice: ProductPrice['value'];
   variant: ProductVariant;
+  discountedPrice: DiscountedPrice;
+}
+
+interface DiscountedPrice {
+  includedDiscounts: Record<string, string>[];
+  value: Record<string, number | string>;
 }
 
 export interface Cart {
@@ -63,6 +74,7 @@ export interface Cart {
   totalPrice: ProductPrice['value'] | null;
   totalLineItemQuantity: number | null;
   isRemoveItem: boolean;
+  cartCoupons: string[];
 }
 
 export interface CartState extends Cart {
@@ -78,6 +90,7 @@ export const initialState: CartState = {
   totalPrice: null,
   totalLineItemQuantity: null,
   isRemoveItem: false,
+  cartCoupons: [],
 };
 
 export const cartSlice = createSlice({
@@ -114,6 +127,7 @@ export const cartSlice = createSlice({
           state.version = action.payload.version;
           state.lineItems = action.payload.lineItems;
           state.totalPrice = action.payload.totalPrice;
+          state.cartCoupons = action.payload.discountCodes.map(code => code.discountCode.id);
           state.cartProductsIds = action.payload.lineItems.reduce(
             (acc: Record<string, Record<string, CartItem>>, i) => {
               if (acc[i.productId]) {
