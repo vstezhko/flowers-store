@@ -15,7 +15,7 @@ import Paginator from '@/components/catalog/Paginator';
 import { CurrencyParams, PaginationParams } from '@/types/enums';
 import CatalogProductsContainer from '@/components/catalog/CatalogProductsContainer';
 import { ResponseSearchProduct } from '@/types/catalog/interface';
-import FsPopover from '@/components/catalog/FilterMenu';
+import FilterMenu from '@/components/catalog/FilterMenu';
 
 const Catalog = () => {
   const dispatch = useDispatch();
@@ -29,19 +29,6 @@ const Catalog = () => {
   const [catalogData, setCatalogData] = useState<{ total: number; results: ResponseSearchProduct[] } | null>(null);
   const [isToken, setIsToken] = useState(access_token !== null);
   const matches = useMediaQuery('(max-width:768px)');
-  const [categoryPopoverOpen, setCategoryPopoverOpen] = useState<HTMLButtonElement | null>(null);
-  const [filterPopoverOpen, setFilterPopoverOpen] = useState<HTMLButtonElement | null>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, name: string) => {
-    if (name === 'filter') {
-      setFilterPopoverOpen(event.currentTarget);
-    } else setCategoryPopoverOpen(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setCategoryPopoverOpen(null);
-    setFilterPopoverOpen(null);
-  };
 
   useEffect(() => {
     setIsToken(function (prev: boolean) {
@@ -108,28 +95,7 @@ const Catalog = () => {
       <CategoryBreadcrumbs categoryId={categoryId} />
       <div className='catalog-page-wrapper'>
         {matches ? (
-          <>
-            <div id='category' className='settings__btn'>
-              <FsPopover
-                anchorEl={categoryPopoverOpen}
-                handleClick={(event: React.MouseEvent<HTMLButtonElement>) => handleClick(event, 'category')}
-                handleClose={handleClose}
-                name='category'
-                idElem='category'>
-                <CategorySelector />
-              </FsPopover>
-            </div>
-            <div id='filter' className='settings__btn'>
-              <FsPopover
-                anchorEl={filterPopoverOpen}
-                handleClick={(event: React.MouseEvent<HTMLButtonElement>) => handleClick(event, 'filter')}
-                handleClose={handleClose}
-                name='filter'
-                idElem='filter'>
-                <FilterBlock />
-              </FsPopover>
-            </div>
-          </>
+          <FilterMenu />
         ) : (
           <Paper className='settings' elevation={0} id='settings'>
             <CategorySelector />

@@ -10,9 +10,9 @@
   position: relative;
 
   @include small() {
-    grid-auto-columns: 1fr 1fr 1fr;
+    grid-auto-columns: 1fr 1fr;
     grid-auto-rows: 50px 1fr auto;
-    grid-template-areas: 'category filter sort' 'search search search' 'catalog catalog catalog';
+    grid-template-areas: 'setting-mobile sort' 'search search' 'catalog catalog';
     gap: 10px;
     padding: 20px 10px;
   }
@@ -20,12 +20,64 @@
 }
 
 
-#category {
-  grid-area: category;
-}
+#setting-mobile {
+  grid-area: setting-mobile;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 
-#filter {
-  grid-area: filter;
+  .MuiToggleButton-root{
+    border-color: $color-form;
+    padding: 8px;
+
+    &:hover{
+      background-color: $color-form;
+    }
+  }
+
+  .MuiPaper-root {
+    padding: 20px 40px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 50;
+    .filters, .category-selector {
+      width: 200px;
+
+      .MuiTreeItem-content {
+        padding: 0;
+
+        .MuiTreeItem-label {
+          font-size: inherit;
+          text-transform: uppercase;
+
+          @include medium-mobile() {
+            font-size: 12px;
+          }
+        }
+
+      }
+
+      .MuiTreeItem-content.Mui-selected {
+        background-color: transparent;
+        text-decoration: underline;
+      }
+
+
+      .MuiFormControlLabel-label {
+        font-size: inherit;
+      }
+
+      h4 {
+        padding: 10px 0;
+        text-transform: uppercase;
+        @include medium-mobile() {
+          font-size: 12px;
+        }
+      }
+    }
+  }
 }
 
 #settings {
@@ -110,49 +162,6 @@
   }
 
 }
-
-.settings__block {
-  .MuiPaper-root {
-    padding: 20px 40px;
-
-    .filters, .category-selector {
-      width: 200px;
-
-      .MuiTreeItem-content {
-        padding: 0;
-
-        .MuiTreeItem-label {
-          font-size: inherit;
-          text-transform: uppercase;
-
-          @include medium-mobile() {
-            font-size: 12px;
-          }
-        }
-
-      }
-
-      .MuiTreeItem-content.Mui-selected {
-        background-color: transparent;
-        text-decoration: underline;
-      }
-
-
-      .MuiFormControlLabel-label {
-        font-size: inherit;
-      }
-
-      h4 {
-        padding: 10px 0;
-        text-transform: uppercase;
-        @include medium-mobile() {
-          font-size: 12px;
-        }
-      }
-    }
-  }
-}
-
 
 .catalog__container {
   position: relative;
