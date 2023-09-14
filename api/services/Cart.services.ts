@@ -1,4 +1,4 @@
-import { get, post, PROJECT_KEY } from '@/api/api';
+import { get, post, remove, PROJECT_KEY } from '@/api/api';
 import { CurrencyParams } from '@/types/enums';
 
 export interface LineItem {
@@ -13,9 +13,7 @@ const createCart = async (token: string) => {
     currency: CurrencyParams.EUR_TEXT,
   });
   const response = await post(`/${PROJECT_KEY}/me/carts`, token, body);
-  const cartId = response.id;
-  const version = response.version;
-  localStorage.setItem('cart', JSON.stringify({ id: cartId, version: version }));
+  localStorage.setItem('cart', JSON.stringify({ id: response.id, version: response.version }));
   return response;
 };
 
@@ -42,8 +40,7 @@ const cartInteraction = async (token: string, cartId: string, version: number, l
     ],
   });
   const response = await post(`/${PROJECT_KEY}/me/carts/${cartId}`, token, body);
-  const newVersion = response.version;
-  localStorage.setItem('cart', JSON.stringify({ id: cartId, version: newVersion }));
+  localStorage.setItem('cart', JSON.stringify({ id: cartId, version: response.version }));
   return response;
 };
 
@@ -58,13 +55,18 @@ const addDiscountCode = async (token: string, cartId: string, version: number, a
     ],
   });
   const response = await post(`/${PROJECT_KEY}/me/carts/${cartId}`, token, body);
-  const newVersion = response.version;
-  localStorage.setItem('cart', JSON.stringify({ id: cartId, version: newVersion }));
+  localStorage.setItem('cart', JSON.stringify({ id: cartId, version: response.version }));
   return response;
 };
 
-const removeCart = () => {
+const removeCartFromLS = () => {
   localStorage.removeItem('cart');
+};
+
+const removeCart = async (token: string, cartId: string, version: number) => {
+  const response = await remove(`/${PROJECT_KEY}/me/carts/${cartId}?version=${version}`, token);
+  removeCartFromLS();
+  return response;
 };
 
 export const CartService = {
@@ -72,6 +74,7 @@ export const CartService = {
   getCart,
   getCartFromLS,
   removeCart,
+  removeCartFromLS,
   cartInteraction,
   addDiscountCode,
 };

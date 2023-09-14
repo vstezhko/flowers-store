@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import FsButton from '@/components/UI/FsButton';
 import { FsButtonType } from '@/types/enums';
-import { getCartAsync } from '@/redux/slices/cartSlice/thunk';
+import { getCartAsync, removeCartAsync } from '@/redux/slices/cartSlice/thunk';
 import { useDispatch, useSelector } from '@/redux/store';
 import { TokenService } from '@/api/services/Token.service';
 import { CartService } from '@/api/services/Cart.services';
@@ -51,6 +51,24 @@ const Cart = () => {
       );
   }, []);
 
+  const handleClearCart = async () => {
+    const token = TokenService.getAccessTokenFromLS()?.token;
+    const cartFromLS = CartService.getCartFromLS();
+    if (token && cartFromLS?.id && cartFromLS?.version) {
+      try {
+        await dispatch(
+          removeCartAsync({
+            token,
+            cartId: cartFromLS?.id,
+            version: cartFromLS?.version,
+          })
+        ).unwrap();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <section className='page'>
       <h1 className='page__title'>Cart</h1>
@@ -95,7 +113,16 @@ const Cart = () => {
                 <span>TOTAL</span>
                 <p>{totalPrice ? (totalPrice?.centAmount / 100).toFixed(2) : ''} EUR</p>
               </div>
-              <FsButton label='Confirm' onClick={() => console.log('confirm')} className={FsButtonType.REGULAR} />
+              <div className='cart__buttons'>
+                <FsButton label='Confirm' onClick={() => console.log('confirm')} className={FsButtonType.REGULAR} />
+                <FsButton
+                  label='Clear Cart'
+                  onClick={() => {
+                    handleClearCart();
+                  }}
+                  className={FsButtonType.REGULAR}
+                />
+              </div>
             </div>
           </div>
         </div>

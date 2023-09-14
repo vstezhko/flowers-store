@@ -29,6 +29,11 @@
   }
 }
 
+.cart__buttons {
+  display: flex;
+  gap: 20px;
+}
+
 .info__coupon {
   display: flex;
   align-items: flex-end;

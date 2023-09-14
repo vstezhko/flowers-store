@@ -44,7 +44,7 @@ const Header = () => {
   const router = useRouter();
   const handleLogout = () => {
     TokenService.removeTokensFromLS();
-    CartService.removeCart();
+    CartService.removeCartFromLS();
     dispatch(loginSlice.actions.setIsLogin(false));
     dispatch(loginSlice.actions.setIsSignUp(false));
     dispatch(loginSlice.actions.removeCustomer());
@@ -64,6 +64,8 @@ const Header = () => {
     setQuantity(totalQuantity);
     if (totalPrice) {
       setSum((totalPrice.centAmount / 100).toString());
+    } else {
+      setSum('0');
     }
   }, [totalLineItemQuantity, loading, totalPrice, lineItems]);
 

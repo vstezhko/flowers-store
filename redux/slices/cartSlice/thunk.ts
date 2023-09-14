@@ -49,3 +49,10 @@ export const addDiscountCodeAsync = createAppAsyncThunk(
     return CartService.addDiscountCode(token, cartId, cartVersion, action, code);
   }
 );
+
+export const removeCartAsync = createAppAsyncThunk(
+  'me/cart/remove',
+  async ({ token, cartId, version }: { token: string; cartId: string; version: number }) => {
+    return CartService.removeCart(token, cartId, version);
+  }
+);

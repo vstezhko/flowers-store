@@ -47,3 +47,11 @@ export const post = (url: string, token: string, body: string) =>
     .catch(error => {
       return Promise.reject(error.response ? error.response.data.message : error.message);
     });
+
+export const remove = (url: string, token: string) =>
+  ApiInstance(token)
+    .delete(url)
+    .then(res => res.data)
+    .catch(error => {
+      return Promise.reject(error.response ? error.response.data.message : error.message);
+    });
