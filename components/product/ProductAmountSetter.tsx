@@ -19,7 +19,7 @@ const ProductAmountSetter: FC<ProductAmountSetterParams> = ({ productAmount, onC
         icon={<MinusIcon />}
         disabled={productAmount === 1 || disabled}
       />
-      <p>{productAmount} item</p>
+      <p>{productAmount}</p>
       <FsButton
         className={FsButtonType.ICON}
         onClick={() => onChange(1)}
