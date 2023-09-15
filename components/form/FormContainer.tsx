@@ -123,18 +123,18 @@ const FormContainer = ({
   return (
     <div className='form-container__background-img'>
       <div className='background-img background-img_left'>
-        <Image src={LeafLeft} alt='leaf' priority={true} />
+        <Image src={LeafLeft} alt='leaf' priority={false} quality={75} loading='lazy' />
       </div>
       <div className='background-img background-img_right'>
-        <Image src={LeafRight} alt='leaf' priority={true} />
+        <Image src={LeafRight} alt='leaf' priority={false} quality={75} loading='lazy' />
       </div>
       <Paper elevation={3} className='form__paper'>
         <div className='form__links'>
           <Link href='/'>Home</Link>
           <Link href={path}>{pathName}</Link>
         </div>
-        <Image src={Leaf} alt='leaf' className='form-img' priority={true} />
-        <Image src={LeafSmall} alt='leaf' className='form-img-bottom' priority={true} />
+        <Image src={Leaf} alt='leaf' className='form-img' priority={false} quality={75} loading='lazy' />
+        <Image src={LeafSmall} alt='leaf' className='form-img-bottom' priority={false} quality={75} loading='lazy' />
         <form className='form' onSubmit={formik.handleSubmit}>
           <h2>{title}</h2>
           {childComponent(data, formik, open)}
