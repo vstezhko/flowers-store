@@ -113,7 +113,7 @@ const ProfileFormContainer = ({ src, type }: { src: string; type: string }) => {
         <PersonalForm childComponent={PersonalInfoForm} modeEdit={false} data={passwordInputFields} type={type} />
       )}
       <div className='profile__container-img'>
-        <Image className='profile__img' src={src} alt='ProfileContainer photo' layout='fill' priority={false} />
+        <Image className='profile__img' src={src} alt='ProfileContainer photo' layout='fill' priority={true} />
       </div>
     </div>
   );
