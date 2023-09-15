@@ -117,12 +117,12 @@ const Product = () => {
           />
           <ProductCompositionCard items={composition} />
           <div className='product-block__details'>
-            {product.id ? (
-              <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} disabled={disabled} />
-            ) : (
-              <Skeleton variant='rectangular' width={175} height={52} />
-            )}
             <div className='product-block__sum'>
+              {product.id ? (
+                <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} disabled={disabled} />
+              ) : (
+                <Skeleton variant='rectangular' width={175} height={52} />
+              )}
               <ProductSum
                 sum={
                   activeVariant
@@ -132,19 +132,19 @@ const Product = () => {
                     : undefined
                 }
               />
-              <div className='product-btn__container'>
-                <Tooltip title={disabled ? 'This item has been added to the cart' : ''}>
-                  <span>
-                    {product.id ? (
-                      <FsButton label='Add to cart' onClick={handleAddToCard} disabled={disabled} />
-                    ) : (
-                      <Skeleton variant='rectangular' width={120} height={40} />
-                    )}
-                  </span>
-                </Tooltip>
-                <FsButton label='Remove' variant='outlined' onClick={handleRemoveFromCart} disabled={!disabled} />
-              </div>
             </div>
+          </div>
+          <div className='product-btn__container'>
+            <Tooltip title={disabled ? 'This item has been added to the cart' : ''}>
+              <span>
+                {product.id ? (
+                  <FsButton label='Add to cart' onClick={handleAddToCard} disabled={disabled} />
+                ) : (
+                  <Skeleton variant='rectangular' width={120} height={40} />
+                )}
+              </span>
+            </Tooltip>
+            <FsButton label='Remove' variant='outlined' onClick={handleRemoveFromCart} disabled={!disabled} />
           </div>
         </div>
       </section>
