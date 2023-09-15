@@ -1,7 +1,24 @@
 .sort-menu {
   cursor: pointer;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+
+  @include small() {
+    justify-content: flex-end;
+  }
+
+
+  div {
+    font-family: var(--avenir-reg);
+
+    p {
+      font-size: 12px;
+      font-family: inherit;
+      color: $color-brand-1;
+      text-align: center;
+
+    }
+  }
 
   .MuiList-root {
     padding: 0 !important;

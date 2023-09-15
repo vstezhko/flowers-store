@@ -94,18 +94,6 @@
 
 #sort {
   grid-area: sort;
-
-  div {
-    font-family: var(--avenir-reg);
-
-    p {
-      font-size: 12px;
-      font-family: inherit;
-      color: $color-brand-1;
-      text-align: center;
-
-    }
-  }
 }
 
 .catalog-wrapper {
