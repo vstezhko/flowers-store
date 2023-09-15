@@ -1,5 +1,6 @@
 import React from 'react';
 import Wing from '@/public/img/png/wing.png';
+import Image from 'next/image';
 
 const TextLoginPanel = () => {
   return (
@@ -7,7 +8,7 @@ const TextLoginPanel = () => {
       <p>WeLcome Back,</p>
       <div className='panel__item-container'>
         <p>FrienD</p>
-        <img src={Wing.src} alt='wing' width={30} />
+        <Image src={Wing} alt={'Wing'} width={30} />
         <p>!</p>
       </div>
       <p>YouR BloomS</p>
