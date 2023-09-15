@@ -8,7 +8,7 @@ const TextSignUpPanel = () => {
       <p>WeLcome tO FloWers StoRe, </p>
       <div className='panel__item-container'>
         <p>witH</p>
-        <Image src={Wing} alt={'Wing'} />
+        <Image src={Wing} alt={'Wing'} loading='lazy' />
         <p style={{ alignSelf: 'flex-end' }}>LoVe</p>
       </div>
       <p>VikA, KSenija & ZheNja</p>
