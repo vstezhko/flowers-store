@@ -7,6 +7,7 @@
 
 //layout
 @import "layout/_columns";
+@import "layout/_texture";
 
 //components
 @import "components/header/_header";
@@ -16,6 +17,7 @@
 @import "components/ui/_fsInput";
 @import "components/ui/_fsSelect";
 @import "components/ui/_fsCheckbox";
+@import "components/ui/_delayedLoader";
 @import "components/main/features/_features";
 @import "components/main/banner/_banner";
 @import "components/main/discounts/_discounts";

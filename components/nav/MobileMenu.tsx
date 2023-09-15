@@ -2,7 +2,7 @@ import NavLink from '@/components/nav/NavLink';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { MenuParamsWithoutPathName } from '@/components/header/Header';
-import LeafRight from '@/public/img/png/leaf-right.png';
+import LeafRight from '@/public/img/png/leaf-right.webp';
 
 interface MobileMenuProps {
   menuItems: MenuParamsWithoutPathName[];

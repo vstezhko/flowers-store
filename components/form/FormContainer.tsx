@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import LeafLeft from '@/public/img/png/leaf-left.png';
-import LeafRight from '@/public/img/png/leaf-right.png';
+import LeafLeft from '@/public/img/png/leaf-left.webp';
+import LeafRight from '@/public/img/png/leaf-right.webp';
 import { Paper, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
-import Leaf from '@/public/img/png/leaf.png';
-import LeafSmall from '@/public/img/png/leaf-small.png';
+import Leaf from '@/public/img/png/leaf.webp';
+import LeafSmall from '@/public/img/png/leaf-small.webp';
 import { FormikConfig, FormikProps, useFormik } from 'formik';
 import { generateInitialFormikValue } from '@/utils/generateInitialFormikValue';
 import { FormGroups, FsButtonType, Pages, TokenType } from '@/types/enums';
@@ -123,18 +123,18 @@ const FormContainer = ({
   return (
     <div className='form-container__background-img'>
       <div className='background-img background-img_left'>
-        <Image src={LeafLeft} alt='leaf' />
+        <Image src={LeafLeft} alt='leaf' quality={75} />
       </div>
       <div className='background-img background-img_right'>
-        <Image src={LeafRight} alt='leaf' />
+        <Image src={LeafRight} alt='leaf' quality={75} priority={true} />
       </div>
       <Paper elevation={3} className='form__paper'>
         <div className='form__links'>
           <Link href='/'>Home</Link>
           <Link href={path}>{pathName}</Link>
         </div>
-        <Image src={Leaf} alt='leaf' className='form-img' />
-        <Image src={LeafSmall} alt='leaf' className='form-img-bottom' />
+        <Image src={Leaf} alt='leaf' className='form-img' quality={75} />
+        <Image src={LeafSmall} alt='leaf' className='form-img-bottom' quality={75} />
         <form className='form' onSubmit={formik.handleSubmit}>
           <h2>{title}</h2>
           {childComponent(data, formik, open)}

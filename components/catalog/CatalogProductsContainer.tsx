@@ -1,9 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
-import SmallProductCard from '@/components/catalog/SmallCard';
+import React, { FC, memo, useEffect, useState } from 'react';
 import { useSelector } from '@/redux/store';
 import { createProductsForCatalog } from '@/utils/createProductsForCatalog';
 import { ResponseSearchProduct } from '@/types/catalog/interface';
 import { isProductInCart } from '@/utils/isProductInCart';
+import Products from '@/components/catalog/Products';
+import DelayedLoader from '@/components/UI/DelayedLoader';
 
 export interface CatalogProductsContainerParams {
   isLoadingData: boolean;
@@ -40,32 +41,18 @@ const CatalogProductsContainer: FC<CatalogProductsContainerParams> = ({
 
   return (
     <div className='catalog__container'>
-      {isLoadingData ? (
-        <h4 className='catalog__message'>Loading ...</h4>
-      ) : isSearchActive && totalResults === 0 ? (
+      {isSearchActive && totalResults === 0 ? (
         <h4 className='catalog__message'>
           Unfortunately, no results were found for your search{search ? ` "${search}"` : ''}. Try other options!
         </h4>
       ) : (
-        displayProducts.map(product => {
-          return (
-            <SmallProductCard
-              key={product.id}
-              id={product.id}
-              masterVariantID={product.masterVariantID}
-              productName={product.name || 'No product name'}
-              price={product.price}
-              discounted={product.discounted}
-              currency={product.currency}
-              description={product.description || 'No description available'}
-              image={product.image}
-              disabled={product.disabled}
-            />
-          );
-        })
+        <>
+          {isLoadingData ? <DelayedLoader /> : <></>}
+          <Products products={displayProducts} />
+        </>
       )}
     </div>
   );
 };
 
-export default CatalogProductsContainer;
+export default memo(CatalogProductsContainer);

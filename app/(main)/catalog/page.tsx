@@ -38,8 +38,8 @@ const Catalog = () => {
 
   const fetchSearchProducts = useCallback(
     async (accessToken: string, searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
-      setIsLoadingData(true);
-      setIsSearchActive(true);
+      setIsLoadingData((prev: boolean) => (!prev ? true : prev));
+      setIsSearchActive((prev: boolean) => (!prev ? true : prev));
       if (!accessToken) return;
 
       const response = await dispatch(
@@ -53,9 +53,9 @@ const Catalog = () => {
           sortIndex,
         })
       ).unwrap();
-      setTotalResults(response.total);
+      setTotalResults((prev: number) => (prev !== response.total ? response.total : prev));
       setCatalogData(response);
-      setIsLoadingData(false);
+      setIsLoadingData((prev: boolean) => (prev ? false : prev));
     },
     [dispatch, categoryId, sortIndex, isToken, paginatorPage]
   );
