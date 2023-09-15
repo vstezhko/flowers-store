@@ -126,7 +126,7 @@ const FormContainer = ({
         <Image src={LeafLeft} alt='leaf' quality={75} />
       </div>
       <div className='background-img background-img_right'>
-        <Image src={LeafRight} alt='leaf' quality={75} priority={false} />
+        <Image src={LeafRight} alt='leaf' quality={75} />
       </div>
       <Paper elevation={3} className='form__paper'>
         <div className='form__links'>
