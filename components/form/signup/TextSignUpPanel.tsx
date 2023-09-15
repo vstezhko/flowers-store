@@ -1,5 +1,5 @@
 import React from 'react';
-import Wing from '@/public/img/png/wing.webp';
+import Wing from '@/public/img/png/wing.png';
 import Image from 'next/image';
 
 const TextSignUpPanel = () => {
@@ -8,7 +8,7 @@ const TextSignUpPanel = () => {
       <p>WeLcome tO FloWers StoRe, </p>
       <div className='panel__item-container'>
         <p>witH</p>
-        <Image src={Wing} alt={'Wing'} priority={false} />
+        <Image src={Wing} alt={'Wing'} />
         <p style={{ alignSelf: 'flex-end' }}>LoVe</p>
       </div>
       <p>VikA, KSenija & ZheNja</p>
