@@ -1,6 +1,7 @@
 .category-breadcrumbs {
   color: $color-shade-4;
-  padding: 0 0 20px;
+  padding: 20px 0;
+  text-transform: uppercase;
 
   span:hover:has(a) {
     cursor: pointer;

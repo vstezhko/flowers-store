@@ -1,13 +1,39 @@
 .sort-menu {
-  width: 180px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
 
-  &__list {
-    width: 100%;
+  @include small() {
+    justify-content: flex-end;
   }
 
-  &__list-item {
+
+  div {
+    font-family: var(--avenir-reg);
+
+    p {
+      font-size: 12px;
+      font-family: inherit;
+      color: $color-brand-1;
+      text-align: center;
+
+    }
+  }
+
+  .MuiList-root {
+    padding: 0 !important;
+    width: 100px;
+  }
+
+  .MuiListItem-root {
     padding: 0;
+
+    & > div {
+      & > span {
+        text-align: center;
+      }
+    }
+
   }
 
   &__menu-item {
@@ -26,12 +52,5 @@
     }
   }
 
-  @include small {
-    width: 150px;
-  }
-
-  @include small-mobile {
-    width: 100%;
-  }
 
 }

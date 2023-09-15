@@ -90,7 +90,7 @@ const NavMenu = ({ menuItems, handleLogout }: { menuItems: MenuParamsWithoutPath
       {matches ? (
         <>
           <div className='nav__burger-container'>
-            <BurgerIcon onClick={toggleMenu} isOpen={menuOpen} />
+            <BurgerIcon onClick={toggleMenu} isOpen={menuOpen} name='nav__burger' />
           </div>
           <MobileMenu menuItems={menuItems} isOpen={menuOpen} />
           {logo && (

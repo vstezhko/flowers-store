@@ -109,6 +109,7 @@ const Cart = () => {
                 <FsButton label='Confirm' onClick={() => console.log('confirm')} className={FsButtonType.REGULAR} />
                 <FsButton
                   label='Clear Cart'
+                  variant='outlined'
                   onClick={() => {
                     handleClickOpen();
                   }}

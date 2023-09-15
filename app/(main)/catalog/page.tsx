@@ -1,7 +1,7 @@
 'use client';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { TokenService } from '@/api/services/Token.service';
-import { Paper } from '@mui/material';
+import { Paper, useMediaQuery } from '@mui/material';
 import Searchbar from '@/components/catalog/SearchBar';
 import { SearchParams, FilterParams } from '@/types/types';
 import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
@@ -15,6 +15,7 @@ import Paginator from '@/components/catalog/Paginator';
 import { CurrencyParams, PaginationParams } from '@/types/enums';
 import CatalogProductsContainer from '@/components/catalog/CatalogProductsContainer';
 import { ResponseSearchProduct } from '@/types/catalog/interface';
+import FilterMenu from '@/components/catalog/FilterMenu';
 
 const Catalog = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const Catalog = () => {
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [catalogData, setCatalogData] = useState<{ total: number; results: ResponseSearchProduct[] } | null>(null);
   const [isToken, setIsToken] = useState(access_token !== null);
+  const matches = useMediaQuery('(max-width:768px)');
 
   useEffect(() => {
     setIsToken(function (prev: boolean) {
@@ -89,25 +91,29 @@ const Catalog = () => {
 
   return (
     <section className='catalog page'>
+      <h1 className='page__title'>Catalog</h1>
       <CategoryBreadcrumbs categoryId={categoryId} />
       <div className='catalog-page-wrapper'>
-        <Paper className='settings' elevation={0}>
-          <CategorySelector />
-          <FilterBlock />
-        </Paper>
-        <div className='catalog-wrapper'>
-          <Paper className='searchbar-block' elevation={0}>
-            <Searchbar
-              onSubmit={(newSearchItem: string) => {
-                dispatch(searchActions.setSearch(newSearchItem));
-              }}
-              onClear={() => dispatch(searchActions.setSearch(''))}
-              value={search}
-              onChange={value => dispatch(searchActions.setSearch(value))}
-              inputProps={{}}
-            />
-            <SortMenu />
+        {matches ? (
+          <FilterMenu />
+        ) : (
+          <Paper className='settings' elevation={0} id='settings'>
+            <CategorySelector />
+            <FilterBlock />
           </Paper>
+        )}
+
+        <Searchbar
+          onSubmit={(newSearchItem: string) => {
+            dispatch(searchActions.setSearch(newSearchItem));
+          }}
+          onClear={() => dispatch(searchActions.setSearch(''))}
+          value={search}
+          onChange={value => dispatch(searchActions.setSearch(value))}
+          inputProps={{}}
+        />
+        <SortMenu />
+        <div className='catalog-wrapper' id='catalog'>
           <CatalogProductsContainer
             isLoadingData={isLoadingData}
             isSearchActive={isSearchActive}

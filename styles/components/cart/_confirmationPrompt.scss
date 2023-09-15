@@ -1,5 +1,14 @@
 .confirmation-prompt {
 
+  .MuiPaper-root {
+    padding: 20px;
+  }
+
+  .MuiDialogActions-root {
+    justify-content: center;
+  }
+
+
   .MuiDialogContentText-root {
     font-size: inherit;
   }
