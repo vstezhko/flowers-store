@@ -1,10 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import LeafLeft from '@/public/img/png/leaf-left.png';
+import LeafLeft from '@/public/img/png/leaf-left.webp';
 import LeafRight from '@/public/img/png/leaf-right.png';
 import { Paper, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
-import Leaf from '@/public/img/png/leaf.png';
+import Leaf from '@/public/img/png/leaf.webp';
 import LeafSmall from '@/public/img/png/leaf-small.png';
 import { FormikConfig, FormikProps, useFormik } from 'formik';
 import { generateInitialFormikValue } from '@/utils/generateInitialFormikValue';
