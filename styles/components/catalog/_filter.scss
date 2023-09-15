@@ -1,5 +1,4 @@
 .filters {
-  max-width: 400px;
 
   &__header {
     display: flex;
@@ -22,9 +21,8 @@
   }
 
   &__range-slider {
-    width: 75%;
-    padding: 5px;
-    margin-left: 29px;
+    width: 120px;
+    padding: 0 20px;
   }
 
   .MuiSlider-valueLabel {

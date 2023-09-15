@@ -8,7 +8,15 @@ const TextLoginPanel = () => {
       <p>WeLcome Back,</p>
       <div className='panel__item-container'>
         <p>FrienD</p>
-        <Image src={Wing} alt={'Wing'} width={30} />
+        <Image
+          src={Wing}
+          alt='wing'
+          style={{
+            height: '50px',
+            width: '50px',
+            margin: '10px 0',
+          }}
+        />
         <p>!</p>
       </div>
       <p>YouR BloomS</p>

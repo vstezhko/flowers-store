@@ -28,7 +28,7 @@ const SortMenu = () => {
   };
 
   return (
-    <div className='sort-menu'>
+    <div className='sort-menu' id='sort'>
       <List className='sort-menu__list' aria-label='Sort settings'>
         <ListItem
           className='sort-menu__list-item'
@@ -38,7 +38,7 @@ const SortMenu = () => {
           aria-label='sort by'
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClickListItem}>
-          <ListItemText primary='Sort by' secondary={sortNames[sortIndex]} />
+          <ListItemText primary='SORT BY' secondary={sortNames[sortIndex]} />
         </ListItem>
       </List>
       <Menu
