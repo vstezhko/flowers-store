@@ -27,11 +27,11 @@
   align-items: center;
   justify-content: flex-start;
 
-  .MuiToggleButton-root{
+  .MuiToggleButton-root {
     border-color: $color-form;
     padding: 8px;
 
-    &:hover{
+    &:hover {
       background-color: $color-form;
     }
   }
@@ -42,6 +42,7 @@
     top: 100%;
     left: 0;
     z-index: 50;
+
     .filters, .category-selector {
       width: 200px;
 
@@ -159,6 +160,22 @@
   width: 100%;
   min-height: 900px;
   justify-content: flex-start;
+
+  .loading {
+    backdrop-filter: blur(2px);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+
+    .MuiBox-root {
+      max-height: 350px;
+    }
+  }
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
