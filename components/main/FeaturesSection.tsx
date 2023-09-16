@@ -45,9 +45,7 @@ export default function FeaturesSection() {
       <ul className='features__galery'>
         {itemsData.map(item => (
           <li className='features__item' key={item.id}>
-            <div className='features__img-container'>
-              <Image src={item.img} alt={item.alt} className='features__img' />
-            </div>
+            <Image src={item.img} alt={item.alt} className='features__img' />
             <div className='features__text'>
               {item.textStart}
               <span className='highlight'>{item.highlight}</span>
