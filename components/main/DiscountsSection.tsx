@@ -7,41 +7,9 @@ import { FsButtonType } from '@/types/enums';
 import DiscountsImg from '@/public/img/jpeg/discounts.jpg';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useDispatch, useSelector } from '@/redux/store';
-import { TokenService } from '@/api/services/Token.service';
-import { getCategoriesAsync } from '@/redux/slices/categorySlice/thunks';
-import { CategoryFullData } from '@/redux/slices/categorySlice/categorySlice';
-import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
 
 const DiscountsSection = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const { categories } = useSelector(state => state.category);
-
-  const fetchCategories = async () => {
-    const token = TokenService.getAccessTokenFromLS()?.token;
-    if (token) return dispatch(getCategoriesAsync(token));
-  };
-
-  const findTargetCategory = (categoriesArr: CategoryFullData[]) => {
-    if (categoriesArr?.length) {
-      return categoriesArr.find(i => i.name?.en === 'Mix');
-    }
-  };
-
-  const handleBtnClick = async () => {
-    let categoryId;
-    if (!categories) {
-      const res = await fetchCategories();
-      if (res) {
-        categoryId = findTargetCategory(Object.values(res.payload.results))?.id;
-      }
-    } else {
-      categoryId = findTargetCategory(Object.values(categories))?.id;
-    }
-    dispatch(searchActions.setCategoryId(categoryId));
-    router.push('/catalog');
-  };
   return (
     <div className='discounts'>
       <div className='discounts__container-message'>
@@ -59,7 +27,7 @@ const DiscountsSection = () => {
             margin: '10px 0',
           }}
         />
-        <FsButton className={FsButtonType.MEDIUM} label='find in Catalog' onClick={handleBtnClick} />
+        <FsButton className={FsButtonType.MEDIUM} label='catalog' onClick={() => router.push('/catalog')} />
       </div>
       <div className='discounts__container-img'>
         <Image

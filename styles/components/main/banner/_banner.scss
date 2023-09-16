@@ -1,8 +1,6 @@
 .banner-section {
   width: 100%;
   background-color: $color-shade-0;
-  //@extend %font-title;
-
 
   &__img-container {
     display: flex;
@@ -10,7 +8,7 @@
     justify-content: center;
     position: relative;
     margin-top: 179px;
-    height: 70vh;
+    height: calc(100vh - 183px);
     width: 100%;
     overflow: hidden;
 
@@ -25,47 +23,15 @@
     object-fit: cover;
   }
 
-  &__content {
-    z-index: 1;
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
 
-  &__text-block {
-    display: flex;
-    height: 100%;
-    gap: 1rem;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    z-index: 1;
-    user-select: none;
-  }
+  .fsButton.regular {
 
-  &__text {
-    text-align: center;
-    color: $color-primary;
-  }
-
-  &__text-block h1 {
-    font-size: 4rem;
-
-    @include small {
-      font-size: 2.5rem;
-    }
-
-  }
-
-  @include small-xs-mobile() {
-    button {
+    @include small-xs-mobile() {
       max-width: 150px;
       padding: 8px !important;
     }
   }
+
 
 }
 
@@ -87,6 +53,10 @@
   justify-content: center;
   padding: 20px;
 
+  @include medium-mobile() {
+    padding: 15px;
+  }
+
   @include small-mobile() {
     width: 360px;
     max-height: 360px;
@@ -95,7 +65,6 @@
   @include small-xs-mobile() {
     width: 300px;
     max-height: 300px;
-    padding: 15px;
   }
 }
 
@@ -109,38 +78,55 @@
   justify-content: center;
   padding: 20px 0;
   border-radius: 6px;
+  user-select: none;
+  gap: 10px;
 
-}
+  h1 {
+    font-size: 120px;
+    letter-spacing: 25px;
 
-.block-inner__title {
-  font-size: 80px;
-  font-weight: 700;
-  text-align: center;
+    @include small() {
+      font-size: 100px;
+    }
+    @include medium-mobile() {
+      font-size: 80px;
+    }
 
-  @include small() {
-    font-size: 50px;
+    @include small-xs-mobile() {
+      font-size: 50px;
+    }
+
   }
 
-  @include small-mobile() {
+  .block-inner__subtitle {
+    font-size: 40px;
+    font-weight: 700;
+    color: $color-shade-0;
+
+    @include small() {
+      font-size: 30px;
+    }
+    @include medium-mobile() {
+      font-size: 25px;
+    }
+
+    @include small-xs-mobile() {
+      font-size: 15px;
+    }
+
+    span {
+      color: $color-primary;
+    }
+  }
+
+
+  h3 {
     font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+
+
   }
+
 }
 
-.block-inner__subtitle {
-  font-size: 100px;
-  font-weight: 700;
-  color: $color-shade-0;
-  //letter-spacing: 20px;
-  text-align: center;
-
-  @include small() {
-    font-size: 80px;
-  }
-
-  @include small-mobile() {
-    font-size: 50px;
-  }
-}
-
-
-//#E5A8AE
