@@ -104,8 +104,12 @@
     border-color: $color-brand-1;
   }
 
-  .image-gallery-icon:hover {
-    color: $color-brand-1;
+  @include hover {
+    
+    .image-gallery-icon:hover {
+      color: $color-brand-1;
+    }
+  
   }
 
   .image-gallery-icon:focus {

@@ -20,9 +20,12 @@
     font-size: 0.8em;
   }
 
+  @include hover {
 
-  &:hover {
-    background-color: $color-brand-1-light;
+    &:hover {
+      background-color: $color-brand-1-light;
+    }
+    
   }
 
   &_active {
