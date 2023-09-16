@@ -1,0 +1,18 @@
+.catalog__section {
+  min-height: 200px;
+  background-color: $color-primary-light;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+
+  h3 {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    font-weight: 700;
+    color: $color-shade-0;
+  }
+}

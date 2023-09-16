@@ -1,4 +1,7 @@
 .features {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &__galery {
     display: flex;
     flex-wrap: wrap;
@@ -6,7 +9,7 @@
     max-width: 1051px;
     justify-content: center;
     list-style: none;
-    margin: 3rem 0;
+    padding: 3rem 0;
     padding-inline-start: 0;
 
     img {
@@ -40,6 +43,7 @@
   &__item {
     width: 158px;
 
+
     @include medium {
       width: 120px;
     }
@@ -49,6 +53,7 @@
   &__img-container {
     position: relative;
     height: 158px;
+
 
     @include medium {
       height: 120px;
