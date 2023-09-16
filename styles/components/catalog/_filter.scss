@@ -8,6 +8,13 @@
 
   &__remove-filters {
     cursor: pointer;
+    @extend %transition;
+
+    @include hover {
+      &:hover {
+        color: $color-primary-hover;
+      }
+    }
   }
 
   &__tree {
