@@ -11,7 +11,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       <Header />
       <main className='main'>
         {usePathname() === '/' ? (
-          <>{children}</>
+          children
         ) : (
           <div className='main__container'>
             <BackgroundTexture />
