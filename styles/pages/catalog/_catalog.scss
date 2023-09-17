@@ -36,7 +36,7 @@
       &:hover {
         background-color: $color-form;
       }
-      
+
     }
 
   }
@@ -171,12 +171,15 @@
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
+    min-height: 1280px;
+    align-content: flex-start;
   }
 
 
   @include medium-mobile() {
     grid-template-columns: 1fr;
     gap: 20px;
+    min-height: 2620px;
   }
 }
 
