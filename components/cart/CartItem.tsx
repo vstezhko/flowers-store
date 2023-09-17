@@ -52,7 +52,7 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, disco
 
   useEffect(() => {
     setSum((discount ? discount : coupon ? coupon : price.value.centAmount / 100) * productAmount);
-    setOriginalPrice(price.value.centAmount / 100 * productAmount);
+    setOriginalPrice((price.value.centAmount / 100) * productAmount);
   }, [productAmount]);
 
   const handleRemoveFromCart = async (e: React.MouseEvent) => {
