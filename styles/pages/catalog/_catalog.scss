@@ -31,9 +31,14 @@
     border-color: $color-form;
     padding: 8px;
 
-    &:hover {
-      background-color: $color-form;
+    @include hover {
+
+      &:hover {
+        background-color: $color-form;
+      }
+      
     }
+
   }
 
   .MuiPaper-root {
@@ -43,7 +48,8 @@
     left: 0;
     z-index: 50;
 
-    .filters, .category-selector {
+    .filters,
+    .category-selector {
       width: 200px;
 
       .MuiTreeItem-content {
@@ -73,6 +79,7 @@
       h4 {
         padding: 10px 0;
         text-transform: uppercase;
+
         @include medium-mobile() {
           font-size: 12px;
         }
@@ -145,6 +152,7 @@
   h4 {
     padding: 10px 0;
     text-transform: uppercase;
+
     @include medium-mobile() {
       font-size: 12px;
     }

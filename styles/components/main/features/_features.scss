@@ -1,7 +1,4 @@
 .features {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   &__galery {
     display: flex;
     flex-wrap: wrap;
@@ -11,16 +8,6 @@
     list-style: none;
     padding: 3rem 0;
     padding-inline-start: 0;
-
-    img {
-      position: absolute;
-      object-fit: contain;
-      height: auto;
-      width: auto;
-      max-height: 100%;
-      max-width: 100%;
-      inset: 0;
-    }
 
     @include large {
       gap: 30px 90px;
@@ -40,9 +27,8 @@
 
   }
 
-  &__item {
+  &__img {
     width: 158px;
-
 
     @include medium {
       width: 120px;
@@ -54,9 +40,18 @@
     position: relative;
     height: 158px;
 
+    @include medium {
+      width: 120px;
+      height: 120px;
+    }
+
+  }
+
+  &__item {
+    width: 158px;
 
     @include medium {
-      height: 120px;
+      width: 120px;
     }
 
   }

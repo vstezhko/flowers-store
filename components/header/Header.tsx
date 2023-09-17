@@ -74,9 +74,9 @@ const Header = () => {
       <div className='header-menu'>
         <div className='header-menu__container container'>
           <div className='header-menu__phone'>
-            <PhoneIcon />
             <a className='phone' href='tel:+48573888888'>
-              + 48 573 888 888
+              <PhoneIcon />
+              <div className='phone__phone-number'>+ 48 573 888 888</div>
             </a>
           </div>
           <div className='header-menu__address'>
