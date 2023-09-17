@@ -20,8 +20,8 @@ const ProductSum: FC<ProductSumParams> = ({ sum, coupon, price }) => {
             </span>
           ) : (
             ''
-          )}{' '}
-          {sum.toFixed(2)} {CurrencyParams.EUR_TEXT}
+          )}
+          {coupon ? coupon.toFixed(2) : sum.toFixed(2)} {CurrencyParams.EUR_TEXT}
         </p>
       ) : (
         <Skeleton variant='rectangular' width={70} height={20} />
