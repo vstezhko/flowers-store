@@ -56,8 +56,6 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, disco
     setCoupon(discountCoupon && (discountCoupon / 100) * productAmount);
   }, [productAmount, discountCoupon]);
 
-  console.log(sum);
-
   const handleRemoveFromCart = async (e: React.MouseEvent) => {
     dispatch(cartSlice.actions.isRemoveItem(true));
     e.preventDefault();
