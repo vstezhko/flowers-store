@@ -44,11 +44,11 @@
       &:hover h5 {
         color: $color-shade-0 !important;
       }
-  
+
       &:hover {
         background-color: $color-primary-light;
       }
-      
+
     }
   }
 }
@@ -277,7 +277,8 @@
 .MuiList-root{
   gap: 10px;
   padding: 8px;
-  width: 170px;
+  width: 100%;
+  min-width: 170px;
   flex-direction: column;
 }
 

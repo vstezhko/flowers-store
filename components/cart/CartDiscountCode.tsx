@@ -12,7 +12,6 @@ import { useDispatch } from '@/redux/store';
 
 const CartDiscountCode = () => {
   const dispatch = useDispatch();
-  // const [codeApplied, setCodeApplied] = useState(false);
 
   const addCode = async (value: string) => {
     const token = TokenService.getAccessTokenFromLS()?.token;
@@ -53,7 +52,7 @@ const CartDiscountCode = () => {
       onBlur={() => formik.setFieldTouched('coupon', false)}
       onSubmit={formik.handleSubmit}>
       <FsInput
-        id='jfhjgj'
+        id='coupon'
         name='coupon'
         type='text'
         label='coupon'
