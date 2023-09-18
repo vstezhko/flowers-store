@@ -6,7 +6,7 @@
   gap: 15px;
   width: 100%;
   border-radius: 5px;
-  height: 420px;
+  height: $card-height;
   cursor: pointer;
   opacity: 0.95;
   @extend %transition;
@@ -42,6 +42,9 @@
     width: 100%;
     @extend %font-secondary;
     font-size: 0.95rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 18px;
   }
 
   &__description {
@@ -84,7 +87,7 @@
     font-size: 1rem;
   }
 
-  @media(max-width: 1024px){
+  @media(max-width: 1024px) {
     max-width: 300px;
     margin: 0 auto;
     gap: 10px;
