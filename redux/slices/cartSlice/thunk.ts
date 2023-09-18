@@ -12,6 +12,10 @@ export const getCartAsync = createAppAsyncThunk(
   }
 );
 
+export const getActiveCartAsync = createAppAsyncThunk('/carts/customer-id', async ({ token }: { token: string }) => {
+  return CartService.getActiveCart(token);
+});
+
 export const cartInteractionAsync = createAppAsyncThunk(
   'me/cart/interactionWithCart',
   async ({

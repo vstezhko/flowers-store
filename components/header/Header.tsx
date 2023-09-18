@@ -11,6 +11,7 @@ import { CartService } from '@/api/services/Cart.services';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 import { useRouter } from 'next/navigation';
+import { cartSlice } from '@/redux/slices/cartSlice/cartSlice';
 
 export interface MenuParams {
   id: number;
@@ -48,6 +49,7 @@ const Header = () => {
     dispatch(loginSlice.actions.setIsLogin(false));
     dispatch(loginSlice.actions.setIsSignUp(false));
     dispatch(loginSlice.actions.removeCustomer());
+    dispatch(cartSlice.actions.clearCart());
     dispatch(snackbarSlice.actions.setMessage({ message: 'Successful logout', variant: 'success' }));
     router.push('/');
     setSum('0');

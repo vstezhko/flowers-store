@@ -8,17 +8,25 @@ export interface LineItem {
   variantId?: number;
 }
 
+const setCartToLS = (id: string, version: number) => {
+  localStorage.setItem('cart', JSON.stringify({ id, version }));
+};
+
 const createCart = async (token: string) => {
   const body = JSON.stringify({
     currency: CurrencyParams.EUR_TEXT,
   });
   const response = await post(`/${PROJECT_KEY}/me/carts`, token, body);
-  localStorage.setItem('cart', JSON.stringify({ id: response.id, version: response.version }));
+  setCartToLS(response.id, response.version);
   return response;
 };
 
 const getCart = async (token: string, cartId: string) => {
   return get(`/${PROJECT_KEY}/me/carts/${cartId}`, token);
+};
+
+const getActiveCart = async (token: string) => {
+  return get(`/${PROJECT_KEY}/me/active-cart`, token);
 };
 
 const getCartFromLS = (): { id: string; version: number } | null => {
@@ -70,8 +78,10 @@ const removeCart = async (token: string, cartId: string, version: number) => {
 };
 
 export const CartService = {
+  setCartToLS,
   createCart,
   getCart,
+  getActiveCart,
   getCartFromLS,
   removeCart,
   removeCartFromLS,
