@@ -41,7 +41,7 @@ const CatalogProductsContainer: FC<CatalogProductsContainerParams> = ({
 
   return (
     <div className='catalog__container'>
-      {isSearchActive && totalResults === 0 ? (
+      {isSearchActive && !isLoadingData && totalResults === 0 ? (
         <h4 className='catalog__message'>
           Unfortunately, no results were found for your search{search ? ` "${search}"` : ''}. Try other options!
         </h4>
