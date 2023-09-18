@@ -87,6 +87,10 @@ export const loginSlice = createSlice({
     setIsSignUp: (state, action: PayloadAction<boolean>) => {
       state.isSignUp = action.payload;
     },
+    setCustomer: (state, action: PayloadAction<Customer>) => {
+      state.isSignUp = true;
+      state.customer = action.payload;
+    },
     removeCustomer: state => {
       state.customer = {
         addresses: [],

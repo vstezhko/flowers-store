@@ -11,6 +11,7 @@ const AuthComponent = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
   const { customer } = useSelector(state => state.login);
   const { access_token } = useSelector(state => state.auth);
+  const { cartId } = useSelector(state => state.cart);
 
   useEffect(() => {
     const token = TokenService.getAccessTokenFromLS();
@@ -20,11 +21,11 @@ const AuthComponent = ({ children }: { children: React.ReactNode }) => {
     if (token?.type === TokenType.CUSTOMER && !customer?.id) {
       dispatch(getCustomerAsync(token.token));
     }
-    const cartId = CartService.getCartFromLS()?.id;
+    const cartIdLS = CartService.getCartFromLS()?.id;
     const tokenForCart = access_token ? access_token : token?.token;
 
-    if (cartId && tokenForCart) {
-      dispatch(getCartAsync({ token: tokenForCart, cartId }));
+    if (cartIdLS && !cartId && tokenForCart) {
+      dispatch(getCartAsync({ token: tokenForCart, cartId: cartIdLS }));
     }
   }, [access_token, customer?.id, dispatch]);
 

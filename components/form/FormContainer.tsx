@@ -13,7 +13,7 @@ import FsButton from '@/components/UI/FsButton';
 import { generateFormikFieldsRules } from '@/utils/generateFormikFieldsRules';
 import { object } from 'yup';
 import { useDispatch } from '@/redux/store';
-import { getCustomerAsync, loginAsync, signUpAsync } from '@/redux/slices/loginSlice/thunks';
+import { loginAsync, signUpAsync } from '@/redux/slices/loginSlice/thunks';
 import { TokenService } from '@/api/services/Token.service';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 import { usePathname, useRouter } from 'next/navigation';
@@ -22,6 +22,9 @@ import { structureInputValues } from '@/utils/structureInputFormValues';
 import { createCustomerDraft } from '@/utils/createCustomerDraft';
 import { formikValuesType, FormItemFieldsParams } from '@/types/types';
 import Image from 'next/image';
+import { cartSlice } from '@/redux/slices/cartSlice/cartSlice';
+import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
+import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
 
 const FormContainer = ({
   childComponent,
@@ -54,6 +57,12 @@ const FormContainer = ({
       const loginPayload = deletePrefixKey(values);
       const { email, password } = loginPayload;
       const response = await dispatch(loginAsync({ loginPayload, token }));
+      if (response.payload.cart) {
+        dispatch(cartSlice.actions.setCart(response.payload.cart));
+      }
+      if (response.payload.customer) {
+        dispatch(loginSlice.actions.setCustomer(response.payload.customer));
+      }
       if (response.payload) {
         router.push('/', { scroll: false });
         const loginCredentials = {
@@ -61,10 +70,7 @@ const FormContainer = ({
           password: password as string,
         };
 
-        const customerToken = await dispatch(getCustomerAccessTokenAsync(loginCredentials));
-        if (customerToken.payload.access_token) {
-          dispatch(getCustomerAsync(customerToken.payload.access_token));
-        }
+        dispatch(getCustomerAccessTokenAsync(loginCredentials));
       }
     }
   };
@@ -78,8 +84,27 @@ const FormContainer = ({
         password: structuredValues[FormGroups.CUSTOMER]?.password ? structuredValues[FormGroups.CUSTOMER].password : '',
       };
       const response = await dispatch(signUpAsync({ signUpPayload, token }));
+      if (response.payload?.cart) {
+        dispatch(cartSlice.actions.setCart(response.payload.cart));
+      }
+      if (response.payload?.customer) {
+        await dispatch(loginSlice.actions.setCustomer(response.payload.customer));
+        dispatch(
+          snackbarSlice.actions.setMessage({
+            message: "You've successfully registered and logged in",
+            variant: 'success',
+          })
+        );
+      }
+
       if (response.payload) {
-        await login(loginPayload, token);
+        dispatch(
+          getCustomerAccessTokenAsync({
+            username: loginPayload.email as string,
+            password: loginPayload.password as string,
+          })
+        );
+        router.push('/', { scroll: false });
       }
     }
   };

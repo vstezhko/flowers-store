@@ -1,6 +1,14 @@
 import { Action, createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
-import { addDiscountCodeAsync, cartInteractionAsync, createCartAsync, getCartAsync, removeCartAsync } from './thunk';
+import {
+  addDiscountCodeAsync,
+  cartInteractionAsync,
+  createCartAsync,
+  getActiveCartAsync,
+  getCartAsync,
+  removeCartAsync,
+} from './thunk';
 import { ProductPrice, ProductVariant } from '@/redux/slices/productSlice/productSlice';
+import { CartService } from '@/api/services/Cart.services';
 
 interface CartCustomer {
   clientId: string;
@@ -100,6 +108,38 @@ export const cartSlice = createSlice({
     isRemoveItem: (state, action: PayloadAction<boolean>) => {
       state.isRemoveItem = action.payload;
     },
+    setCart: (state, action: CartPayloadAction) => {
+      state.status = 'idle';
+      state.cartId = action.payload.id;
+      state.version = action.payload.version;
+      state.lineItems = action.payload.lineItems;
+      state.totalPrice = action.payload.totalPrice;
+      state.cartCoupons = action.payload.discountCodes.map(code => code.discountCode.id);
+      state.cartProductsIds = action.payload.lineItems.reduce(
+        (acc: Record<string, Record<string, CartItem>>, i) => {
+          if (acc[i.productId]) {
+            acc[i.productId][i.variant.id] = i;
+          } else {
+            acc[i.productId] = { [i.variant.id]: i };
+          }
+          return acc;
+        },
+        {} as Record<string, Record<string, CartItem>>
+      );
+      state.totalLineItemQuantity = action.payload.totalLineItemQuantity;
+      CartService.setCartToLS(action.payload.id, action.payload.version);
+    },
+    clearCart: state => {
+      state.cartId = null;
+      state.version = null;
+      state.status = 'idle';
+      state.cartProductsIds = {};
+      state.lineItems = [];
+      state.totalPrice = null;
+      state.totalLineItemQuantity = null;
+      state.isRemoveItem = false;
+      state.cartCoupons = [];
+    },
   },
   extraReducers: builder => {
     builder
@@ -108,6 +148,7 @@ export const cartSlice = createSlice({
           createCartAsync.pending,
           cartInteractionAsync.pending,
           getCartAsync.pending,
+          getActiveCartAsync.pending,
           addDiscountCodeAsync.pending,
           removeCartAsync.pending
         ),
@@ -120,6 +161,7 @@ export const cartSlice = createSlice({
           createCartAsync.fulfilled,
           cartInteractionAsync.fulfilled,
           getCartAsync.fulfilled,
+          getActiveCartAsync.fulfilled,
           addDiscountCodeAsync.fulfilled
         ),
         (state, action: CartPayloadAction) => {
@@ -141,6 +183,7 @@ export const cartSlice = createSlice({
             {} as Record<string, Record<string, CartItem>>
           );
           state.totalLineItemQuantity = action.payload.totalLineItemQuantity;
+          CartService.setCartToLS(action.payload.id, action.payload.version);
         }
       )
       .addMatcher(isAnyOf(removeCartAsync.fulfilled), () => {
@@ -149,6 +192,7 @@ export const cartSlice = createSlice({
       .addMatcher(
         isAnyOf(
           createCartAsync.rejected,
+          getActiveCartAsync.rejected,
           cartInteractionAsync.rejected,
           getCartAsync.rejected,
           addDiscountCodeAsync.rejected,
