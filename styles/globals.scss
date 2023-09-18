@@ -45,6 +45,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .main {
@@ -57,6 +58,7 @@ body {
     padding-top: 179px;
     flex-grow: 1;
     background: transparent;
+    overflow: hidden;
 
     @include small {
       padding-top: 149px;
