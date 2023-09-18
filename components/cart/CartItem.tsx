@@ -25,9 +25,10 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, disco
   const [productAmount, setProductAmount] = useState(quantity || 1);
   const [sum, setSum] = useState(0);
   const [discount] = useState(price.discounted ? price.discounted.value.centAmount / 100 : null);
-  const [coupon] = useState(discountCoupon ? discountCoupon / 100 : null);
+  const [coupon, setCoupon] = useState(discountCoupon ? discountCoupon / 100 : null);
   const dispatch = useDispatch();
   const [isUpdating, setIsUpdating] = useState(false);
+  const [originalPrice, setOriginalPrice] = useState(0);
 
   const handleChangeAmount = async (number: number) => {
     if (productAmount === 1 && number === -1) return;
@@ -50,8 +51,10 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, disco
   };
 
   useEffect(() => {
-    setSum((discount ? discount : coupon ? coupon : price.value.centAmount / 100) * productAmount);
-  }, [productAmount]);
+    setSum((discount ? discount : price.value.centAmount / 100) * productAmount);
+    setOriginalPrice((price.value.centAmount / 100) * productAmount);
+    setCoupon(discountCoupon && (discountCoupon / 100) * productAmount);
+  }, [productAmount, discountCoupon]);
 
   const handleRemoveFromCart = async (e: React.MouseEvent) => {
     dispatch(cartSlice.actions.isRemoveItem(true));
@@ -90,7 +93,7 @@ const CartItem: FC<CartItemParams> = ({ lineItemId, name, quantity, price, disco
           <ProductAmountSetter productAmount={productAmount} onChange={handleChangeAmount} disabled={isUpdating} />
         </div>
         <p className='info-coupon'>{coupon && 'COUPON - RS'}</p>
-        <ProductSum sum={sum} coupon={coupon} price={price.value.centAmount / 100} />
+        <ProductSum sum={sum} coupon={coupon} price={originalPrice || price.value.centAmount / 100} />
       </div>
       <IconButton className='close-icon' onClick={handleRemoveFromCart}>
         <CloseIcon />

@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import LeafLeft from '@/public/img/png/leaf-left.webp';
 import LeafRight from '@/public/img/png/leaf-right.webp';
 import { Paper, useMediaQuery } from '@mui/material';
@@ -145,6 +145,35 @@ const FormContainer = ({
     formik.setTouched(touchedFields);
   };
 
+  const openNextAccSection = useCallback(
+    async (e: React.MouseEvent) => {
+      e.preventDefault();
+      const errors = await formik.validateForm();
+      const customerErrorsArray = Object.keys(errors)
+        .filter(key => key.includes('customer'))
+        .map(key => ({ [key]: errors[key] }));
+      if (customerErrorsArray.length === 0) {
+        updateTouchedStateForFieldGroup([FormGroups.CUSTOMER]);
+        setOpen({ name: 'panel2', state: true });
+        if (matches) {
+          const shippingErrorsArray = Object.keys(errors)
+            .filter(key => key.includes('shipping'))
+            .map(key => ({ [key]: errors[key] }));
+          if (shippingErrorsArray.length === 0) {
+            updateTouchedStateForFieldGroup([FormGroups.CUSTOMER, FormGroups.SHIPPING_ADDRESS]);
+            setOpen({ name: 'panel3', state: true });
+            setIsValid(true);
+          }
+        } else {
+          setIsValid(true);
+        }
+      } else {
+        formik.handleSubmit();
+      }
+    },
+    [formik]
+  );
+
   return (
     <div className='form-container__background-img'>
       <div className='background-img background-img_left'>
@@ -165,36 +194,7 @@ const FormContainer = ({
           {childComponent(data, formik, open)}
           {page === Pages.SIGNUP ? (
             !isValid ? (
-              <FsButton
-                className={FsButtonType.REGULAR}
-                type='submit'
-                label='Next'
-                onClick={async e => {
-                  e.preventDefault();
-                  const errors = await formik.validateForm();
-                  const customerErrorsArray = Object.keys(errors)
-                    .filter(key => key.includes('customer'))
-                    .map(key => ({ [key]: errors[key] }));
-                  if (customerErrorsArray.length === 0) {
-                    updateTouchedStateForFieldGroup([FormGroups.CUSTOMER]);
-                    setOpen({ name: 'panel2', state: true });
-                    if (matches) {
-                      const shippingErrorsArray = Object.keys(errors)
-                        .filter(key => key.includes('shipping'))
-                        .map(key => ({ [key]: errors[key] }));
-                      if (shippingErrorsArray.length === 0) {
-                        updateTouchedStateForFieldGroup([FormGroups.CUSTOMER, FormGroups.SHIPPING_ADDRESS]);
-                        setOpen({ name: 'panel3', state: true });
-                        setIsValid(true);
-                      }
-                    } else {
-                      setIsValid(true);
-                    }
-                  } else {
-                    formik.handleSubmit();
-                  }
-                }}
-              />
+              <FsButton className={FsButtonType.REGULAR} type='submit' label='Next' onClick={openNextAccSection} />
             ) : (
               <FsButton type='submit' className={FsButtonType.REGULAR} label='SEND' />
             )

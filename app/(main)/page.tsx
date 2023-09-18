@@ -1,11 +1,15 @@
 import FeaturesSection from '@/components/main/FeaturesSection';
-// import DiscountsSection from '@/components/main/DiscountsSection';
+import DeliverySection from '@/components/main/DeliverySection';
+import BannerSection from '@/components/main/BannerSection';
+import CatalogSection from '@/components/main/CatalogSection';
 
 export default function Home() {
   return (
     <>
-      {/*<DiscountsSection />*/}
+      <BannerSection />
+      <CatalogSection />
       <FeaturesSection />
+      <DeliverySection />
     </>
   );
 }

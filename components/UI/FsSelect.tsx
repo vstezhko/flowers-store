@@ -40,7 +40,7 @@ const FsSelect: React.FC<FsSelectParams> = props => {
         disabled={disabled}
         {...rest}>
         {options?.map((opt: selectInputOptions, index: number) => (
-          <MenuItem key={index} value={opt.code}>
+          <MenuItem key={index} value={opt.code} className='fsSelect__item'>
             {opt.name}
           </MenuItem>
         ))}

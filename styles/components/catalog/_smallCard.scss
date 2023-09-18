@@ -3,11 +3,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  //gap: 15px;
-  //max-width: 263px;
+  gap: 15px;
   width: 100%;
   border-radius: 5px;
-  height: 420px;
+  height: $card-height;
   cursor: pointer;
   opacity: 0.95;
   @extend %transition;
@@ -19,6 +18,7 @@
     height: 230px;
     border-radius: 5px;
     overflow: hidden;
+    flex-shrink: 0;
   }
 
   &__image {
@@ -30,8 +30,10 @@
     display: flex;
     width: 100%;
     flex-direction: column;
+    justify-content: space-between;
     gap: 15px;
     padding: 10px 20px 20px;
+    flex-grow: 1;
   }
 
   &__name {
@@ -40,6 +42,9 @@
     width: 100%;
     @extend %font-secondary;
     font-size: 0.95rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 18px;
   }
 
   &__description {
@@ -58,6 +63,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    flex-grow: 1;
   }
 
   &__price {
@@ -81,16 +87,15 @@
     font-size: 1rem;
   }
 
-  @media(max-width: 1024px){
+  @media(max-width: 1024px) {
     max-width: 300px;
     margin: 0 auto;
-    height: 370px;
     gap: 10px;
 
     &__image-container {
       position: relative;
       width: 100%;
-      height: 230px;
+      height: 190px;
     }
 
     &__text-content {

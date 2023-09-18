@@ -36,7 +36,7 @@
       &:hover {
         background-color: $color-form;
       }
-      
+
     }
 
   }
@@ -166,17 +166,20 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   width: 100%;
-  min-height: 900px;
+  min-height: calc(($card-height + 10px) * $catalog-product-row-large);
   justify-content: flex-start;
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
+    min-height: calc(($card-height + 10px) * $catalog-product-row-medium);
+    align-content: flex-start;
   }
 
 
   @include medium-mobile() {
     grid-template-columns: 1fr;
     gap: 20px;
+    min-height: calc(($card-height + 20px) * $catalog-product-row-small);
   }
 }
 
