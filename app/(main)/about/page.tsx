@@ -17,6 +17,7 @@ export interface TeamMemberParams {
   githubLink: string;
   linkedinLink: string;
   skills: SkillItem[];
+  contribution: string;
 }
 
 const TeamMembersData: TeamMemberParams[] = [
@@ -40,6 +41,7 @@ const TeamMembersData: TeamMemberParams[] = [
       ['learning', 100],
       ['outcomes delivery', 90],
     ],
+    contribution: 'taking part in coding, realize task requirements, testing',
   },
   {
     name: 'Eugenia Khaleeva',
@@ -60,6 +62,7 @@ const TeamMembersData: TeamMemberParams[] = [
       ['teamwork', 90],
       ['problem-solving', 95],
     ],
+    contribution: 'taking part in coding, realize task requirements, design',
   },
   {
     name: 'Viktoria Stezhko',
@@ -80,6 +83,7 @@ const TeamMembersData: TeamMemberParams[] = [
       ['process improvement', 90],
       ['project management', 100],
     ],
+    contribution: 'taking part in coding, realize task requirements, optimization',
   },
 ];
 
@@ -143,6 +147,12 @@ const About = () => {
         </div>
         <div className='about__item'>
           <h3>Meet our team</h3>
+          <p>
+            Our team of developers excelled through active and effective communication. We held regular meetings,
+            discussed our ideas, and shared best practices, allowing us to reach a consensus and create a high-quality
+            product. Our openness to feedback and ability to work as a team made our project successful and satisfied
+            our clients needs.
+          </p>
           <div className='about__team-members'>
             {TeamMembersData.map((member, index) => (
               <TeamMemberCard key={index} teamMemberData={member} isEven={index % 2 === 0} />
