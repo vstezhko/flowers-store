@@ -39,11 +39,11 @@ export enum TokenType {
 }
 
 export enum SortNames {
-  NO_SORT = 'No sort',
-  NAME_ASC = 'Name (A-Z)',
-  NAME_DESC = 'Name (Z-A)',
-  PRICE_ASC = 'Price (low to high)',
-  PRICE_DESC = 'Price (high to low)',
+  NO_SORT = 'NO SORT',
+  NAME_ASC = 'NAME (A-Z)',
+  NAME_DESC = 'NAME (Z-A)',
+  PRICE_ASC = 'PRICE (↓ to ↑)',
+  PRICE_DESC = 'PRICE (↑ to ↓)',
 }
 
 export enum SortParams {
@@ -57,4 +57,13 @@ export enum PriceRange {
   MIN = 0,
   MAX = 250,
   STEP = 10,
+}
+
+export enum PaginationParams {
+  LIMIT = 6,
+}
+
+export enum CurrencyParams {
+  EUR_TEXT = 'EUR',
+  EUR_SYMBOL = '€',
 }

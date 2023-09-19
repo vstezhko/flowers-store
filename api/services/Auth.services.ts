@@ -37,6 +37,15 @@ const refreshCustomerAccessToken = async (refreshToken: string) => {
   return authPost(`/oauth/${PROJECT_KEY}/customers/token`, body);
 };
 
+const refreshAnonymousAccessToken = async (refreshToken: string) => {
+  const body = {
+    grant_type: 'refresh_token',
+    refresh_token: refreshToken,
+  };
+
+  return authPost(`/oauth/${PROJECT_KEY}/anonymous/token`, body);
+};
+
 const login = async (values: Record<string, string | boolean>, token: string) => {
   const { email, password } = values;
   const body = JSON.stringify({
@@ -58,6 +67,7 @@ export const AuthService = {
   getAnonymousAccessToken,
   getCustomerAccessToken,
   refreshCustomerAccessToken,
+  refreshAnonymousAccessToken,
   login,
   signUp,
 };

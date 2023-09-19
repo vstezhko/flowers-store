@@ -1,11 +1,15 @@
-.offer{
+.offer {
 
-  & > h1{
-    margin-bottom: 20px;
+  & h1 {
     text-align: center;
   }
 
-  & > h4{
+  & h4 {
     margin: 20px 0;
   }
+
+  p {
+    line-height: 1.5rem;
+  }
+
 }

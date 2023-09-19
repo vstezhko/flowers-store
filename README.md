@@ -8,21 +8,19 @@ Our Flower Store web application ensures that shopping for flowers is a joyous a
 
 Key Features of our Flower Shop:
 
-🌷 Extensive Collection: Browse through a delightful collection of fresh flowers, elegant bouquets, and thoughtful gift sets carefully curated to suit all occasions, be it birthdays, anniversaries, weddings, or just to brighten someone's day.
+🌷 Extensive Collection: Browse through a delightful collection of fresh flowers and elegant bouquets carefully curated to suit all occasions, be it birthdays, anniversaries, weddings, or just to brighten someone's day.
 
-🏠 Interactive Main Page: Our main page welcomes you with stunning floral arrangements, highlighting the season's best picks and special offers that captivate your senses.
+🏠 Interactive Main Page: Our main page welcomes you with stunning floral floral arrangements, highlighting the season's best picks and special offers that captivate your senses.
 
-📋 Detailed Product Pages: Click on any bouquet or arrangement to explore in-depth details, including flower types, colors, and the option to add customizations to create a truly personalized gift.
+📋 Detailed Product Pages: Click on any bouquet or arrangement to explore in-depth details, including flower types, colors, and variants.
 
-🌸 Search and Sorting: Easily find your favorite flowers or gifts using our search and sorting features, allowing you to quickly navigate through our diverse selection.
+🌸 Search and Sorting: Easily find your favorite flowers or gifts using our category selector, search and sorting features, allowing you to quickly navigate through our diverse selection.
 
 🛒 User-Friendly Cart: Add your chosen flowers and gifts to the shopping cart with a click, review your selections, and seamlessly proceed to checkout for a hassle-free shopping experience.
 
-💳 Secure Checkout: Our secure checkout process ensures your transactions are safe and your purchases will be swiftly delivered to your doorstep or your loved ones' address.
-
 🔍 About Us: Learn more about our passion for flowers, our team of dedicated florists, and our commitment to providing the freshest and most beautiful blooms.
 
-👤 User Accounts: Create your personal account to save your preferences, track your orders, and receive exclusive offers and discounts.
+👤 User Accounts: Create your personal account to simplify the ordering procedure and receive exclusive offers and discounts.
 
 At our Flower Store, we take pride in offering an exceptional floral shopping experience. Whether you're celebrating a special moment or expressing your heartfelt emotions, we are here to make your flower-gifting experience memorable and full of blooming surprises! 🌹🌺🌻
 
@@ -34,8 +32,13 @@ This project is built using the following technologies:
 |-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [![Next.js][Next.js]][Next-url]           | A React-based framework for building server-rendered and statically-generated web applications. The project was initiated using the [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app), which helped to streamline the development process.        |
 | [![Redux Toolkit Badge][redux-badge]][redux-url] | The official, opinionated, batteries-included toolset for efficient Redux development. It includes utilities to simplify common use cases like store setup, creating reducers and actions, and managing immutable updates.                                                                                                 |
+| [![SASS][sass-badge]][sass-url]   | SASS is a powerful CSS preprocessor that allows for more efficient and maintainable stylesheets. It enhances CSS with features like variables, nesting, and mixins, making it an excellent choice for styling web applications.        |
 | [![Material-UI Badge][mui-badge]][mui-url]   | A popular React UI framework that implements Google's Material Design guidelines. It provides a set of reusable components and customization options to help developers build beautiful and responsive user interfaces.                                                                             |
-| [![TypeScript][ts-badge]][ts-url]   | TypeScript is a strict syntactical superset of JavaScript that adds optional type annotations to the language and improves the readability and maintainability of their code.                                                                           |
+| [![TypeScript][ts-badge]][ts-url]   | TypeScript is a strict syntactical superset of JavaScript that adds optional type annotations to the language and improves the readability and maintainability of their code.        |
+| [![Jest][jest-badge]][jest-url]   | Jest is a JavaScript testing framework used to ensure the reliability of our application. It simplifies the testing process with features like automatic mocking and a user-friendly testing API, making it an ideal choice for writing unit tests.        |
+     
+
+In addition to the mentioned technologies, our project leveraged several libraries and tools to enhance functionality and user experience. These included popular libraries such as Formik for form management, Yup for schema validation, Image Gallery for image presentation, Axios for seamless API communication, and Notistack for notification handling.                                                                 
 
 ## Setup
 
@@ -114,3 +117,7 @@ Contributions are welcome! If you have an idea for a new feature or improvement,
 [mui-url]: https://mui.com/
 [ts-badge]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
 [ts-url]: https://www.typescriptlang.org/
+[sass-badge]: https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white
+[sass-url]: https://sass-lang.com/
+[jest-badge]: https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
+[jest-url]: https://jestjs.io/

@@ -1,9 +1,7 @@
 'use client';
-import SmallProductCard from '@/components/catalog/SmallCard';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { TokenService } from '@/api/services/Token.service';
-import noImage from '@/public/img/jpeg/no-image.jpg';
-import { Paper } from '@mui/material';
+import { Paper, useMediaQuery } from '@mui/material';
 import Searchbar from '@/components/catalog/SearchBar';
 import { SearchParams, FilterParams } from '@/types/types';
 import { actions as searchActions } from '@/redux/slices/searchSlice/searchSlice';
@@ -13,121 +11,41 @@ import { getSearchProductsAsync } from '@/redux/slices/searchSlice/thunks';
 import FilterBlock from '@/components/catalog/Filter';
 import SortMenu from '@/components/catalog/SortMenu';
 import CategoryBreadcrumbs from '@/components/catalog/CategoryBreadcrumbs';
-
-export interface ProductCategory {
-  typeId: string;
-  id: string;
-}
-
-interface ProductPrice {
-  id: string;
-  discounted: {
-    discount: {
-      typeId: string;
-      id: string;
-    };
-    value: {
-      type: string;
-      currencyCode: 'EUR';
-      centAmount: number;
-      fractionDigits: number;
-    };
-  };
-  value: {
-    type: string;
-    currencyCode: 'EUR';
-    centAmount: number;
-    fractionDigits: number;
-  };
-}
-
-interface ProductImage {
-  url: string;
-  dimensions: {
-    w: number;
-    h: number;
-  };
-}
-
-interface Channel {
-  isOnStock: boolean;
-  availableQuantity: number;
-  version: number;
-  id: string;
-}
-
-interface ProductVariant {
-  id: number;
-  sku: string;
-  key: string;
-  prices: ProductPrice[];
-  images: ProductImage[];
-  attributes: ProductAttribute[];
-  assets: [];
-  availability: {
-    channels: Record<string, Channel>;
-  };
-}
-
-interface ProductAttribute {
-  name: string;
-  value: string;
-}
-
-interface ResponseSearchProduct {
-  id: string;
-  name: {
-    en: string | null;
-  };
-  description: {
-    en: string | null;
-  };
-  masterVariant: ProductVariant;
-  variants: ProductVariant[];
-}
-
-interface PageProduct {
-  id: string;
-  name: string;
-  price: number;
-  discounted: number | undefined;
-  currency: string;
-  image: string;
-  description: string;
-}
+import Paginator from '@/components/catalog/Paginator';
+import { CurrencyParams, PaginationParams } from '@/types/enums';
+import CatalogProductsContainer from '@/components/catalog/CatalogProductsContainer';
+import { ResponseSearchProduct } from '@/types/catalog/interface';
+import FilterMenu from '@/components/catalog/FilterMenu';
 
 const Catalog = () => {
   const dispatch = useDispatch();
-  const searchItem = useSelector(state => state.search.search);
-  const checkboxState = useSelector(state => state.search.checkboxState);
-  const priceRange = useSelector(state => state.search.priceRange);
-  const categoryId = useSelector(state => state.search.categoryId);
-  const sortIndex = useSelector(state => state.search.sortIndex);
-  const [productsPage, setProductsPage] = useState<PageProduct[]>([]);
+  const { search, checkboxState, priceRange, categoryId, sortIndex, paginatorPage } = useSelector(
+    state => state.search
+  );
+  const { access_token, token_type } = useSelector(state => state.auth);
   const [totalResults, setTotalResults] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [isLoadingData, setIsLoadingData] = useState(false);
+  const [catalogData, setCatalogData] = useState<{ total: number; results: ResponseSearchProduct[] } | null>(null);
+  const [isToken, setIsToken] = useState(access_token !== null);
+  const matches = useMediaQuery('(max-width:768px)');
 
-  function getLowestPrice(masterVariant: ProductVariant, variants: ProductVariant[] = []) {
-    const allVariants = [masterVariant, ...variants];
-    const lowestPriceVariant = allVariants.sort((a, b) => {
-      const priceA = a.prices[0].discounted?.value.centAmount ?? a.prices[0].value.centAmount;
-      const priceB = b.prices[0].discounted?.value.centAmount ?? b.prices[0].value.centAmount;
-      return priceA - priceB;
-    })[0];
-    const { discounted, value } = lowestPriceVariant.prices[0];
-    return {
-      price: value.centAmount,
-      discounted: discounted?.value.centAmount,
-      currencyCode: discounted?.value.currencyCode ?? value.currencyCode,
-    };
-  }
+  useEffect(() => {
+    setIsToken(function (prev: boolean) {
+      return !prev && token_type !== null ? true : prev;
+    });
+  }, [token_type]);
 
   const fetchSearchProducts = useCallback(
-    async (searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
-      setIsSearchActive(true);
+    async (accessToken: string, searchParams?: SearchParams, filterParams?: FilterParams, priceParams?: number[]) => {
+      setIsLoadingData((prev: boolean) => (!prev ? true : prev));
+      setIsSearchActive((prev: boolean) => (!prev ? true : prev));
+      if (!accessToken) return;
+
       const response = await dispatch(
         getSearchProductsAsync({
-          token: TokenService.getAccessTokenFromLS().token,
+          token: accessToken,
+          paginatorPage,
           searchParams,
           filterParams,
           priceParams,
@@ -135,23 +53,11 @@ const Catalog = () => {
           sortIndex,
         })
       ).unwrap();
-      setTotalResults(response.total);
-      const products = response.results.map((item: ResponseSearchProduct) => {
-        const { masterVariant, variants } = item;
-        const prices = getLowestPrice(masterVariant, variants);
-        return {
-          id: item.id,
-          name: item.name.en,
-          price: prices.price,
-          discounted: prices.discounted,
-          currency: prices.currencyCode,
-          image: item.masterVariant.images[0]?.url ? item.masterVariant.images[0].url : noImage.src,
-          description: item.description.en,
-        };
-      });
-      setProductsPage(products);
+      setTotalResults((prev: number) => (prev !== response.total ? response.total : prev));
+      setCatalogData(response);
+      setIsLoadingData((prev: boolean) => (prev ? false : prev));
     },
-    [dispatch, categoryId, sortIndex]
+    [dispatch, categoryId, sortIndex, isToken, paginatorPage]
   );
 
   useEffect(() => {
@@ -170,51 +76,52 @@ const Catalog = () => {
       }
     }
 
-    fetchSearchProducts({ 'text.en': searchItem, fuzzy: true, priceCurrency: 'EUR' }, filterOptions, priceRange);
-  }, [searchItem, checkboxState, priceRange, dispatch, fetchSearchProducts]);
+    const tokenLS = TokenService.getAccessTokenFromLS();
+    const tokenForSearch = access_token ? access_token : tokenLS?.token;
+
+    if (tokenForSearch) {
+      fetchSearchProducts(
+        tokenForSearch,
+        { 'text.en': search, fuzzy: true, priceCurrency: CurrencyParams.EUR_TEXT },
+        filterOptions,
+        priceRange
+      );
+    }
+  }, [search, checkboxState, priceRange, dispatch, fetchSearchProducts]);
 
   return (
     <section className='catalog page'>
+      <h1 className='page__title'>Catalog</h1>
       <CategoryBreadcrumbs categoryId={categoryId} />
       <div className='catalog-page-wrapper'>
-        <Paper className='settings' elevation={0}>
-          <CategorySelector />
-          <FilterBlock />
-        </Paper>
-        <div className='catalog-wrapper'>
-          <Paper className='searchbar-block' elevation={0}>
-            <Searchbar
-              onSubmit={(newSearchItem: string) => {
-                dispatch(searchActions.setSearch(newSearchItem));
-              }}
-              onClear={() => dispatch(searchActions.setSearch(''))}
-              value={searchItem}
-              onChange={value => dispatch(searchActions.setSearch(value))}
-              inputProps={{}}
-            />
-            <SortMenu />
+        {matches ? (
+          <FilterMenu />
+        ) : (
+          <Paper className='settings' elevation={0} id='settings'>
+            <CategorySelector />
+            <FilterBlock />
           </Paper>
-          <div className='catalog__container'>
-            {isSearchActive && totalResults === 0 ? (
-              <h4 className='catalog__message'>
-                Unfortunately, no results were found for your search{searchItem ? ` "${searchItem}"` : ''}. Try other
-                options!
-              </h4>
-            ) : (
-              productsPage.map(product => (
-                <SmallProductCard
-                  key={product.id}
-                  id={product.id}
-                  productName={product.name || 'No product name'}
-                  price={product.price}
-                  discounted={product.discounted}
-                  currency={product.currency}
-                  description={product.description || 'No description available'}
-                  image={product.image}
-                />
-              ))
-            )}
-          </div>
+        )}
+
+        <Searchbar
+          onSubmit={(newSearchItem: string) => {
+            dispatch(searchActions.setSearch(newSearchItem));
+          }}
+          onClear={() => dispatch(searchActions.setSearch(''))}
+          value={search}
+          onChange={value => dispatch(searchActions.setSearch(value))}
+          inputProps={{}}
+        />
+        <SortMenu />
+        <div className='catalog-wrapper' id='catalog'>
+          <CatalogProductsContainer
+            isLoadingData={isLoadingData}
+            isSearchActive={isSearchActive}
+            productsPage={catalogData}
+            search={search}
+            totalResults={totalResults}
+          />
+          <Paginator count={Math.ceil(totalResults / PaginationParams.LIMIT)} />
         </div>
       </div>
     </section>

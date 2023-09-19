@@ -22,6 +22,10 @@ import { structureInputValues } from '@/utils/structureInputFormValues';
 import { loginSlice } from '@/redux/slices/loginSlice/loginSlice';
 import { getCustomerAccessTokenAsync } from '@/redux/slices/authSlice/thunks';
 
+import FsProgress from '@/components/UI/FsProgress';
+
+import { snackbarSlice } from '@/redux/slices/snackbarSlice/snackbarSlice';
+
 const PersonalForm = ({
   data,
   type,
@@ -29,12 +33,14 @@ const PersonalForm = ({
   modeEdit,
   typeForm,
   onSuccess,
+  loading,
 }: {
   modeEdit: boolean;
   data: FormItemFieldsParams[];
   type: string;
   typeForm?: Record<string, string> | null;
   onSuccess?: () => void | undefined;
+  loading?: boolean;
   childComponent: (
     data1: FormItemFieldsParams[],
     checked: boolean,
@@ -179,22 +185,31 @@ const PersonalForm = ({
     onSubmit: async values => {
       const token = TokenService.getAccessToken();
       const structuredValues = structureInputValues(values);
-      if (type === FormGroups.CUSTOMER) {
-        await changePersonalData(structuredValues, token);
-      } else if (type === 'password') {
-        await changePassword(structuredValues, token);
-      } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm?.name === 'edit') {
-        await changeAddressesData(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
-      } else if (type === FormGroups.BILLING_ADDRESS && typeForm?.name === 'edit') {
-        await changeAddressesData(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
-      } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm?.name === 'add') {
-        await addNewAddresses(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
-      } else if (type === FormGroups.BILLING_ADDRESS && typeForm?.name === 'add') {
-        await addNewAddresses(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
-      }
-      setChecked(false);
-      if (onSuccess) {
-        onSuccess();
+      if (!token) {
+        dispatch(
+          snackbarSlice.actions.setMessage({
+            message: '...Ooops! Something went wrong. Try one more time',
+            type: 'error',
+          })
+        );
+      } else {
+        if (type === FormGroups.CUSTOMER) {
+          await changePersonalData(structuredValues, token);
+        } else if (type === 'password') {
+          await changePassword(structuredValues, token);
+        } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm?.name === 'edit') {
+          await changeAddressesData(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
+        } else if (type === FormGroups.BILLING_ADDRESS && typeForm?.name === 'edit') {
+          await changeAddressesData(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
+        } else if (type === FormGroups.SHIPPING_ADDRESS && typeForm?.name === 'add') {
+          await addNewAddresses(structuredValues.shippingAddress, token, FormGroups.SHIPPING_ADDRESS);
+        } else if (type === FormGroups.BILLING_ADDRESS && typeForm?.name === 'add') {
+          await addNewAddresses(structuredValues.billingAddress, token, FormGroups.BILLING_ADDRESS);
+        }
+        setChecked(false);
+        if (onSuccess) {
+          onSuccess();
+        }
       }
     },
   };
@@ -235,14 +250,14 @@ const PersonalForm = ({
   return (
     <form className='form-customer' onSubmit={formik.handleSubmit}>
       <div className='form__content'>
-        {modeEdit && (
+        {modeEdit && !loading && (
           <FormControlLabel
             className='switch'
             control={<Switch checked={checked} onChange={handleChange} size='small' />}
             label='EDIT'
           />
         )}
-        {childComponent(data, checked, formik, onChangeHandler, modeEdit)}
+        {!loading ? childComponent(data, checked, formik, onChangeHandler, modeEdit) : <FsProgress />}
       </div>
       {(checked || !modeEdit) && (
         <div className='form__btn-container'>

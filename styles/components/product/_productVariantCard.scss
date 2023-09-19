@@ -1,6 +1,6 @@
 .product-variant-card {
   cursor: pointer;
-  min-width: 180px;
+  max-width: 180px;
   width: 100%;
   border-radius: 10px;
   background: $color-shade-0;
@@ -11,6 +11,7 @@
   position: relative;
   @extend %transition;
   border: 1px solid $color-shade-0;
+  text-transform: uppercase;
 
 
   .price-before-discount {
@@ -19,9 +20,12 @@
     font-size: 0.8em;
   }
 
+  @include hover {
 
-  &:hover {
-    background-color: $color-brand-1-light;
+    &:hover {
+      background-color: $color-brand-1-light;
+    }
+    
   }
 
   &_active {
@@ -30,11 +34,10 @@
 
   .product-variant-card__point {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 15px;
-    width: 20px;
-    height: 20px;
+    top: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     display: flex;
     justify-content: center;

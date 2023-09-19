@@ -7,6 +7,7 @@
 
 //layout
 @import "layout/_columns";
+@import "layout/_texture";
 
 //components
 @import "components/header/_header";
@@ -16,8 +17,14 @@
 @import "components/ui/_fsInput";
 @import "components/ui/_fsSelect";
 @import "components/ui/_fsCheckbox";
+@import "components/ui/_delayedLoader";
 @import "components/main/features/_features";
 @import "components/main/banner/_banner";
+@import "components/main/catalog/_catalog";
+@import "components/main/delivery/_delivery";
+@import "components/main/discounts/_discounts";
+@import "components/about/_thanks";
+@import "components/about/_teamMember";
 @import "components/form/_form";
 @import "components/form/_signUpForm";
 @import "components/catalog/_smallCard";
@@ -25,13 +32,16 @@
 @import "components/catalog/_filter";
 @import "components/catalog/_sortMenu";
 @import "components/catalog/_categoryBreadcrumbs";
-@import "components/catalog/_categorySelector";
+@import "components/catalog/_paginator";
 @import "components/product/_productVariantCard";
 @import "components/product/_productCompositionCard";
 @import "components/product/_productImageGallery";
 @import "components/product/_productAmountSetter";
 @import "components/product/_productSum";
 @import "components/product/_productVariants";
+@import "components/cart/_cartItem";
+@import "components/cart/_emptyCart";
+@import "components/cart/_confirmationPrompt";
 
 //pages
 @import "pages/offer/_offer";
@@ -41,3 +51,4 @@
 @import "pages/product/_product";
 @import "pages/profile/_profile";
 @import "pages/catalog/_catalog";
+@import "pages/cart/_cart";

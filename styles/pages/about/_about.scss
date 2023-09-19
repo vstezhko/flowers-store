@@ -1,20 +1,43 @@
-.about{
+.about {
   display: flex;
   flex-direction: column;
   gap: 40px;
 
-  &__item{
-    & > h3{
+  @include small {
+    gap: 10px;
+  }
+
+  &__item {
+
+    & h3 {
       margin-bottom: 15px;
     }
-    & > p{
-      margin-bottom: 10px;
 
-      & > span{
+    & p {
+      margin-bottom: 1rem;
+      line-height: 1.5rem;
+
+      .indent {
         margin-left: 10px;
-        color: $color-brand-1;
       }
+
     }
 
   }
+
+  &__team-members {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px 0;
+  }
+
+  @include medium-mobile {
+
+    &__team-members {
+      padding: 10px 0;
+    }
+
+  }
+
 }

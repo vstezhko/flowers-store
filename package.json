@@ -19,6 +19,7 @@
     "@mui/icons-material": "^5.14.3",
     "@mui/lab": "^5.0.0-alpha.142",
     "@mui/material": "^5.14.3",
+    "@mui/x-tree-view": "^6.0.0-alpha.2",
     "@react-input/mask": "^1.0.14",
     "@types/node": "20.4.5",
     "@types/react": "18.2.18",
@@ -60,5 +61,11 @@
     "prettier": "3.0.0",
     "react-redux": "^8.1.2",
     "sass": "^1.64.2"
+  },
+  "resolutions": {
+    "@types/react": "18.2.18",
+    "@types/react-dom": "18.2.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   }
 }

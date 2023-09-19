@@ -1,4 +1,16 @@
 .product-block__sum-info {
   min-width: max-content;
-  flex-grow: 1;
+
+  .sum-info__container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .price-before-discount {
+      color: #BDBDBD;
+      text-decoration: line-through;
+      font-size: 0.8em;
+    }
+  }
+
 }

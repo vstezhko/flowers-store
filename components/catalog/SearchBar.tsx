@@ -15,6 +15,7 @@ const Searchbar = (props: SearchbarProps) => {
 
   return (
     <Paper
+      id='search'
       className='searchbar'
       component='form'
       elevation={0}
@@ -23,7 +24,7 @@ const Searchbar = (props: SearchbarProps) => {
         props.onSubmit(searchValue);
       }}>
       <InputBase
-        placeholder='Search...'
+        placeholder='SEARCH...'
         value={searchValue}
         onChange={e => {
           setSearchValue(e.target.value);

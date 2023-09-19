@@ -1,18 +1,107 @@
 .catalog-page-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
-  padding: 30px 0;
-  justify-content: center;
+  display: grid;
+  grid-auto-columns: 0.7fr 2fr 0.5fr;
+  grid-auto-rows: 50px 0.3fr 1fr;
+  grid-template-areas: 'settings search sort' 'settings catalog catalog' 'settings catalog catalog';
+  padding: 30px 20px;
   gap: 20px;
-  min-height: 100vh;
+  background-color: transparent;
+  border-radius: 10px;
+  position: relative;
 
-  @include medium {
-    flex-direction: column;
-    justify-content: flex-start;
+  @include small() {
+    grid-auto-columns: 1fr 1fr;
+    grid-auto-rows: 50px 1fr auto;
+    grid-template-areas: 'setting-mobile sort' 'search search' 'catalog catalog';
     gap: 10px;
-    padding: 10px 0;
+    padding: 20px 10px;
   }
 
+}
+
+
+#setting-mobile {
+  grid-area: setting-mobile;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  .MuiToggleButton-root {
+    border-color: $color-form;
+    padding: 8px;
+
+    @include hover {
+
+      &:hover {
+        background-color: $color-form;
+      }
+
+    }
+
+  }
+
+  .MuiPaper-root {
+    padding: 20px 40px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 50;
+
+    .filters,
+    .category-selector {
+      width: 200px;
+
+      .MuiTreeItem-content {
+        padding: 0;
+
+        .MuiTreeItem-label {
+          font-size: inherit;
+          text-transform: uppercase;
+
+          @include medium-mobile() {
+            font-size: 12px;
+          }
+        }
+
+      }
+
+      .MuiTreeItem-content.Mui-selected {
+        background-color: transparent;
+        text-decoration: underline;
+      }
+
+
+      .MuiFormControlLabel-label {
+        font-size: inherit;
+      }
+
+      h4 {
+        padding: 10px 0;
+        text-transform: uppercase;
+
+        @include medium-mobile() {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+#settings {
+  grid-area: settings;
+}
+
+#catalog {
+  grid-area: catalog;
+}
+
+#search {
+  grid-area: search;
+}
+
+#sort {
+  grid-area: sort;
 }
 
 .catalog-wrapper {
@@ -20,43 +109,53 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
-
-  @include medium {
-    gap: 10px;
-  }
+  padding-top: 30px;
 
 }
 
 .settings {
   display: flex;
   flex-direction: column;
-  min-width: 245px;
   padding: 15px;
   height: fit-content;
 
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .MuiTreeItem-content {
+    padding: 0;
 
     .MuiTreeItem-label {
       font-size: inherit;
+      text-transform: uppercase;
+
+      @include medium-mobile() {
+        font-size: 12px;
+      }
     }
 
   }
+
+  .MuiTreeItem-content.Mui-selected {
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
 
   .MuiFormControlLabel-label {
     font-size: inherit;
   }
 
   h4 {
-    padding: 15px 0;
-  }
+    padding: 10px 0;
+    text-transform: uppercase;
 
-  @include small {
-    padding: 10px;
-
-    h4 {
-      padding: 10px 0;
+    @include medium-mobile() {
+      font-size: 12px;
     }
-
   }
 
 }
@@ -64,22 +163,28 @@
 .catalog__container {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(263px, max-content));
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  min-height: calc(($card-height + 10px) * $catalog-product-row-large);
+  justify-content: flex-start;
 
-  @include medium {
-    justify-content: center;
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    min-height: calc(($card-height + 10px) * $catalog-product-row-medium);
+    align-content: flex-start;
   }
 
-  @include small {
-    grid-template-columns: repeat(auto-fill, minmax(250px, max-content));
-    gap: 10px;
-  }
 
+  @include medium-mobile() {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    min-height: calc(($card-height + 20px) * $catalog-product-row-small);
+  }
 }
 
 .catalog__message {
-  position: absolute;
+  grid-column: 1/-1;
   width: 100%;
   overflow-wrap: break-word;
   padding: 15px;
@@ -94,28 +199,10 @@
 
 }
 
-.searchbar-block {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 8px;
-  font-family: var(--avenir-reg);
+.category-selector {
 
-  div {
-    flex: inherit;
-    font-size: inherit;
-    color: var(--primary-color);
-
-    p {
-      font-size: inherit;
-      font-family: inherit;
-      color: inherit;
-    }
-  }
-
-  @include small-mobile {
-    flex-direction: column;
-    padding-top: 8px;
+  &__tree {
+    overflow-y: auto;
   }
 
 }
