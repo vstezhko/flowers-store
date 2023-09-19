@@ -41,6 +41,7 @@ const TeamMemberCard = ({ teamMemberData, isEven }: { teamMemberData: TeamMember
         <h4 className='team-member__name'>{teamMemberData.name}</h4>
         <h5 className='team-member__role highlight'>{teamMemberData.role}</h5>
         <div className='team-member__text'>{memoizedHighlightText}</div>
+        <div>Contribution: {teamMemberData.contribution}</div>
       </div>
       <div className='team-member__image-block'>
         <Image className='team-member__image' src={src} onError={() => setSrc(noImage)} alt='Team member photo' />
