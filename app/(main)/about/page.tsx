@@ -110,8 +110,8 @@ const About = () => {
           <h3>Key Features of our Flower Shop</h3>
           <p>
             🌷 <span className='highlight indent'>Extensive Collection:</span> Browse through a delightful collection of
-            fresh flowers, elegant bouquets, and thoughtful gift sets carefully curated to suit all occasions, be it
-            birthdays, anniversaries, weddings, or just to brighten someone&apos;s day.
+            fresh flowers and elegant bouquets carefully curated to suit all occasions, be it birthdays, anniversaries,
+            weddings, or just to brighten someone&apos;s day.
           </p>
           <p>
             🏠 <span className='highlight indent'>Interactive Main Page:</span> Our main page welcomes you with stunning
@@ -120,12 +120,12 @@ const About = () => {
           </p>
           <p>
             📋 <span className='highlight indent'>Detailed Product Pages:</span> Click on any bouquet or arrangement to
-            explore in-depth details, including flower types, colors, and the option to add customizations to create a
-            personalized gift.
+            explore in-depth details, including flower types, colors, and variants.
           </p>
           <p>
             🌸 <span className='highlight indent'>Search and Sorting:</span> Easily find your favorite flowers or gifts
-            using our search and sorting features, allowing you to quickly navigate through our diverse selection.
+            using our category selector, search and sorting features, allowing you to quickly navigate through our
+            diverse selection.
           </p>
           <p>
             🛒 <span className='highlight indent'>User-Friendly Cart:</span> Add your chosen flowers and gifts to the
@@ -133,17 +133,12 @@ const About = () => {
             shopping experience.
           </p>
           <p>
-            💳 <span className='highlight indent'>Secure Checkout:</span> Our secure checkout process ensures your
-            transactions are safe and your purchases will be swiftly delivered to your doorstep or your loved ones&apos;
-            address.
-          </p>
-          <p>
             🔍 <span className='highlight indent'>About Us:</span> Learn more about our passion for flowers, our team of
             dedicated florists, and our commitment to providing the freshest and most beautiful blooms.
           </p>
           <p>
-            👤<span>User Accounts:</span> Create your personal account to save your preferences, track your orders, and
-            receive exclusive offers and discounts.
+            👤 <span className='highlight indent'>User Accounts:</span> Create your personal account to simplify the
+            ordering procedure and receive exclusive offers and discounts.
           </p>
         </div>
         <div className='about__item'>
