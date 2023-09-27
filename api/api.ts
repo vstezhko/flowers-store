@@ -3,11 +3,11 @@ import { generateUrlSearchParams } from '@/utils/generateUrlSearchParams';
 
 const API_URL = 'https://api.europe-west1.gcp.commercetools.com';
 const Auth_URL = 'https://auth.europe-west1.gcp.commercetools.com';
-const CLIENT_ID = 'S431txCLRt08ojpFOSqFby3O';
-const SECRET_KEY = 'txRXWh8btqPaPkzrmCJzwUunS9btca67';
+const CLIENT_ID = 'kbbRxhyKvmXcSbGUmdqY5gan';
+const SECRET_KEY = 'uj8P-aFgXjtKOeDhNyqs5cNAn5xNTyIy';
 export const SCOPE =
-  'manage_my_quotes:flowers-store manage_my_quote_requests:flowers-store manage_my_payments:flowers-store view_published_products:flowers-store manage_my_business_units:flowers-store view_categories:flowers-store manage_my_shopping_lists:flowers-store view_products:flowers-store manage_my_profile:flowers-store create_anonymous_token:flowers-store manage_my_orders:flowers-store view_product_selections:flowers-store';
-export const PROJECT_KEY = 'flowers-store';
+  'manage_my_quotes:flowersstore create_anonymous_token:flowersstore manage_my_business_units:flowersstore manage_my_shopping_lists:flowersstore manage_products:flowersstore view_product_selections:flowersstore manage_categories:flowersstore view_messages:flowersstore manage_my_profile:flowersstore manage_shopping_lists:flowersstore manage_discount_codes:flowersstore manage_customers:flowersstore manage_my_payments:flowersstore manage_payments:flowersstore manage_my_orders:flowersstore manage_cart_discounts:flowersstore view_products:flowersstore manage_business_units:flowersstore manage_quote_requests:flowersstore manage_orders:flowersstore';
+export const PROJECT_KEY = 'flowersstore';
 
 const basicAuth = btoa(`${CLIENT_ID}:${SECRET_KEY}`);
 
