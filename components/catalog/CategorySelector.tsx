@@ -45,8 +45,8 @@ const CategorySelector = () => {
     [categories, dispatch]
   );
 
-  const onChooseCategory = (event: React.SyntheticEvent, nodeId: string) => {
-    dispatch(searchActions.setCategoryId(nodeId));
+  const onChooseCategory = (event: React.SyntheticEvent, nodeIds: string | string[]) => {
+    dispatch(searchActions.setCategoryId(nodeIds));
   };
 
   const renderTree = (nodes: CategoryTreeData) => (
