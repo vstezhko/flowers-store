@@ -274,14 +274,12 @@
   content: ' ❯';
 }
 
-.nav__profile{
-  .MuiList-root{
-    gap: 10px;
-    padding: 8px;
-    width: 100%;
-    min-width: 170px;
-    flex-direction: column;
-  }
+.MuiList-root{
+  gap: 10px;
+  padding: 8px;
+  width: 100%;
+  min-width: 170px;
+  flex-direction: column;
 }
 
 .MuiMenuItem-root{
