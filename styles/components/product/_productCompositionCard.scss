@@ -1,0 +1,29 @@
+.product-composition-card {
+  background-color: $color-shade-0;
+  border-radius: 10px;
+  padding: 15px;
+  max-height: fit-content;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: flex-start;
+
+  @include medium() {
+    gap: 10px;
+  }
+
+  h5 {
+    font-size: 14px;
+  }
+
+  @include small() {
+    height: 140px;
+  }
+
+  .product-composition-card__list {
+    flex-grow: 1;
+    padding-left: 17px;
+    overflow-x: scroll;
+  }
+}

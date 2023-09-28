@@ -1,0 +1,57 @@
+.sort-menu {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+
+  @include small() {
+    justify-content: flex-end;
+  }
+
+
+  div {
+    font-family: var(--avenir-reg);
+
+    p {
+      font-size: 12px;
+      font-family: inherit;
+      color: $color-brand-1;
+      text-align: center;
+
+    }
+  }
+
+  .MuiList-root {
+    padding: 0 !important;
+    width: 100px;
+    min-width: 100px;
+  }
+
+  .MuiListItem-root {
+    padding: 0;
+
+    & > div {
+      & > span {
+        text-align: center;
+      }
+    }
+
+  }
+
+  &__menu-item {
+    @extend %transition;
+
+    &.MuiMenuItem-root {
+      font-size: inherit;
+    }
+
+    @include hover {
+
+      &:hover {
+        color: $color-primary-hover;
+      }
+
+    }
+  }
+
+
+}

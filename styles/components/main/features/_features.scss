@@ -1,0 +1,68 @@
+.features {
+  margin: 0 auto;
+  &__galery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px 115px;
+    max-width: 1051px;
+    justify-content: center;
+    list-style: none;
+    padding: 3rem 0;
+    padding-inline-start: 0;
+
+    @include large {
+      gap: 30px 90px;
+    }
+
+    @include medium {
+      gap: 20px 70px;
+    }
+
+    @include small {
+      gap: 15px 50px;
+    }
+
+    @include mobile {
+      margin: 1.5rem 0;
+    }
+
+  }
+
+  &__img {
+    width: 158px;
+
+    @include medium {
+      width: 120px;
+    }
+
+  }
+
+  &__img-container {
+    position: relative;
+    height: 158px;
+
+    @include medium {
+      width: 120px;
+      height: 120px;
+    }
+
+  }
+
+  &__item {
+    width: 158px;
+
+    @include medium {
+      width: 120px;
+    }
+
+  }
+
+  &__text {
+    height: auto;
+    text-align: center;
+  }
+
+  &__highlight {
+    color: $color-brand-1;
+  }
+}

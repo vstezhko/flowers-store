@@ -1,0 +1,145 @@
+.cart-item {
+  min-height: 150px;
+  background-color: $color-inner-form;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  position: relative;
+  gap: 20px;
+  border-bottom: 1px solid $color-form;
+  border-radius: 8px 8px 0 0;
+
+  @include mobile() {
+    min-height: 180px;
+  }
+
+  @include medium-mobile(){
+    flex-direction: column;
+    justify-content: center;
+
+    padding-top: 45px;
+  }
+
+
+  &:last-child {
+    border-bottom: none;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .cart-item__image-container {
+    width: 180px;
+    height: 130px;
+    position: relative;
+    flex-basis: 20%;
+
+    @media (max-width: 840px) {
+      flex-basis: 50%;
+      height: 267px;
+    }
+
+    @include medium-mobile(){
+      flex-basis: auto;
+      height: 130px;
+      width: 220px;
+    }
+
+    .cart-item__img {
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+
+  .cart-item__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-grow: 1;
+    width: 100%;
+
+
+    @media (max-width: 840px) {
+      flex-basis: 50%;
+      flex-direction: column;
+    }
+
+
+    .info-name{
+      text-transform: uppercase;
+    }
+
+    .info-coupon{
+      color: $color-brand-2;
+    }
+
+    .info-block{
+      display: flex;
+      gap: 10px;
+
+      @media (max-width: 840px) {
+        flex-direction: column;
+      }
+
+      @include medium-mobile(){
+        flex-direction: row;
+      }
+
+
+      .product-block__amount{
+        flex-grow: 0;
+        min-height: 65px;
+        min-width: 145px;
+        border: 1px solid $color-form;
+
+        @include medium-mobile(){
+          min-width: 105px;
+        }
+      }
+
+      .product-variant-card{
+        min-width: 145px;
+        @include medium-mobile(){
+          min-width: 105px;
+          height: 100%;
+        }
+        .product-variant-card__point{
+          display: none;
+        }
+        &_active{
+          border: 1px solid $color-form;
+        }
+      }
+
+
+
+
+    }
+
+    & > *{
+      flex-basis: 20%;
+      text-align: center;
+      height: 100%;
+    }
+
+
+
+    @include mobile() {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    @include mobile() {
+      top: 0;
+      right: 0;
+    }
+  }
+
+}

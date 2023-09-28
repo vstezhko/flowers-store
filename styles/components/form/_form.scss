@@ -1,0 +1,245 @@
+.auth-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 0 10px 20px;
+  width: 100%;
+
+  h2 {
+    @extend %font-title;
+  }
+
+  @include small {
+    gap: 15px;
+  }
+
+  @include small-mobile {
+    gap: 8px;
+    box-sizing: content-box;
+
+  }
+
+}
+
+.form-container__background-img {
+  padding: 50px 0 75px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include small-mobile {
+    padding: 10px 0;
+  }
+}
+
+.MuiPaper-root.form__paper {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  max-width: 700px;
+  min-height: 300px;
+  padding: 70px 0 30px;
+  background-color: $color-form;
+  margin: 0 20px;
+  width: 100%;
+
+
+  @include small {
+    padding: 50px 0 0;
+  }
+
+  @include small-mobile {
+    margin: 0 10px;
+  }
+
+}
+
+.form__panel {
+  padding-bottom: 20px;
+  width: 100%;
+
+  @include small-mobile {
+    padding-bottom: 10px;
+  }
+
+}
+
+.panel__text {
+  @include mobile {
+    display: none !important;
+  }
+
+  &.text p {
+    @include font(2.375rem, 400, normal);
+    font-family: var(--pecita);
+
+    @include small-mobile {
+      @include font(2.1rem, 400, normal);
+    }
+  }
+}
+
+.panel__item {
+  border-radius: 4px;
+  border: 1px solid #FFF;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+
+  h5 {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+
+  img {
+    max-width: 80px;
+
+    @include small {
+      max-width: 60px;
+    }
+
+    @include small-mobile {
+      max-width: 50px;
+    }
+
+  }
+
+  @include small-mobile {
+    padding: 10px 10px;
+  }
+
+  .input__container {
+    margin-bottom: 10px;
+
+    .MuiFormControl-root.fsInput .MuiFormHelperText-root {
+      top: 23px;
+      right: -14px;
+    }
+
+  }
+
+  &.billing {
+    justify-content: flex-start;
+  }
+}
+
+.panel__item-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.form__links {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 1000;
+
+  & > a {
+
+    @include font(18px, 400, normal);
+    transition: transform 0.2s ease-in-out;
+    transform: perspective(2px) translateZ(0);
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+
+    @include hover {
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+
+  }
+
+
+}
+
+.form__content {
+  background-color: $color-inner-form;
+  width: 100%;
+  padding: 20px 20px;
+  border-radius: 6px;
+
+  h5 {
+    margin-bottom: 10px;
+  }
+
+  @include small-mobile {
+    padding: 10px 10px;
+  }
+}
+
+.background-img {
+  position: absolute;
+
+  & > img {
+    @include small-mobile {
+      max-width: 180px;
+    }
+  }
+
+  &_left {
+    left: 0;
+    top: 0;
+  }
+
+  &_right {
+    right: 0;
+    bottom: 0;
+  }
+}
+
+
+.form-img {
+  max-width: 450px;
+  position: absolute;
+  right: -45px;
+  top: -50px;
+
+  @include small {
+    display: none;
+  }
+}
+
+.form-img-bottom {
+  max-width: 260px;
+  position: absolute;
+  bottom: -70px;
+  left: -7px;
+
+  @include small {
+    display: none;
+  }
+
+}
+
+
+.form__textarea {
+  & > .MuiInputBase-root {
+    height: 80px;
+    min-height: 80px;
+
+    & > textarea {
+      height: 100% !important;
+    }
+  }
+}

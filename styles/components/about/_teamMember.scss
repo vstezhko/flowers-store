@@ -1,0 +1,205 @@
+.team-member {
+  display: flex;
+  gap: 30px;
+  flex-wrap: nowrap;
+  padding: 30px;
+  align-items: center;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+
+  &__biography {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    line-height: 1.5rem;
+    flex: 1;
+  }
+
+  &__role {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  &__image-block {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 5px;
+  }
+
+  &__social {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+
+    svg {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      @extend %transition;
+
+    }
+
+    .linkedin {
+      color: #007EBB;
+    }
+
+    @include hover {
+
+      .github:hover {
+        color: $color-primary-hover;
+      }
+
+      .linkedin:hover {
+        color: #3ca3d7;
+      }
+
+    }
+
+  }
+
+  &__image {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  &__contributions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 7px;
+  }
+
+  &__skill {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      text-transform: capitalize;
+    }
+
+  }
+
+  .team-member__contributions-range {
+    pointer-events: none;
+    width: 250px;
+
+    .css-h22bzp-MuiSlider-root {
+      height: 6px;
+    }
+
+  }
+
+  .css-nnid7-MuiSlider-valueLabel {
+    line-height: 0.8rem;
+  }
+
+  .css-nnid7-MuiSlider-valueLabel:before {
+    z-index: -1;
+  }
+
+  @include medium {
+    gap: 20px;
+
+    &__image {
+      width: 200px;
+      height: 200px;
+    }
+
+    &__text {
+      font-size: 0.9rem;
+    }
+
+    &__contributions {
+      font-size: 0.9rem;
+    }
+
+    .team-member__contributions-range {
+      width: 180px;
+
+    }
+
+    &__image-block {
+      padding: 10px;
+      gap: 10px;
+    }
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .css-nnid7-MuiSlider-valueLabel {
+      line-height: 0.75rem;
+      font-size: 0.75rem;
+    }
+
+  }
+
+  @include small {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 15px;
+
+    &__biography {
+      min-width: 100%;
+    }
+
+    &__contributions {
+      flex: 0;
+    }
+
+  }
+
+  @include medium-mobile {
+    padding: 20px 15px;
+    flex-direction: column;
+  }
+
+}
+
+.even {
+  background-color: white;
+
+  .team-member__image-block {
+    background-color: #F2F2F2;
+  }
+
+}
+
+.odd {
+  background-color: #EBF0E4;
+
+  .team-member__biography {
+    order: 3;
+  }
+
+  .team-member__image-block {
+    background-color: white;
+    order: 2;
+  }
+
+  .team-member__contributions {
+    order: 1;
+  }
+
+  @include small {
+
+    .team-member__biography {
+      order: 1;
+    }
+
+    .team-member__image-block {
+      order: 2;
+    }
+
+    .team-member__contributions {
+      order: 3;
+    }
+
+  }
+
+}

@@ -1,0 +1,19 @@
+.category-breadcrumbs {
+  color: $color-shade-4;
+  padding: 20px 0;
+  text-transform: uppercase;
+
+  span:has(a) {
+    @extend %transition;
+  }
+
+  @include hover {
+
+    span:hover:has(a) {
+      cursor: pointer;
+      color: $color-shade-2;
+    }
+
+  }
+
+}

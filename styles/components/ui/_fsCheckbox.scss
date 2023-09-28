@@ -1,0 +1,21 @@
+
+.MuiFormControlLabel-root.fsCheckbox {
+  margin-left: 0;
+  .MuiFormControlLabel-label {
+    color: $color-primary;
+
+    &.Mui-disabled {
+      color: $color-shade-4;
+    }
+  }
+
+  &.Mui-disabled {
+    .MuiSvgIcon-root {
+      color: $color-shade-4;
+    }
+  }
+}
+
+.MuiCheckbox-root{
+  padding: 4px;
+}

@@ -1,0 +1,71 @@
+.cart__container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+.cart__products {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid $color-form;
+}
+
+.cart__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 30px;
+
+  & > * {
+    flex-basis: 45%;
+  }
+
+  @include mobile() {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+}
+
+.cart__buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.info__coupon {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+
+  & > .MuiFormControl-root.fsInput {
+    margin-bottom: 0;
+    max-width: 250px;
+  }
+}
+
+.info__total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .total {
+    border-top: 1px solid $color-form;
+  }
+
+  & > div {
+    width: 65%;
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .discount{
+    color: $color-brand-2;
+  }
+
+  button {
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,74 @@
+//fonts
+
+@mixin font($size, $weight: 400, $height){
+  font-size: $size;
+  font-style: normal;
+  font-weight: $weight;
+  line-height: $height;
+}
+
+//input
+
+@mixin
+inputLabelFont {
+  @include font(10px, 400, 120%);
+  font-family: var(--avenir-reg);
+  text-transform: uppercase;
+}
+
+//media-queries
+
+@mixin large {
+  @media (max-width: $mq-large) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (max-width: $mq-medium) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media (max-width: $mq-small) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mq-mobile) {
+    @content;
+  }
+}
+
+@mixin mobile-min {
+  @media (min-width: $mq-mobile) {
+    @content;
+  }
+}
+
+
+@mixin medium-mobile {
+  @media (max-width: $mq-m-mobile) {
+    @content;
+  }
+}
+
+@mixin small-mobile {
+  @media (max-width: $mq-s-mobile) {
+    @content;
+  }
+}
+
+@mixin small-xs-mobile {
+  @media (max-width: $mq-xs-mobile) {
+    @content;
+  }
+}
+
+@mixin hover {
+  @media (hover:hover) {
+    @content;
+  }
+}

@@ -1,0 +1,65 @@
+.product-variant-card {
+  cursor: pointer;
+  max-width: 180px;
+  width: 100%;
+  border-radius: 10px;
+  background: $color-shade-0;
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+  @extend %transition;
+  border: 1px solid $color-shade-0;
+  text-transform: uppercase;
+
+
+  .price-before-discount {
+    color: $color-shade-4;
+    text-decoration: line-through;
+    font-size: 0.8em;
+  }
+
+  @include hover {
+
+    &:hover {
+      background-color: $color-brand-1-light;
+    }
+    
+  }
+
+  &_active {
+    border: 1px solid $color-brand-1;
+  }
+
+  .product-variant-card__point {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .center {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+
+    &_active {
+      background-color: $color-brand-1-light;
+      .center {
+        background-color: $color-brand-1;
+      }
+    }
+    &_notactive {
+      background-color: $color-shade-6;
+      .center {
+        background-color: $color-shade-4;
+      }
+    }
+  }
+}
